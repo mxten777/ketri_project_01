@@ -105,10 +105,10 @@ const QuoteManagement = () => {
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       filtered = filtered.filter(q =>
-        q.companyName.toLowerCase().includes(term) ||
-        q.contactPerson.toLowerCase().includes(term) ||
-        q.email.toLowerCase().includes(term) ||
-        q.phone.includes(term)
+        q.companyName?.toLowerCase().includes(term) ||
+        q.contactPerson?.toLowerCase().includes(term) ||
+        q.email?.toLowerCase().includes(term) ||
+        q.phone?.includes(term)
       );
     }
 

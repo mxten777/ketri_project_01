@@ -81,21 +81,30 @@ export interface QuoteRequest {
   requestId: string;
   userId?: string;
   serviceType: 'water' | 'dialysis' | 'asbestos' | 'indoor-air' | 'industrial-health';
-  requesterInfo: {
+  // For backward compatibility - these are the actual field names used
+  companyName?: string;
+  contactPerson?: string;
+  email?: string;
+  phone?: string;
+  location?: string;
+  preferredDate?: string;
+  details?: string;
+  // Structured format
+  requesterInfo?: {
     name: string;
     email: string;
     phone: string;
     companyName?: string;
     position?: string;
   };
-  facilityInfo: {
+  facilityInfo?: {
     facilityType: string;
     facilityName: string;
     address: string;
     area?: number;
     buildingYear?: string;
   };
-  requestDetails: {
+  requestDetails?: {
     testItems: string[];
     sampleCount: number;
     urgency: 'normal' | 'urgent';
@@ -115,6 +124,7 @@ export interface QuoteRequest {
 
 // Notice Types
 export interface Notice {
+  id?: string;
   noticeId: string;
   title: string;
   content: string;
@@ -127,6 +137,7 @@ export interface Notice {
     name: string;
   };
   attachments: Attachment[];
+  views?: number; // Make optional for compatibility
   viewCount: number;
   status: 'draft' | 'published' | 'archived';
   publishedAt?: Date;
@@ -136,6 +147,9 @@ export interface Notice {
 }
 
 export interface Attachment {
+  name?: string; // For backward compatibility
+  url?: string; // For backward compatibility
+  size?: number; // For backward compatibility
   fileName: string;
   fileSize: number;
   fileType: string;

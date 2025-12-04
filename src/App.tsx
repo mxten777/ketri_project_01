@@ -1,33 +1,33 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
-import Layout from '@components/layout/Layout';
-import Home from '@pages/Home';
-import ScrollToTop from '@components/common/ScrollToTop';
-import ProtectedRoute from '@components/common/ProtectedRoute';
+import Layout from './components/layout/Layout';
+import Home from './pages/Home';
+import ScrollToTop from './components/common/ScrollToTop';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 // Service Pages (lazy load for better performance)
 import { lazy, Suspense } from 'react';
-const IndustrialHealth = lazy(() => import('@pages/services/IndustrialHealth'));
-const WaterTesting = lazy(() => import('@pages/services/WaterTesting'));
-const DialysisWater = lazy(() => import('@pages/services/DialysisWater'));
-const IndoorAirQuality = lazy(() => import('@pages/services/IndoorAirQuality'));
-const Asbestos = lazy(() => import('@pages/services/Asbestos'));
-const Board = lazy(() => import('@pages/board/Board'));
-const NoticeList = lazy(() => import('@pages/board/NoticeList'));
-const NoticeDetail = lazy(() => import('@pages/board/NoticeDetail'));
-const NoticeForm = lazy(() => import('@pages/board/NoticeForm'));
-const QnAList = lazy(() => import('@pages/board/QnAList'));
-const QnADetail = lazy(() => import('@pages/board/QnADetail'));
-const QnAForm = lazy(() => import('@pages/board/QnAForm'));
-const ResourceList = lazy(() => import('@pages/board/ResourceList'));
-const ResourceForm = lazy(() => import('@pages/board/ResourceForm'));
-const QuoteRequest = lazy(() => import('@pages/QuoteRequest'));
-const Login = lazy(() => import('@pages/auth/Login'));
-const Register = lazy(() => import('@pages/auth/Register'));
-const MyPage = lazy(() => import('@pages/MyPage'));
-const Admin = lazy(() => import('@pages/admin/Dashboard'));
-const UserManagement = lazy(() => import('@pages/admin/UserManagement'));
-const QuoteManagement = lazy(() => import('@pages/admin/QuoteManagement'));
+const IndustrialHealth = lazy(() => import('./pages/services/IndustrialHealth'));
+const WaterTesting = lazy(() => import('./pages/services/WaterTesting'));
+const DialysisWater = lazy(() => import('./pages/services/DialysisWater'));
+const IndoorAirQuality = lazy(() => import('./pages/services/IndoorAirQuality'));
+const Asbestos = lazy(() => import('./pages/services/Asbestos'));
+const Board = lazy(() => import('./pages/board/Board'));
+const NoticeList = lazy(() => import('./pages/board/NoticeList'));
+const NoticeDetail = lazy(() => import('./pages/board/NoticeDetail'));
+const NoticeForm = lazy(() => import('./pages/board/NoticeForm'));
+const QnAList = lazy(() => import('./pages/board/QnAList'));
+const QnADetail = lazy(() => import('./pages/board/QnADetail'));
+const QnAForm = lazy(() => import('./pages/board/QnAForm'));
+const ResourceList = lazy(() => import('./pages/board/ResourceList'));
+const ResourceForm = lazy(() => import('./pages/board/ResourceForm'));
+const QuoteRequest = lazy(() => import('./pages/QuoteRequest'));
+const Login = lazy(() => import('./pages/auth/Login'));
+const Register = lazy(() => import('./pages/auth/Register'));
+const MyPage = lazy(() => import('./pages/MyPage'));
+const Admin = lazy(() => import('./pages/admin/Dashboard'));
+const UserManagement = lazy(() => import('./pages/admin/UserManagement'));
+const QuoteManagement = lazy(() => import('./pages/admin/QuoteManagement'));
 
 // Loading component
 const PageLoader = () => (

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { User, Mail, Lock, Save, LogOut, Trash2, Eye, EyeOff } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import Button from '@/components/common/Button';
+import Button from '../components/common/Button';
 
 const MyPage = () => {
   const { currentUser, userData, updateUserProfile, changePassword, deleteAccount, logout } = useAuth();

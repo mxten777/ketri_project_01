@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+﻿import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { 
   User as FirebaseUser,
   createUserWithEmailAndPassword,
@@ -11,8 +11,8 @@ import {
   deleteUser
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
-import { auth, db } from '@/config/firebase';
-import { User } from '@/types';
+import { auth, db } from '../config/firebase';
+import { User } from '../types';
 
 interface AuthContextType {
   currentUser: FirebaseUser | null;
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [userData, setUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Firestore에서 사용자 데이터 가져오기
+  // Firestore?�서 ?�용???�이??가?�오�?
   const fetchUserData = async (uid: string): Promise<User | null> => {
     try {
       const userDoc = await getDoc(doc(db, 'users', uid));
@@ -62,19 +62,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  // 회원가입
+  // ?�원가??
   const signup = async (email: string, password: string, displayName: string) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Firebase Auth 프로필 업데이트
+    // Firebase Auth ?�로???�데?�트
     await updateProfile(user, { displayName });
 
-    // 특정 이메일은 자동으로 관리자 권한 부여
+    // ?�정 ?�메?��? ?�동?�로 관리자 권한 부??
     const adminEmails = ['jngdy@naver.com'];
     const isAdmin = adminEmails.includes(user.email || '');
 
-    // Firestore에 사용자 데이터 저장
+    // Firestore???�용???�이???�??
     const newUser: User = {
       uid: user.uid,
       email: user.email!,
@@ -88,20 +88,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUserData(newUser);
   };
 
-  // 로그인
+  // 로그??
   const login = async (email: string, password: string) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const data = await fetchUserData(userCredential.user.uid);
     setUserData(data);
   };
 
-  // 로그아웃
+  // 로그?�웃
   const logout = async () => {
     await signOut(auth);
     setUserData(null);
   };
 
-  // 프로필 업데이트
+  // ?�로???�데?�트
   const updateUserProfile = async (displayName: string) => {
     if (!currentUser) throw new Error('No user logged in');
 
@@ -115,32 +115,32 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUserData(data);
   };
 
-  // 비밀번호 변경
+  // 비�?번호 변�?
   const changePassword = async (newPassword: string) => {
     if (!currentUser) throw new Error('No user logged in');
     await updatePassword(currentUser, newPassword);
   };
 
-  // 비밀번호 재설정 이메일 전송
+  // 비�?번호 ?�설???�메???�송
   const resetPassword = async (email: string) => {
     await sendPasswordResetEmail(auth, email);
   };
 
-  // 회원 탈퇴
+  // ?�원 ?�퇴
   const deleteAccount = async () => {
     if (!currentUser) throw new Error('No user logged in');
     await deleteUser(currentUser);
     setUserData(null);
   };
 
-  // 사용자 데이터 새로고침
+  // ?�용???�이???�로고침
   const refreshUserData = async () => {
     if (!currentUser) return;
     const data = await fetchUserData(currentUser.uid);
     setUserData(data);
   };
 
-  // 인증 상태 리스너
+  // ?�증 ?�태 리스??
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);

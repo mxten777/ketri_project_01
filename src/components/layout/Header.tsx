@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -11,10 +11,10 @@ import {
   ChevronDown,
   LogOut
 } from 'lucide-react';
-import Button from '@components/common/Button';
-import SearchModal from '@components/common/SearchModal';
-import { useAuth } from '@/contexts/AuthContext';
-import { MenuItem } from '@types/index';
+import Button from '../common/Button';
+import SearchModal from '../common/SearchModal';
+import { useAuth } from '../../contexts/AuthContext';
+import { MenuItem } from '../../types';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

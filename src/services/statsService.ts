@@ -5,31 +5,29 @@ import {
   orderBy,
   limit,
   getCountFromServer,
-  where,
-  Timestamp,
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import type { User } from '../types';
 
-// 전체 통계 조회
+// ?�체 ?�계 조회
 export const getStatistics = async () => {
   try {
-    // 회원 수
+    // ?�원 ??
     const usersRef = collection(db, 'users');
     const usersSnapshot = await getCountFromServer(usersRef);
     const totalUsers = usersSnapshot.data().count;
 
-    // 공지사항 수
+    // 공�??�항 ??
     const noticesRef = collection(db, 'notices');
     const noticesSnapshot = await getCountFromServer(noticesRef);
     const totalNotices = noticesSnapshot.data().count;
 
-    // QnA 수
+    // QnA ??
     const qnaRef = collection(db, 'qna');
     const qnaSnapshot = await getCountFromServer(qnaRef);
     const totalQna = qnaSnapshot.data().count;
 
-    // 자료실 총 다운로드 수
+    // ?�료??�??�운로드 ??
     const resourcesRef = collection(db, 'resources');
     const resourcesSnapshot = await getDocs(resourcesRef);
     const totalDownloads = resourcesSnapshot.docs.reduce(
@@ -49,7 +47,7 @@ export const getStatistics = async () => {
   }
 };
 
-// 최근 가입 회원 조회
+// 최근 가???�원 조회
 export const getRecentUsers = async (limitCount: number = 10) => {
   try {
     const usersRef = collection(db, 'users');
@@ -66,7 +64,7 @@ export const getRecentUsers = async (limitCount: number = 10) => {
   }
 };
 
-// 최근 공지사항 조회
+// 최근 공�??�항 조회
 export const getRecentNotices = async (limitCount: number = 5) => {
   try {
     const noticesRef = collection(db, 'notices');
@@ -100,7 +98,7 @@ export const getRecentQnA = async (limitCount: number = 5) => {
   }
 };
 
-// 월별 가입자 통계 (최근 6개월)
+// ?�별 가?�자 ?�계 (최근 6개월)
 export const getMonthlyUserStats = async () => {
   try {
     const usersRef = collection(db, 'users');
@@ -109,14 +107,14 @@ export const getMonthlyUserStats = async () => {
     const monthlyData: Record<string, number> = {};
     const now = new Date();
     
-    // 최근 6개월 초기화
+    // 최근 6개월 초기??
     for (let i = 5; i >= 0; i--) {
       const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
       const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
       monthlyData[key] = 0;
     }
 
-    // 월별 카운트
+    // ?�별 카운??
     snapshot.docs.forEach((doc) => {
       const data = doc.data();
       if (data.createdAt) {
@@ -138,7 +136,7 @@ export const getMonthlyUserStats = async () => {
   }
 };
 
-// 카테고리별 QnA 통계
+// 카테고리�?QnA ?�계
 export const getQnACategoryStats = async () => {
   try {
     const qnaRef = collection(db, 'qna');
@@ -169,7 +167,7 @@ export const getQnACategoryStats = async () => {
   }
 };
 
-// 답변 완료율 통계
+// ?��? ?�료???�계
 export const getAnswerRate = async () => {
   try {
     const qnaRef = collection(db, 'qna');
@@ -191,7 +189,7 @@ export const getAnswerRate = async () => {
   }
 };
 
-// 인기 자료 Top 5
+// ?�기 ?�료 Top 5
 export const getPopularResources = async (limitCount: number = 5) => {
   try {
     const resourcesRef = collection(db, 'resources');

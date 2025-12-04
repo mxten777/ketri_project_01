@@ -1,5 +1,5 @@
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+﻿import { Navigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -19,12 +19,12 @@ const ProtectedRoute = ({ children, requireAdmin = false }: ProtectedRouteProps)
   }
 
   if (!currentUser) {
-    // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
+    // 로그?�하지 ?��? 경우 로그???�이지�?리다?�렉??
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   if (requireAdmin && userData?.role !== 'admin') {
-    // 관리자 권한이 필요한데 일반 사용자인 경우
+    // 관리자 권한???�요?�데 ?�반 ?�용?�인 경우
     return <Navigate to="/" replace />;
   }
 

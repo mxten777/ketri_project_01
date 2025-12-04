@@ -12,7 +12,7 @@ import { deleteUser as deleteAuthUser } from 'firebase/auth';
 import { db } from '../config/firebase';
 import type { User } from '../types';
 
-// 전체 회원 목록 조회
+// ?�체 ?�원 목록 조회
 export const getAllUsers = async (): Promise<User[]> => {
   try {
     const usersRef = collection(db, 'users');
@@ -29,7 +29,7 @@ export const getAllUsers = async (): Promise<User[]> => {
   }
 };
 
-// 역할별 회원 조회
+// ??���??�원 조회
 export const getUsersByRole = async (role: 'user' | 'admin'): Promise<User[]> => {
   try {
     const usersRef = collection(db, 'users');
@@ -50,7 +50,7 @@ export const getUsersByRole = async (role: 'user' | 'admin'): Promise<User[]> =>
   }
 };
 
-// 회원 역할 변경
+// ?�원 ??�� 변�?
 export const updateUserRole = async (
   userId: string,
   newRole: 'user' | 'admin'
@@ -67,7 +67,7 @@ export const updateUserRole = async (
   }
 };
 
-// 회원 정보 업데이트
+// ?�원 ?�보 ?�데?�트
 export const updateUserInfo = async (
   userId: string,
   data: Partial<User>
@@ -84,7 +84,7 @@ export const updateUserInfo = async (
   }
 };
 
-// 회원 삭제 (Firestore only - Auth 삭제는 사용자 본인만 가능)
+// ?�원 ??�� (Firestore only - Auth ??��???�용??본인�?가??
 export const deleteUser = async (userId: string): Promise<void> => {
   try {
     const userRef = doc(db, 'users', userId);
@@ -95,7 +95,7 @@ export const deleteUser = async (userId: string): Promise<void> => {
   }
 };
 
-// 이메일로 회원 검색
+// ?�메?�로 ?�원 검??
 export const searchUsersByEmail = async (email: string): Promise<User[]> => {
   try {
     const usersRef = collection(db, 'users');
@@ -112,7 +112,7 @@ export const searchUsersByEmail = async (email: string): Promise<User[]> => {
   }
 };
 
-// 이름으로 회원 검색
+// ?�름?�로 ?�원 검??
 export const searchUsersByName = async (name: string): Promise<User[]> => {
   try {
     const usersRef = collection(db, 'users');
@@ -133,7 +133,7 @@ export const searchUsersByName = async (name: string): Promise<User[]> => {
   }
 };
 
-// 회원 통계
+// ?�원 ?�계
 export const getUserStats = async () => {
   try {
     const usersRef = collection(db, 'users');

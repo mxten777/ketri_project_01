@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
   Building2, 
@@ -14,8 +14,8 @@ import {
   Award,
   ChevronRight
 } from 'lucide-react';
-import Button from '@components/common/Button';
-import Card from '@components/common/Card';
+import Button from '../components/common/Button';
+import Card from '../components/common/Card';
 
 const Home = () => {
   // 주요 서비스 데이터

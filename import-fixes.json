@@ -1,0 +1,23 @@
+{
+  "src/components/common/ProtectedRoute.tsx": {
+    "@/contexts/AuthContext": "../../contexts/AuthContext"
+  },
+  "src/components/layout/Header.tsx": {
+    "@components/common/Button": "../common/Button",
+    "@components/common/SearchModal": "../common/SearchModal",
+    "@/contexts/AuthContext": "../../contexts/AuthContext",
+    "@types/index": "../../types"
+  },
+  "src/contexts/AuthContext.tsx": {
+    "@/config/firebase": "../config/firebase",
+    "@/types": "../types"
+  },
+  "src/pages/Home.tsx": {
+    "@components/common/Button": "../components/common/Button",
+    "@components/common/Card": "../components/common/Card"
+  },
+  "src/pages/MyPage.tsx": {
+    "@/contexts/AuthContext": "../contexts/AuthContext",
+    "@/components/common/Button": "../components/common/Button"
+  }
+}
