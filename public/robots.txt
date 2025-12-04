@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ketri.co.kr/sitemap.xml
