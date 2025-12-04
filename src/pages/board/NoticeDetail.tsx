@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, User, Eye, Edit, Trash2, Pin } from 'lucide-react';
-import { getNoticeById, deleteNotice } from '@/services/noticeService';
-import { useAuth } from '@/contexts/AuthContext';
-import { Notice } from '@/types';
-import Button from '@/components/common/Button';
-import Card from '@/components/common/Card';
+import { getNoticeById, deleteNotice } from '../../services/noticeService';
+import { useAuth } from '../../contexts/AuthContext';
+import { Notice } from '../../types';
+import Button from '../../components/common/Button';
+import Card from '../../components/common/Card';
 
 const NoticeDetail = () => {
   const { id } = useParams<{ id: string }>();

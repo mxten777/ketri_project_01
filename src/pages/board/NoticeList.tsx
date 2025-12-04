@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Plus, Pin, Eye, Calendar, User, Edit, Trash2 } from 'lucide-react';
-import { getNotices, deleteNotice } from '@/services/noticeService';
-import { useAuth } from '@/contexts/AuthContext';
-import { Notice } from '@/types';
-import Button from '@/components/common/Button';
-import Card from '@/components/common/Card';
+import { getNotices, deleteNotice } from '../../services/noticeService';
+import { useAuth } from '../../contexts/AuthContext';
+import type { Notice } from '../../types';
+import Button from '../../components/common/Button';
+import Card from '../../components/common/Card';
 
 const NoticeList = () => {
   const [notices, setNotices] = useState<Notice[]>([]);

@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Save } from 'lucide-react';
-import { createNotice, updateNotice, getNoticeById } from '@/services/noticeService';
-import { useAuth } from '@/contexts/AuthContext';
-import { Notice } from '@/types';
-import Button from '@/components/common/Button';
-import Card from '@/components/common/Card';
+import { createNotice, updateNotice, getNoticeById } from '../../services/noticeService';
+import { useAuth } from '../../contexts/AuthContext';
+import type { Notice } from '../../types';
+import Button from '../../components/common/Button';
+import Card from '../../components/common/Card';
 
 const NoticeForm = () => {
   const { id } = useParams<{ id: string }>();

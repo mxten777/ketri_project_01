@@ -1,5 +1,6 @@
 // User Types
 export interface User {
+  id?: string;
   uid: string;
   email: string;
   displayName: string;
@@ -76,6 +77,7 @@ export interface TestResult {
 
 // Quote Request Types
 export interface QuoteRequest {
+  id?: string;
   requestId: string;
   userId?: string;
   serviceType: 'water' | 'dialysis' | 'asbestos' | 'indoor-air' | 'industrial-health';

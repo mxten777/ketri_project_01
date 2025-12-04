@@ -16,6 +16,7 @@ import { User } from '@/types';
 
 interface AuthContextType {
   currentUser: FirebaseUser | null;
+  user: FirebaseUser | null; // alias for compatibility
   userData: User | null;
   loading: boolean;
   signup: (email: string, password: string, displayName: string) => Promise<void>;
@@ -155,8 +156,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return unsubscribe;
   }, []);
 
-  const value: AuthContextType = {
+  const value = {
     currentUser,
+    user: currentUser, // alias for compatibility
     userData,
     loading,
     signup,

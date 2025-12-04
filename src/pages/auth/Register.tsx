@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
-import Button from '@/components/common/Button';
+import { useAuth } from '../../contexts/AuthContext';
+import Button from '../../components/common/Button';
 
 const Register = () => {
   const [formData, setFormData] = useState({

@@ -13,8 +13,8 @@ import {
   Timestamp,
   increment
 } from 'firebase/firestore';
-import { db } from '@/config/firebase';
-import { Notice } from '@/types';
+import { db } from '../config/firebase';
+import type { Notice } from '../types';
 
 const COLLECTION_NAME = 'notices';
 
