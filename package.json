@@ -28,8 +28,8 @@
   },
   "scripts": {
     "dev": "vite --port 3004 --open",
-    "build": "tsc --noEmit && vite build",
-    "build:skip-check": "vite build",
+    "build": "vite build",
+    "build:check": "tsc --noEmit && vite build",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --fix",
