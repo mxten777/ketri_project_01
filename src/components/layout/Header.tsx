@@ -216,10 +216,10 @@ const Header = () => {
               <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="hidden sm:flex items-center space-x-2 px-3 md:px-4 py-2 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200"
+                  className="flex items-center space-x-2 px-3 md:px-4 py-2 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200 whitespace-nowrap"
                 >
                   <User className="w-5 h-5" />
-                  <span className="text-sm md:text-base font-medium">
+                  <span className="text-sm md:text-base font-medium max-w-20 md:max-w-24 truncate">
                     {userData?.displayName || "사용자"}
                   </span>
                   <ChevronDown className="w-4 h-4" />
