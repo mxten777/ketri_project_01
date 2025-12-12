@@ -29,6 +29,7 @@ const ResourceEdit = lazy(() => import("./pages/board/ResourceEdit"));
 const QuoteRequest = lazy(() => import("./pages/QuoteRequest"));
 const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 const MyPage = lazy(() => import("./pages/MyPage"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const UserManagement = lazy(() => import("./pages/admin/UserManagement"));
@@ -174,6 +175,7 @@ function App() {
 
             {/* Auth */}
             <Route path="/login" element={<Login />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/register" element={<Register />} />
 
             {/* My Page - Protected */}

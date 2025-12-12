@@ -191,6 +191,13 @@ const Footer = () => {
                   {link.label}
                 </Link>
               ))}
+              <Link
+                to="/admin/login"
+                className="text-neutral-600 hover:text-primary-400 transition-colors duration-200 opacity-50 hover:opacity-100"
+                title="관리자 전용"
+              >
+                Admin
+              </Link>
             </div>
           </div>
 

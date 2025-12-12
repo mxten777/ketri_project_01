@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Users,
   MessageSquare,
@@ -11,6 +11,24 @@ import {
   BarChart3,
   PieChart,
   Clock,
+  ArrowUpRight,
+  ArrowDownRight,
+  Zap,
+  Shield,
+  Globe,
+  Cpu,
+  Eye,
+  Bell,
+  Settings,
+  RefreshCw,
+  Filter,
+  MoreVertical,
+  ChevronRight,
+  Sparkles,
+  Target,
+  Award,
+  Layers,
+  Database
 } from 'lucide-react';
 import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
@@ -27,6 +45,148 @@ import { useAuth } from '../../contexts/AuthContext';
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
+// 프리미엄 통계 카드 컴포넌트
+const PremiumStatsCard = ({ 
+  title, 
+  value, 
+  icon: Icon, 
+  trend, 
+  trendValue, 
+  gradient,
+  delay = 0 
+}: {
+  title: string;
+  value: string | number;
+  icon: any;
+  trend?: 'up' | 'down';
+  trendValue?: string;
+  gradient: string;
+  delay?: number;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20, scale: 0.9 }}
+    animate={{ opacity: 1, y: 0, scale: 1 }}
+    transition={{ duration: 0.5, delay }}
+    whileHover={{ 
+      scale: 1.02,
+      transition: { duration: 0.2 }
+    }}
+    className="group"
+  >
+    <div className={`relative p-6 rounded-2xl ${gradient} overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300`}>
+      {/* 배경 패턴 */}
+      <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-16 translate-x-16"></div>
+      
+      <div className="relative z-10">
+        {/* 상단 */}
+        <div className="flex items-start justify-between mb-4">
+          <div className={`p-3 rounded-xl bg-white/20 backdrop-blur-sm group-hover:scale-110 transition-transform duration-300`}>
+            <Icon className="w-6 h-6 text-white" />
+          </div>
+          {trend && (
+            <div className={`flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium ${
+              trend === 'up' ? 'bg-green-500/20 text-green-100' : 'bg-red-500/20 text-red-100'
+            }`}>
+              {trend === 'up' ? (
+                <ArrowUpRight className="w-3 h-3" />
+              ) : (
+                <ArrowDownRight className="w-3 h-3" />
+              )}
+              <span>{trendValue}</span>
+            </div>
+          )}
+        </div>
+
+        {/* 값 */}
+        <div className="mb-2">
+          <motion.div 
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5, delay: delay + 0.2 }}
+            className="text-3xl font-bold text-white"
+          >
+            {typeof value === 'number' ? value.toLocaleString() : value}
+          </motion.div>
+        </div>
+
+        {/* 제목 */}
+        <div className="text-white/80 font-medium">{title}</div>
+      </div>
+    </div>
+  </motion.div>
+);
+
+// 프리미엄 활동 카드 컴포넌트
+const PremiumActivityCard = ({ activity, index }: { activity: RecentActivity; index: number }) => {
+  const getActivityDetails = (type: string) => {
+    switch (type) {
+      case 'qna':
+        return { 
+          icon: MessageSquare, 
+          color: 'text-blue-500', 
+          bg: 'bg-blue-50 dark:bg-blue-900/20',
+          label: 'Q&A'
+        };
+      case 'resource':
+        return { 
+          icon: FileText, 
+          color: 'text-green-500', 
+          bg: 'bg-green-50 dark:bg-green-900/20',
+          label: '자료실'
+        };
+      case 'user':
+        return { 
+          icon: Users, 
+          color: 'text-purple-500', 
+          bg: 'bg-purple-50 dark:bg-purple-900/20',
+          label: '사용자'
+        };
+      default:
+        return { 
+          icon: Activity, 
+          color: 'text-gray-500', 
+          bg: 'bg-gray-50 dark:bg-gray-900/20',
+          label: '일반'
+        };
+    }
+  };
+
+  const { icon: Icon, color, bg, label } = getActivityDetails(activity.type);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.3, delay: index * 0.1 }}
+      className="flex items-center space-x-4 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-200 group cursor-pointer"
+    >
+      <div className={`p-2 rounded-lg ${bg} group-hover:scale-110 transition-transform duration-200`}>
+        <Icon className={`w-4 h-4 ${color}`} />
+      </div>
+      
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center space-x-2">
+          <span className={`text-xs font-medium px-2 py-1 rounded-full ${bg} ${color}`}>
+            {label}
+          </span>
+        </div>
+        <p className="text-sm font-medium text-gray-900 dark:text-white truncate mt-1">
+          {activity.title}
+        </p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">
+          {activity.author} • {formatDistanceToNow(activity.createdAt, { 
+            addSuffix: true, 
+            locale: ko 
+          })}
+        </p>
+      </div>
+
+      <ChevronRight className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+    </motion.div>
+  );
+};
+
 const AdminDashboard: React.FC = () => {
   const { user, userData } = useAuth();
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -35,25 +195,36 @@ const AdminDashboard: React.FC = () => {
   const [monthlyData, setMonthlyData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [activeTab, setActiveTab] = useState('overview');
+  const [refreshing, setRefreshing] = useState(false);
 
   // 관리자 권한 확인
   if (!user || userData?.role !== 'admin') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-neutral-900">
-        <Card className="p-8 text-center max-w-md mx-auto">
-          <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Users className="w-8 h-8 text-red-600" />
+      <div className="min-h-screen bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 flex items-center justify-center p-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white dark:bg-gray-900 p-8 rounded-3xl shadow-2xl text-center max-w-md mx-auto"
+        >
+          <div className="w-20 h-20 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Shield className="w-10 h-10 text-red-600" />
           </div>
-          <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
             접근 권한이 없습니다
           </h3>
-          <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-            관리자만 대시보드에 접근할 수 있습니다.
+          <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+            관리자 권한이 필요한 페이지입니다.<br />
+            적절한 권한으로 다시 로그인해주세요.
           </p>
-          <Button onClick={() => window.history.back()} variant="outline">
-            이전 페이지로
+          <Button 
+            onClick={() => window.history.back()} 
+            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-3 rounded-xl"
+          >
+            이전 페이지로 돌아가기
           </Button>
-        </Card>
+        </motion.div>
       </div>
     );
   }
@@ -89,420 +260,289 @@ const AdminDashboard: React.FC = () => {
     fetchData();
   }, []);
 
-  const getActivityIcon = (type: string) => {
-    switch (type) {
-      case 'qna':
-        return <MessageSquare className="w-4 h-4 text-blue-600" />;
-      case 'resource':
-        return <FileText className="w-4 h-4 text-green-600" />;
-      case 'user':
-        return <Users className="w-4 h-4 text-purple-600" />;
-      case 'notice':
-        return <Calendar className="w-4 h-4 text-orange-600" />;
-      default:
-        return <Activity className="w-4 h-4 text-gray-600" />;
-    }
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await new Promise(resolve => setTimeout(resolve, 1000)); // 시뮬레이션
+    setRefreshing(false);
   };
 
-  const getActivityTypeLabel = (type: string) => {
-    switch (type) {
-      case 'qna':
-        return 'QnA';
-      case 'resource':
-        return '자료';
-      case 'user':
-        return '사용자';
-      case 'notice':
-        return '공지';
-      default:
-        return '활동';
+  const quickActions = [
+    {
+      title: "사용자 관리",
+      description: "회원 정보 및 권한 관리",
+      icon: Users,
+      color: "from-blue-500 to-blue-600",
+      path: "/admin/users"
+    },
+    {
+      title: "컨텐츠 관리",
+      description: "공지사항 및 페이지 관리",
+      icon: FileText,
+      color: "from-green-500 to-green-600", 
+      path: "/admin/content"
+    },
+    {
+      title: "Q&A 관리",
+      description: "문의사항 답변 및 관리",
+      icon: MessageSquare,
+      color: "from-purple-500 to-purple-600",
+      path: "/admin/qna"
+    },
+    {
+      title: "파일 관리",
+      description: "업로드 파일 및 자료실",
+      icon: Database,
+      color: "from-orange-500 to-orange-600",
+      path: "/admin/files"
     }
-  };
+  ];
+
+  const systemHealth = [
+    { label: "서버 상태", status: "정상", color: "green" },
+    { label: "데이터베이스", status: "정상", color: "green" },
+    { label: "스토리지", status: "양호", color: "yellow" },
+    { label: "보안", status: "안전", color: "green" }
+  ];
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-neutral-900">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
         <motion.div
-          className="w-8 h-8 border-3 border-primary-600 border-t-transparent rounded-full"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-        />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-neutral-900">
-        <Card className="p-8 text-center max-w-md mx-auto">
-          <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Activity className="w-8 h-8 text-red-600" />
-          </div>
-          <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
-            오류가 발생했습니다
-          </h3>
-          <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-            {error}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center"
+        >
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"
+          />
+          <p className="text-gray-600 dark:text-gray-400 font-medium">
+            관리자 대시보드를 불러오는 중...
           </p>
-          <Button onClick={() => window.location.reload()} variant="outline">
-            다시 시도
-          </Button>
-        </Card>
+        </motion.div>
       </div>
     );
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="max-w-7xl mx-auto space-y-8 p-6"
-    >
-      {/* 헤더 */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
-            관리자 대시보드
-          </h1>
-          <p className="text-neutral-600 dark:text-neutral-400 mt-1">
-            시스템 전체 현황과 최근 활동을 확인하세요
-          </p>
-        </div>
-        <div className="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400">
-          <Clock className="w-4 h-4" />
-          마지막 업데이트: {new Date().toLocaleString('ko-KR')}
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      {/* 배경 패턴 */}
+      <div className="fixed inset-0 opacity-40" style={{backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%239C92AC\" fill-opacity=\"0.03\"%3E%3Ccircle cx=\"30\" cy=\"30\" r=\"2\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
 
-      {/* 주요 통계 카드 */}
-      {stats && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            <Card className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-                    총 사용자
-                  </p>
-                  <p className="text-3xl font-bold text-neutral-900 dark:text-white">
-                    {stats.totalUsers.toLocaleString()}
-                  </p>
-                  <p className="text-xs text-green-600 flex items-center gap-1 mt-2">
-                    <TrendingUp className="w-3 h-3" />
-                    +{stats.recentUsers} (7일)
-                  </p>
-                </div>
-                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
-                  <Users className="w-6 h-6 text-blue-600" />
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <Card className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-                    QnA 게시글
-                  </p>
-                  <p className="text-3xl font-bold text-neutral-900 dark:text-white">
-                    {stats.totalQnAs.toLocaleString()}
-                  </p>
-                  <p className="text-xs text-green-600 flex items-center gap-1 mt-2">
-                    <TrendingUp className="w-3 h-3" />
-                    +{stats.recentQnAs} (7일)
-                  </p>
-                </div>
-                <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
-                  <MessageSquare className="w-6 h-6 text-green-600" />
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <Card className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-                    자료실 파일
-                  </p>
-                  <p className="text-3xl font-bold text-neutral-900 dark:text-white">
-                    {stats.totalResources.toLocaleString()}
-                  </p>
-                  <p className="text-xs text-green-600 flex items-center gap-1 mt-2">
-                    <TrendingUp className="w-3 h-3" />
-                    +{stats.recentResources} (7일)
-                  </p>
-                </div>
-                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center">
-                  <FileText className="w-6 h-6 text-purple-600" />
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            <Card className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-                    총 다운로드
-                  </p>
-                  <p className="text-3xl font-bold text-neutral-900 dark:text-white">
-                    {stats.totalDownloads.toLocaleString()}
-                  </p>
-                  <p className="text-xs text-blue-600 flex items-center gap-1 mt-2">
-                    <BarChart3 className="w-3 h-3" />
-                    답변율 {stats.answerRate}%
-                  </p>
-                </div>
-                <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center">
-                  <Download className="w-6 h-6 text-orange-600" />
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-        </div>
-      )}
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* 사용자 상세 통계 */}
-        {userStats && (
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            <Card className="p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
-                  <Users className="w-5 h-5 text-blue-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
-                  사용자 현황
-                </h3>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-neutral-600 dark:text-neutral-400">전체 사용자</span>
-                  <span className="font-semibold text-neutral-900 dark:text-white">
-                    {userStats.totalUsers.toLocaleString()}명
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-neutral-600 dark:text-neutral-400">활성 사용자 (30일)</span>
-                  <span className="font-semibold text-green-600">
-                    {userStats.activeUsers.toLocaleString()}명
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-neutral-600 dark:text-neutral-400">관리자</span>
-                  <span className="font-semibold text-blue-600">
-                    {userStats.adminUsers.toLocaleString()}명
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-neutral-600 dark:text-neutral-400">신규 가입 (30일)</span>
-                  <span className="font-semibold text-purple-600">
-                    {userStats.recentRegistrations.toLocaleString()}명
-                  </span>
-                </div>
-              </div>
-
-              {userStats.totalUsers > 0 && (
-                <div className="mt-6 pt-4 border-t border-neutral-200 dark:border-neutral-700">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-neutral-500 dark:text-neutral-400">활성화율</span>
-                    <span className="font-medium text-neutral-900 dark:text-white">
-                      {Math.round((userStats.activeUsers / userStats.totalUsers) * 100)}%
-                    </span>
-                  </div>
-                  <div className="mt-2 w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2">
-                    <div
-                      className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-500"
-                      style={{
-                        width: `${Math.round((userStats.activeUsers / userStats.totalUsers) * 100)}%`
-                      }}
-                    />
-                  </div>
-                </div>
-              )}
-            </Card>
-          </motion.div>
-        )}
-
-        {/* 최근 활동 */}
+      <div className="relative z-10 p-6 space-y-8">
+        {/* 헤더 */}
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.6 }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
         >
-          <Card className="p-6">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
-                <Activity className="w-5 h-5 text-green-600" />
+          <div>
+            <div className="flex items-center space-x-3 mb-2">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                <Shield className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
-                최근 활동
-              </h3>
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent">
+                  관리자 대시보드
+                </h1>
+                <p className="text-gray-600 dark:text-gray-400">
+                  안녕하세요, {userData?.displayName || user?.email}님 👋
+                </p>
+              </div>
             </div>
+          </div>
 
-            <div className="space-y-4 max-h-96 overflow-y-auto">
-              {activities.length > 0 ? (
-                activities.map((activity, index) => (
-                  <motion.div
-                    key={activity.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7 + index * 0.05 }}
-                    className="flex items-start gap-3 p-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg"
-                  >
-                    <div className="flex-shrink-0 mt-0.5">
-                      {getActivityIcon(activity.type)}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase">
-                          {getActivityTypeLabel(activity.type)}
-                        </span>
-                        <span className="text-xs text-neutral-400 dark:text-neutral-500">
-                          {formatDistanceToNow(activity.createdAt, { 
-                            addSuffix: true,
-                            locale: ko 
-                          })}
+          <div className="flex items-center space-x-3">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleRefresh}
+              disabled={refreshing}
+              className="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border border-gray-200 dark:border-gray-700"
+            >
+              <RefreshCw className={`w-4 h-4 text-gray-600 dark:text-gray-400 ${refreshing ? 'animate-spin' : ''}`} />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">새로고침</span>
+            </motion.button>
+            
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-200"
+            >
+              <Bell className="w-4 h-4" />
+              <span className="text-sm font-medium">알림</span>
+              <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+            </motion.button>
+          </div>
+        </motion.div>
+
+        {/* 통계 카드들 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <PremiumStatsCard
+            title="전체 사용자"
+            value={stats?.totalUsers || 0}
+            icon={Users}
+            trend="up"
+            trendValue="+12%"
+            gradient="bg-gradient-to-br from-blue-500 to-blue-600"
+            delay={0}
+          />
+          <PremiumStatsCard
+            title="Q&A 문의"
+            value={stats?.totalQnAs || 0}
+            icon={MessageSquare}
+            trend="up"
+            trendValue="+8%"
+            gradient="bg-gradient-to-br from-green-500 to-green-600"
+            delay={0.1}
+          />
+          <PremiumStatsCard
+            title="자료실"
+            value={stats?.totalResources || 0}
+            icon={FileText}
+            trend="up"
+            trendValue="+5%"
+            gradient="bg-gradient-to-br from-purple-500 to-purple-600"
+            delay={0.2}
+          />
+          <PremiumStatsCard
+            title="다운로드"
+            value={stats?.totalDownloads || 0}
+            icon={Download}
+            trend="up"
+            trendValue="+24%"
+            gradient="bg-gradient-to-br from-orange-500 to-red-500"
+            delay={0.3}
+          />
+        </div>
+
+        {/* 메인 컨텐츠 영역 */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* 최근 활동 */}
+          <div className="lg:col-span-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 dark:border-gray-800/20 overflow-hidden"
+            >
+              <div className="p-6 border-b border-gray-200 dark:border-gray-800">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <Activity className="w-6 h-6 text-blue-600" />
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">최근 활동</h3>
+                  </div>
+                  <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700">
+                    <Filter className="w-4 h-4 mr-2" />
+                    필터
+                  </Button>
+                </div>
+              </div>
+
+              <div className="p-6">
+                {activities.length > 0 ? (
+                  <div className="space-y-2">
+                    {activities.slice(0, 6).map((activity, index) => (
+                      <PremiumActivityCard key={activity.id} activity={activity} index={index} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12">
+                    <Activity className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+                    <p className="text-gray-500 dark:text-gray-400">최근 활동이 없습니다</p>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* 사이드 패널 */}
+          <div className="space-y-8">
+            {/* 시스템 상태 */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 dark:border-gray-800/20 overflow-hidden"
+            >
+              <div className="p-6">
+                <div className="flex items-center space-x-3 mb-6">
+                  <Cpu className="w-6 h-6 text-green-600" />
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">시스템 상태</h3>
+                </div>
+
+                <div className="space-y-4">
+                  {systemHealth.map((item, index) => (
+                    <motion.div
+                      key={item.label}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+                      className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50"
+                    >
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{item.label}</span>
+                      <div className="flex items-center space-x-2">
+                        <div className={`w-2 h-2 rounded-full ${
+                          item.color === 'green' ? 'bg-green-500' : 
+                          item.color === 'yellow' ? 'bg-yellow-500' : 'bg-red-500'
+                        } ${item.color === 'green' ? 'animate-pulse' : ''}`}></div>
+                        <span className={`text-xs font-medium ${
+                          item.color === 'green' ? 'text-green-600' :
+                          item.color === 'yellow' ? 'text-yellow-600' : 'text-red-600'
+                        }`}>
+                          {item.status}
                         </span>
                       </div>
-                      <p className="text-sm font-medium text-neutral-900 dark:text-white truncate">
-                        {activity.title}
-                      </p>
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                        작성자: {activity.author}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))
-              ) : (
-                <div className="text-center py-8">
-                  <Activity className="w-12 h-12 text-neutral-300 dark:text-neutral-600 mx-auto mb-3" />
-                  <p className="text-neutral-500 dark:text-neutral-400">
-                    최근 활동이 없습니다
-                  </p>
+                    </motion.div>
+                  ))}
                 </div>
-              )}
-            </div>
-          </Card>
-        </motion.div>
+              </div>
+            </motion.div>
+
+            {/* 빠른 작업 */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 dark:border-gray-800/20 overflow-hidden"
+            >
+              <div className="p-6">
+                <div className="flex items-center space-x-3 mb-6">
+                  <Zap className="w-6 h-6 text-yellow-600" />
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">빠른 작업</h3>
+                </div>
+
+                <div className="space-y-3">
+                  {quickActions.map((action, index) => (
+                    <motion.button
+                      key={action.title}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => window.location.href = action.path}
+                      className="w-full flex items-center space-x-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-all duration-200 text-left group"
+                    >
+                      <div className={`p-2 rounded-lg bg-gradient-to-br ${action.color}`}>
+                        <action.icon className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium text-gray-900 dark:text-white text-sm">{action.title}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">{action.description}</div>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </div>
-
-      {/* 월별 활동 차트 영역 - 추후 차트 라이브러리 추가 시 구현 */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8 }}
-      >
-        <Card className="p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center">
-              <BarChart3 className="w-5 h-5 text-purple-600" />
-            </div>
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
-              월별 활동 통계
-            </h3>
-          </div>
-          
-          <div className="text-center py-12">
-            <PieChart className="w-16 h-16 text-neutral-300 dark:text-neutral-600 mx-auto mb-4" />
-            <p className="text-neutral-500 dark:text-neutral-400 mb-2">
-              차트 라이브러리 연동 예정
-            </p>
-            <p className="text-sm text-neutral-400 dark:text-neutral-500">
-              Chart.js 또는 Recharts를 사용하여 시각화 구현
-            </p>
-          </div>
-        </Card>
-      </motion.div>
-
-      {/* 빠른 작업 링크 */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.9 }}
-      >
-        <Card className="p-6">
-          <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">
-            빠른 작업
-          </h3>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Button
-              onClick={() => window.open('/admin/users', '_blank')}
-              variant="outline"
-              className="flex flex-col items-center gap-2 h-auto py-4"
-            >
-              <Users className="w-6 h-6 text-blue-600" />
-              <span className="text-sm">사용자 관리</span>
-            </Button>
-            
-            <Button
-              onClick={() => window.open('/board/qnas', '_blank')}
-              variant="outline"
-              className="flex flex-col items-center gap-2 h-auto py-4"
-            >
-              <MessageSquare className="w-6 h-6 text-green-600" />
-              <span className="text-sm">QnA 관리</span>
-            </Button>
-            
-            <Button
-              onClick={() => window.open('/board/resources', '_blank')}
-              variant="outline"
-              className="flex flex-col items-center gap-2 h-auto py-4"
-            >
-              <FileText className="w-6 h-6 text-purple-600" />
-              <span className="text-sm">자료실 관리</span>
-            </Button>
-            
-            <Button
-              onClick={() => window.open('/admin/content', '_blank')}
-              variant="outline"
-              className="flex flex-col items-center gap-2 h-auto py-4"
-            >
-              <FileText className="w-6 h-6 text-indigo-600" />
-              <span className="text-sm">컨텐츠 관리</span>
-            </Button>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-            <Button
-              onClick={() => window.open('/admin/settings', '_blank')}
-              variant="outline"
-              className="flex flex-col items-center gap-2 h-auto py-4"
-            >
-              <Calendar className="w-6 h-6 text-orange-600" />
-              <span className="text-sm">시스템 설정</span>
-            </Button>
-          </div>
-        </Card>
-      </motion.div>
-    </motion.div>
+    </div>
   );
 };
 
