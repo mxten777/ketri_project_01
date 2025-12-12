@@ -87,190 +87,175 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-800 py-12 px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
-      >
-        <div className="card p-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">
-              회원가입
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-secondary-900 to-primary-900 relative overflow-hidden">
+      {/* 동적 배경 */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-secondary-500/30 to-primary-500/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/3 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+
+      {/* 메인 컨테이너 */}
+      <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
+        <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          
+          {/* 왼쪽: 브랜딩 */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="text-white text-center lg:text-left space-y-6"
+          >
+            <h1 className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-secondary-200 to-primary-200 bg-clip-text text-transparent">
+              함께하세요
             </h1>
-            <p className="text-neutral-600 dark:text-neutral-400">
-              한국환경안전연구소에 오신 것을 환영합니다
+            <p className="text-xl text-gray-300 leading-relaxed">
+              전문적인 환경 분석과 안전 관리 서비스를 지금 시작하세요
             </p>
-          </div>
+          </motion.div>
 
-          {/* Error Message */}
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
-            >
-              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-            </motion.div>
-          )}
-
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Name Input */}
-            <div>
-              <label
-                htmlFor="displayName"
-                className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
-              >
-                이름
-              </label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
-                <input
-                  type="text"
-                  id="displayName"
-                  name="displayName"
-                  value={formData.displayName}
-                  onChange={handleChange}
-                  className="w-full pl-11 pr-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
-                  placeholder="홍길동"
-                  required
-                />
+          {/* 오른쪽: 회원가입 폼 */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="w-full max-w-md mx-auto"
+          >
+            <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8">
+              {/* 헤더 */}
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-secondary-500 to-primary-500 rounded-2xl mb-4 shadow-2xl">
+                  <span className="text-2xl">✨</span>
+                </div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">회원가입</h1>
+                <p className="text-gray-600">새로운 계정을 만들어 서비스를 시작하세요</p>
               </div>
-            </div>
 
-            {/* Email Input */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
-              >
-                이메일
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full pl-11 pr-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
-                  placeholder="example@ketri.co.kr"
-                  required
-                />
-              </div>
-            </div>
+              {/* 에러 메시지 */}
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+                  <p className="text-sm text-red-600">{error}</p>
+                </div>
+              )}
 
-            {/* Password Input */}
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
-              >
-                비밀번호
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="w-full pl-11 pr-11 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
-                  placeholder="6자 이상 입력해주세요"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300"
+              {/* 폼 */}
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* 이름 */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">이름</label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      type="text"
+                      name="displayName"
+                      value={formData.displayName}
+                      onChange={handleChange}
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      placeholder="이름을 입력하세요"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* 이메일 */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">이메일</label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      placeholder="이메일을 입력하세요"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* 비밀번호 */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">비밀번호</label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      placeholder="비밀번호를 입력하세요"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    >
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* 비밀번호 확인 */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">비밀번호 확인</label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      placeholder="비밀번호를 다시 입력하세요"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    >
+                      {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* 회원가입 버튼 */}
+                <Button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-secondary-600 to-primary-600 hover:from-secondary-700 hover:to-primary-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  disabled={loading}
                 >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
+                  {loading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      회원가입 중...
+                    </div>
                   ) : (
-                    <Eye className="w-5 h-5" />
+                    <div className="flex items-center justify-center gap-2">
+                      회원가입
+                      <ArrowRight className="w-5 h-5" />
+                    </div>
                   )}
-                </button>
-              </div>
-            </div>
+                </Button>
+              </form>
 
-            {/* Confirm Password Input */}
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
-              >
-                비밀번호 확인
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="w-full pl-11 pr-11 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
-                  placeholder="비밀번호를 다시 입력해주세요"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300"
+              {/* 로그인 링크 */}
+              <div className="mt-8 text-center p-6 bg-gradient-to-r from-secondary-50 to-primary-50 rounded-2xl">
+                <span className="text-sm text-gray-600 block mb-3">이미 계정이 있으신가요?</span>
+                <Link
+                  to="/login"
+                  className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-secondary-600 hover:text-secondary-700 bg-white rounded-xl border border-secondary-200 hover:border-secondary-300 transition-all duration-200 shadow-md hover:shadow-lg"
                 >
-                  {showConfirmPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
-                </button>
+                  로그인
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             </div>
-
-            {/* Submit Button */}
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={loading}
-              isLoading={loading}
-            >
-              {loading ? "가입 중..." : "회원가입"}
-              {!loading && <ArrowRight className="w-5 h-5 ml-2" />}
-            </Button>
-          </form>
-
-          {/* Footer */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              이미 계정이 있으신가요?{" "}
-              <Link
-                to="/login"
-                className="text-primary-500 hover:text-primary-600 font-medium"
-              >
-                로그인
-              </Link>
-            </p>
-          </div>
+          </motion.div>
         </div>
-
-        {/* Terms */}
-        <p className="mt-6 text-xs text-center text-neutral-500 dark:text-neutral-500">
-          회원가입 시{" "}
-          <Link to="/terms" className="underline hover:text-primary-500">
-            이용약관
-          </Link>{" "}
-          및{" "}
-          <Link to="/privacy" className="underline hover:text-primary-500">
-            개인정보처리방침
-          </Link>
-          에 동의하게 됩니다.
-        </p>
-      </motion.div>
+      </div>
     </div>
   );
 };

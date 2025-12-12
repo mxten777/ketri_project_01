@@ -117,36 +117,54 @@ const QnAList = () => {
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="space-y-6"
-    >
-      {/* 헤더 */}
-      <Card className="p-6">
-        <div className="flex justify-between items-start">
-          <div>
-            <h1 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-              QnA 게시판
-            </h1>
-            <p className="text-neutral-600 dark:text-neutral-300">
-              궁금한 점이 있으시면 언제든 질문해 주세요
-            </p>
-          </div>
-          {user && (
-            <Button 
-              onClick={() => navigate('/board/qna/write')}
-              className="bg-primary-600 hover:bg-primary-700 text-white"
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
+      <div className="container mx-auto px-4 py-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-8"
+        >
+          {/* 헤더 */}
+          <div className="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-3xl p-8 text-white shadow-premium">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="flex justify-between items-start"
             >
-              <Plus className="w-4 h-4 mr-2" />
-              질문하기
-            </Button>
-          )}
-        </div>
-      </Card>
+              <div>
+                <h1 className="text-4xl font-bold mb-4">
+                  ❓ QnA 게시판
+                </h1>
+                <p className="text-xl opacity-90">
+                  궁금한 점이 있으시면 언제든 질문해 주세요
+                </p>
+              </div>
+              {user && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <Button 
+                    onClick={() => navigate('/board/qna/write')}
+                    className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/30 shadow-premium"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    질문하기
+                  </Button>
+                </motion.div>
+              )}
+            </motion.div>
+          </div>
 
-      {/* 필터 및 검색 */}
-      <Card className="p-6">
+          {/* 필터 및 검색 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-premium border border-white/20 dark:border-neutral-700/50"
+          >
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* 카테고리 필터 */}
           <div>
@@ -216,25 +234,35 @@ const QnAList = () => {
             </div>
           </div>
         </div>
-      </Card>
+          </motion.div>
 
-      {/* 게시글 목록 */}
-      <div className="space-y-4">
+          {/* 게시글 목록 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="space-y-4"
+          >
         {loading ? (
-          <Card className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
-            <p className="text-neutral-600 dark:text-neutral-400">로딩 중...</p>
-          </Card>
+          <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-12 text-center shadow-premium border border-white/20">
+            <div className="relative">
+              <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-200 border-t-primary-600 mx-auto mb-6"></div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-400/20 to-secondary-400/20 animate-pulse"></div>
+            </div>
+            <p className="text-lg font-medium text-neutral-700 dark:text-neutral-300">로딩 중...</p>
+          </div>
         ) : filteredQnAs.length === 0 ? (
-          <Card className="p-8 text-center">
-            <MessageSquare className="w-12 h-12 mx-auto text-neutral-400 mb-4" />
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
+          <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-12 text-center shadow-premium border border-white/20">
+            <div className="bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900/30 dark:to-secondary-900/30 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+              <MessageSquare className="w-10 h-10 text-primary-600 dark:text-primary-400" />
+            </div>
+            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3">
               질문이 없습니다
             </h3>
-            <p className="text-neutral-600 dark:text-neutral-400">
-              첫 번째 질문을 등록해 보세요!
+            <p className="text-lg text-neutral-600 dark:text-neutral-400">
+              처음 질문을 남겨보세요!
             </p>
-          </Card>
+          </div>
         ) : (
           <AnimatePresence>
             {filteredQnAs.map((qna, index) => (
@@ -246,8 +274,8 @@ const QnAList = () => {
                 transition={{ duration: 0.2, delay: index * 0.05 }}
                 whileHover={{ y: -2 }}
               >
-                <Card
-                  className="p-6 cursor-pointer hover:shadow-md transition-all border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600"
+                <div
+                  className="bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-premium border border-white/50 dark:border-neutral-700/50 hover:shadow-2xl hover:border-primary-300/50 dark:hover:border-primary-600/50 transition-all duration-300 cursor-pointer hover:scale-[1.01]"
                   onClick={() => navigate(`/board/qna/${qna.id}`)}
                 >
                   <div className="flex items-start justify-between">
@@ -307,16 +335,21 @@ const QnAList = () => {
                       <ChevronRight className="w-5 h-5 text-neutral-400" />
                     </div>
                   </div>
-                </Card>
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>
         )}
-      </div>
+          </motion.div>
 
-      {/* 로그인 안내 */}
-      {!user && (
-        <Card className="p-6 bg-blue-50 dark:bg-blue-900/10 border-l-4 border-blue-500">
+          {/* 로그인 안내 */}
+          {!user && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-6 border-l-4 border-blue-500 shadow-premium"
+            >
           <p className="text-neutral-700 dark:text-neutral-300">
             💡 질문을 등록하시려면{' '}
             <button
@@ -327,9 +360,11 @@ const QnAList = () => {
             </button>
             이 필요합니다.
           </p>
-        </Card>
-      )}
-    </motion.div>
+            </motion.div>
+          )}
+        </motion.div>
+      </div>
+    </div>
   );
 };
 

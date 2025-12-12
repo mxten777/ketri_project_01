@@ -135,36 +135,53 @@ const ResourceList: React.FC = () => {
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="space-y-6"
-    >
-      {/* 헤더 */}
-      <Card className="p-6">
-        <div className="flex justify-between items-start">
-          <div>
-            <h1 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-              자료실
-            </h1>
-            <p className="text-neutral-600 dark:text-neutral-300">
-              분석 관련 자료 및 문서를 다운로드하실 수 있습니다
-            </p>
-          </div>
-          {userData?.role === 'admin' && (
-            <Button 
-              onClick={() => navigate('/board/resources/upload')}
-              className="bg-primary-600 hover:bg-primary-700 text-white"
-            >
-              <Upload className="w-4 h-4 mr-2" />
-              자료 업로드
-            </Button>
-          )}
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="container mx-auto px-4 py-8 space-y-8"
+      >
+        {/* 헤더 */}
+        <div className="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-3xl p-8 text-white shadow-premium">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex justify-between items-start"
+          >
+            <div>
+              <h1 className="text-4xl font-bold mb-4">
+                📚 자료실
+              </h1>
+              <p className="text-xl opacity-90">
+                분석 관련 자료 및 문서를 다운로드하실 수 있습니다
+              </p>
+            </div>
+            {userData?.role === 'admin' && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Button 
+                  onClick={() => navigate('/board/resources/upload')}
+                  className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/30 shadow-premium"
+                >
+                  <Upload className="w-4 h-4 mr-2" />
+                  자료 업로드
+                </Button>
+              </motion.div>
+            )}
+          </motion.div>
         </div>
-      </Card>
 
-      {/* 필터 및 검색 */}
-      <Card className="p-6">
+        {/* 필터 및 검색 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-premium border border-white/20 dark:border-neutral-700/50"
+        >
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* 카테고리 필터 */}
           <div>
@@ -219,25 +236,35 @@ const ResourceList: React.FC = () => {
             </div>
           </div>
         </div>
-      </Card>
+        </motion.div>
 
-      {/* 자료 목록 */}
-      <div className="space-y-4">
+        {/* 자료 목록 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="space-y-6"
+        >
         {loading ? (
-          <Card className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
-            <p className="text-neutral-600 dark:text-neutral-400">자료를 불러오는 중...</p>
-          </Card>
+          <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-12 text-center shadow-premium border border-white/20">
+            <div className="relative">
+              <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-200 border-t-primary-600 mx-auto mb-6"></div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-400/20 to-secondary-400/20 animate-pulse"></div>
+            </div>
+            <p className="text-lg font-medium text-neutral-700 dark:text-neutral-300">자료를 불러오는 중...</p>
+          </div>
         ) : filteredAndSortedResources.length === 0 ? (
-          <Card className="p-8 text-center">
-            <FileText className="w-12 h-12 mx-auto text-neutral-400 mb-4" />
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
+          <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-12 text-center shadow-premium border border-white/20">
+            <div className="bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900/30 dark:to-secondary-900/30 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+              <FileText className="w-10 h-10 text-primary-600 dark:text-primary-400" />
+            </div>
+            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3">
               자료가 없습니다
             </h3>
-            <p className="text-neutral-600 dark:text-neutral-400">
+            <p className="text-neutral-600 dark:text-neutral-400 text-lg">
               {searchQuery ? '검색 결과가 없습니다.' : '등록된 자료가 없습니다.'}
             </p>
-          </Card>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <AnimatePresence>
@@ -250,7 +277,7 @@ const ResourceList: React.FC = () => {
                   transition={{ duration: 0.2, delay: index * 0.05 }}
                   whileHover={{ y: -4 }}
                 >
-                  <Card className="p-6 h-full hover:shadow-lg transition-all border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600">
+                  <div className="bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl p-6 h-full shadow-premium border border-white/50 dark:border-neutral-700/50 hover:shadow-2xl hover:border-primary-300/50 dark:hover:border-primary-600/50 transition-all duration-300 group">
                     <div className="flex flex-col h-full">
                       {/* 파일 아이콘 및 카테고리 */}
                       <div className="flex items-start justify-between mb-4">
@@ -296,20 +323,21 @@ const ResourceList: React.FC = () => {
                       {/* 다운로드 버튼 */}
                       <Button
                         onClick={() => handleDownload(resource)}
-                        className="w-full bg-primary-600 hover:bg-primary-700 text-white"
+                        className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white shadow-premium group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-[1.02]"
                       >
                         <Download className="w-4 h-4 mr-2" />
                         다운로드
                       </Button>
                     </div>
-                  </Card>
+                  </div>
                 </motion.div>
               ))}
             </AnimatePresence>
           </div>
         )}
-      </div>
-    </motion.div>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 };
 
