@@ -136,7 +136,7 @@ export const getRecentActivities = async (limitCount: number = 10): Promise<Rece
 
     // 최근 QnA 활동
     const qnasQuery = query(
-      collection(db, 'qnas'),
+      collection(db, 'qna'),
       orderBy('createdAt', 'desc'),
       limit(5)
     );
@@ -148,7 +148,7 @@ export const getRecentActivities = async (limitCount: number = 10): Promise<Rece
         type: 'qna',
         title: data.title,
         author: data.authorName || '익명',
-        createdAt: data.createdAt?.toDate() || new Date(),
+        createdAt: data.createdAt instanceof Date ? data.createdAt : (data.createdAt?.toDate?.() || new Date()),
         status: data.status || 'active',
       });
     });
@@ -167,7 +167,7 @@ export const getRecentActivities = async (limitCount: number = 10): Promise<Rece
         type: 'resource',
         title: data.title,
         author: data.authorName || '관리자',
-        createdAt: data.createdAt?.toDate() || new Date(),
+        createdAt: data.createdAt instanceof Date ? data.createdAt : (data.createdAt?.toDate?.() || new Date()),
       });
     });
 
@@ -185,7 +185,7 @@ export const getRecentActivities = async (limitCount: number = 10): Promise<Rece
         type: 'user',
         title: `${data.displayName || data.email}님이 가입했습니다`,
         author: 'System',
-        createdAt: data.createdAt?.toDate() || new Date(),
+        createdAt: data.createdAt instanceof Date ? data.createdAt : (data.createdAt?.toDate?.() || new Date()),
       });
     });
 
@@ -195,7 +195,7 @@ export const getRecentActivities = async (limitCount: number = 10): Promise<Rece
       .slice(0, limitCount);
   } catch (error) {
     console.error('최근 활동 조회 실패:', error);
-    throw error;
+    return []; // 에러 시 빈 배열 반환
   }
 };
 
@@ -409,30 +409,58 @@ export const getMonthlyActivityStats = async (months: number = 6) => {
 // 대시보드 통계 조회
 export const getDashboardStats = async (): Promise<DashboardStats> => {
   try {
-    const [usersCount, qnaCount, resourcesCount, noticesCount] = await Promise.all([
-      getCountFromServer(collection(db, 'users')),
-      getCountFromServer(collection(db, 'qna')), 
-      getCountFromServer(collection(db, 'resources')),
-      getCountFromServer(collection(db, 'notices'))
-    ]);
-
-    const resourcesSnapshot = await getDocs(collection(db, 'resources'));
-    const totalDownloads = resourcesSnapshot.docs.reduce(
-      (sum, doc) => sum + (doc.data().downloads || 0), 0
-    );
-
-    return {
-      totalUsers: usersCount.data().count,
-      totalQnAs: qnaCount.data().count,
-      totalResources: resourcesCount.data().count,
-      totalNotices: noticesCount.data().count,
-      totalDownloads,
-      activeUsers: usersCount.data().count,
+    // 기본값으로 초기화
+    const defaultStats = {
+      totalUsers: 0,
+      totalQnAs: 0,
+      totalResources: 0,
+      totalNotices: 0,
+      totalDownloads: 0,
+      activeUsers: 0,
       recentRegistrations: 0
     };
+
+    try {
+      const [usersCount, qnaCount, resourcesCount, noticesCount] = await Promise.all([
+        getCountFromServer(collection(db, 'users')).catch(() => ({ data: () => ({ count: 0 }) })),
+        getCountFromServer(collection(db, 'qna')).catch(() => ({ data: () => ({ count: 0 }) })),
+        getCountFromServer(collection(db, 'resources')).catch(() => ({ data: () => ({ count: 0 }) })),
+        getCountFromServer(collection(db, 'notices')).catch(() => ({ data: () => ({ count: 0 }) }))
+      ]);
+
+      let totalDownloads = 0;
+      try {
+        const resourcesSnapshot = await getDocs(collection(db, 'resources'));
+        totalDownloads = resourcesSnapshot.docs.reduce(
+          (sum, doc) => sum + (doc.data().downloads || 0), 0
+        );
+      } catch {
+        totalDownloads = 0;
+      }
+
+      return {
+        totalUsers: usersCount.data().count || 0,
+        totalQnAs: qnaCount.data().count || 0,
+        totalResources: resourcesCount.data().count || 0,
+        totalNotices: noticesCount.data().count || 0,
+        totalDownloads,
+        activeUsers: usersCount.data().count || 0,
+        recentRegistrations: 0
+      };
+    } catch {
+      return defaultStats;
+    }
   } catch (error) {
     console.error('Error fetching dashboard stats:', error);
-    throw error;
+    return {
+      totalUsers: 0,
+      totalQnAs: 0,
+      totalResources: 0,
+      totalNotices: 0,
+      totalDownloads: 0,
+      activeUsers: 0,
+      recentRegistrations: 0
+    };
   }
 };
 
