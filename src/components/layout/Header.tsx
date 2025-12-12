@@ -140,13 +140,13 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-lg border-b border-neutral-200 dark:border-neutral-800">
       <div className="container-custom">
-        <div className="flex items-center justify-between h-16 md:h-20 lg:h-24">
+        <div className="flex items-center justify-between h-20 md:h-22 lg:h-24">
           {/* Logo */}
           <Link to="" className="flex items-center flex-shrink-0">
             <img 
               src={isDarkMode ? "/images/logo_horizontal_trans.png" : "/images/logo_horizontal.png"}
               alt="한국환경안전연구소" 
-              className="h-8 sm:h-10 md:h-11 lg:h-12 w-auto object-contain"
+              className="h-10 sm:h-11 md:h-12 lg:h-13 w-auto object-contain"
             />
           </Link>
 
@@ -156,7 +156,7 @@ const Header = () => {
               <div key={item.path} className="relative group">
                 <Link
                   to={item.path}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center space-x-1 whitespace-nowrap hover:bg-neutral-100 dark:hover:bg-neutral-800
+                  className={`px-3 py-2 rounded-lg text-sm md:text-base font-medium transition-colors duration-200 flex items-center space-x-1 whitespace-nowrap hover:bg-neutral-100 dark:hover:bg-neutral-800
                     ${
                       location.pathname.startsWith(item.path)
                         ? "text-primary-500 bg-primary-50 dark:bg-primary-900/20"
@@ -219,7 +219,7 @@ const Header = () => {
                   className="hidden sm:flex items-center space-x-2 px-3 md:px-4 py-2 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200"
                 >
                   <User className="w-5 h-5" />
-                  <span className="text-sm">
+                  <span className="text-sm md:text-base font-medium">
                     {userData?.displayName || "사용자"}
                   </span>
                   <ChevronDown className="w-4 h-4" />
@@ -238,7 +238,7 @@ const Header = () => {
                     {userData?.role === "admin" && (
                       <Link
                         to="/admin/dashboard"
-                        className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-neutral-700 transition-colors"
+                        className="block px-4 py-3 text-sm md:text-base font-medium text-neutral-700 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-neutral-700 transition-colors"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
                         관리자 대시보드
@@ -247,7 +247,7 @@ const Header = () => {
                     <hr className="my-2 border-neutral-200 dark:border-neutral-700" />
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-neutral-700 transition-colors flex items-center space-x-2"
+                      className="w-full text-left px-4 py-3 text-sm md:text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-neutral-700 transition-colors flex items-center space-x-2"
                     >
                       <LogOut className="w-4 h-4" />
                       <span>로그아웃</span>
@@ -261,7 +261,7 @@ const Header = () => {
                 className="hidden sm:flex items-center space-x-2 px-3 md:px-4 py-2 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200"
               >
                 <User className="w-5 h-5" />
-                <span className="text-sm">로그인</span>
+                <span className="text-sm md:text-base font-medium">로그인</span>
               </Link>
             )}
 
@@ -295,12 +295,12 @@ const Header = () => {
             exit={{ opacity: 0, height: 0 }}
             className="2xl:hidden border-t border-neutral-200 dark:border-neutral-800"
           >
-            <div className="container-custom py-4 space-y-2">
+            <div className="container-custom py-5 space-y-3">
               {menuItems.map((item) => (
                 <div key={item.path}>
                   <Link
                     to={item.path}
-                    className="block px-4 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-neutral-800 font-medium"
+                    className="block px-4 py-3 rounded-lg text-base md:text-lg font-semibold text-neutral-700 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-neutral-800"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.label}
@@ -311,7 +311,7 @@ const Header = () => {
                         <Link
                           key={child.path}
                           to={child.path}
-                          className="block px-4 py-2 rounded-lg text-sm text-neutral-600 dark:text-neutral-400 hover:bg-primary-50 dark:hover:bg-neutral-800"
+                          className="block px-4 py-2.5 rounded-lg text-sm md:text-base font-medium text-neutral-600 dark:text-neutral-400 hover:bg-primary-50 dark:hover:bg-neutral-800"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {child.label}
