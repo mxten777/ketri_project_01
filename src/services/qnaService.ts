@@ -329,3 +329,31 @@ export const getQnAByCategory = async (category: string): Promise<QnA[]> => {
     throw new Error("카테고리별 QnA 목록을 불러오는데 실패했습니다.");
   }
 };
+
+// Admin에서 사용하는 함수들
+export const getQnAs = async (): Promise<QnA[]> => {
+  return getQnAList();
+};
+
+export const deleteQna = async (id: string): Promise<void> => {
+  try {
+    await deleteDoc(doc(db, QNA_COLLECTION, id));
+  } catch (error) {
+    console.error("Error deleting QnA:", error);
+    throw new Error("QnA 삭제에 실패했습니다.");
+  }
+};
+
+export const toggleAnswered = async (id: string, answered: boolean): Promise<void> => {
+  try {
+    const qnaRef = doc(db, QNA_COLLECTION, id);
+    await updateDoc(qnaRef, {
+      status: answered ? "answered" : "pending",
+      answeredAt: answered ? serverTimestamp() : null,
+      updatedAt: serverTimestamp()
+    });
+  } catch (error) {
+    console.error("Error toggling answered status:", error);
+    throw new Error("답변 상태 변경에 실패했습니다.");
+  }
+};

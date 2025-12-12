@@ -29,8 +29,8 @@ import {
   ContentFilters,
   ContentStatistics 
 } from '../../services/contentManagementService';
-import Card from '../../components/ui/Card';
-import Button from '../../components/ui/Button';
+import Card from '../../components/common/Card';
+import Button from '../../components/common/Button';
 import { formatDate, formatRelativeTime } from '../../utils/dateUtils';
 
 const ContentManagement: React.FC = () => {

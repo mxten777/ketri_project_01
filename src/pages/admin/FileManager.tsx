@@ -30,8 +30,8 @@ import {
   FileFilters,
   UploadProgress 
 } from '../../services/fileUploadService';
-import Card from '../../components/ui/Card';
-import Button from '../../components/ui/Button';
+import Card from '../../components/common/Card';
+import Button from '../../components/common/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import { formatDate, formatRelativeTime } from '../../utils/dateUtils';
 import FileUploadModal from '../../components/FileUploadModal';

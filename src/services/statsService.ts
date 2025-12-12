@@ -405,3 +405,35 @@ export const getMonthlyActivityStats = async (months: number = 6) => {
     throw error;
   }
 };
+
+// 대시보드 통계 조회
+export const getDashboardStats = async (): Promise<DashboardStats> => {
+  try {
+    const [usersCount, qnaCount, resourcesCount, noticesCount] = await Promise.all([
+      getCountFromServer(collection(db, 'users')),
+      getCountFromServer(collection(db, 'qna')), 
+      getCountFromServer(collection(db, 'resources')),
+      getCountFromServer(collection(db, 'notices'))
+    ]);
+
+    const resourcesSnapshot = await getDocs(collection(db, 'resources'));
+    const totalDownloads = resourcesSnapshot.docs.reduce(
+      (sum, doc) => sum + (doc.data().downloads || 0), 0
+    );
+
+    return {
+      totalUsers: usersCount.data().count,
+      totalQnAs: qnaCount.data().count,
+      totalResources: resourcesCount.data().count,
+      totalNotices: noticesCount.data().count,
+      totalDownloads,
+      activeUsers: usersCount.data().count,
+      recentRegistrations: 0
+    };
+  } catch (error) {
+    console.error('Error fetching dashboard stats:', error);
+    throw error;
+  }
+};
+
+

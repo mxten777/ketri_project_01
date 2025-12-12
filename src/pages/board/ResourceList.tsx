@@ -17,8 +17,8 @@ import {
 import { getResources, downloadFile } from '../../services/resourceService';
 import { useAuth } from '../../contexts/AuthContext';
 import type { Resource } from '../../types';
-import Button from '../../components/ui/Button';
-import Card from '../../components/ui/Card';
+import Button from '../../components/common/Button';
+import Card from '../../components/common/Card';
 
 const categories = [
   { value: 'all', label: '전체', icon: FileText },
