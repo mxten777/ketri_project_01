@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Save } from 'lucide-react';
 import { createNotice, updateNotice, getNoticeById } from '../../services/noticeService';
 import { useAuth } from '../../contexts/AuthContext';
-import type { Notice } from '../../types';
+
 import Button from '../../components/common/Button';
 import Card from '../../components/common/Card';
 
@@ -73,15 +73,30 @@ const NoticeForm = () => {
 
     try {
       const noticeData = {
-        ...formData,
-        author: userData?.displayName || '관리자',
-        authorId: userData?.uid || '',
+        noticeId: id || '',
+        title: formData.title,
+        content: formData.content,
+        excerpt: formData.content.substring(0, 100),
+        author: {
+          uid: userData?.uid || '',
+          name: userData?.displayName || '관리자'
+        },
+        category: formData.category as 'general' | 'service' | 'system' | 'event',
+        isPinned: formData.isPinned,
+        isImportant: false,
+        attachments: [],
+        tags: [],
+        views: 0,
+        viewCount: 0,
+        status: 'published' as const,
+        createdAt: new Date(),
+        updatedAt: new Date()
       };
 
       if (isEditMode && id) {
         await updateNotice(id, noticeData);
       } else {
-        await createNotice(noticeData as Omit<Notice, 'id' | 'createdAt' | 'updatedAt' | 'views'>);
+        await createNotice(noticeData);
       }
 
       navigate('/board/notice');

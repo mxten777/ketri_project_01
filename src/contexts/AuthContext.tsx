@@ -74,14 +74,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const adminEmails = ['jngdy@naver.com'];
     const isAdmin = adminEmails.includes(user.email || '');
 
-    // Firestore???�용???�이???�??
+    // Firestore에 저장할 사용자 데이터
     const newUser: User = {
       uid: user.uid,
       email: user.email!,
       displayName,
       role: isAdmin ? 'admin' : 'user',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      isActive: true,
+      emailVerified: user.emailVerified,
+      bookmarks: [],
+      preferences: {
+        darkMode: false,
+        notifications: {
+          email: true,
+          sms: false,
+        },
+      },
     };
 
     await setDoc(doc(db, 'users', user.uid), newUser);

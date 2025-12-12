@@ -5,6 +5,7 @@
 ### 브랜드 컬러
 
 #### Primary (Blue) - 메인 브랜드 컬러
+
 신뢰성, 전문성, 안정성을 상징하는 블루 계열
 
 ```css
@@ -21,12 +22,14 @@ primary-900: #001533
 ```
 
 **사용 예시:**
+
 - 주요 CTA 버튼
 - 링크 색상
 - 중요 아이콘
 - 그라디언트의 시작점
 
 #### Secondary (Sky Blue) - 보조 컬러
+
 활동성, 혁신, 청결을 상징
 
 ```css
@@ -43,12 +46,14 @@ secondary-900: #0c4a6e
 ```
 
 **사용 예시:**
+
 - 보조 버튼
 - 그라디언트의 끝점
 - 강조 배경
 - 호버 상태
 
 #### Accent (Orange) - 강조 컬러
+
 주의, 경고, 중요 정보 표시
 
 ```css
@@ -65,12 +70,14 @@ accent-900: #7c2d12
 ```
 
 **사용 예시:**
+
 - 중요 공지사항 배지
 - 알림 표시
 - 위험/경고 메시지
 - 할인/이벤트 표시
 
 #### Neutral (Gray) - 중립 컬러
+
 텍스트, 배경, 구분선
 
 ```css
@@ -87,6 +94,7 @@ neutral-900: #18181b
 ```
 
 **사용 예시:**
+
 - 본문 텍스트: neutral-700 (라이트) / neutral-200 (다크)
 - 보조 텍스트: neutral-500
 - 배경: neutral-50 (라이트) / neutral-900 (다크)
@@ -125,17 +133,23 @@ info-dark:     #1d4ed8
 ### 폰트 패밀리
 
 **Primary Font:** Pretendard Variable
+
 - 한글 전용 최적화
 - Variable Font로 다양한 굵기 지원
 - 가독성 우수
 
 ```css
-font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+  sans-serif;
 ```
 
 **CDN:**
+
 ```html
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet" />
+<link
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+  rel="stylesheet"
+/>
 ```
 
 ---
@@ -257,6 +271,7 @@ section-lg:  py-20 lg:py-32  (80-128px)
 ### Buttons
 
 #### Primary Button
+
 ```css
 .btn-primary {
   background: primary-500
@@ -265,7 +280,7 @@ section-lg:  py-20 lg:py-32  (80-128px)
   border-radius: 8px
   font-weight: 500
   shadow: md
-  
+
   hover: background primary-600, shadow lg
   active: background primary-700
   focus: ring-2 ring-primary-500 ring-offset-2
@@ -273,6 +288,7 @@ section-lg:  py-20 lg:py-32  (80-128px)
 ```
 
 #### Secondary Button
+
 ```css
 .btn-secondary {
   background: secondary-500
@@ -281,12 +297,13 @@ section-lg:  py-20 lg:py-32  (80-128px)
   border-radius: 8px
   font-weight: 500
   shadow: md
-  
+
   hover: background secondary-600, shadow lg
 }
 ```
 
 #### Outline Button
+
 ```css
 .btn-outline {
   background: transparent
@@ -295,12 +312,13 @@ section-lg:  py-20 lg:py-32  (80-128px)
   padding: 12px 24px
   border-radius: 8px
   font-weight: 500
-  
+
   hover: background primary-500, color white
 }
 ```
 
 #### Ghost Button
+
 ```css
 .btn-ghost {
   background: transparent
@@ -308,12 +326,13 @@ section-lg:  py-20 lg:py-32  (80-128px)
   padding: 12px 24px
   border-radius: 8px
   font-weight: 500
-  
+
   hover: background neutral-100, color neutral-900
 }
 ```
 
 #### Button Sizes
+
 ```css
 btn-sm:  px-4 py-2 text-sm
 btn-md:  px-6 py-3 text-base  (기본)
@@ -325,6 +344,7 @@ btn-lg:  px-8 py-4 text-lg
 ### Cards
 
 #### Basic Card
+
 ```css
 .card {
   background: white
@@ -332,17 +352,18 @@ btn-lg:  px-8 py-4 text-lg
   border-radius: 16px
   shadow: card (soft shadow)
   padding: 24px
-  
+
   dark: background neutral-800, border neutral-700
 }
 ```
 
 #### Hoverable Card
+
 ```css
 .card-hover {
   transition: all 0.3s
-  
-  hover: 
+
+  hover:
     - transform translateY(-4px)
     - shadow premium
 }
@@ -359,12 +380,12 @@ btn-lg:  px-8 py-4 text-lg
   border: 1px solid neutral-300
   border-radius: 8px
   font-size: 16px
-  
+
   focus:
     - outline none
     - ring-2 ring-primary-500
     - border transparent
-  
+
   dark: background neutral-800, border neutral-700
 }
 ```
@@ -386,7 +407,7 @@ btn-lg:  px-8 py-4 text-lg
 .badge-primary {
   background: primary-100
   color: primary-800
-  
+
   dark: background primary-900, color primary-200
 }
 
@@ -431,11 +452,12 @@ Dark:  bg-neutral-800, border-neutral-700
 ```
 
 ### 구현 방법
+
 ```typescript
 // Toggle Dark Mode
 const toggleDarkMode = () => {
-  document.documentElement.classList.toggle('dark');
-  localStorage.setItem('darkMode', isDark ? 'true' : 'false');
+  document.documentElement.classList.toggle("dark");
+  localStorage.setItem("darkMode", isDark ? "true" : "false");
 };
 ```
 
@@ -457,26 +479,47 @@ transition-slow:    500ms
 ```css
 /* Fade In */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Slide Up */
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Scale In */
 @keyframes scaleIn {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Float */
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 ```
 
@@ -496,16 +539,19 @@ xl:   1280px  /* Large Desktop */
 ### 레이아웃 가이드
 
 #### Mobile (< 640px)
+
 - 단일 컬럼 레이아웃
 - 최소 터치 타겟: 44x44px
 - 폰트 크기 조정 (16px 기본)
 
 #### Tablet (640px - 1024px)
+
 - 2컬럼 레이아웃 가능
 - 사이드바 토글 메뉴
 - 카드 그리드: 2열
 
 #### Desktop (> 1024px)
+
 - 멀티 컬럼 레이아웃
 - 고정 네비게이션
 - 카드 그리드: 3-4열
@@ -526,7 +572,7 @@ Wide Banner:     21:9 (2100x900)
 ### 최적화
 
 - **포맷:** WebP (지원), JPEG (fallback)
-- **크기:** 
+- **크기:**
   - Hero: 최대 500KB
   - Card: 최대 200KB
   - Thumbnail: 최대 100KB
@@ -539,6 +585,7 @@ Wide Banner:     21:9 (2100x900)
 **라이브러리:** Lucide React
 
 **크기:**
+
 - xs: 16x16px (w-4 h-4)
 - sm: 20x20px (w-5 h-5)
 - md: 24x24px (w-6 h-6)
@@ -546,6 +593,7 @@ Wide Banner:     21:9 (2100x900)
 - xl: 40x40px (w-10 h-10)
 
 **색상:**
+
 - Primary Actions: primary-500
 - Secondary: neutral-500
 - Danger: red-500
@@ -575,8 +623,10 @@ UI 컴포넌트:               3:1 이상
 
 ```html
 <button aria-label="메뉴 열기">
-<nav aria-label="주요 네비게이션">
-<img alt="한국환경안전연구소 로고">
+  <nav aria-label="주요 네비게이션">
+    <img alt="한국환경안전연구소 로고" />
+  </nav>
+</button>
 ```
 
 ---

@@ -18,7 +18,7 @@ import type { Notice } from '../types';
 
 const COLLECTION_NAME = 'notices';
 
-// 공�??�항 목록 조회
+// 공�??�항 목록 조회
 export const getNotices = async (limitCount: number = 10): Promise<Notice[]> => {
   try {
     const q = query(
@@ -29,32 +29,64 @@ export const getNotices = async (limitCount: number = 10): Promise<Notice[]> => 
     );
     
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
+    return querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        noticeId: doc.id,
+        title: data.title || '',
+        content: data.content || '',
+        excerpt: data.excerpt || '',
+        author: data.author || { uid: '', name: '' },
+        category: data.category || 'general',
+        isPinned: data.isPinned || false,
+        isImportant: data.isImportant || false,
+        views: data.views || 0,
+        viewCount: data.viewCount || 0,
+        status: data.status || 'published',
+        attachments: data.attachments || [],
+        tags: data.tags || [],
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt
+      } as Notice;
+    });
   } catch (error) {
     console.error('Error fetching notices:', error);
     throw error;
   }
 };
 
-// 공�??�항 ?�세 조회
+// 공�??�항 ?�세 조회
 export const getNoticeById = async (id: string): Promise<Notice | null> => {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
     const docSnap = await getDoc(docRef);
     
     if (docSnap.exists()) {
-      // 조회??증�?
+      // 조회??증�?
       await updateDoc(docRef, {
         views: increment(1)
       });
       
+      const data = docSnap.data();
       return {
         id: docSnap.id,
-        ...docSnap.data()
-      };
+        noticeId: docSnap.id,
+        title: data.title || '',
+        content: data.content || '',
+        excerpt: data.excerpt || '',
+        author: data.author || { uid: '', name: '' },
+        category: data.category || 'general',
+        isPinned: data.isPinned || false,
+        isImportant: data.isImportant || false,
+        views: data.views || 0,
+        viewCount: data.viewCount || 0,
+        status: data.status || 'published',
+        attachments: data.attachments || [],
+        tags: data.tags || [],
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt
+      } as Notice;
     }
     
     return null;
@@ -64,7 +96,7 @@ export const getNoticeById = async (id: string): Promise<Notice | null> => {
   }
 };
 
-// 공�??�항 ?�성
+// 공�??�항 ?�성
 export const createNotice = async (noticeData: Omit<Notice, 'id' | 'createdAt' | 'updatedAt' | 'views'>): Promise<string> => {
   try {
     const docRef = await addDoc(collection(db, COLLECTION_NAME), {
@@ -81,7 +113,7 @@ export const createNotice = async (noticeData: Omit<Notice, 'id' | 'createdAt' |
   }
 };
 
-// 공�??�항 ?�정
+// 공�??�항 ?�정
 export const updateNotice = async (id: string, noticeData: Partial<Notice>): Promise<void> => {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
@@ -95,7 +127,7 @@ export const updateNotice = async (id: string, noticeData: Partial<Notice>): Pro
   }
 };
 
-// 공�??�항 ??��
+// 공�??�항 ??��
 export const deleteNotice = async (id: string): Promise<void> => {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
@@ -106,7 +138,7 @@ export const deleteNotice = async (id: string): Promise<void> => {
   }
 };
 
-// 중요 공�??�항 조회
+// 중요 공�??�항 조회
 export const getPinnedNotices = async (): Promise<Notice[]> => {
   try {
     const q = query(
@@ -116,10 +148,27 @@ export const getPinnedNotices = async (): Promise<Notice[]> => {
     );
     
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
+    return querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        noticeId: doc.id,
+        title: data.title || '',
+        content: data.content || '',
+        excerpt: data.excerpt || '',
+        author: data.author || { uid: '', name: '' },
+        category: data.category || 'general',
+        isPinned: data.isPinned || false,
+        isImportant: data.isImportant || false,
+        views: data.views || 0,
+        viewCount: data.viewCount || 0,
+        status: data.status || 'published',
+        attachments: data.attachments || [],
+        tags: data.tags || [],
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt
+      } as Notice;
+    });
   } catch (error) {
     console.error('Error fetching pinned notices:', error);
     throw error;

@@ -1,24 +1,51 @@
 {
   "name": "ketri-website",
   "private": true,
-  "version": "1.0.0",
+  "version": "3.0.0",
+  "description": "한국환경안전연구소(KETRI) 공식 웹사이트 - Enterprise Grade Solution",
   "type": "module",
+  "homepage": "https://ketri.co.kr",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/ketri-website"
+  },
+  "author": "Professional Development Team",
+  "license": "Proprietary",
+  "keywords": [
+    "환경안전",
+    "연구소",
+    "산업보건",
+    "먹는물검사",
+    "석면조사",
+    "실내공기질",
+    "react",
+    "typescript",
+    "firebase"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --noEmit false && vite build",
+    "dev": "vite --port 3004 --open",
+    "build": "tsc --noEmit && vite build",
     "build:skip-check": "vite build",
+    "type-check": "tsc --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "preview": "vite preview --port 3005",
+    "clean": "rm -rf dist node_modules/.vite",
+    "analyze": "npm run build && npx vite-bundle-analyzer dist"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.22.0",
+    "date-fns": "^3.6.0",
     "firebase": "^10.8.0",
     "framer-motion": "^11.0.3",
     "lucide-react": "^0.344.0",
-    "date-fns": "^3.3.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.50.0",
+    "react-router-dom": "^6.22.0",
     "zustand": "^4.5.0"
   },
   "devDependencies": {

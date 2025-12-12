@@ -1,245 +1,335 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { MessageSquare, Lock, CheckCircle, Clock, Search } from 'lucide-react';
-import { getQnAs } from '../../services/qnaService';
-import { useAuth } from '../../contexts/AuthContext';
-import type { QnA } from '../../types';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Plus,
+  Search,
+  MessageSquare,
+  Clock,
+  CheckCircle,
+  Lock,
+  Pin,
+  Eye,
+  ChevronRight,
+} from "lucide-react";
+import Button from "../../components/common/Button";
+import Card from "../../components/common/Card";
+import { useAuth } from "../../contexts/AuthContext";
+import { getQnAList } from "../../services/qnaService";
+import type { QnA } from "../../types";
 
 const QnAList = () => {
+  const { user, userData } = useAuth();
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const [qnas, setQnas] = useState<QnA[]>([]);
+  const [qnaList, setQnAList] = useState<QnA[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState("all");
+  const [sortBy, setSortBy] = useState<'latest' | 'oldest' | 'views'>('latest');
 
   const categories = [
-    { value: 'all', label: '전체' },
-    { value: 'general', label: '일반문의' },
-    { value: 'service', label: '서비스문의' },
-    { value: 'technical', label: '기술문의' },
-    { value: 'account', label: '계정문의' },
+    { value: "all", label: "전체" },
+    { value: "general", label: "일반문의" },
+    { value: "service", label: "서비스문의" },
+    { value: "technical", label: "기술문의" },
+    { value: "account", label: "계정문의" },
+    { value: "complaint", label: "불만신고" },
   ];
 
-  useEffect(() => {
-    fetchQnAs();
-  }, [selectedCategory]);
 
-  const fetchQnAs = async () => {
+
+  useEffect(() => {
+    fetchQnAList();
+  }, []);
+
+  const fetchQnAList = async () => {
     try {
       setLoading(true);
-      const data = await getQnAs(selectedCategory);
-      setQnas(data);
+      const data = await getQnAList();
+      setQnAList(data);
     } catch (error) {
-      console.error('Error fetching QnAs:', error);
+      console.error("QnA 목록 조회 실패:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const filteredQnAs = qnas.filter(qna =>
-    qna.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    qna.content.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // 필터링된 QnA 목록
+  const filteredQnAs = qnaList.filter((qna) => {
+    const matchesSearch = qna.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         qna.content.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === "all" || qna.category === selectedCategory;
+    const matchesStatus = selectedStatus === "all" || qna.status === selectedStatus;
+    
+    // 비밀글 필터링 (작성자 본인과 관리자만 볼 수 있음)
+    const canViewSecret = !qna.isSecret || 
+                         qna.authorId === user?.uid || 
+                         userData?.role === "admin";
+
+    return matchesSearch && matchesCategory && matchesStatus && canViewSecret;
+  });
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case "pending":
+        return (
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400">
+            <Clock className="w-3 h-3 mr-1" />
+            답변대기
+          </span>
+        );
+      case "answered":
+        return (
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400">
+            <CheckCircle className="w-3 h-3 mr-1" />
+            답변완료
+          </span>
+        );
+      case "closed":
+        return (
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400">
+            종료
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
 
   const getCategoryLabel = (category: string) => {
-    return categories.find(c => c.value === category)?.label || category;
+    const cat = categories.find(c => c.value === category);
+    return cat ? cat.label : category;
   };
 
-  const getCategoryColor = (category: string) => {
-    const colors: Record<string, string> = {
-      general: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-      service: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-      technical: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
-      account: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-    };
-    return colors[category] || 'bg-neutral-100 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-300';
-  };
-
-  const formatDate = (timestamp: any) => {
+  const formatDate = (timestamp: any): string => {
     if (!timestamp) return '';
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-    return new Intl.DateTimeFormat('ko-KR', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    }).format(date);
-  };
-
-  const handleQnAClick = (qna: QnA) => {
-    // 비밀글 체크
-    if (qna.isSecret && !user) {
-      alert('로그인이 필요한 게시글입니다.');
-      navigate('/auth/login');
-      return;
+    try {
+      const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+      return new Intl.DateTimeFormat('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }).format(date);
+    } catch (error) {
+      return '';
     }
-
-    if (qna.isSecret && user?.uid !== qna.authorId && user?.role !== 'admin') {
-      alert('작성자 또는 관리자만 볼 수 있는 게시글입니다.');
-      return;
-    }
-
-    navigate(`/board/qna/${qna.id}`);
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24">
-        <div className="container-custom">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">Q&A 게시판</h1>
-          <p className="text-lg">궁금한 점을 질문하고 답변을 받아보세요</p>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="space-y-6"
+    >
+      {/* 헤더 */}
+      <Card className="p-6">
+        <div className="flex justify-between items-start">
+          <div>
+            <h1 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
+              QnA 게시판
+            </h1>
+            <p className="text-neutral-600 dark:text-neutral-300">
+              궁금한 점이 있으시면 언제든 질문해 주세요
+            </p>
+          </div>
+          {user && (
+            <Button 
+              onClick={() => navigate('/board/qna/write')}
+              className="bg-primary-600 hover:bg-primary-700 text-white"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              질문하기
+            </Button>
+          )}
         </div>
-      </div>
+      </Card>
 
-      <div className="section container-custom">
-        {/* 검색 및 필터 */}
-        <div className="card p-6 mb-8">
-          <div className="flex flex-col lg:flex-row gap-4">
-            {/* 카테고리 필터 */}
-            <div className="flex gap-2 flex-wrap">
-              {categories.map(cat => (
-                <button
-                  key={cat.value}
-                  onClick={() => setSelectedCategory(cat.value)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                    selectedCategory === cat.value
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-neutral-200 text-neutral-700 hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600'
-                  }`}
-                >
-                  {cat.label}
-                </button>
+      {/* 필터 및 검색 */}
+      <Card className="p-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {/* 카테고리 필터 */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+              카테고리
+            </label>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="w-full px-3 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            >
+              {categories.map((category) => (
+                <option key={category.value} value={category.value}>
+                  {category.label}
+                </option>
               ))}
-            </div>
+            </select>
+          </div>
 
-            {/* 검색 */}
-            <div className="flex-1 lg:max-w-md ml-auto">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
-                <input
-                  type="text"
-                  placeholder="검색어를 입력하세요..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                />
-              </div>
-            </div>
+          {/* 상태 필터 */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+              상태
+            </label>
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="w-full px-3 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            >
+              <option value="">전체</option>
+              <option value="pending">답변대기</option>
+              <option value="answered">답변완료</option>
+              <option value="closed">종료</option>
+            </select>
+          </div>
 
-            {/* 글쓰기 버튼 */}
-            {user && (
-              <Link
-                to="/board/qna/new"
-                className="btn btn-primary whitespace-nowrap"
-              >
-                <MessageSquare className="w-5 h-5" />
-                질문하기
-              </Link>
-            )}
+          {/* 정렬 */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+              정렬
+            </label>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as 'latest' | 'oldest' | 'views')}
+              className="w-full px-3 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            >
+              <option value="latest">최신순</option>
+              <option value="oldest">오래된순</option>
+              <option value="views">조회수순</option>
+            </select>
+          </div>
+
+          {/* 검색 */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+              검색
+            </label>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
+              <input
+                type="text"
+                placeholder="제목으로 검색..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              />
+            </div>
           </div>
         </div>
+      </Card>
 
-        {/* QnA 목록 */}
+      {/* 게시글 목록 */}
+      <div className="space-y-4">
         {loading ? (
-          <div className="text-center py-12">
-            <div className="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
-            <p className="mt-4 text-neutral-600 dark:text-neutral-400">게시글을 불러오는 중...</p>
-          </div>
+          <Card className="p-8 text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
+            <p className="text-neutral-600 dark:text-neutral-400">로딩 중...</p>
+          </Card>
         ) : filteredQnAs.length === 0 ? (
-          <div className="card p-12 text-center">
-            <MessageSquare className="w-16 h-16 mx-auto mb-4 text-neutral-400" />
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
-              {searchTerm ? '검색 결과가 없습니다.' : '등록된 질문이 없습니다.'}
+          <Card className="p-8 text-center">
+            <MessageSquare className="w-12 h-12 mx-auto text-neutral-400 mb-4" />
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
+              질문이 없습니다
+            </h3>
+            <p className="text-neutral-600 dark:text-neutral-400">
+              첫 번째 질문을 등록해 보세요!
             </p>
-            {user && !searchTerm && (
-              <Link to="/board/qna/new" className="btn btn-primary">
-                첫 질문 등록하기
-              </Link>
-            )}
-          </div>
+          </Card>
         ) : (
-          <div className="space-y-4">
-            {filteredQnAs.map((qna) => (
-              <div
+          <AnimatePresence>
+            {filteredQnAs.map((qna, index) => (
+              <motion.div
                 key={qna.id}
-                onClick={() => handleQnAClick(qna)}
-                className="card p-6 hover:shadow-lg transition-all cursor-pointer group"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.2, delay: index * 0.05 }}
+                whileHover={{ y: -2 }}
               >
-                <div className="flex items-start gap-4">
-                  {/* 상태 아이콘 */}
-                  <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${
-                    qna.isAnswered 
-                      ? 'bg-green-100 dark:bg-green-900/30' 
-                      : 'bg-orange-100 dark:bg-orange-900/30'
-                  }`}>
-                    {qna.isAnswered ? (
-                      <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
-                    ) : (
-                      <Clock className="w-6 h-6 text-orange-600 dark:text-orange-400" />
-                    )}
-                  </div>
+                <Card
+                  className="p-6 cursor-pointer hover:shadow-md transition-all border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600"
+                  onClick={() => navigate(`/board/qna/${qna.id}`)}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      {/* 제목 및 아이콘 */}
+                      <div className="flex items-center gap-2 mb-3">
+                        {qna.isPinned && (
+                          <Pin className="w-4 h-4 text-primary-600 flex-shrink-0" />
+                        )}
+                        {qna.isSecret && (
+                          <Lock className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                        )}
+                        <h3 className="text-lg font-semibold text-neutral-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex-1">
+                          {qna.title}
+                        </h3>
+                        {getStatusBadge(qna.status)}
+                      </div>
 
-                  {/* 내용 */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${getCategoryColor(qna.category)}`}>
-                        {getCategoryLabel(qna.category)}
-                      </span>
-                      {qna.isSecret && (
-                        <span className="flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">
-                          <Lock className="w-3 h-3" />
-                          비밀글
+                      {/* 미리보기 내용 */}
+                      <p className="text-neutral-600 dark:text-neutral-400 text-sm mb-4 line-clamp-2">
+                        {qna.content}
+                      </p>
+
+                      {/* 메타 정보 */}
+                      <div className="flex items-center gap-4 text-xs text-neutral-500 dark:text-neutral-400">
+                        <span className="px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300">
+                          {getCategoryLabel(qna.category)}
                         </span>
-                      )}
-                      {qna.isAnswered && (
-                        <span className="text-xs px-2 py-1 rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 font-medium">
-                          답변완료
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 className="text-lg font-bold mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-1">
-                      {qna.title}
-                    </h3>
-
-                    <p className="text-neutral-600 dark:text-neutral-400 mb-3 line-clamp-2">
-                      {qna.content}
-                    </p>
-
-                    <div className="flex items-center gap-4 text-sm text-neutral-500 dark:text-neutral-400">
-                      <span>{qna.authorName}</span>
-                      <span>•</span>
-                      <span>{formatDate(qna.createdAt)}</span>
-                      <span>•</span>
-                      <span>조회 {qna.views || 0}</span>
-                      {qna.comments && qna.comments.length > 0 && (
-                        <>
-                          <span>•</span>
-                          <span className="flex items-center gap-1">
-                            <MessageSquare className="w-4 h-4" />
-                            {qna.comments.length}
+                        <span>{qna.authorName}</span>
+                        <span>{formatDate(qna.createdAt)}</span>
+                        {qna.views && qna.views > 0 && (
+                          <span className="flex items-center gap-1 text-xs text-neutral-500">
+                            <Eye className="w-3 h-3" />
+                            {qna.views}
                           </span>
-                        </>
+                        )}
+                      </div>
+
+                      {/* 관리자 답변 미리보기 */}
+                      {qna.status === 'answered' && qna.answerContent && (
+                        <div className="mt-3 p-3 bg-green-50 dark:bg-green-900/10 rounded-lg border-l-4 border-green-500">
+                          <div className="flex items-center gap-2 mb-1">
+                            <CheckCircle className="w-4 h-4 text-green-600" />
+                            <span className="text-sm font-medium text-green-800 dark:text-green-400">
+                              관리자 답변
+                            </span>
+                          </div>
+                          <p className="text-sm text-green-700 dark:text-green-300">
+                            {qna.answerContent.substring(0, 100)}
+                            {qna.answerContent.length > 100 && '...'}
+                          </p>
+                        </div>
                       )}
                     </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
 
-        {/* 안내 메시지 */}
-        {!user && (
-          <div className="card p-6 mt-8 bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-600">
-            <p className="text-neutral-700 dark:text-neutral-300">
-              💡 질문을 등록하시려면 <Link to="/auth/login" className="text-primary-600 dark:text-primary-400 font-bold hover:underline">로그인</Link>이 필요합니다.
-            </p>
-          </div>
+                    <div className="ml-4 flex flex-col items-end">
+                      <ChevronRight className="w-5 h-5 text-neutral-400" />
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         )}
       </div>
-    </div>
+
+      {/* 로그인 안내 */}
+      {!user && (
+        <Card className="p-6 bg-blue-50 dark:bg-blue-900/10 border-l-4 border-blue-500">
+          <p className="text-neutral-700 dark:text-neutral-300">
+            💡 질문을 등록하시려면{' '}
+            <button
+              onClick={() => navigate('/auth/login')}
+              className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
+            >
+              로그인
+            </button>
+            이 필요합니다.
+          </p>
+        </Card>
+      )}
+    </motion.div>
   );
 };
 

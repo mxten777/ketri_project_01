@@ -108,15 +108,15 @@ const QuoteRequest: React.FC = () => {
       setSubmitting(true);
 
       await createQuote({
-        serviceType: formData.serviceType,
+        serviceType: formData.serviceType as 'water' | 'dialysis' | 'asbestos' | 'indoor-air' | 'industrial-health',
         companyName: formData.companyName,
         contactPerson: formData.contactPerson,
         phone: formData.phone,
         email: formData.email,
-        preferredDate: formData.preferredDate || null,
+        preferredDate: formData.preferredDate || undefined,
         location: formData.location,
         details: formData.details,
-        userId: user?.uid || null,
+        userId: user?.uid || undefined,
         userName: user?.displayName || formData.contactPerson,
         userEmail: user?.email || formData.email,
       });

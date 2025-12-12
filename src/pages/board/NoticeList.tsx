@@ -135,11 +135,11 @@ const NoticeList = () => {
                         <div className="flex items-center space-x-4 text-sm text-neutral-500 dark:text-neutral-500">
                           <span className="flex items-center space-x-1">
                             <User className="w-4 h-4" />
-                            <span>{notice.author}</span>
+                            <span>{notice.author.name}</span>
                           </span>
                           <span className="flex items-center space-x-1">
                             <Calendar className="w-4 h-4" />
-                            <span>{formatDate(notice.createdAt)}</span>
+                            <span>{formatDate(notice.createdAt.toString())}</span>
                           </span>
                           <span className="flex items-center space-x-1">
                             <Eye className="w-4 h-4" />

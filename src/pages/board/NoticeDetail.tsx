@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, User, Eye, Edit, Trash2, Pin } from 'lucide-react';
 import { getNoticeById, deleteNotice } from '../../services/noticeService';
@@ -124,11 +124,11 @@ const NoticeDetail = () => {
                 <div className="flex items-center space-x-6 text-sm text-neutral-600 dark:text-neutral-400">
                   <span className="flex items-center space-x-2">
                     <User className="w-4 h-4" />
-                    <span>{notice.author}</span>
+                    <span>{notice.author.name}</span>
                   </span>
                   <span className="flex items-center space-x-2">
                     <Calendar className="w-4 h-4" />
-                    <span>{formatDate(notice.createdAt)}</span>
+                    <span>{formatDate(notice.createdAt.toString())}</span>
                   </span>
                   <span className="flex items-center space-x-2">
                     <Eye className="w-4 h-4" />
@@ -186,7 +186,7 @@ const NoticeDetail = () => {
                         {file.name}
                       </span>
                       <span className="text-xs text-neutral-500">
-                        ({(file.size / 1024).toFixed(2)} KB)
+                        ({((file.size || 0) / 1024).toFixed(2)} KB)
                       </span>
                     </a>
                   ))}

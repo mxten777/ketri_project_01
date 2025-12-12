@@ -8,11 +8,10 @@ import {
   orderBy,
   where,
 } from 'firebase/firestore';
-import { deleteUser as deleteAuthUser } from 'firebase/auth';
 import { db } from '../config/firebase';
 import type { User } from '../types';
 
-// ?�체 ?�원 목록 조회
+// ?�체 ?�원 목록 조회
 export const getAllUsers = async (): Promise<User[]> => {
   try {
     const usersRef = collection(db, 'users');
@@ -29,7 +28,7 @@ export const getAllUsers = async (): Promise<User[]> => {
   }
 };
 
-// ??���??�원 조회
+// ??���??�원 조회
 export const getUsersByRole = async (role: 'user' | 'admin'): Promise<User[]> => {
   try {
     const usersRef = collection(db, 'users');
@@ -50,7 +49,7 @@ export const getUsersByRole = async (role: 'user' | 'admin'): Promise<User[]> =>
   }
 };
 
-// ?�원 ??�� 변�?
+// ?�원 ??�� 변�?
 export const updateUserRole = async (
   userId: string,
   newRole: 'user' | 'admin'
@@ -67,7 +66,7 @@ export const updateUserRole = async (
   }
 };
 
-// ?�원 ?�보 ?�데?�트
+// ?�원 ?�보 ?�데?�트
 export const updateUserInfo = async (
   userId: string,
   data: Partial<User>
@@ -84,7 +83,7 @@ export const updateUserInfo = async (
   }
 };
 
-// ?�원 ??�� (Firestore only - Auth ??��???�용??본인�?가??
+// ?�원 ??�� (Firestore only - Auth ??��???�용??본인�?가??
 export const deleteUser = async (userId: string): Promise<void> => {
   try {
     const userRef = doc(db, 'users', userId);
@@ -95,7 +94,7 @@ export const deleteUser = async (userId: string): Promise<void> => {
   }
 };
 
-// ?�메?�로 ?�원 검??
+// ?�메?�로 ?�원 검??
 export const searchUsersByEmail = async (email: string): Promise<User[]> => {
   try {
     const usersRef = collection(db, 'users');
@@ -112,7 +111,7 @@ export const searchUsersByEmail = async (email: string): Promise<User[]> => {
   }
 };
 
-// ?�름?�로 ?�원 검??
+// ?�름?�로 ?�원 검??
 export const searchUsersByName = async (name: string): Promise<User[]> => {
   try {
     const usersRef = collection(db, 'users');
@@ -133,7 +132,7 @@ export const searchUsersByName = async (name: string): Promise<User[]> => {
   }
 };
 
-// ?�원 ?�계
+// ?�원 ?�계
 export const getUserStats = async () => {
   try {
     const usersRef = collection(db, 'users');

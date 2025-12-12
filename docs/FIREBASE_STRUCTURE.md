@@ -37,6 +37,7 @@
 ```
 
 **인덱스:**
+
 - `email` (ASC)
 - `role` (ASC) + `createdAt` (DESC)
 - `isActive` (ASC) + `createdAt` (DESC)
@@ -82,6 +83,7 @@
 ```
 
 **testItems 서브컬렉션:**
+
 ```json
 {
   "itemName": "string (예: 일반세균)",
@@ -94,6 +96,7 @@
 ```
 
 **인덱스:**
+
 - `certificateNumber` (ASC) - 고유
 - `userId` (ASC) + `createdAt` (DESC)
 - `serviceType` (ASC) + `status` (ASC) + `createdAt` (DESC)
@@ -144,6 +147,7 @@
 ```
 
 **인덱스:**
+
 - `userId` (ASC) + `createdAt` (DESC)
 - `status` (ASC) + `createdAt` (DESC)
 - `serviceType` (ASC) + `status` (ASC)
@@ -179,6 +183,7 @@
 ```
 
 **attachments 구조:**
+
 ```json
 {
   "fileName": "string",
@@ -190,6 +195,7 @@
 ```
 
 **인덱스:**
+
 - `status` (ASC) + `isPinned` (DESC) + `publishedAt` (DESC)
 - `category` (ASC) + `publishedAt` (DESC)
 
@@ -224,6 +230,7 @@
 ```
 
 **인덱스:**
+
 - `userId` (ASC) + `createdAt` (DESC)
 - `status` (ASC) + `createdAt` (DESC)
 - `category` (ASC) + `status` (ASC)
@@ -271,6 +278,7 @@
 ```
 
 **인덱스:**
+
 - `userId` (ASC) + `createdAt` (DESC)
 - `status` (ASC) + `createdAt` (DESC)
 - `createdAt` (DESC)
@@ -310,6 +318,7 @@
 ```
 
 **인덱스:**
+
 - `category` (ASC) + `createdAt` (DESC)
 - `isPublic` (ASC) + `downloadCount` (DESC)
 
@@ -347,6 +356,7 @@
 ```
 
 **process 구조:**
+
 ```json
 {
   "step": "number",
@@ -357,6 +367,7 @@
 ```
 
 **faqs 구조:**
+
 ```json
 {
   "question": "string",
@@ -471,6 +482,7 @@
 ```
 
 **인덱스:**
+
 - `userId` (ASC) + `timestamp` (DESC)
 - `action` (ASC) + `timestamp` (DESC)
 
@@ -484,21 +496,21 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
+
     // Helper Functions
     function isSignedIn() {
       return request.auth != null;
     }
-    
+
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
-    
+
     function isAdmin() {
-      return isSignedIn() && 
+      return isSignedIn() &&
              get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
-    
+
     // Users Collection
     match /users/{userId} {
       allow read: if isSignedIn();
@@ -506,77 +518,77 @@ service cloud.firestore {
       allow update: if isOwner(userId) || isAdmin();
       allow delete: if isAdmin();
     }
-    
+
     // Certificates Collection
     match /certificates/{certificateId} {
-      allow read: if isAdmin() || 
+      allow read: if isAdmin() ||
                      (isSignedIn() && resource.data.userId == request.auth.uid);
       allow create: if isAdmin();
       allow update, delete: if isAdmin();
     }
-    
+
     // Quote Requests Collection
     match /quoteRequests/{requestId} {
-      allow read: if isAdmin() || 
+      allow read: if isAdmin() ||
                      (isSignedIn() && resource.data.userId == request.auth.uid);
       allow create: if true; // 비회원도 가능
       allow update: if isAdmin();
       allow delete: if isAdmin();
     }
-    
+
     // Notices Collection
     match /notices/{noticeId} {
       allow read: if resource.data.status == 'published';
       allow create, update, delete: if isAdmin();
     }
-    
+
     // QnA Collection
     match /qna/{qnaId} {
-      allow read: if isAdmin() || 
+      allow read: if isAdmin() ||
                      (isSignedIn() && resource.data.userId == request.auth.uid) ||
                      (resource.data.isPrivate == false);
       allow create: if isSignedIn();
       allow update: if isAdmin() || isOwner(resource.data.userId);
       allow delete: if isAdmin();
     }
-    
+
     // Free Board Collection
     match /freeBoard/{postId} {
       allow read: if resource.data.status == 'published';
       allow create: if isSignedIn();
       allow update, delete: if isAdmin() || isOwner(resource.data.userId);
-      
+
       match /comments/{commentId} {
         allow read: if true;
         allow create: if isSignedIn();
         allow update, delete: if isAdmin() || isOwner(resource.data.userId);
       }
     }
-    
+
     // Resources Collection
     match /resources/{resourceId} {
       allow read: if resource.data.isPublic == true || isSignedIn();
       allow create, update, delete: if isAdmin();
     }
-    
+
     // Services Collection
     match /services/{serviceId} {
       allow read: if resource.data.isPublished == true || isAdmin();
       allow create, update, delete: if isAdmin();
     }
-    
+
     // Statistics Collection
     match /statistics/{date} {
       allow read: if isAdmin();
       allow create, update: if isAdmin();
     }
-    
+
     // Site Config Collection
     match /siteConfig/{configId} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
     }
-    
+
     // Activity Logs Collection
     match /activityLogs/{logId} {
       allow read: if isAdmin();
@@ -646,40 +658,40 @@ service cloud.firestore {
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    
+
     function isSignedIn() {
       return request.auth != null;
     }
-    
+
     function isAdmin() {
-      return request.auth != null && 
+      return request.auth != null &&
              firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
-    
+
     // User Profile Images
     match /users/{userId}/profile/{fileName} {
       allow read: if true;
       allow write: if isSignedIn() && request.auth.uid == userId;
     }
-    
+
     // Certificates
     match /certificates/{certificateId}/{allPaths=**} {
       allow read: if isAdmin() || isSignedIn();
       allow write: if isAdmin();
     }
-    
+
     // Notices, QnA, Free Board
     match /{collection}/{documentId}/{allPaths=**} {
       allow read: if true;
       allow write: if isAdmin() || isSignedIn();
     }
-    
+
     // Resources
     match /resources/{resourceId}/{allPaths=**} {
       allow read: if true;
       allow write: if isAdmin();
     }
-    
+
     // Site Assets
     match /site/{allPaths=**} {
       allow read: if true;
@@ -694,41 +706,45 @@ service firebase.storage {
 ## 🔍 Firestore 쿼리 예제
 
 ### 1. 최신 공지사항 5개 가져오기
+
 ```typescript
 const noticesQuery = query(
-  collection(db, 'notices'),
-  where('status', '==', 'published'),
-  orderBy('isPinned', 'desc'),
-  orderBy('publishedAt', 'desc'),
+  collection(db, "notices"),
+  where("status", "==", "published"),
+  orderBy("isPinned", "desc"),
+  orderBy("publishedAt", "desc"),
   limit(5)
 );
 ```
 
 ### 2. 사용자의 성적서 조회
+
 ```typescript
 const certificatesQuery = query(
-  collection(db, 'certificates'),
-  where('userId', '==', userId),
-  orderBy('createdAt', 'desc')
+  collection(db, "certificates"),
+  where("userId", "==", userId),
+  orderBy("createdAt", "desc")
 );
 ```
 
 ### 3. 미답변 질문 목록
+
 ```typescript
 const unansweredQnaQuery = query(
-  collection(db, 'qna'),
-  where('status', '==', 'waiting'),
-  orderBy('createdAt', 'asc')
+  collection(db, "qna"),
+  where("status", "==", "waiting"),
+  orderBy("createdAt", "asc")
 );
 ```
 
 ### 4. 서비스별 견적 요청 통계
+
 ```typescript
 const quoteStatsQuery = query(
-  collection(db, 'quoteRequests'),
-  where('serviceType', '==', 'water'),
-  where('createdAt', '>=', startDate),
-  where('createdAt', '<=', endDate)
+  collection(db, "quoteRequests"),
+  where("serviceType", "==", "water"),
+  where("createdAt", ">=", startDate),
+  where("createdAt", "<=", endDate)
 );
 ```
 

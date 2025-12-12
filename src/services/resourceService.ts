@@ -187,6 +187,8 @@ export const incrementDownloadCount = async (id: string): Promise<void> => {
   }
 };
 
+
+
 // 파일 다운로드
 export const downloadFile = async (fileUrl: string, fileName: string, resourceId: string): Promise<void> => {
   try {

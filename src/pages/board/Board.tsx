@@ -7,7 +7,7 @@ const Board = () => {
           <p className="text-lg">공지사항, 질문답변, 자료실</p>
         </div>
       </div>
-      
+
       <div className="section container-custom">
         <div className="card p-8">
           <h2 className="heading-md mb-6">게시판</h2>

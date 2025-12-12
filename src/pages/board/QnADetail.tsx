@@ -1,244 +1,188 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Edit2, Trash2, Lock, MessageSquare, CheckCircle, Clock } from 'lucide-react';
-import { getQnaById, deleteQna, addComment, deleteComment, toggleAnswered } from '../../services/qnaService';
+import {
+  ArrowLeft,
+  MessageSquare,
+  Clock,
+  User,
+  Trash2,
+} from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import type { QnA } from '../../types';
+import { 
+  getQnAById, 
+  deleteQnA
+} from '../../services/qnaService';
+import { QnA } from '../../types';
 
-const QnADetail = () => {
+const QnADetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const [qna, setQna] = useState<QnA | null>(null);
+  const { user, userData } = useAuth();
+  const [qna, setQnA] = useState<QnA | null>(null);
   const [loading, setLoading] = useState(true);
-  const [commentContent, setCommentContent] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // QnA 데이터 로드
   useEffect(() => {
-    if (id) {
-      fetchQnA();
-    }
-  }, [id]);
+    const loadQnA = async () => {
+      if (!id) return;
 
-  const fetchQnA = async () => {
-    if (!id) return;
+      try {
+        setLoading(true);
+        const qnaData = await getQnAById(id);
+        
+        if (!qnaData) {
+          return;
+        }
 
-    try {
-      setLoading(true);
-      const data = await getQnaById(id);
-      
-      if (!data) {
-        alert('존재하지 않는 게시글입니다.');
-        navigate('/board/qna');
-        return;
+        // 비밀글인 경우 권한 확인
+        if (qnaData.isSecret && 
+            qnaData.authorId !== user?.uid && 
+            userData?.role !== 'admin') {
+          alert('비밀글입니다. 작성자와 관리자만 볼 수 있습니다.');
+          navigate('/board/qna');
+          return;
+        }
+
+        setQnA(qnaData);
+        
+        // 조회수는 자동으로 증가됨
+      } catch (error) {
+        console.error('QnA 로드 실패:', error);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      // 비밀글 권한 체크
-      if (data.isSecret && !user) {
-        alert('로그인이 필요한 게시글입니다.');
-        navigate('/auth/login');
-        return;
-      }
-
-      if (data.isSecret && user?.uid !== data.authorId && user?.role !== 'admin') {
-        alert('작성자 또는 관리자만 볼 수 있는 게시글입니다.');
-        navigate('/board/qna');
-        return;
-      }
-
-      setQna(data);
-    } catch (error) {
-      console.error('Error fetching QnA:', error);
-      alert('게시글을 불러오는 데 실패했습니다.');
-      navigate('/board/qna');
-    } finally {
-      setLoading(false);
-    }
-  };
+    loadQnA();
+  }, [id, user, userData, navigate]);
 
   const handleDelete = async () => {
-    if (!qna || !id) return;
-    
-    if (!window.confirm('정말 삭제하시겠습니까?')) return;
+    if (!qna || !user) return;
 
-    try {
-      await deleteQna(id);
-      alert('게시글이 삭제되었습니다.');
-      navigate('/board/qna');
-    } catch (error) {
-      console.error('Error deleting QnA:', error);
-      alert('게시글 삭제에 실패했습니다.');
+    // 권한 확인
+    if (qna.authorId !== user.uid && userData?.role !== 'admin') {
+      alert('삭제 권한이 없습니다.');
+      return;
+    }
+
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
+      try {
+        await deleteQnA(qna.id);
+        navigate('/board/qna');
+      } catch (error) {
+        console.error('삭제 실패:', error);
+        alert('삭제에 실패했습니다.');
+      }
     }
   };
 
-  const handleCommentSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!id || !user || !commentContent.trim()) return;
-
-    try {
-      setIsSubmitting(true);
-      await addComment(id, {
-        authorId: user.uid,
-        authorName: user.displayName || '익명',
-        content: commentContent,
-        isAdmin: user.role === 'admin',
-      });
-
-      setCommentContent('');
-      await fetchQnA();
-      alert('댓글이 등록되었습니다.');
-    } catch (error) {
-      console.error('Error adding comment:', error);
-      alert('댓글 등록에 실패했습니다.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleCommentDelete = async (commentId: string) => {
-    if (!id || !window.confirm('댓글을 삭제하시겠습니까?')) return;
-
-    try {
-      await deleteComment(id, commentId);
-      await fetchQnA();
-      alert('댓글이 삭제되었습니다.');
-    } catch (error) {
-      console.error('Error deleting comment:', error);
-      alert('댓글 삭제에 실패했습니다.');
-    }
-  };
-
-  const handleToggleAnswered = async () => {
-    if (!id || !qna) return;
-
-    try {
-      await toggleAnswered(id, !qna.isAnswered);
-      await fetchQnA();
-    } catch (error) {
-      console.error('Error toggling answered status:', error);
-      alert('답변 상태 변경에 실패했습니다.');
-    }
-  };
-
-  const formatDate = (timestamp: any) => {
-    if (!timestamp) return '';
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+  const formatDate = (dateValue: string | Date) => {
+    const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
     return new Intl.DateTimeFormat('ko-KR', {
       year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
+      month: 'long',
+      day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
     }).format(date);
   };
 
   const getCategoryLabel = (category: string) => {
-    const labels: Record<string, string> = {
-      general: '일반문의',
-      service: '서비스문의',
-      technical: '기술문의',
-      account: '계정문의',
-    };
-    return labels[category] || category;
-  };
-
-  const getCategoryColor = (category: string) => {
-    const colors: Record<string, string> = {
-      general: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-      service: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-      technical: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
-      account: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-    };
-    return colors[category] || 'bg-neutral-100 text-neutral-800';
+    switch (category) {
+      case 'general': return '일반문의';
+      case 'technical': return '기술문의';
+      case 'account': return '계정문의';
+      case 'complaint': return '불만신고';
+      default: return category;
+    }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="mt-4 text-neutral-600 dark:text-neutral-400">게시글을 불러오는 중...</p>
-        </div>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
       </div>
     );
   }
 
   if (!qna) {
-    return null;
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
+          <h2 className="text-xl font-semibold mb-4">게시글을 찾을 수 없습니다</h2>
+          <Link to="/board/qna" className="text-primary-600 hover:underline">
+            목록으로 돌아가기
+          </Link>
+        </div>
+      </div>
+    );
   }
 
-  const isAuthor = user?.uid === qna.authorId;
-  const isAdmin = user?.role === 'admin';
-  const canEdit = isAuthor || isAdmin;
-
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
-      <div className="section container-custom max-w-4xl">
-        {/* 뒤로 가기 */}
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      {/* 상단 네비게이션 */}
+      <div className="mb-6">
         <Link
           to="/board/qna"
-          className="inline-flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 mb-6"
+          className="inline-flex items-center text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors"
         >
-          <ArrowLeft className="w-5 h-5" />
-          목록으로
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          목록으로 돌아가기
         </Link>
+      </div>
 
-        {/* 게시글 헤더 */}
-        <div className="card p-8 mb-6">
-          <div className="flex items-center gap-2 mb-4">
-            <span className={`text-xs px-3 py-1 rounded-full font-medium ${getCategoryColor(qna.category)}`}>
-              {getCategoryLabel(qna.category)}
-            </span>
-            {qna.isSecret && (
-              <span className="flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">
-                <Lock className="w-3 h-3" />
-                비밀글
-              </span>
-            )}
-            {qna.isAnswered ? (
-              <span className="flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
-                <CheckCircle className="w-4 h-4" />
-                답변완료
-              </span>
-            ) : (
-              <span className="flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300">
-                <Clock className="w-4 h-4" />
-                답변대기
-              </span>
-            )}
-          </div>
-
-          <h1 className="text-3xl font-bold mb-4">{qna.title}</h1>
-
-          <div className="flex items-center justify-between text-sm text-neutral-600 dark:text-neutral-400 pb-4 border-b border-neutral-200 dark:border-neutral-700">
-            <div className="flex items-center gap-4">
-              <span className="font-medium">{qna.authorName}</span>
-              <span>•</span>
-              <span>{formatDate(qna.createdAt)}</span>
-              <span>•</span>
-              <span>조회 {qna.views || 0}</span>
-            </div>
-
-            {canEdit && (
-              <div className="flex items-center gap-2">
-                {isAdmin && (
-                  <button
-                    onClick={handleToggleAnswered}
-                    className="btn btn-sm btn-outline"
-                  >
-                    {qna.isAnswered ? '답변대기로 변경' : '답변완료로 변경'}
-                  </button>
+      {/* QnA 상세 내용 */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+        {/* 헤더 */}
+        <div className="bg-neutral-50 dark:bg-neutral-800 p-6 border-b border-neutral-200 dark:border-neutral-700">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium">
+                  {getCategoryLabel(qna.category)}
+                </span>
+                {qna.isSecret && (
+                  <span className="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-full text-sm font-medium">
+                    비밀글
+                  </span>
                 )}
+                {qna.status === 'answered' && (
+                  <span className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium">
+                    답변완료
+                  </span>
+                )}
+              </div>
+              <h1 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+                {qna.title}
+              </h1>
+              <div className="flex items-center gap-6 text-sm text-neutral-600 dark:text-neutral-400">
+                <div className="flex items-center gap-1">
+                  <User className="w-4 h-4" />
+                  <span>{qna.authorName}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Clock className="w-4 h-4" />
+                  <span>{formatDate(qna.createdAt)}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <MessageSquare className="w-4 h-4" />
+                  <span>조회 {qna.views || 0}</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* 관리 버튼 */}
+            {(qna.authorId === user?.uid || userData?.role === 'admin') && (
+              <div className="flex items-center gap-2">
                 <Link
-                  to={`/board/qna/edit/${id}`}
-                  className="btn btn-sm btn-outline"
+                  to={`/board/qna/edit/${qna.id}`}
+                  className="px-3 py-1 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600 border border-neutral-300 dark:border-neutral-600 rounded hover:border-primary-600 transition-colors"
                 >
-                  <Edit2 className="w-4 h-4" />
                   수정
                 </Link>
                 <button
                   onClick={handleDelete}
-                  className="btn btn-sm btn-outline text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
+                  className="px-3 py-1 text-sm text-red-600 border border-red-200 rounded hover:border-red-600 transition-colors flex items-center gap-1"
                 >
                   <Trash2 className="w-4 h-4" />
                   삭제
@@ -246,99 +190,44 @@ const QnADetail = () => {
               </div>
             )}
           </div>
-
-          {/* 게시글 내용 */}
-          <div className="prose dark:prose-invert max-w-none mt-6">
-            <div className="whitespace-pre-wrap">{qna.content}</div>
-          </div>
         </div>
 
-        {/* 댓글 섹션 */}
-        <div className="card p-8">
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-            <MessageSquare className="w-6 h-6" />
-            댓글 {qna.comments?.length || 0}개
-          </h2>
+        {/* 내용 */}
+        <div className="p-6">
+          <div 
+            className="prose prose-neutral dark:prose-invert max-w-none"
+            dangerouslySetInnerHTML={{ __html: qna.content.replace(/\n/g, '<br>') }}
+          />
+        </div>
 
-          {/* 댓글 목록 */}
-          <div className="space-y-4 mb-8">
-            {qna.comments && qna.comments.length > 0 ? (
-              qna.comments.map((comment) => (
-                <div
-                  key={comment.id}
-                  className={`p-4 rounded-lg ${
-                    comment.isAdmin 
-                      ? 'bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-600' 
-                      : 'bg-neutral-100 dark:bg-neutral-800'
-                  }`}
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold">{comment.authorName}</span>
-                      {comment.isAdmin && (
-                        <span className="text-xs px-2 py-1 rounded-full bg-primary-600 text-white">
-                          관리자
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-neutral-500 dark:text-neutral-400">
-                        {formatDate(comment.createdAt)}
-                      </span>
-                      {(user?.uid === comment.authorId || isAdmin) && (
-                        <button
-                          onClick={() => handleCommentDelete(comment.id)}
-                          className="text-red-600 dark:text-red-400 hover:underline text-sm"
-                        >
-                          삭제
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                  <p className="text-neutral-700 dark:text-neutral-300 whitespace-pre-wrap">
-                    {comment.content}
-                  </p>
-                </div>
-              ))
-            ) : (
-              <p className="text-center text-neutral-500 dark:text-neutral-400 py-8">
-                아직 댓글이 없습니다. 첫 댓글을 작성해보세요!
-              </p>
-            )}
-          </div>
-
-          {/* 댓글 작성 폼 */}
-          {user ? (
-            <form onSubmit={handleCommentSubmit}>
-              <textarea
-                value={commentContent}
-                onChange={(e) => setCommentContent(e.target.value)}
-                placeholder="댓글을 입력하세요..."
-                rows={4}
-                className="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
-                required
-              />
-              <div className="flex justify-end mt-4">
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !commentContent.trim()}
-                  className="btn btn-primary"
-                >
-                  {isSubmitting ? '등록 중...' : '댓글 등록'}
-                </button>
-              </div>
-            </form>
-          ) : (
-            <div className="text-center py-8 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
-              <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-                댓글을 작성하시려면 로그인이 필요합니다.
-              </p>
-              <Link to="/auth/login" className="btn btn-primary">
-                로그인하기
-              </Link>
+        {/* 답변 섹션 */}
+        {qna.status === 'answered' && (
+          <div className="border-t border-neutral-200 dark:border-neutral-700">
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 border-b border-neutral-200 dark:border-neutral-700">
+              <h3 className="font-semibold text-blue-900 dark:text-blue-100">관리자 답변</h3>
             </div>
-          )}
-        </div>
+            <div className="p-6">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                  <User className="w-5 h-5 text-blue-600 dark:text-blue-300" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-medium text-neutral-900 dark:text-white">
+                      관리자
+                    </span>
+                    <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                      {formatDate(qna.answeredAt || qna.createdAt)}
+                    </span>
+                  </div>
+                  <div className="prose prose-neutral dark:prose-invert">
+                    <p>답변이 완료되었습니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createElement } from 'react';
 import { motion } from 'framer-motion';
 import { 
   FileText, 
@@ -20,7 +20,6 @@ import {
 } from 'lucide-react';
 import { 
   getAllQuotes, 
-  getQuotesByStatus, 
   updateQuoteStatus, 
   deleteQuote,
   getQuoteStats 
@@ -116,12 +115,12 @@ const QuoteManagement = () => {
   };
 
   const handleStatusChange = async (quoteId: string, newStatus: string) => {
-    if (!confirm(`견적 상태를 '${statusMap[newStatus].label}'(으)로 변경하시겠습니까?`)) {
+    if (!confirm(`견적 상태를 '${statusMap[newStatus]?.label}'(으)로 변경하시겠습니까?`)) {
       return;
     }
 
     try {
-      await updateQuoteStatus(quoteId, newStatus);
+      await updateQuoteStatus(quoteId, newStatus as QuoteRequest['status']);
       await loadQuotes();
       await loadStats();
       alert('상태가 변경되었습니다.');
@@ -130,7 +129,7 @@ const QuoteManagement = () => {
       if (selectedQuote && selectedQuote.id === quoteId) {
         const updated = quotes.find(q => q.id === quoteId);
         if (updated) {
-          setSelectedQuote({ ...updated, status: newStatus });
+          setSelectedQuote({ ...updated, status: newStatus as QuoteRequest['status'] });
         }
       }
     } catch (error) {
@@ -449,7 +448,7 @@ const QuoteManagement = () => {
               {/* Status Badge */}
               <div className="flex items-center gap-2">
                 <span className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium ${statusMap[selectedQuote.status].color}`}>
-                  {React.createElement(statusMap[selectedQuote.status].icon, { className: 'w-4 h-4' })}
+                  {createElement(statusMap[selectedQuote.status].icon, { className: 'w-4 h-4' })}
                   {statusMap[selectedQuote.status].label}
                 </span>
               </div>

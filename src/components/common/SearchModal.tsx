@@ -72,6 +72,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     }, 300);
 
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm, filter]);
 
   const handleSearch = async () => {
@@ -148,9 +149,9 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     );
   };
 
-  const formatDate = (date: any) => {
+  const formatDate = (date: Date | { toDate: () => Date } | string | undefined) => {
     if (!date) return '';
-    const d = date.toDate ? date.toDate() : new Date(date);
+    const d = typeof date === 'object' && 'toDate' in date ? date.toDate() : new Date(date);
     const now = new Date();
     const diff = now.getTime() - d.getTime();
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));

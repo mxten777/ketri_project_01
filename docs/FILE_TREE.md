@@ -95,6 +95,7 @@ ketri_project_01/
 ## 📊 파일 통계
 
 ### 파일 개수
+
 - **설정 파일**: 12개
 - **문서**: 7개
 - **정적 파일**: 2개
@@ -104,6 +105,7 @@ ketri_project_01/
 - **총 파일 수**: **약 41개** (핵심 파일 기준)
 
 ### 코드 라인 수 (추정)
+
 - **TypeScript/TSX**: ~4,000 줄
 - **CSS**: ~300 줄
 - **설정 파일**: ~200 줄
@@ -115,6 +117,7 @@ ketri_project_01/
 ## 🎯 핵심 파일 설명
 
 ### 루트 레벨
+
 - **`package.json`** - 프로젝트 메타데이터 및 의존성
 - **`vite.config.ts`** - Vite 빌드 최적화 설정 (코드 스플리팅)
 - **`tailwind.config.js`** - 커스텀 컬러, 폰트, 애니메이션 정의
@@ -122,6 +125,7 @@ ketri_project_01/
 - **`index.html`** - SEO 메타태그, OG tags 포함
 
 ### 문서
+
 - **`GETTING_STARTED.md`** - 개발자 온보딩 가이드
 - **`SITEMAP.md`** - 전체 사이트 구조 (50+ 페이지)
 - **`FIREBASE_STRUCTURE.md`** - DB 스키마 및 Security Rules
@@ -130,17 +134,20 @@ ketri_project_01/
 - **`PROJECT_COMPLETE.md`** - 프로젝트 완료 리포트
 
 ### 핵심 컴포넌트
+
 - **`Header.tsx`** - 반응형 네비게이션, 메가메뉴, 검색 모달
 - **`Footer.tsx`** - 링크, 연락처, SNS
 - **`Button.tsx`** - 4가지 variant (primary, secondary, outline, ghost)
 - **`Card.tsx`** - Framer Motion 애니메이션 통합
 
 ### 페이지
+
 - **`Home.tsx`** - 히어로, 서비스 카드, 통계, 공지사항 (약 400줄)
 - **`IndustrialHealth.tsx`** - 서비스 상세 페이지 템플릿
 - **`Login.tsx`** - 로그인 폼 (validation, 상태 관리)
 
 ### 설정
+
 - **`firebase.ts`** - Firebase SDK 초기화
 - **`types/index.ts`** - 15+ 인터페이스 (User, Certificate, Notice 등)
 - **`App.tsx`** - React Router v6 라우팅 (lazy loading)
@@ -150,6 +157,7 @@ ketri_project_01/
 ## 🔄 향후 추가될 파일 (Phase 2)
 
 ### Hooks
+
 ```
 src/hooks/
 ├── useAuth.ts           # Firebase Auth 훅
@@ -159,6 +167,7 @@ src/hooks/
 ```
 
 ### Utils
+
 ```
 src/utils/
 ├── formatters.ts        # 날짜, 숫자 포맷팅
@@ -168,6 +177,7 @@ src/utils/
 ```
 
 ### Store (Zustand)
+
 ```
 src/store/
 ├── authStore.ts         # 인증 상태 관리
@@ -176,6 +186,7 @@ src/store/
 ```
 
 ### Features
+
 ```
 src/components/features/
 ├── SearchModal.tsx      # 통합 검색
@@ -186,6 +197,7 @@ src/components/features/
 ```
 
 ### Pages (추가)
+
 ```
 src/pages/
 ├── CertificateLookup.tsx
@@ -199,6 +211,7 @@ src/pages/
 ## 📦 의존성 패키지 (package.json)
 
 ### 프로덕션 의존성
+
 - `react` (18.3.1) - UI 라이브러리
 - `react-dom` (18.3.1)
 - `react-router-dom` (6.22.0) - 라우팅
@@ -210,6 +223,7 @@ src/pages/
 - `date-fns` (3.3.1) - 날짜 유틸리티
 
 ### 개발 의존성
+
 - `@vitejs/plugin-react` (4.2.1)
 - `typescript` (5.3.3)
 - `tailwindcss` (3.4.1)
@@ -223,26 +237,28 @@ src/pages/
 ## 🎨 스타일 구조
 
 ### Tailwind 커스텀 설정
+
 - **컬러**: Primary (Blue), Secondary (Sky), Accent (Orange), Neutral (Gray)
 - **폰트**: Pretendard Variable
 - **스페이싱**: 4px 기반 시스템
 - **애니메이션**: fadeIn, slideUp, scaleIn, float
 
 ### CSS 클래스 구조
+
 ```css
 /* 유틸리티 클래스 (index.css) */
 .btn-primary
-.btn-secondary
-.btn-outline
-.btn-ghost
-.card
-.card-hover
-.input
-.badge
-.heading-display
-.heading-xl
-.text-gradient
-.glass
+  .btn-secondary
+  .btn-outline
+  .btn-ghost
+  .card
+  .card-hover
+  .input
+  .badge
+  .heading-display
+  .heading-xl
+  .text-gradient
+  .glass;
 ```
 
 ---
@@ -250,6 +266,7 @@ src/pages/
 ## 🔒 보안 파일 (.gitignore)
 
 무시되는 파일들:
+
 - `.env` (환경 변수)
 - `node_modules/` (의존성)
 - `dist/` (빌드 결과물)
@@ -261,18 +278,22 @@ src/pages/
 ## 📈 프로젝트 성장 예상
 
 ### Phase 1 (현재)
+
 - 41개 파일
 - 8,000 줄 코드
 
 ### Phase 2 (예상)
+
 - +20개 파일 (hooks, utils, features)
 - +3,000 줄 코드
 
 ### Phase 3 (예상)
+
 - +10개 파일 (테스트, 추가 페이지)
 - +2,000 줄 코드
 
 ### 최종 (예상)
+
 - **총 70+ 파일**
 - **총 13,000+ 줄 코드**
 

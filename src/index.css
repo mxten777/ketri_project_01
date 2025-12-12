@@ -8,16 +8,16 @@
     --color-secondary: 14 165 233;
     --color-accent: 249 115 22;
   }
-  
+
   * {
     @apply border-neutral-200 dark:border-neutral-700;
   }
-  
+
   body {
     @apply bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50;
     @apply font-sans antialiased;
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
@@ -29,39 +29,39 @@
     @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
     @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
-  
+
   .btn-primary {
     @apply bg-primary-500 text-white hover:bg-primary-600;
     @apply focus:ring-primary-500 shadow-md hover:shadow-lg;
   }
-  
+
   .btn-secondary {
     @apply bg-secondary-500 text-white hover:bg-secondary-600;
     @apply focus:ring-secondary-500 shadow-md hover:shadow-lg;
   }
-  
+
   .btn-outline {
     @apply border-2 border-primary-500 text-primary-500;
     @apply hover:bg-primary-500 hover:text-white;
     @apply focus:ring-primary-500;
   }
-  
+
   .btn-ghost {
     @apply text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100;
     @apply dark:text-neutral-400 dark:hover:text-neutral-100 dark:hover:bg-neutral-800;
   }
-  
+
   /* Card Styles */
   .card {
     @apply bg-white dark:bg-neutral-800 rounded-2xl shadow-card;
     @apply border border-neutral-100 dark:border-neutral-700;
     @apply transition-all duration-300;
   }
-  
+
   .card-hover {
     @apply hover:shadow-premium hover:-translate-y-1;
   }
-  
+
   /* Input Styles */
   .input {
     @apply w-full px-4 py-3 rounded-lg border border-neutral-300;
@@ -69,67 +69,67 @@
     @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-100;
     @apply transition-all duration-200;
   }
-  
+
   .input-error {
     @apply border-red-500 focus:ring-red-500;
   }
-  
+
   /* Container */
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8;
   }
-  
+
   /* Section */
   .section {
     @apply py-16 lg:py-24;
   }
-  
+
   /* Heading Styles */
   .heading-display {
     @apply text-4xl md:text-5xl lg:text-6xl font-bold;
     @apply bg-gradient-to-r from-primary-600 to-secondary-600;
     @apply bg-clip-text text-transparent;
   }
-  
+
   .heading-xl {
     @apply text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-neutral-50;
   }
-  
+
   .heading-lg {
     @apply text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-neutral-50;
   }
-  
+
   .heading-md {
     @apply text-xl md:text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-neutral-50;
   }
-  
+
   /* Link Styles */
   .link {
     @apply text-primary-500 hover:text-primary-600 transition-colors duration-200;
     @apply hover:underline;
   }
-  
+
   /* Badge */
   .badge {
     @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
   }
-  
+
   .badge-primary {
     @apply bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200;
   }
-  
+
   .badge-secondary {
     @apply bg-secondary-100 text-secondary-800 dark:bg-secondary-900 dark:text-secondary-200;
   }
-  
+
   .badge-success {
     @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
   }
-  
+
   .badge-warning {
     @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200;
   }
-  
+
   .badge-danger {
     @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200;
   }
@@ -141,32 +141,32 @@
     @apply bg-gradient-to-r from-primary-600 to-secondary-600;
     @apply bg-clip-text text-transparent;
   }
-  
+
   /* Glass Effect */
   .glass {
     @apply bg-white/70 dark:bg-neutral-900/70 backdrop-blur-lg;
     @apply border border-white/20 dark:border-neutral-700/20;
   }
-  
+
   /* Scrollbar */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
-  
+
   /* Animation delays */
   .animation-delay-200 {
     animation-delay: 0.2s;
   }
-  
+
   .animation-delay-400 {
     animation-delay: 0.4s;
   }
-  
+
   .animation-delay-600 {
     animation-delay: 0.6s;
   }
@@ -205,7 +205,7 @@
   body {
     @apply text-black bg-white;
   }
-  
+
   .no-print {
     display: none !important;
   }

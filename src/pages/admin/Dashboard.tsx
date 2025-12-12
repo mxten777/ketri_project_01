@@ -177,7 +177,8 @@ const Dashboard: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow"
+            onClick={() => window.location.href = '/admin/qna'}
           >
             <div className="flex items-center justify-between mb-4">
               <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
@@ -193,14 +194,15 @@ const Dashboard: React.FC = () => {
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
               {stats.totalQna.toLocaleString()}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">QnA 문의</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">QnA 관리</p>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow"
+            onClick={() => window.location.href = '/admin/resources'}
           >
             <div className="flex items-center justify-between mb-4">
               <div className="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
@@ -211,7 +213,7 @@ const Dashboard: React.FC = () => {
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
               {stats.totalDownloads.toLocaleString()}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">총 다운로드</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">자료실 관리</p>
           </motion.div>
         </div>
 

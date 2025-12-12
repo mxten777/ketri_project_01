@@ -1,25 +1,46 @@
-﻿import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { User, Mail, Lock, Save, LogOut, Trash2, Eye, EyeOff } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import Button from '../components/common/Button';
+﻿import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  User,
+  Mail,
+  Lock,
+  Save,
+  LogOut,
+  Trash2,
+  Eye,
+  EyeOff,
+} from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/common/Button";
 
 const MyPage = () => {
-  const { currentUser, userData, updateUserProfile, changePassword, deleteAccount, logout } = useAuth();
+  const {
+    currentUser,
+    userData,
+    updateUserProfile,
+    changePassword,
+    deleteAccount,
+    logout,
+  } = useAuth();
   const navigate = useNavigate();
-  
-  const [displayName, setDisplayName] = useState(userData?.displayName || '');
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [displayName, setDisplayName] = useState(userData?.displayName || "");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
-  const [activeTab, setActiveTab] = useState<'profile' | 'password' | 'delete'>('profile');
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+  const [activeTab, setActiveTab] = useState<"profile" | "password" | "delete">(
+    "profile"
+  );
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,10 +49,13 @@ const MyPage = () => {
 
     try {
       await updateUserProfile(displayName);
-      setMessage({ type: 'success', text: '프로필이 성공적으로 업데이트되었습니다.' });
+      setMessage({
+        type: "success",
+        text: "프로필이 성공적으로 업데이트되었습니다.",
+      });
     } catch (error) {
-      console.error('Profile update error:', error);
-      setMessage({ type: 'error', text: '프로필 업데이트에 실패했습니다.' });
+      console.error("Profile update error:", error);
+      setMessage({ type: "error", text: "프로필 업데이트에 실패했습니다." });
     } finally {
       setLoading(false);
     }
@@ -43,29 +67,35 @@ const MyPage = () => {
     setMessage(null);
 
     if (newPassword.length < 6) {
-      setMessage({ type: 'error', text: '비밀번호는 6자 이상이어야 합니다.' });
+      setMessage({ type: "error", text: "비밀번호는 6자 이상이어야 합니다." });
       setLoading(false);
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      setMessage({ type: 'error', text: '비밀번호가 일치하지 않습니다.' });
+      setMessage({ type: "error", text: "비밀번호가 일치하지 않습니다." });
       setLoading(false);
       return;
     }
 
     try {
       await changePassword(newPassword);
-      setMessage({ type: 'success', text: '비밀번호가 성공적으로 변경되었습니다.' });
-      setCurrentPassword('');
-      setNewPassword('');
-      setConfirmPassword('');
+      setMessage({
+        type: "success",
+        text: "비밀번호가 성공적으로 변경되었습니다.",
+      });
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
     } catch (error: any) {
-      console.error('Password change error:', error);
-      if (error.code === 'auth/requires-recent-login') {
-        setMessage({ type: 'error', text: '보안을 위해 다시 로그인한 후 시도해주세요.' });
+      console.error("Password change error:", error);
+      if (error.code === "auth/requires-recent-login") {
+        setMessage({
+          type: "error",
+          text: "보안을 위해 다시 로그인한 후 시도해주세요.",
+        });
       } else {
-        setMessage({ type: 'error', text: '비밀번호 변경에 실패했습니다.' });
+        setMessage({ type: "error", text: "비밀번호 변경에 실패했습니다." });
       }
     } finally {
       setLoading(false);
@@ -73,7 +103,11 @@ const MyPage = () => {
   };
 
   const handleDeleteAccount = async () => {
-    if (!window.confirm('정말로 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
+    if (
+      !window.confirm(
+        "정말로 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+      )
+    ) {
       return;
     }
 
@@ -82,13 +116,16 @@ const MyPage = () => {
 
     try {
       await deleteAccount();
-      navigate('/');
+      navigate("/");
     } catch (error: any) {
-      console.error('Account deletion error:', error);
-      if (error.code === 'auth/requires-recent-login') {
-        setMessage({ type: 'error', text: '보안을 위해 다시 로그인한 후 시도해주세요.' });
+      console.error("Account deletion error:", error);
+      if (error.code === "auth/requires-recent-login") {
+        setMessage({
+          type: "error",
+          text: "보안을 위해 다시 로그인한 후 시도해주세요.",
+        });
       } else {
-        setMessage({ type: 'error', text: '계정 삭제에 실패했습니다.' });
+        setMessage({ type: "error", text: "계정 삭제에 실패했습니다." });
       }
     } finally {
       setLoading(false);
@@ -98,9 +135,9 @@ const MyPage = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/');
+      navigate("/");
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     }
   };
 
@@ -130,11 +167,13 @@ const MyPage = () => {
               </div>
               <div>
                 <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
-                  {userData?.displayName || '사용자'}
+                  {userData?.displayName || "사용자"}
                 </h2>
-                <p className="text-neutral-600 dark:text-neutral-400">{currentUser?.email}</p>
+                <p className="text-neutral-600 dark:text-neutral-400">
+                  {currentUser?.email}
+                </p>
                 <p className="text-sm text-neutral-500 dark:text-neutral-500">
-                  {userData?.role === 'admin' ? '관리자' : '일반 회원'}
+                  {userData?.role === "admin" ? "관리자" : "일반 회원"}
                 </p>
               </div>
             </div>
@@ -145,31 +184,31 @@ const MyPage = () => {
             <div className="border-b border-neutral-200 dark:border-neutral-700">
               <nav className="flex space-x-8 px-6" aria-label="Tabs">
                 <button
-                  onClick={() => setActiveTab('profile')}
+                  onClick={() => setActiveTab("profile")}
                   className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                    activeTab === 'profile'
-                      ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                      : 'border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300'
+                    activeTab === "profile"
+                      ? "border-primary-500 text-primary-600 dark:text-primary-400"
+                      : "border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
                   }`}
                 >
                   프로필 수정
                 </button>
                 <button
-                  onClick={() => setActiveTab('password')}
+                  onClick={() => setActiveTab("password")}
                   className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                    activeTab === 'password'
-                      ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                      : 'border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300'
+                    activeTab === "password"
+                      ? "border-primary-500 text-primary-600 dark:text-primary-400"
+                      : "border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
                   }`}
                 >
                   비밀번호 변경
                 </button>
                 <button
-                  onClick={() => setActiveTab('delete')}
+                  onClick={() => setActiveTab("delete")}
                   className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
-                    activeTab === 'delete'
-                      ? 'border-red-500 text-red-600 dark:text-red-400'
-                      : 'border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300'
+                    activeTab === "delete"
+                      ? "border-red-500 text-red-600 dark:text-red-400"
+                      : "border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
                   }`}
                 >
                   계정 삭제
@@ -181,18 +220,20 @@ const MyPage = () => {
             {message && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
+                animate={{ opacity: 1, height: "auto" }}
                 className={`mx-6 mt-6 p-4 rounded-lg ${
-                  message.type === 'success'
-                    ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
-                    : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+                  message.type === "success"
+                    ? "bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800"
+                    : "bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"
                 }`}
               >
-                <p className={`text-sm ${
-                  message.type === 'success'
-                    ? 'text-green-600 dark:text-green-400'
-                    : 'text-red-600 dark:text-red-400'
-                }`}>
+                <p
+                  className={`text-sm ${
+                    message.type === "success"
+                      ? "text-green-600 dark:text-green-400"
+                      : "text-red-600 dark:text-red-400"
+                  }`}
+                >
                   {message.text}
                 </p>
               </motion.div>
@@ -200,10 +241,13 @@ const MyPage = () => {
 
             <div className="p-6">
               {/* Profile Tab */}
-              {activeTab === 'profile' && (
+              {activeTab === "profile" && (
                 <form onSubmit={handleUpdateProfile} className="space-y-6">
                   <div>
-                    <label htmlFor="displayName" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                    <label
+                      htmlFor="displayName"
+                      className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                    >
                       이름
                     </label>
                     <div className="relative">
@@ -228,32 +272,37 @@ const MyPage = () => {
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
                       <input
                         type="email"
-                        value={currentUser?.email || ''}
+                        value={currentUser?.email || ""}
                         className="w-full pl-11 pr-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-neutral-100 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400 cursor-not-allowed"
                         disabled
                       />
                     </div>
-                    <p className="mt-2 text-xs text-neutral-500">이메일은 변경할 수 없습니다</p>
+                    <p className="mt-2 text-xs text-neutral-500">
+                      이메일은 변경할 수 없습니다
+                    </p>
                   </div>
 
                   <Button type="submit" isLoading={loading} disabled={loading}>
                     <Save className="w-5 h-5 mr-2" />
-                    {loading ? '저장 중...' : '프로필 저장'}
+                    {loading ? "저장 중..." : "프로필 저장"}
                   </Button>
                 </form>
               )}
 
               {/* Password Tab */}
-              {activeTab === 'password' && (
+              {activeTab === "password" && (
                 <form onSubmit={handleChangePassword} className="space-y-6">
                   <div>
-                    <label htmlFor="currentPassword" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                    <label
+                      htmlFor="currentPassword"
+                      className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                    >
                       현재 비밀번호
                     </label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
                       <input
-                        type={showCurrentPassword ? 'text' : 'password'}
+                        type={showCurrentPassword ? "text" : "password"}
                         id="currentPassword"
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
@@ -263,22 +312,31 @@ const MyPage = () => {
                       />
                       <button
                         type="button"
-                        onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                        onClick={() =>
+                          setShowCurrentPassword(!showCurrentPassword)
+                        }
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
                       >
-                        {showCurrentPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                        {showCurrentPassword ? (
+                          <EyeOff className="w-5 h-5" />
+                        ) : (
+                          <Eye className="w-5 h-5" />
+                        )}
                       </button>
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="newPassword" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                    <label
+                      htmlFor="newPassword"
+                      className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                    >
                       새 비밀번호
                     </label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
                       <input
-                        type={showNewPassword ? 'text' : 'password'}
+                        type={showNewPassword ? "text" : "password"}
                         id="newPassword"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
@@ -291,19 +349,26 @@ const MyPage = () => {
                         onClick={() => setShowNewPassword(!showNewPassword)}
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
                       >
-                        {showNewPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                        {showNewPassword ? (
+                          <EyeOff className="w-5 h-5" />
+                        ) : (
+                          <Eye className="w-5 h-5" />
+                        )}
                       </button>
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                    <label
+                      htmlFor="confirmPassword"
+                      className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                    >
                       새 비밀번호 확인
                     </label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
                       <input
-                        type={showConfirmPassword ? 'text' : 'password'}
+                        type={showConfirmPassword ? "text" : "password"}
                         id="confirmPassword"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -313,30 +378,37 @@ const MyPage = () => {
                       />
                       <button
                         type="button"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
                       >
-                        {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                        {showConfirmPassword ? (
+                          <EyeOff className="w-5 h-5" />
+                        ) : (
+                          <Eye className="w-5 h-5" />
+                        )}
                       </button>
                     </div>
                   </div>
 
                   <Button type="submit" isLoading={loading} disabled={loading}>
                     <Lock className="w-5 h-5 mr-2" />
-                    {loading ? '변경 중...' : '비밀번호 변경'}
+                    {loading ? "변경 중..." : "비밀번호 변경"}
                   </Button>
                 </form>
               )}
 
               {/* Delete Tab */}
-              {activeTab === 'delete' && (
+              {activeTab === "delete" && (
                 <div className="space-y-6">
                   <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
                     <h3 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-2">
                       계정 삭제
                     </h3>
                     <p className="text-sm text-red-600 dark:text-red-400 mb-4">
-                      계정을 삭제하면 모든 데이터가 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.
+                      계정을 삭제하면 모든 데이터가 영구적으로 삭제됩니다. 이
+                      작업은 되돌릴 수 없습니다.
                     </p>
                     <ul className="list-disc list-inside text-sm text-red-600 dark:text-red-400 space-y-1 mb-6">
                       <li>모든 개인 정보가 삭제됩니다</li>
@@ -351,7 +423,7 @@ const MyPage = () => {
                       className="border-red-500 text-red-600 hover:bg-red-50 dark:border-red-600 dark:text-red-400 dark:hover:bg-red-900/20"
                     >
                       <Trash2 className="w-5 h-5 mr-2" />
-                      {loading ? '삭제 중...' : '계정 영구 삭제'}
+                      {loading ? "삭제 중..." : "계정 영구 삭제"}
                     </Button>
                   </div>
                 </div>

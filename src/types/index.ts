@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 // User Types
 export interface User {
   id?: string;
@@ -11,7 +13,7 @@ export interface User {
     address: string;
     detailAddress: string;
   };
-  role: 'user' | 'admin';
+  role: "user" | "admin";
   createdAt: Date;
   updatedAt: Date;
   lastLoginAt?: Date;
@@ -37,7 +39,7 @@ export interface Certificate {
   userName: string;
   userEmail: string;
   userPhone: string;
-  serviceType: 'water' | 'dialysis' | 'asbestos' | 'indoor-air';
+  serviceType: "water" | "dialysis" | "asbestos" | "indoor-air";
   testItems: TestItem[];
   sampleInfo: {
     sampleName: string;
@@ -49,7 +51,7 @@ export interface Certificate {
   issueDate: Date;
   expiryDate: Date;
   pdfUrl: string;
-  status: 'pending' | 'processing' | 'completed' | 'expired';
+  status: "pending" | "processing" | "completed" | "expired";
   results: TestResult[];
   remarks?: string;
   inspectorName: string;
@@ -80,7 +82,12 @@ export interface QuoteRequest {
   id?: string;
   requestId: string;
   userId?: string;
-  serviceType: 'water' | 'dialysis' | 'asbestos' | 'indoor-air' | 'industrial-health';
+  serviceType:
+    | "water"
+    | "dialysis"
+    | "asbestos"
+    | "indoor-air"
+    | "industrial-health";
   // For backward compatibility - these are the actual field names used
   companyName?: string;
   contactPerson?: string;
@@ -107,11 +114,17 @@ export interface QuoteRequest {
   requestDetails?: {
     testItems: string[];
     sampleCount: number;
-    urgency: 'normal' | 'urgent';
+    urgency: "normal" | "urgent";
     preferredDate: Date;
     additionalRequests?: string;
   };
-  status: 'pending' | 'reviewed' | 'quoted' | 'accepted' | 'rejected' | 'completed';
+  status:
+    | "pending"
+    | "reviewed"
+    | "quoted"
+    | "accepted"
+    | "rejected"
+    | "completed";
   estimatedCost?: number;
   quotePdfUrl?: string;
   adminNotes?: string;
@@ -129,7 +142,7 @@ export interface Notice {
   title: string;
   content: string;
   excerpt: string;
-  category: 'general' | 'service' | 'system' | 'event';
+  category: "general" | "service" | "system" | "event";
   isImportant: boolean;
   isPinned: boolean;
   author: {
@@ -139,7 +152,7 @@ export interface Notice {
   attachments: Attachment[];
   views?: number; // Make optional for compatibility
   viewCount: number;
-  status: 'draft' | 'published' | 'archived';
+  status: "draft" | "published" | "archived";
   publishedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -162,16 +175,26 @@ export interface QnA {
   id: string;
   title: string;
   content: string;
-  category: 'general' | 'service' | 'technical' | 'account';
+  category: "general" | "service" | "technical" | "account" | "complaint";
+  status: "pending" | "answered" | "closed";
+  isSecret: boolean;
+  isPinned: boolean;
+  views: number;
   authorId: string;
   authorName: string;
   authorEmail: string;
-  isSecret: boolean;
-  isAnswered: boolean;
-  views: number;
-  comments: Comment[];
-  createdAt: any;
-  updatedAt: any;
+  createdAt: Date;
+  updatedAt: Date;
+  answeredAt?: Date;
+  answeredBy?: string;
+  answerContent?: string;
+}
+
+export interface QnAFormData {
+  title: string;
+  content: string;
+  category: "general" | "service" | "technical" | "account" | "complaint";
+  isSecret?: boolean;
 }
 
 // Comment Types
@@ -181,7 +204,7 @@ export interface Comment {
   authorName: string;
   content: string;
   isAdmin: boolean;
-  createdAt: any;
+  createdAt: Timestamp;
 }
 
 // Board Types
@@ -196,7 +219,7 @@ export interface Post {
   commentCount: number;
   attachments: Attachment[];
   tags: string[];
-  status: 'published' | 'deleted' | 'reported';
+  status: "published" | "deleted" | "reported";
   createdAt: Date;
   updatedAt: Date;
 }
@@ -206,7 +229,7 @@ export interface Resource {
   id: string;
   title: string;
   description: string;
-  category: 'manual' | 'form' | 'report' | 'certificate' | 'other';
+  category: "manual" | "form" | "report" | "certificate" | "other";
   fileName: string;
   fileSize: number;
   fileType: string;
@@ -219,7 +242,7 @@ export interface Resource {
   downloads: number;
   views: number;
   isPublic: boolean;
-  createdAt: any;
+  createdAt: Timestamp;
   updatedAt: any;
 }
 
@@ -227,7 +250,12 @@ export interface Resource {
 export interface Service {
   serviceId: string;
   serviceName: string;
-  serviceCategory: 'industrial-health' | 'water' | 'dialysis' | 'asbestos' | 'indoor-air';
+  serviceCategory:
+    | "industrial-health"
+    | "water"
+    | "dialysis"
+    | "asbestos"
+    | "indoor-air";
   title: string;
   content: string;
   featuredImage: string;
@@ -349,7 +377,7 @@ export interface ActivityLog {
   logId: string;
   userId: string;
   userName: string;
-  action: 'login' | 'logout' | 'create' | 'update' | 'delete' | 'download';
+  action: "login" | "logout" | "create" | "update" | "delete" | "download";
   target: string;
   targetId: string;
   details: string;
@@ -403,7 +431,7 @@ export interface MenuItem {
 // Search Types
 export interface SearchResult {
   id: string;
-  type: 'page' | 'notice' | 'qna' | 'resource' | 'certificate';
+  type: "page" | "notice" | "qna" | "resource" | "certificate";
   title: string;
   excerpt: string;
   url: string;

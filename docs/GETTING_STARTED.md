@@ -17,11 +17,13 @@ npm install
 ### 3. 환경 변수 설정
 
 `.env.example` 파일을 `.env`로 복사:
+
 ```bash
 copy .env.example .env
 ```
 
 `.env` 파일을 열어 Firebase 설정 값 입력:
+
 ```env
 VITE_FIREBASE_API_KEY=your_actual_api_key
 VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
@@ -115,32 +117,40 @@ ketri_project_01/
 ## 🛠️ 사용 가능한 스크립트
 
 ### 개발 서버
+
 ```bash
 npm run dev
 ```
+
 - 개발 모드로 실행
 - 핫 리로드 지원
 - 포트: 3000
 
 ### 프로덕션 빌드
+
 ```bash
 npm run build
 ```
+
 - TypeScript 컴파일
 - 프로덕션 최적화 빌드
 - 출력 디렉토리: `dist/`
 
 ### 빌드 미리보기
+
 ```bash
 npm run preview
 ```
+
 - 빌드된 파일을 로컬에서 미리보기
 - 포트: 4173
 
 ### 린팅
+
 ```bash
 npm run lint
 ```
+
 - ESLint로 코드 검사
 
 ---
@@ -178,6 +188,7 @@ npm run lint
 4. 위치 선택: `asia-northeast3 (Seoul)`
 
 **보안 규칙 설정:**
+
 ```javascript
 rules_version = '2';
 service cloud.firestore {
@@ -186,11 +197,11 @@ service cloud.firestore {
     match /{document=**} {
       allow read, write: if false;
     }
-    
+
     // 공지사항은 모두 읽기 가능
     match /notices/{noticeId} {
       allow read: if true;
-      allow write: if request.auth != null && 
+      allow write: if request.auth != null &&
                       get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
   }
@@ -211,18 +222,23 @@ service cloud.firestore {
 자세한 내용은 `docs/DESIGN_SYSTEM.md` 참조
 
 ### 주요 색상
+
 - Primary: `#0069ff` (블루)
 - Secondary: `#0ea5e9` (스카이 블루)
 - Accent: `#f97316` (오렌지)
 
 ### Tailwind 유틸리티 클래스
+
 ```css
 .btn-primary      /* 프라이머리 버튼 */
+/* 프라이머리 버튼 */
+/* 프라이머리 버튼 */
+/* 프라이머리 버튼 */
 .btn-secondary    /* 세컨더리 버튼 */
 .btn-outline      /* 아웃라인 버튼 */
 .card             /* 카드 컴포넌트 */
 .input            /* 입력 필드 */
-.badge            /* 배지 */
+.badge; /* 배지 */
 ```
 
 ---
@@ -230,6 +246,7 @@ service cloud.firestore {
 ## 📱 반응형 개발
 
 ### 브레이크포인트
+
 ```
 sm:  640px   (모바일 가로)
 md:  768px   (태블릿)
@@ -239,14 +256,17 @@ xl:  1280px  (큰 데스크톱)
 ```
 
 ### 예제
+
 ```tsx
-<div className="
+<div
+  className="
   grid 
   grid-cols-1      /* 모바일: 1열 */
   md:grid-cols-2   /* 태블릿: 2열 */
   lg:grid-cols-3   /* 데스크톱: 3열 */
   gap-6
-">
+"
+>
   {/* 카드들 */}
 </div>
 ```
@@ -258,8 +278,9 @@ xl:  1280px  (큰 데스크톱)
 ### 1. 다크모드 테스트
 
 브라우저 DevTools > Console:
+
 ```javascript
-document.documentElement.classList.toggle('dark')
+document.documentElement.classList.toggle("dark");
 ```
 
 ### 2. Hot Reload 문제 시
@@ -280,6 +301,7 @@ npx tsc --noEmit
 ### 4. Tailwind 클래스 자동완성
 
 VSCode Extensions:
+
 - Tailwind CSS IntelliSense
 - PostCSS Language Support
 
@@ -290,12 +312,13 @@ VSCode Extensions:
 ### 포트 3000이 이미 사용 중일 때
 
 `vite.config.ts` 수정:
+
 ```typescript
 export default defineConfig({
   server: {
     port: 3001, // 다른 포트로 변경
   },
-})
+});
 ```
 
 ### 환경 변수가 인식되지 않을 때
@@ -315,6 +338,7 @@ export default defineConfig({
 ## 📚 추가 리소스
 
 ### 공식 문서
+
 - [Vite 문서](https://vitejs.dev/)
 - [React 문서](https://react.dev/)
 - [Tailwind CSS 문서](https://tailwindcss.com/)
@@ -322,6 +346,7 @@ export default defineConfig({
 - [Framer Motion 문서](https://www.framer.com/motion/)
 
 ### 커뮤니티
+
 - [React 한국어 커뮤니티](https://react.dev/community)
 - [Tailwind CSS Discord](https://tailwindcss.com/discord)
 
@@ -330,22 +355,26 @@ export default defineConfig({
 ## ✅ 다음 단계
 
 1. **콘텐츠 추가**
+
    - 서비스 페이지 상세 내용 작성
    - 이미지 및 미디어 추가
    - 실제 데이터 연동
 
 2. **기능 구현**
+
    - 성적서 조회 시스템
    - 견적 요청 폼
    - 게시판 CRUD
    - 관리자 대시보드
 
 3. **SEO 최적화**
+
    - 메타태그 세부 조정
    - Sitemap 생성
    - Google Search Console 연동
 
 4. **테스트**
+
    - 단위 테스트 작성
    - E2E 테스트
    - 브라우저 호환성 테스트

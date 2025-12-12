@@ -6,21 +6,28 @@ import {
   File,
   X,
   AlertCircle,
+  ArrowLeft,
+  FileText,
+  Folder,
+  Globe,
+  Lock,
 } from 'lucide-react';
 import { uploadFile, createResource } from '../../services/resourceService';
 import { useAuth } from '../../contexts/AuthContext';
+import Button from '../../components/common/Button';
+import Card from '../../components/common/Card';
 
-const categoryOptions = [
-  { value: 'manual', label: '매뉴얼' },
-  { value: 'form', label: '신청서' },
-  { value: 'report', label: '보고서' },
-  { value: 'certificate', label: '성적서' },
-  { value: 'other', label: '기타' },
+const categories = [
+  { value: 'manual', label: '매뉴얼', icon: FileText },
+  { value: 'form', label: '신청서', icon: File },
+  { value: 'report', label: '보고서', icon: FileText },
+  { value: 'certificate', label: '성적서', icon: File },
+  { value: 'other', label: '기타', icon: Folder },
 ];
 
 const ResourceForm: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, userData } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
@@ -37,25 +44,21 @@ const ResourceForm: React.FC = () => {
   const [dragOver, setDragOver] = useState(false);
 
   // 관리자 권한 확인
-  if (!user || user.role !== 'admin') {
+  if (!user || userData?.role !== 'admin') {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 py-24">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-            접근 권한이 없습니다
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
-            관리자만 자료를 업로드할 수 있습니다.
-          </p>
-          <button
-            onClick={() => navigate('/board/resources')}
-            className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
-          >
-            자료실로 돌아가기
-          </button>
-        </div>
-      </div>
+      <Card className="p-8 text-center max-w-md mx-auto mt-20">
+        <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+        <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
+          접근 권한이 없습니다
+        </h3>
+        <p className="text-neutral-600 dark:text-neutral-400 mb-4">
+          관리자만 자료를 업로드할 수 있습니다.
+        </p>
+        <Button onClick={() => navigate('/board/resources')} variant="outline">
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          자료실로 돌아가기
+        </Button>
+      </Card>
     );
   }
 
@@ -165,12 +168,15 @@ const ResourceForm: React.FC = () => {
       await createResource({
         title: formData.title.trim(),
         description: formData.description.trim(),
-        category: formData.category,
+        category: formData.category as "manual" | "form" | "report" | "certificate" | "other",
         fileName: fileData.fileName,
         fileSize: fileData.fileSize,
         fileType: fileData.fileType,
         fileUrl: fileData.fileUrl,
-        uploadedBy: user.uid,
+        uploadedBy: {
+          uid: user.uid,
+          name: user.displayName || '관리자'
+        },
         isPublic: formData.isPublic,
       });
 
@@ -198,189 +204,238 @@ const ResourceForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 py-24">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="max-w-4xl mx-auto space-y-6"
+    >
+      {/* 헤더 */}
+      <div className="flex items-center gap-4">
+        <Button
+          onClick={() => navigate('/board/resources')}
+          variant="ghost"
         >
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            자료 업로드
-          </h1>
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          자료실로
+        </Button>
+        <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">
+          자료 업로드
+        </h1>
+      </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* File Upload Area */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                파일 선택 *
-              </label>
-              <div
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={handleDrop}
-                className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
-                  dragOver
-                    ? 'border-primary bg-primary/5'
-                    : 'border-gray-300 dark:border-gray-600'
-                }`}
-              >
-                {selectedFile ? (
-                  <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                    <div className="flex items-center gap-3">
-                      <File className="w-8 h-8 text-primary" />
-                      <div className="text-left">
-                        <p className="font-medium text-gray-900 dark:text-white">
-                          {selectedFile.name}
-                        </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {formatFileSize(selectedFile.size)}
-                        </p>
-                      </div>
+      {/* 업로드 폼 */}
+      <Card className="p-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* 파일 업로드 영역 */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+              파일 선택 *
+            </label>
+            <div
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              className={`border-2 border-dashed rounded-lg p-8 text-center transition-all ${
+                dragOver
+                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/10'
+                  : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400'
+              }`}
+            >
+              {selectedFile ? (
+                <div className="flex items-center justify-between bg-neutral-50 dark:bg-neutral-700 rounded-lg p-4">
+                  <div className="flex items-center gap-3">
+                    <File className="w-8 h-8 text-primary-600" />
+                    <div className="text-left">
+                      <p className="font-medium text-neutral-900 dark:text-white">
+                        {selectedFile.name}
+                      </p>
+                      <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                        {formatFileSize(selectedFile.size)}
+                      </p>
                     </div>
-                    <button
-                      type="button"
-                      onClick={handleRemoveFile}
-                      className="p-2 text-gray-500 hover:text-red-500 transition-colors"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
                   </div>
-                ) : (
-                  <>
-                    <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600 dark:text-gray-400 mb-2">
-                      파일을 드래그하거나 클릭하여 업로드
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-500 mb-4">
-                      PDF, Word, Excel, PowerPoint, 이미지, ZIP (최대 10MB)
-                    </p>
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      onChange={handleFileChange}
-                      className="hidden"
-                      id="file-upload"
-                    />
-                    <label
-                      htmlFor="file-upload"
-                      className="inline-block px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors cursor-pointer"
-                    >
-                      파일 선택
-                    </label>
-                  </>
-                )}
-              </div>
+                  <Button
+                    type="button"
+                    onClick={handleRemoveFile}
+                    variant="ghost"
+                    size="sm"
+                    className="text-red-600 hover:bg-red-50"
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+              ) : (
+                <div>
+                  <Upload className="w-12 h-12 text-neutral-400 mx-auto mb-4" />
+                  <p className="text-neutral-600 dark:text-neutral-400 mb-2">
+                    파일을 드래그하거나 클릭하여 업로드
+                  </p>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
+                    PDF, Word, Excel, PowerPoint, 이미지, ZIP (최대 10MB)
+                  </p>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    onChange={handleFileChange}
+                    className="hidden"
+                    id="file-upload"
+                  />
+                  <Button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="bg-primary-600 hover:bg-primary-700 text-white"
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    파일 선택
+                  </Button>
+                </div>
+              )}
             </div>
+          </div>
 
-            {/* Title */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                제목 *
-              </label>
-              <input
-                type="text"
-                value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                placeholder="자료 제목을 입력하세요"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
-                maxLength={100}
+          {/* 제목 */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+              제목 *
+            </label>
+            <input
+              type="text"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              placeholder="자료 제목을 입력하세요"
+              className="w-full px-3 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              maxLength={100}
+              required
               />
             </div>
 
-            {/* Description */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                설명 *
-              </label>
-              <textarea
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="자료에 대한 설명을 입력하세요"
-                rows={5}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white resize-none"
-                maxLength={500}
-              />
+          {/* 설명 */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+              설명 *
+            </label>
+            <textarea
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              placeholder="자료에 대한 설명을 입력하세요"
+              rows={4}
+              className="w-full px-3 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
+              maxLength={500}
+              required
+            />
             </div>
 
-            {/* Category */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                카테고리 *
-              </label>
-              <select
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
-              >
-                {categoryOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+          {/* 카테고리 */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+              카테고리 *
+            </label>
+            <select
+              value={formData.category}
+              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+              className="w-full px-3 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              required
+            >
+              {categories.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
             </div>
 
-            {/* Public Toggle */}
+          {/* 공개 설정 */}
+          <div className="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-lg">
             <div className="flex items-center gap-3">
               <input
                 type="checkbox"
                 id="isPublic"
                 checked={formData.isPublic}
                 onChange={(e) => setFormData({ ...formData, isPublic: e.target.checked })}
-                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                className="w-4 h-4 text-primary-600 bg-neutral-100 border-neutral-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-neutral-800 dark:bg-neutral-700 dark:border-neutral-600"
               />
-              <label htmlFor="isPublic" className="text-sm text-gray-700 dark:text-gray-300">
-                공개 자료로 등록 (체크 해제 시 관리자만 확인 가능)
+              <label htmlFor="isPublic" className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                {formData.isPublic ? (
+                  <>
+                    <Globe className="w-4 h-4 text-green-600" />
+                    공개 자료로 등록
+                  </>
+                ) : (
+                  <>
+                    <Lock className="w-4 h-4 text-amber-600" />
+                    관리자 전용
+                  </>
+                )}
               </label>
             </div>
-
-            {/* Error Message */}
-            {error && (
-              <div className="flex items-center gap-2 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                <AlertCircle className="w-5 h-5 text-red-500" />
-                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-              </div>
-            )}
-
-            {/* Upload Progress */}
-            {uploading && (
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
-                  <span>업로드 중...</span>
-                  <span>{uploadProgress}%</span>
-                </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                  <div
-                    className="bg-primary h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${uploadProgress}%` }}
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Buttons */}
-            <div className="flex gap-4 pt-4">
-              <button
-                type="button"
-                onClick={() => navigate('/board/resources')}
-                className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                disabled={uploading}
-              >
-                취소
-              </button>
-              <button
-                type="submit"
-                className="flex-1 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={uploading}
-              >
-                {uploading ? '업로드 중...' : '업로드'}
-              </button>
+            <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+              {formData.isPublic 
+                ? '모든 사용자가 다운로드할 수 있습니다.' 
+                : '관리자만 확인하고 다운로드할 수 있습니다.'
+              }
+            </p>
             </div>
-          </form>
-        </motion.div>
-      </div>
-    </div>
+
+          {/* 에러 메시지 */}
+          {error && (
+            <div className="flex items-center gap-2 p-4 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-lg">
+              <AlertCircle className="w-5 h-5 text-red-500" />
+              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+            </div>
+          )}
+
+          {/* 업로드 진행상황 */}
+          {uploading && (
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm text-neutral-600 dark:text-neutral-400">
+                <span>업로드 중...</span>
+                <span>{uploadProgress}%</span>
+              </div>
+              <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2">
+                <div
+                  className="bg-primary-600 h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${uploadProgress}%` }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* 버튼들 */}
+          <div className="flex gap-3 pt-4">
+            <Button
+              type="button"
+              onClick={() => navigate('/board/resources')}
+              variant="outline"
+              className="flex-1"
+              disabled={uploading}
+            >
+              취소
+            </Button>
+            <Button
+              type="submit"
+              className="flex-1 bg-primary-600 hover:bg-primary-700 text-white"
+              disabled={uploading}
+            >
+              {uploading ? (
+                <>
+                  <motion.div
+                    className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  />
+                  업로드 중...
+                </>
+              ) : (
+                <>
+                  <Upload className="w-4 h-4 mr-2" />
+                  업로드
+                </>
+              )}
+            </Button>
+          </div>
+        </form>
+      </Card>
+    </motion.div>
   );
 };
 
