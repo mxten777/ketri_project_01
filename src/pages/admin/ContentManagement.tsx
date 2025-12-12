@@ -219,7 +219,7 @@ const ContentManagement: React.FC = () => {
             </div>
             <div className="flex items-center gap-3">
               <Button
-                onClick={() => {/* TODO: 새 컨텐츠 생성 */}}
+                onClick={() => setShowCreateModal(true)}
                 className="flex items-center gap-2"
               >
                 <Plus className="w-4 h-4" />
@@ -520,7 +520,7 @@ const ContentManagement: React.FC = () => {
                           <Button
                             size="sm"
                             variant="ghost"
-                            onClick={() => {/* TODO: 편집 */}}
+                            onClick={() => handleEditContent(content.id, content)}
                             className="p-1"
                           >
                             <Edit className="w-4 h-4" />

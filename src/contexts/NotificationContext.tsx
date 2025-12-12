@@ -163,9 +163,9 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
       }
       
       audio.volume = 0.5;
-      audio.play().catch(err => console.log('Could not play notification sound:', err));
+      audio.play().catch(() => {});
     } catch (err) {
-      console.log('Notification sound error:', err);
+      // Notification sound error silently handled
     }
   };
 
@@ -196,7 +196,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         }, 5000);
       }
     } catch (err) {
-      console.log('Desktop notification error:', err);
+      // Desktop notification error silently handled
     }
   };
 

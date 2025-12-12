@@ -9,20 +9,18 @@ import {
   Trash2,
   Filter,
   Settings,
-  AlertCircle,
   MessageCircle,
   FileText,
   Upload,
   UserPlus,
   Shield,
   Activity,
-  ExternalLink,
-  MoreVertical
+  ExternalLink
 } from 'lucide-react';
 import { useNotifications } from '../../contexts/NotificationContext';
 import { Notification } from '../../services/notificationService';
 import Button from '../common/Button';
-import Card from '../common/Card';
+
 import { formatRelativeTime } from '../../utils/dateUtils';
 import { useNavigate } from 'react-router-dom';
 

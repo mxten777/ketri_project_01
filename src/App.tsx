@@ -30,7 +30,6 @@ const QuoteRequest = lazy(() => import("./pages/QuoteRequest"));
 const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
 const MyPage = lazy(() => import("./pages/MyPage"));
-const Admin = lazy(() => import("./pages/admin/Dashboard"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const UserManagement = lazy(() => import("./pages/admin/UserManagement"));
 const QuoteManagement = lazy(() => import("./pages/admin/QuoteManagement"));

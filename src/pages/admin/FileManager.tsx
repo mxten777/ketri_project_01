@@ -1032,7 +1032,7 @@ const FileManager: React.FC = () => {
                       <>
                         <Button
                           variant="outline"
-                          onClick={() => {/* TODO: 편집 모달 */}}
+                          onClick={() => handleEditFile(file)}
                           className="flex items-center gap-2"
                         >
                           <Edit className="w-4 h-4" />
