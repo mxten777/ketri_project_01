@@ -114,7 +114,7 @@ const Home = () => {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[600px] lg:min-h-[700px] flex items-center justify-center bg-gradient-to-br from-primary-600 via-primary-500 to-secondary-500 overflow-hidden">
+      <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[650px] flex items-center justify-center bg-gradient-to-br from-primary-600 via-primary-500 to-secondary-500 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div
@@ -133,7 +133,7 @@ const Home = () => {
             className="text-center text-white"
           >
             <motion.h1
-              className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold mb-6 leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
@@ -144,7 +144,7 @@ const Home = () => {
             </motion.h1>
 
             <motion.p
-              className="text-xl sm:text-xl md:text-2xl lg:text-3xl mb-8 text-white/90 max-w-4xl mx-auto leading-relaxed"
+              className="text-lg sm:text-xl md:text-xl lg:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -155,25 +155,25 @@ const Home = () => {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center gap-4"
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
               <Link to="/industrial-health">
                 <Button
-                  size="lg"
-                  className="bg-white text-primary-600 hover:bg-neutral-100"
+                  size="default"
+                  className="bg-white text-primary-600 hover:bg-neutral-100 px-6 py-3 text-base font-semibold"
                 >
                   서비스 둘러보기
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
               <Link to="/board/qna">
                 <Button
-                  size="lg"
+                  size="default"
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-primary-600"
+                  className="border-white text-white hover:bg-white hover:text-primary-600 px-6 py-3 text-base font-semibold"
                 >
                   견적 문의하기
                 </Button>

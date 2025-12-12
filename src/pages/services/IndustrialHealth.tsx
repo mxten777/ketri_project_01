@@ -231,12 +231,12 @@ const IndustrialHealth = () => {
                             <div className="flex items-center space-x-2">
                               <span className="font-bold">전화:</span>
                               <span className="text-primary-600 dark:text-primary-400">
-                                061-721-2484
+                                043.237.7624~5
                               </span>
                             </div>
                             <div className="flex items-center space-x-2">
                               <span className="font-bold">팩스:</span>
-                              <span>0505-684-2485</span>
+                              <span>043.237.7626</span>
                             </div>
                           </div>
                         </div>

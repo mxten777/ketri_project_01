@@ -204,7 +204,7 @@ const Footer = () => {
           {/* Business Info */}
           <div className="mt-4 pt-4 border-t border-neutral-800 text-xs text-neutral-600 space-y-1">
             <p>
-              사업자등록번호: 123-45-67890 | 대표자: 홍길동 | 통신판매업신고:
+              사업자등록번호: 317-81-01323 | 대표자: 김환경 | 통신판매업신고:
               제2024-서울강남-12345호
             </p>
             <p>

@@ -337,9 +337,9 @@ Copyright © 2024 한국환경안전연구소 (KETRI). All rights reserved.
 
 ## 📞 문의
 
-- **Website**: http://www.ketri.co.kr
-- **Email**: info@ketri.co.kr
-- **Phone**: 02-1234-5678 (예시)
+- **Website**: https://ketri.re.kr
+- **Email**: info@ketri.re.kr
+- **Phone**: 043.237.7624~5
 
 ## 🎯 개발 진행 현황
 

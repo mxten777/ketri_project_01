@@ -254,13 +254,13 @@ const WaterTesting = () => {
                   <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
                     전화 문의
                   </p>
-                  <p className="font-bold text-lg">1588-XXXX</p>
+                  <p className="font-bold text-lg">043.237.7624~5</p>
                 </div>
                 <div>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
                     팩스
                   </p>
-                  <p className="font-bold text-lg">02-XXXX-XXXX</p>
+                  <p className="font-bold text-lg">043.237.7626</p>
                 </div>
                 <div>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
