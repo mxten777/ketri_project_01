@@ -270,9 +270,11 @@ const Header = () => {
             )}
 
             {/* CTA Button */}
-            <Button size="sm" className="hidden lg:inline-flex">
-              견적문의
-            </Button>
+            <Link to="/quote-request">
+              <Button size="sm" className="hidden lg:inline-flex">
+                견적문의
+              </Button>
+            </Link>
 
             {/* Mobile Menu Button */}
             <button

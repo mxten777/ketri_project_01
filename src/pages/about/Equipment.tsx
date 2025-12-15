@@ -53,36 +53,39 @@ const Equipment = () => {
       src: `/images/equipment/instrument-${String(i + 1).padStart(2, "0")}.jpg`,
       alt: `기기분석실 ${i + 1}`,
     })),
-    "무기분석실": Array.from({ length: 6 }, (_, i) => ({
+    무기분석실: Array.from({ length: 6 }, (_, i) => ({
       src: `/images/equipment/inorganic-${String(i + 1).padStart(2, "0")}.jpg`,
       alt: `무기분석실 ${i + 1}`,
     })),
-    "유기분석실": Array.from({ length: 7 }, (_, i) => ({
+    유기분석실: Array.from({ length: 7 }, (_, i) => ({
       src: `/images/equipment/organic-${String(i + 1).padStart(2, "0")}.jpg`,
       alt: `유기분석실 ${i + 1}`,
     })),
-    "미생물실": Array.from({ length: 6 }, (_, i) => ({
+    미생물실: Array.from({ length: 6 }, (_, i) => ({
       src: `/images/equipment/microbio-${String(i + 1).padStart(2, "0")}.jpg`,
       alt: `미생물실 ${i + 1}`,
     })),
-    "석면실": Array.from({ length: 2 }, (_, i) => ({
+    석면실: Array.from({ length: 2 }, (_, i) => ({
       src: `/images/equipment/asbestos-${String(i + 1).padStart(2, "0")}.jpg`,
       alt: `석면실 ${i + 1}`,
     })),
-    "전처리실": Array.from({ length: 9 }, (_, i) => ({
+    전처리실: Array.from({ length: 9 }, (_, i) => ({
       src: `/images/equipment/pretreat-${String(i + 1).padStart(2, "0")}.jpg`,
       alt: `전처리실 ${i + 1}`,
     })),
-    "시약실": Array.from({ length: 3 }, (_, i) => ({
+    시약실: Array.from({ length: 3 }, (_, i) => ({
       src: `/images/equipment/reagent-${String(i + 1).padStart(2, "0")}.jpg`,
       alt: `시약실 ${i + 1}`,
     })),
-    "천칭실": Array.from({ length: 4 }, (_, i) => ({
+    천칭실: Array.from({ length: 4 }, (_, i) => ({
       src: `/images/equipment/balance-${String(i + 1).padStart(2, "0")}.jpg`,
       alt: `천칭실 ${i + 1}`,
     })),
-    "시료냉장고": Array.from({ length: 6 }, (_, i) => ({
-      src: `/images/equipment/refrigerator-${String(i + 1).padStart(2, "0")}.jpg`,
+    시료냉장고: Array.from({ length: 6 }, (_, i) => ({
+      src: `/images/equipment/refrigerator-${String(i + 1).padStart(
+        2,
+        "0"
+      )}.jpg`,
       alt: `시료냉장고 ${i + 1}`,
     })),
   };
@@ -175,7 +178,8 @@ const Equipment = () => {
       name: "광학현미경",
       model: "CHK2-F-GS",
       manufacturer: "OLYMPUS",
-      testItems: "녹농균, 살모넬라, 쉬겔라, 여시니아균 확인시험 (그람염색 현미경 관찰)",
+      testItems:
+        "녹농균, 살모넬라, 쉬겔라, 여시니아균 확인시험 (그람염색 현미경 관찰)",
       status: "active",
     },
     {
@@ -234,7 +238,7 @@ const Equipment = () => {
       testItems: "미생물 배양",
       status: "active",
     },
-    
+
     // 먹는물 분석장비
     {
       category: "먹는물",
@@ -476,7 +480,7 @@ const Equipment = () => {
       testItems: "시험항목",
       status: "active",
     },
-    
+
     // 작업환경 분석장비
     {
       category: "작업환경",
@@ -638,7 +642,7 @@ const Equipment = () => {
           className="mb-16"
         >
           <h2 className="heading-lg text-center mb-12">장비 상세 자료</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {equipmentDocuments.map((doc, index) => {
               const Icon = doc.icon;
@@ -656,7 +660,9 @@ const Equipment = () => {
                       <Icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-bold text-sm mb-1 line-clamp-2">{doc.title}</h3>
+                      <h3 className="font-bold text-sm mb-1 line-clamp-2">
+                        {doc.title}
+                      </h3>
                       <span className="inline-block px-2 py-1 bg-neutral-100 dark:bg-neutral-700 text-xs rounded-full">
                         {doc.category}
                       </span>
@@ -713,7 +719,9 @@ const Equipment = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-4 left-4 text-white">
                     <h3 className="text-xl font-bold mb-1">{labName}</h3>
-                    <p className="text-sm opacity-90">{images.length}장의 사진</p>
+                    <p className="text-sm opacity-90">
+                      {images.length}장의 사진
+                    </p>
                   </div>
                 </div>
               </motion.div>
