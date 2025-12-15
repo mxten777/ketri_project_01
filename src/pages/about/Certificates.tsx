@@ -206,14 +206,17 @@ const Certificates = () => {
               className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-white/20"
             >
               <BadgeCheck className="w-5 h-5" />
-              <span className="text-sm font-medium">Certifications & Accreditations</span>
+              <span className="text-sm font-medium">
+                Certifications & Accreditations
+              </span>
             </motion.div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
               인증 및 자격정보
             </h1>
             <p className="text-lg lg:text-xl opacity-90 max-w-3xl mx-auto leading-relaxed">
-              신뢰할 수 있는 전문 기관으로서의 자격과 인증<br className="hidden sm:inline" />
+              신뢰할 수 있는 전문 기관으로서의 자격과 인증
+              <br className="hidden sm:inline" />
               국가 공인 및 국제 표준 인증 보유
             </p>
           </motion.div>
@@ -221,8 +224,17 @@ const Certificates = () => {
 
         {/* Wave Divider */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-16 lg:h-24">
-            <path fill="currentColor" fillOpacity="1" d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z" className="text-neutral-50 dark:text-neutral-950"></path>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1440 120"
+            className="w-full h-16 lg:h-24"
+          >
+            <path
+              fill="currentColor"
+              fillOpacity="1"
+              d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
+              className="text-neutral-50 dark:text-neutral-950"
+            ></path>
           </svg>
         </div>
       </section>
@@ -265,13 +277,15 @@ const Certificates = () => {
             className="inline-flex items-center gap-2 bg-primary-100 dark:bg-primary-900/30 px-5 py-2 rounded-full mb-6"
           >
             <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-            <span className="text-sm font-semibold text-primary-600 dark:text-primary-400">Our Certifications</span>
+            <span className="text-sm font-semibold text-primary-600 dark:text-primary-400">
+              Our Certifications
+            </span>
           </motion.div>
-          
+
           <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
             보유 인증 및 자격
           </h2>
-          
+
           <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
             각 분야별 전문성을 인정받은 공인 인증서 목록
           </p>
@@ -297,15 +311,19 @@ const Certificates = () => {
                 <div className="absolute inset-0 opacity-20">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full blur-2xl"></div>
                 </div>
-                
+
                 <div className="relative z-10 flex items-start justify-between text-white">
                   <div className="flex-1">
                     <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold mb-3 border border-white/30">
                       <Shield className="w-3 h-3" />
                       {cert.category}
                     </div>
-                    <h3 className="text-lg lg:text-xl font-bold mb-2 leading-tight">{cert.title}</h3>
-                    <p className="text-sm opacity-90 font-medium">{cert.number}</p>
+                    <h3 className="text-lg lg:text-xl font-bold mb-2 leading-tight">
+                      {cert.title}
+                    </h3>
+                    <p className="text-sm opacity-90 font-medium">
+                      {cert.number}
+                    </p>
                   </div>
                   <div className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-white/20">
                     <Award className="w-7 h-7" />
@@ -325,7 +343,9 @@ const Certificates = () => {
                       <div className="text-xs text-neutral-500 dark:text-neutral-400 mb-1">
                         발급기관
                       </div>
-                      <div className="font-semibold text-neutral-900 dark:text-white">{cert.issuer}</div>
+                      <div className="font-semibold text-neutral-900 dark:text-white">
+                        {cert.issuer}
+                      </div>
                     </div>
                   </div>
 
@@ -339,13 +359,17 @@ const Certificates = () => {
                         <div className="text-xs text-neutral-500 dark:text-neutral-400 mb-1">
                           발급일
                         </div>
-                        <div className="font-semibold text-neutral-900 dark:text-white text-sm">{cert.date}</div>
+                        <div className="font-semibold text-neutral-900 dark:text-white text-sm">
+                          {cert.date}
+                        </div>
                       </div>
                       <div>
                         <div className="text-xs text-neutral-500 dark:text-neutral-400 mb-1">
                           유효기간
                         </div>
-                        <div className="font-semibold text-neutral-900 dark:text-white text-sm">{cert.validity}</div>
+                        <div className="font-semibold text-neutral-900 dark:text-white text-sm">
+                          {cert.validity}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -376,13 +400,13 @@ const Certificates = () => {
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <button 
+                    <button
                       className="p-2 rounded-lg text-neutral-400 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all"
                       title="다운로드"
                     >
                       <Download size={18} />
                     </button>
-                    <button 
+                    <button
                       className="p-2 rounded-lg text-neutral-400 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all"
                       title="상세보기"
                     >
@@ -406,13 +430,15 @@ const Certificates = () => {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-primary-100 dark:bg-primary-900/30 px-5 py-2 rounded-full mb-6">
               <BadgeCheck className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-              <span className="text-sm font-semibold text-primary-600 dark:text-primary-400">Process</span>
+              <span className="text-sm font-semibold text-primary-600 dark:text-primary-400">
+                Process
+              </span>
             </div>
-            
+
             <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
               인증 획득 과정
             </h2>
-            
+
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
               체계적인 관리 프로세스를 통한 인증 취득 및 유지
             </p>
@@ -425,29 +451,29 @@ const Certificates = () => {
                 title: "신청 및 준비",
                 desc: "인증 요구사항 분석 및 문서 준비",
                 color: "from-blue-500 to-blue-600",
-                icon: "📋"
+                icon: "📋",
               },
               {
                 step: "2",
                 title: "심사 진행",
                 desc: "전문 심사원에 의한 현장 심사",
                 color: "from-green-500 to-green-600",
-                icon: "🔍"
+                icon: "🔍",
               },
               {
                 step: "3",
                 title: "검토 및 승인",
                 desc: "심사 결과 검토 및 인증 승인",
                 color: "from-orange-500 to-orange-600",
-                icon: "✓"
+                icon: "✓",
               },
               {
                 step: "4",
                 title: "인증서 발급",
                 desc: "최종 인증서 발급 및 사후관리",
                 color: "from-purple-500 to-purple-600",
-                icon: "🏆"
-              }
+                icon: "🏆",
+              },
             ].map((item, index) => (
               <motion.div
                 key={item.step}
@@ -460,13 +486,17 @@ const Certificates = () => {
               >
                 <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-neutral-200 dark:border-neutral-700 h-full">
                   {/* Step Number Badge */}
-                  <div className={`w-14 h-14 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-                    <span className="text-2xl font-bold text-white">{item.step}</span>
+                  <div
+                    className={`w-14 h-14 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg`}
+                  >
+                    <span className="text-2xl font-bold text-white">
+                      {item.step}
+                    </span>
                   </div>
-                  
+
                   {/* Icon */}
                   <div className="text-3xl mb-3 text-center">{item.icon}</div>
-                  
+
                   {/* Content */}
                   <h3 className="font-bold text-lg mb-2 text-center text-neutral-900 dark:text-white">
                     {item.title}
@@ -480,7 +510,16 @@ const Certificates = () => {
                 {index < 3 && (
                   <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
                     <div className="text-neutral-300 dark:text-neutral-600">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
                         <polyline points="9 18 15 12 9 6"></polyline>
                       </svg>
                     </div>
@@ -508,20 +547,23 @@ const Certificates = () => {
           <div className="relative z-10 text-center text-white max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 sm:px-5 py-2 rounded-full mb-4 sm:mb-6">
               <Award className="w-4 h-4" />
-              <span className="text-xs sm:text-sm font-semibold">Contact Us</span>
+              <span className="text-xs sm:text-sm font-semibold">
+                Contact Us
+              </span>
             </div>
 
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4">
               인증 관련 문의
             </h3>
-            
+
             <p className="text-sm sm:text-base lg:text-lg opacity-90 mb-6 sm:mb-8 leading-relaxed">
-              인증서 확인이나 관련 문의사항이 있으시면<br className="hidden sm:inline" />
+              인증서 확인이나 관련 문의사항이 있으시면
+              <br className="hidden sm:inline" />
               언제든지 연락해 주세요
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-xl mx-auto">
-              <a 
+              <a
                 href="tel:043-237-7624"
                 className="bg-white/10 backdrop-blur-sm hover:bg-white/20 px-4 sm:px-6 py-3 sm:py-4 rounded-xl transition-all duration-300 border border-white/20 group"
               >
@@ -531,12 +573,14 @@ const Certificates = () => {
                   </div>
                   <div className="text-left">
                     <div className="text-xs text-white/70 mb-1">전화</div>
-                    <div className="text-sm sm:text-base font-bold">043-237-7624~5</div>
+                    <div className="text-sm sm:text-base font-bold">
+                      043-237-7624~5
+                    </div>
                   </div>
                 </div>
               </a>
 
-              <a 
+              <a
                 href="mailto:kesri0728@naver.com"
                 className="bg-white/10 backdrop-blur-sm hover:bg-white/20 px-4 sm:px-6 py-3 sm:py-4 rounded-xl transition-all duration-300 border border-white/20 group"
               >
@@ -546,7 +590,9 @@ const Certificates = () => {
                   </div>
                   <div className="text-left">
                     <div className="text-xs text-white/70 mb-1">이메일</div>
-                    <div className="text-xs sm:text-sm font-bold break-all">kesri0728@naver.com</div>
+                    <div className="text-xs sm:text-sm font-bold break-all">
+                      kesri0728@naver.com
+                    </div>
                   </div>
                 </div>
               </a>

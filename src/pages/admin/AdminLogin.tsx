@@ -22,7 +22,6 @@ const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -30,12 +29,10 @@ const AdminLogin = () => {
   const location = useLocation();
   const { login, userData } = useAuth();
 
-  const from = (location.state as any)?.from?.pathname || "/admin";
+  const from = (location.state as { from?: { pathname: string } })?.from?.pathname || "/admin";
 
   useEffect(() => {
     setMounted(true);
-    // 자동으로 관리자 이메일 입력
-    setEmail("admin@ketri.co.kr");
   }, []);
 
   // 관리자가 아닌 사용자가 접근 시 리다이렉트
@@ -53,35 +50,30 @@ const AdminLogin = () => {
     try {
       await login(email, password);
 
-      // Remember Me 처리
-      if (rememberMe) {
-        localStorage.setItem("rememberMe", "true");
-      }
-
       // 관리자 권한 확인 후 리다이렉트
       navigate(from, { replace: true });
-    } catch (err: any) {
+    } catch (err) {
       console.error("Admin login error:", err);
 
       // Firebase 에러 메시지 한글화
       if (
-        err.code === "auth/user-not-found" ||
-        err.code === "auth/wrong-password"
+        (err as { code?: string }).code === "auth/user-not-found" ||
+        (err as { code?: string }).code === "auth/wrong-password"
       ) {
         setError(
           "관리자 인증에 실패했습니다. 이메일 또는 비밀번호를 확인해주세요."
         );
-      } else if (err.code === "auth/invalid-email") {
+      } else if ((err as { code?: string }).code === "auth/invalid-email") {
         setError("유효하지 않은 관리자 이메일 주소입니다.");
-      } else if (err.code === "auth/user-disabled") {
+      } else if ((err as { code?: string }).code === "auth/user-disabled") {
         setError("비활성화된 관리자 계정입니다.");
-      } else if (err.code === "auth/too-many-requests") {
+      } else if ((err as { code?: string }).code === "auth/too-many-requests") {
         setError(
           "보안상 너무 많은 시도가 있었습니다. 잠시 후 다시 시도해주세요."
         );
       } else {
         setError(
-          "관리자 로그인 중 오류가 발생했습니다. 시스템 관리자에게 문의하세요."
+          err instanceof Error ? err.message : "관리자 로그인에 실패했습니다."
         );
       }
     } finally {
@@ -326,17 +318,8 @@ const AdminLogin = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
-                  className="flex items-center justify-between"
+                  className="flex items-center justify-end"
                 >
-                  <label className="flex items-center space-x-2 text-sm text-slate-300 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                      className="w-4 h-4 text-purple-600 bg-transparent border-slate-400 rounded focus:ring-purple-500 focus:ring-2"
-                    />
-                    <span>로그인 상태 유지</span>
-                  </label>
                   <Link
                     to="/forgot-password"
                     className="text-sm text-purple-400 hover:text-purple-300 transition-colors duration-200"

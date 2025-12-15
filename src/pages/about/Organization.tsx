@@ -1,5 +1,13 @@
 import { motion } from "framer-motion";
-import { Users, UserCheck, Building, Award, Droplets, Wind, Shield } from "lucide-react";
+import {
+  Users,
+  UserCheck,
+  Building,
+  Award,
+  Droplets,
+  Wind,
+  Shield,
+} from "lucide-react";
 
 const Organization = () => {
   const certifications = [
@@ -91,7 +99,9 @@ const Organization = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mb-12 sm:mb-16"
         >
-          <h3 className="text-xl sm:text-2xl font-bold text-center mb-8 sm:mb-12">조직 구성도</h3>
+          <h3 className="text-xl sm:text-2xl font-bold text-center mb-8 sm:mb-12">
+            조직 구성도
+          </h3>
 
           <div className="bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 rounded-3xl p-6 sm:p-8 lg:p-12 shadow-soft">
             <div className="relative max-w-6xl mx-auto">
@@ -103,26 +113,34 @@ const Organization = () => {
                   transition={{ duration: 0.6 }}
                   className="bg-gradient-to-br from-purple-500 to-purple-700 text-white px-8 sm:px-12 py-4 sm:py-6 rounded-2xl shadow-premium"
                 >
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-center">대표 이사</div>
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-center">
+                    대표 이사
+                  </div>
                 </motion.div>
-                
+
                 {/* Main vertical line from CEO */}
                 <div className="w-1 h-12 sm:h-16 lg:h-20 bg-blue-500"></div>
               </div>
 
               {/* Board Level with Center Line */}
-              <div className="relative flex justify-center mb-0" style={{ height: '100px' }}>
+              <div
+                className="relative flex justify-center mb-0"
+                style={{ height: "100px" }}
+              >
                 {/* Center vertical line continues */}
                 <div className="w-1 h-full bg-blue-500 z-10"></div>
-                
+
                 {/* Board - positioned to the left with connecting line */}
-                <div className="absolute flex items-center" style={{ left: '200px', right: '50%', top: '0px' }}>
+                <div
+                  className="absolute flex items-center"
+                  style={{ left: "200px", right: "50%", top: "0px" }}
+                >
                   <motion.div
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
                     className="bg-gradient-to-br from-blue-500 to-blue-700 text-white px-6 py-3 rounded-xl shadow-lg text-center ml-4 lg:ml-12"
-                    style={{ minWidth: '140px' }}
+                    style={{ minWidth: "140px" }}
                   >
                     <div className="text-base lg:text-lg font-bold">이사회</div>
                   </motion.div>
@@ -135,135 +153,159 @@ const Organization = () => {
 
               {/* 6 Departments Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 lg:gap-6 mt-0">
-              {/* 경영지원팀 */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="relative"
-              >
-                {/* Connection Line Up */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
-                
-                <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-purple-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
-                  <h4 className="font-bold text-center mb-4 text-lg text-purple-600 dark:text-purple-400 flex items-center justify-center gap-2">
-                    <Building className="w-5 h-5" />
-                    경영지원팀
-                  </h4>
-                  <div className="space-y-2">
-                    <div className="text-sm text-center py-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg font-medium">인사</div>
-                    <div className="text-sm text-center py-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg font-medium">경리</div>
-                    <div className="text-sm text-center py-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg font-medium">총무(안내)</div>
-                  </div>
-                </div>
-              </motion.div>
+                {/* 경영지원팀 */}
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="relative"
+                >
+                  {/* Connection Line Up */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
 
-              {/* 분석지원부 */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="relative"
-              >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
-                
-                <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-blue-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
-                  <h4 className="font-bold text-center mb-4 text-lg text-blue-600 dark:text-blue-400 flex items-center justify-center gap-2">
-                    <Users className="w-5 h-5" />
-                    분석지원부
-                  </h4>
-                  <div className="space-y-2">
-                    <div className="text-sm text-center py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg font-medium">먹는물 분석</div>
-                    <div className="text-sm text-center py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg font-medium">실내공기질 분석</div>
-                    <div className="text-sm text-center py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg font-medium">석면 분석</div>
-                    <div className="text-sm text-center py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg font-medium">작업환경측정 분석</div>
+                  <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-purple-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
+                    <h4 className="font-bold text-center mb-4 text-lg text-purple-600 dark:text-purple-400 flex items-center justify-center gap-2">
+                      <Building className="w-5 h-5" />
+                      경영지원팀
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="text-sm text-center py-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg font-medium">
+                        인사
+                      </div>
+                      <div className="text-sm text-center py-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg font-medium">
+                        경리
+                      </div>
+                      <div className="text-sm text-center py-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg font-medium">
+                        총무(안내)
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
 
-              {/* 먹는물팀 */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="relative"
-              >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
-                
-                <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-cyan-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
-                  <h4 className="font-bold text-center mb-4 text-lg text-cyan-600 dark:text-cyan-400 flex items-center justify-center gap-2">
-                    <Droplets className="w-5 h-5" />
-                    먹는물팀
-                  </h4>
-                  <div className="space-y-2">
-                    <div className="text-sm text-center py-2 bg-cyan-50 dark:bg-cyan-900/20 rounded-lg font-medium">먹는물 검사</div>
-                  </div>
-                </div>
-              </motion.div>
+                {/* 분석지원부 */}
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="relative"
+                >
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
 
-              {/* 작업환경 측정팀 */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="relative"
-              >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
-                
-                <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-green-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
-                  <h4 className="font-bold text-center mb-4 text-lg text-green-600 dark:text-green-400 flex items-center justify-center gap-2">
-                    <Shield className="w-5 h-5" />
-                    <span className="flex flex-col leading-tight">
-                      <span>작업환경</span>
-                      <span>측정팀</span>
-                    </span>
-                  </h4>
-                  <div className="space-y-2">
-                    <div className="text-sm text-center py-2 bg-green-50 dark:bg-green-900/20 rounded-lg font-medium">작업환경 측정</div>
+                  <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-blue-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
+                    <h4 className="font-bold text-center mb-4 text-lg text-blue-600 dark:text-blue-400 flex items-center justify-center gap-2">
+                      <Users className="w-5 h-5" />
+                      분석지원부
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="text-sm text-center py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg font-medium">
+                        먹는물 분석
+                      </div>
+                      <div className="text-sm text-center py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg font-medium">
+                        실내공기질 분석
+                      </div>
+                      <div className="text-sm text-center py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg font-medium">
+                        석면 분석
+                      </div>
+                      <div className="text-sm text-center py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg font-medium">
+                        작업환경측정 분석
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
 
-              {/* 생활환경팀 */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                className="relative"
-              >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
-                
-                <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-orange-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
-                  <h4 className="font-bold text-center mb-4 text-lg text-orange-600 dark:text-orange-400 flex items-center justify-center gap-2">
-                    <Wind className="w-5 h-5" />
-                    생활환경팀
-                  </h4>
-                  <div className="space-y-2">
-                    <div className="text-sm text-center py-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg font-medium">실내공기질 측정</div>
-                    <div className="text-sm text-center py-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg font-medium">석면 조사</div>
-                  </div>
-                </div>
-              </motion.div>
+                {/* 먹는물팀 */}
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="relative"
+                >
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
 
-              {/* R&D Center */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.7 }}
-                className="relative"
-              >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
-                
-                <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-pink-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
-                  <h4 className="font-bold text-center mb-4 text-lg text-pink-600 dark:text-pink-400 flex items-center justify-center gap-2">
-                    <Award className="w-5 h-5" />
-                    R&D Center
-                  </h4>
-                  <div className="space-y-2">
-                    <div className="text-sm text-center py-2 bg-pink-50 dark:bg-pink-900/20 rounded-lg font-medium">R&D 팀</div>
+                  <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-cyan-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
+                    <h4 className="font-bold text-center mb-4 text-lg text-cyan-600 dark:text-cyan-400 flex items-center justify-center gap-2">
+                      <Droplets className="w-5 h-5" />
+                      먹는물팀
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="text-sm text-center py-2 bg-cyan-50 dark:bg-cyan-900/20 rounded-lg font-medium">
+                        먹는물 검사
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+
+                {/* 작업환경 측정팀 */}
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="relative"
+                >
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
+
+                  <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-green-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
+                    <h4 className="font-bold text-center mb-4 text-lg text-green-600 dark:text-green-400 flex items-center justify-center gap-2">
+                      <Shield className="w-5 h-5" />
+                      <span className="flex flex-col leading-tight">
+                        <span>작업환경</span>
+                        <span>측정팀</span>
+                      </span>
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="text-sm text-center py-2 bg-green-50 dark:bg-green-900/20 rounded-lg font-medium">
+                        작업환경 측정
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* 생활환경팀 */}
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  className="relative"
+                >
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
+
+                  <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-orange-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
+                    <h4 className="font-bold text-center mb-4 text-lg text-orange-600 dark:text-orange-400 flex items-center justify-center gap-2">
+                      <Wind className="w-5 h-5" />
+                      생활환경팀
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="text-sm text-center py-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg font-medium">
+                        실내공기질 측정
+                      </div>
+                      <div className="text-sm text-center py-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg font-medium">
+                        석면 조사
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* R&D Center */}
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  className="relative"
+                >
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-8 bg-blue-500"></div>
+
+                  <div className="bg-white dark:bg-neutral-800 rounded-xl p-5 shadow-lg border-t-4 border-pink-500 hover:shadow-2xl transition-shadow duration-300 mt-8">
+                    <h4 className="font-bold text-center mb-4 text-lg text-pink-600 dark:text-pink-400 flex items-center justify-center gap-2">
+                      <Award className="w-5 h-5" />
+                      R&D Center
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="text-sm text-center py-2 bg-pink-50 dark:bg-pink-900/20 rounded-lg font-medium">
+                        R&D 팀
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </div>
           </div>

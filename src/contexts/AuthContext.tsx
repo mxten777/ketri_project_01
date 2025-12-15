@@ -25,6 +25,7 @@ interface AuthContextType {
   user: FirebaseUser | null; // alias for compatibility
   userData: User | null;
   loading: boolean;
+  isAdmin: boolean;
   signup: (
     email: string,
     password: string,
@@ -85,11 +86,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     );
     const user = userCredential.user;
 
-    // Firebase Auth ?�로???�데?�트
+    // Firebase Auth 프로필 업데이트
     await updateProfile(user, { displayName });
 
-    // ?�정 ?�메?��? ?�동?�로 관리자 권한 부??
-    const adminEmails = ["jngdy@naver.com"];
+    // 환경변수에서 관리자 이메일 목록 가져오기
+    const adminEmailsEnv = import.meta.env.VITE_ADMIN_EMAILS || "";
+    const adminEmails = adminEmailsEnv
+      .split(",")
+      .map((email: string) => email.trim());
     const isAdmin = adminEmails.includes(user.email || "");
 
     // Firestore에 저장할 사용자 데이터
@@ -193,6 +197,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     user: currentUser, // alias for compatibility
     userData,
     loading,
+    isAdmin: userData?.role === "admin",
     signup,
     login,
     logout,

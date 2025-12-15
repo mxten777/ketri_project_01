@@ -75,42 +75,42 @@ const Home = () => {
 
   // 통계 데이터
   const stats = [
-    { icon: <CheckCircle />, value: "8,500+", label: "검사 건수" },
+    { icon: <CheckCircle />, value: "19년", label: "신뢰의 경험" },
     { icon: <Users />, value: "650+", label: "협력 고객사" },
-    { icon: <Award />, value: "12+", label: "보유 인증" },
-    { icon: <TrendingUp />, value: "95%", label: "고객 만족도" },
+    { icon: <Award />, value: "11+", label: "보유 인증" },
+    { icon: <TrendingUp />, value: "KOLAS", label: "공인 인증기관" },
   ];
 
   // 최신 공지사항 (더미 데이터)
   const notices = [
     {
       id: 1,
-      title: "2024년 설 연휴 휴무 안내",
-      date: "2024-01-20",
+      title: "2025년 설 연휴 휴무 안내",
+      date: "2025-01-20",
       isImportant: true,
     },
     {
       id: 2,
       title: "먹는물 수질검사 항목 추가 안내",
-      date: "2024-01-15",
+      date: "2025-01-15",
       isImportant: false,
     },
     {
       id: 3,
       title: "실내공기질 측정 견적 문의 이벤트",
-      date: "2024-01-10",
+      date: "2025-01-10",
       isImportant: false,
     },
     {
       id: 4,
       title: "석면조사 분석 서비스 확대",
-      date: "2024-01-05",
+      date: "2025-01-05",
       isImportant: false,
     },
     {
       id: 5,
-      title: "홈페이지 리뉴얼 안내",
-      date: "2024-01-01",
+      title: "홈페이지 리뉴얼 완료",
+      date: "2024-12-15",
       isImportant: true,
     },
   ];
@@ -137,49 +137,53 @@ const Home = () => {
             className="text-center text-white"
           >
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold mb-6 leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 sm:mb-8 leading-tight px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
               신뢰할 수 있는
               <br />
-              환경안전 전문기관
+              <span className="text-secondary-300">환경안전</span> 전문기관
             </motion.h1>
 
             <motion.p
-              className="text-lg sm:text-xl md:text-xl lg:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-10 text-white/90 max-w-3xl mx-auto leading-relaxed px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              KOLAS 인증 시험기관으로 2006년부터 축적된 전문성과 신뢰성
+              <span className="font-semibold text-white">KOLAS 인증</span>{" "}
+              시험기관으로{" "}
+              <span className="font-semibold text-white">2006년</span>부터
+              축적된 전문성
               <br className="hidden sm:block" />
-              정확하고 신속한 검사 서비스로 고객만족을 실현합니다
+              <span className="font-semibold text-white">650+</span> 협력
+              고객사와 함께 성장하는 신뢰의 파트너
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
-              <Link to="/industrial-health">
+              <Link to="/about/greeting" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="bg-white text-primary-600 hover:bg-neutral-100 px-6 py-3 text-base font-semibold"
+                  className="w-full sm:w-auto bg-white text-primary-600 hover:bg-neutral-100 hover:shadow-xl transition-all duration-300 px-8 py-3.5 text-base font-semibold"
                 >
-                  서비스 둘러보기
-                  <ArrowRight className="ml-2 w-4 h-4" />
+                  회사 소개
+                  <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
-              <Link to="/board/qna">
+              <Link to="/quote-request" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-primary-600 px-6 py-3 text-base font-semibold"
+                  className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary-600 transition-all duration-300 px-8 py-3.5 text-base font-semibold"
                 >
-                  견적 문의하기
+                  견적 문의
                 </Button>
               </Link>
             </motion.div>
@@ -286,8 +290,8 @@ const Home = () => {
           >
             <h2 className="heading-lg mb-4">왜 KETRI를 선택해야 할까요?</h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-              19년간의 검증된 전문성과 체계적인 품질관리 시스템으로 고객의 신뢰를
-              얻고 있습니다
+              19년간의 검증된 전문성과 체계적인 품질관리 시스템으로 고객의
+              신뢰를 얻고 있습니다
             </p>
           </motion.div>
 
@@ -531,7 +535,7 @@ const Home = () => {
       </section>
 
       {/* Quick Actions Section */}
-      <section className="section bg-neutral-50 dark:bg-neutral-900">
+      <section className="section bg-white dark:bg-neutral-800">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -548,9 +552,9 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                title: "성적서 조회",
-                description: "발급받은 성적서를 확인하세요",
-                path: "/certificate-lookup",
+                title: "공지사항",
+                description: "최신 소식을 확인하세요",
+                path: "/board/notices",
                 icon: <FileText />,
               },
               {
@@ -560,13 +564,13 @@ const Home = () => {
                 icon: <TrendingUp />,
               },
               {
-                title: "검사 의뢰",
-                description: "온라인으로 검사를 신청하세요",
-                path: "/request",
+                title: "서비스 소개",
+                description: "검사 서비스를 확인하세요",
+                path: "/industrial-health",
                 icon: <CheckCircle />,
               },
               {
-                title: "문의하기",
+                title: "질문답변",
                 description: "궁금한 사항을 문의하세요",
                 path: "/board/qna",
                 icon: <Users />,
@@ -614,19 +618,19 @@ const Home = () => {
               한국환경안전연구소의 전문가가 최적의 솔루션을 제공해드립니다
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/board/qna">
+              <Link to="/quote-request" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="bg-white text-primary-600 hover:bg-neutral-100"
+                  className="w-full sm:w-auto bg-white text-primary-600 hover:bg-neutral-100"
                 >
                   무료 견적 받기
                 </Button>
               </Link>
-              <Link to="/about">
+              <Link to="/about/greeting" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-primary-600"
+                  className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary-600"
                 >
                   회사 소개 보기
                 </Button>

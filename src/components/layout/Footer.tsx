@@ -130,7 +130,9 @@ const Footer = () => {
                 <MapPin className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
                 <div className="text-sm leading-relaxed">
                   <div>충북 청주시 서원구 남이면 양동3길 7-30</div>
-                  <div className="text-neutral-500 text-xs mt-1">(우) 28805</div>
+                  <div className="text-neutral-500 text-xs mt-1">
+                    (우) 28805
+                  </div>
                 </div>
               </li>
               <li className="flex items-center space-x-3">
@@ -143,7 +145,9 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex items-center space-x-3">
-                <span className="w-5 h-5 text-primary-400 flex-shrink-0 text-center text-xs">📠</span>
+                <span className="w-5 h-5 text-primary-400 flex-shrink-0 text-center text-xs">
+                  📠
+                </span>
                 <span className="text-sm">FAX: 043-237-7826</span>
               </li>
               <li className="flex items-center space-x-3">
@@ -156,10 +160,14 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex items-center space-x-3">
-                <span className="w-5 h-5 text-primary-400 flex-shrink-0 text-center text-xs">📄</span>
+                <span className="w-5 h-5 text-primary-400 flex-shrink-0 text-center text-xs">
+                  📄
+                </span>
                 <div className="text-sm">
                   <div>사업자: 317-81-01323</div>
-                  <div className="text-neutral-500 text-xs mt-0.5">법인: 150111-0098934</div>
+                  <div className="text-neutral-500 text-xs mt-0.5">
+                    법인: 150111-0098934
+                  </div>
                 </div>
               </li>
             </ul>
@@ -188,7 +196,8 @@ const Footer = () => {
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <div className="text-sm text-neutral-500">
-              © {currentYear} 한국환경안전연구소 (KETRI). All rights reserved. | 대표이사: 이정식
+              © {currentYear} 한국환경안전연구소 (KETRI). All rights reserved. |
+              대표이사: 이정식
             </div>
             <div className="flex items-center space-x-6 text-sm">
               {footerLinks.support.slice(-2).map((link) => (

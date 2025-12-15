@@ -71,21 +71,41 @@ const UserManagement: React.FC = () => {
   // 관리자 권한 확인
   if (!user || userData?.role !== "admin") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-neutral-900">
-        <Card className="p-8 text-center max-w-md mx-auto">
-          <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Shield className="w-8 h-8 text-red-600" />
-          </div>
-          <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-red-900 to-slate-900 flex items-center justify-center p-4">
+        <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-pink-600/10 to-red-600/10"></div>
+        
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10 bg-white/10 backdrop-blur-md p-10 rounded-3xl shadow-2xl text-center max-w-md mx-auto border border-white/20"
+        >
+          <motion.div
+            animate={{
+              scale: [1, 1.1, 1],
+              rotate: [0, 5, -5, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+            }}
+            className="w-24 h-24 bg-red-500/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-red-500/30"
+          >
+            <Shield className="w-12 h-12 text-red-400" />
+          </motion.div>
+          <h3 className="text-3xl font-bold text-white mb-4">
             접근 권한이 없습니다
           </h3>
-          <p className="text-neutral-600 dark:text-neutral-400 mb-4">
+          <p className="text-gray-300 mb-8 leading-relaxed">
             관리자만 사용자 관리에 접근할 수 있습니다.
           </p>
-          <Button onClick={() => window.history.back()} variant="outline">
+          <Button
+            onClick={() => window.history.back()}
+            className="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl shadow-lg shadow-red-500/30 hover:shadow-red-500/50 transition-all duration-200"
+          >
             이전 페이지로
           </Button>
-        </Card>
+        </motion.div>
       </div>
     );
   }
@@ -254,116 +274,172 @@ const UserManagement: React.FC = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="max-w-7xl mx-auto space-y-6 p-6"
+      className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden"
     >
+      {/* 애니메이션 그라데이션 배경 */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-pink-600/10 animate-gradient"></div>
+      
+      {/* 파티클 효과 */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          animate={{
+            y: [0, -100, 0],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+        ></motion.div>
+      </div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto space-y-6 p-6">
       {/* 헤더 */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
             사용자 관리
           </h1>
-          <p className="text-neutral-600 dark:text-neutral-400 mt-1">
+          <p className="text-gray-300 mt-1">
             등록된 사용자를 관리하고 권한을 설정하세요
           </p>
         </div>
-        <Button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => loadUsers()}
-          variant="outline"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 px-5 py-3 bg-white/10 backdrop-blur-md rounded-xl shadow-lg hover:bg-white/20 transition-all duration-200 border border-white/20 text-white"
         >
-          <RefreshCw className="w-4 h-4" />
+          <RefreshCw className="w-5 h-5" />
           새로고침
-        </Button>
+        </motion.button>
       </div>
 
       {/* 통계 카드 */}
       {statistics && (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-          <Card className="p-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-xl"
+          >
             <div className="text-center">
-              <p className="text-2xl font-bold text-neutral-900 dark:text-white">
+              <p className="text-3xl font-bold text-white">
                 {statistics.totalUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <p className="text-sm text-gray-300 mt-1">
                 전체 사용자
               </p>
             </div>
-          </Card>
-          <Card className="p-4">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="bg-gradient-to-br from-green-500/20 to-green-600/20 backdrop-blur-md rounded-2xl p-4 border border-green-400/30 shadow-xl"
+          >
             <div className="text-center">
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-3xl font-bold text-green-300">
                 {statistics.activeUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <p className="text-sm text-gray-300 mt-1">
                 활성 사용자
               </p>
             </div>
-          </Card>
-          <Card className="p-4">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="bg-gradient-to-br from-red-500/20 to-red-600/20 backdrop-blur-md rounded-2xl p-4 border border-red-400/30 shadow-xl"
+          >
             <div className="text-center">
-              <p className="text-2xl font-bold text-red-600">
+              <p className="text-3xl font-bold text-red-300">
                 {statistics.inactiveUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <p className="text-sm text-gray-300 mt-1">
                 비활성 사용자
               </p>
             </div>
-          </Card>
-          <Card className="p-4">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="bg-gradient-to-br from-purple-500/20 to-purple-600/20 backdrop-blur-md rounded-2xl p-4 border border-purple-400/30 shadow-xl"
+          >
             <div className="text-center">
-              <p className="text-2xl font-bold text-purple-600">
+              <p className="text-3xl font-bold text-purple-300">
                 {statistics.adminUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <p className="text-sm text-gray-300 mt-1">
                 관리자
               </p>
             </div>
-          </Card>
-          <Card className="p-4">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-md rounded-2xl p-4 border border-blue-400/30 shadow-xl"
+          >
             <div className="text-center">
-              <p className="text-2xl font-bold text-blue-600">
+              <p className="text-3xl font-bold text-blue-300">
                 {statistics.regularUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <p className="text-sm text-gray-300 mt-1">
                 일반 사용자
               </p>
             </div>
-          </Card>
-          <Card className="p-4">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+            className="bg-gradient-to-br from-orange-500/20 to-orange-600/20 backdrop-blur-md rounded-2xl p-4 border border-orange-400/30 shadow-xl"
+          >
             <div className="text-center">
-              <p className="text-2xl font-bold text-orange-600">
+              <p className="text-3xl font-bold text-orange-300">
                 {statistics.weeklyNewUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <p className="text-sm text-gray-300 mt-1">
                 주간 신규
               </p>
             </div>
-          </Card>
-          <Card className="p-4">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="bg-gradient-to-br from-teal-500/20 to-teal-600/20 backdrop-blur-md rounded-2xl p-4 border border-teal-400/30 shadow-xl"
+          >
             <div className="text-center">
-              <p className="text-2xl font-bold text-teal-600">
+              <p className="text-3xl font-bold text-teal-300">
                 {statistics.monthlyActiveUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <p className="text-sm text-gray-300 mt-1">
                 월간 활성
               </p>
             </div>
-          </Card>
+          </motion.div>
         </div>
       )}
 
       {/* 검색 및 필터 */}
-      <Card className="p-6">
+      <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-xl">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* 검색 */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-neutral-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="이름, 이메일로 검색..."
-              className="w-full pl-10 pr-4 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full pl-10 pr-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
             />
           </div>
 
@@ -373,11 +449,11 @@ const UserManagement: React.FC = () => {
             onChange={(e) =>
               setRoleFilter(e.target.value as "all" | "admin" | "user")
             }
-            className="px-4 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
           >
-            <option value="all">모든 역할</option>
-            <option value="admin">관리자</option>
-            <option value="user">일반 사용자</option>
+            <option value="all" className="bg-slate-800">모든 역할</option>
+            <option value="admin" className="bg-slate-800">관리자</option>
+            <option value="user" className="bg-slate-800">일반 사용자</option>
           </select>
 
           {/* 상태 필터 */}
@@ -386,11 +462,11 @@ const UserManagement: React.FC = () => {
             onChange={(e) =>
               setStatusFilter(e.target.value as "all" | "active" | "inactive")
             }
-            className="px-4 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
           >
-            <option value="all">모든 상태</option>
-            <option value="active">활성</option>
-            <option value="inactive">비활성</option>
+            <option value="all" className="bg-slate-800">모든 상태</option>
+            <option value="active" className="bg-slate-800">활성</option>
+            <option value="inactive" className="bg-slate-800">비활성</option>
           </select>
 
           {/* 정렬 */}
@@ -751,6 +827,7 @@ const UserManagement: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </motion.div>
   );
 };

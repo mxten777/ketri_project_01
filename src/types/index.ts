@@ -243,7 +243,7 @@ export interface Resource {
   views: number;
   isPublic: boolean;
   createdAt: Timestamp;
-  updatedAt: any;
+  updatedAt: Timestamp;
 }
 
 // Service Types

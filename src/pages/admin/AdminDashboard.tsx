@@ -173,13 +173,14 @@ const PremiumActivityCard = ({
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3, delay: index * 0.1 }}
-      className="flex items-center space-x-4 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-200 group cursor-pointer"
+      className="flex items-center space-x-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors duration-200 group cursor-pointer border border-white/10"
     >
-      <div
+      <motion.div
+        whileHover={{ scale: 1.15, rotate: 10 }}
         className={`p-2 rounded-lg ${bg} group-hover:scale-110 transition-transform duration-200`}
       >
         <Icon className={`w-4 h-4 ${color}`} />
-      </div>
+      </motion.div>
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center space-x-2">
@@ -189,10 +190,10 @@ const PremiumActivityCard = ({
             {label}
           </span>
         </div>
-        <p className="text-sm font-medium text-gray-900 dark:text-white truncate mt-1">
+        <p className="text-sm font-medium text-white truncate mt-1">
           {activity.title}
         </p>
-        <p className="text-xs text-gray-500 dark:text-gray-400">
+        <p className="text-xs text-gray-300">
           {activity.author} •{" "}
           {formatDistanceToNow(activity.createdAt, {
             addSuffix: true,
@@ -220,27 +221,40 @@ const AdminDashboard: React.FC = () => {
   // 관리자 권한 확인
   if (!user || userData?.role !== "admin") {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-red-900 to-slate-900 flex items-center justify-center p-4">
+        {/* 배경 효과 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-pink-600/10 to-red-600/10"></div>
+
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="bg-white dark:bg-gray-900 p-8 rounded-3xl shadow-2xl text-center max-w-md mx-auto"
+          className="relative z-10 bg-white/10 backdrop-blur-md p-10 rounded-3xl shadow-2xl text-center max-w-md mx-auto border border-white/20"
         >
-          <div className="w-20 h-20 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Shield className="w-10 h-10 text-red-600" />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+          <motion.div
+            animate={{
+              scale: [1, 1.1, 1],
+              rotate: [0, 5, -5, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+            }}
+            className="w-24 h-24 bg-red-500/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-red-500/30"
+          >
+            <Shield className="w-12 h-12 text-red-400" />
+          </motion.div>
+          <h3 className="text-3xl font-bold text-white mb-4">
             접근 권한이 없습니다
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+          <p className="text-gray-300 mb-8 leading-relaxed">
             관리자 권한이 필요한 페이지입니다.
             <br />
             적절한 권한으로 다시 로그인해주세요.
           </p>
           <Button
             onClick={() => window.history.back()}
-            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-3 rounded-xl"
+            className="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl shadow-lg shadow-red-500/30 hover:shadow-red-500/50 transition-all duration-200"
           >
             이전 페이지로 돌아가기
           </Button>
@@ -322,7 +336,7 @@ const AdminDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -331,24 +345,59 @@ const AdminDashboard: React.FC = () => {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"
+            className="w-20 h-20 border-4 border-purple-500 border-t-transparent rounded-full mx-auto mb-6 shadow-lg shadow-purple-500/50"
           />
-          <p className="text-gray-600 dark:text-gray-400 font-medium">
+          <motion.p
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="text-white font-medium text-lg"
+          >
             관리자 대시보드를 불러오는 중...
-          </p>
+          </motion.p>
         </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+      {/* 애니메이션 그라데이션 배경 */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-pink-600/10 animate-gradient"></div>
+
+      {/* 파티클 효과 */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          animate={{
+            y: [0, -100, 0],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+        ></motion.div>
+        <motion.div
+          animate={{
+            y: [0, 100, 0],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+        ></motion.div>
+      </div>
+
       {/* 배경 패턴 */}
       <div
-        className="fixed inset-0 opacity-40"
+        className="fixed inset-0 opacity-20"
         style={{
           backgroundImage:
-            'url(\'data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.03"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\')',
+            'url(\'data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\')',
         }}
       ></div>
 
@@ -362,14 +411,25 @@ const AdminDashboard: React.FC = () => {
         >
           <div>
             <div className="flex items-center space-x-3 mb-2">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
+              <motion.div
+                animate={{
+                  rotate: [0, 360],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="w-14 h-14 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/50"
+              >
+                <Shield className="w-7 h-7 text-white" />
+              </motion.div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent mb-1">
                   관리자 대시보드
                 </h1>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-300">
                   안녕하세요, {userData?.displayName || user?.email}님 👋
                 </p>
               </div>
@@ -382,26 +442,28 @@ const AdminDashboard: React.FC = () => {
               whileTap={{ scale: 0.95 }}
               onClick={handleRefresh}
               disabled={refreshing}
-              className="flex items-center space-x-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border border-gray-200 dark:border-gray-700"
+              className="flex items-center space-x-2 px-5 py-3 bg-white/10 backdrop-blur-md rounded-xl shadow-lg hover:bg-white/20 transition-all duration-200 border border-white/20"
             >
               <RefreshCw
-                className={`w-4 h-4 text-gray-600 dark:text-gray-400 ${
+                className={`w-5 h-5 text-white ${
                   refreshing ? "animate-spin" : ""
                 }`}
               />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                새로고침
-              </span>
+              <span className="text-sm font-medium text-white">새로고침</span>
             </motion.button>
 
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-200"
+              className="relative flex items-center space-x-2 px-5 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all duration-200"
             >
-              <Bell className="w-4 h-4" />
+              <Bell className="w-5 h-5" />
               <span className="text-sm font-medium">알림</span>
-              <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-2 h-2 bg-yellow-400 rounded-full"
+              ></motion.div>
             </motion.button>
           </div>
         </motion.div>
@@ -454,20 +516,27 @@ const AdminDashboard: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 dark:border-gray-800/20 overflow-hidden"
+              className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 overflow-hidden"
             >
-              <div className="p-6 border-b border-gray-200 dark:border-gray-800">
+              <div className="p-6 border-b border-white/10 bg-gradient-to-r from-blue-500/10 to-purple-500/10">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <Activity className="w-6 h-6 text-blue-600" />
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                      최근 활동
-                    </h3>
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{
+                        duration: 20,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    >
+                      <Activity className="w-6 h-6 text-blue-400" />
+                    </motion.div>
+                    <h3 className="text-xl font-bold text-white">최근 활동</h3>
                   </div>
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-gray-500 hover:text-gray-700"
+                    className="text-gray-300 hover:text-white hover:bg-white/10"
                   >
                     <Filter className="w-4 h-4 mr-2" />
                     필터
@@ -488,10 +557,8 @@ const AdminDashboard: React.FC = () => {
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <Activity className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-                    <p className="text-gray-500 dark:text-gray-400">
-                      최근 활동이 없습니다
-                    </p>
+                    <Activity className="w-16 h-16 text-gray-500 mx-auto mb-4 opacity-50" />
+                    <p className="text-gray-400">최근 활동이 없습니다</p>
                   </div>
                 )}
               </div>
@@ -505,14 +572,17 @@ const AdminDashboard: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 dark:border-gray-800/20 overflow-hidden"
+              className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 overflow-hidden"
             >
               <div className="p-6">
                 <div className="flex items-center space-x-3 mb-6">
-                  <Cpu className="w-6 h-6 text-green-600" />
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                    시스템 상태
-                  </h3>
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <Cpu className="w-6 h-6 text-green-400" />
+                  </motion.div>
+                  <h3 className="text-lg font-bold text-white">시스템 상태</h3>
                 </div>
 
                 <div className="space-y-4">
@@ -522,28 +592,32 @@ const AdminDashboard: React.FC = () => {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
-                      className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50"
+                      className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-200 border border-white/10"
                     >
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <span className="text-sm font-medium text-gray-200">
                         {item.label}
                       </span>
                       <div className="flex items-center space-x-2">
-                        <div
-                          className={`w-2 h-2 rounded-full ${
+                        <motion.div
+                          animate={
+                            item.color === "green" ? { scale: [1, 1.2, 1] } : {}
+                          }
+                          transition={{ duration: 2, repeat: Infinity }}
+                          className={`w-2.5 h-2.5 rounded-full ${
                             item.color === "green"
-                              ? "bg-green-500"
+                              ? "bg-green-400 shadow-lg shadow-green-400/50"
                               : item.color === "yellow"
-                              ? "bg-yellow-500"
-                              : "bg-red-500"
-                          } ${item.color === "green" ? "animate-pulse" : ""}`}
-                        ></div>
+                              ? "bg-yellow-400 shadow-lg shadow-yellow-400/50"
+                              : "bg-red-400 shadow-lg shadow-red-400/50"
+                          }`}
+                        ></motion.div>
                         <span
                           className={`text-xs font-medium ${
                             item.color === "green"
-                              ? "text-green-600"
+                              ? "text-green-300"
                               : item.color === "yellow"
-                              ? "text-yellow-600"
-                              : "text-red-600"
+                              ? "text-yellow-300"
+                              : "text-red-300"
                           }`}
                         >
                           {item.status}
@@ -560,14 +634,17 @@ const AdminDashboard: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 dark:border-gray-800/20 overflow-hidden"
+              className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 overflow-hidden"
             >
               <div className="p-6">
                 <div className="flex items-center space-x-3 mb-6">
-                  <Zap className="w-6 h-6 text-yellow-600" />
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                    빠른 작업
-                  </h3>
+                  <motion.div
+                    animate={{ rotate: [0, 15, -15, 0] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <Zap className="w-6 h-6 text-yellow-400" />
+                  </motion.div>
+                  <h3 className="text-lg font-bold text-white">빠른 작업</h3>
                 </div>
 
                 <div className="space-y-3">
@@ -577,25 +654,27 @@ const AdminDashboard: React.FC = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
-                      whileHover={{ scale: 1.02 }}
+                      whileHover={{ scale: 1.03, x: 5 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => (window.location.href = action.path)}
-                      className="w-full flex items-center space-x-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-all duration-200 text-left group"
+                      className="w-full flex items-center space-x-3 p-4 rounded-xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-200 text-left group border border-white/10"
                     >
-                      <div
-                        className={`p-2 rounded-lg bg-gradient-to-br ${action.color}`}
+                      <motion.div
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                        className={`p-2.5 rounded-lg bg-gradient-to-br ${action.color} shadow-lg`}
                       >
                         <action.icon className="w-5 h-5 text-white" />
-                      </div>
+                      </motion.div>
                       <div className="flex-1">
-                        <div className="font-medium text-gray-900 dark:text-white text-sm">
+                        <div className="font-medium text-white text-sm">
                           {action.title}
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="text-xs text-gray-300">
                           {action.description}
                         </div>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      <ChevronRight className="w-5 h-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                     </motion.button>
                   ))}
                 </div>
