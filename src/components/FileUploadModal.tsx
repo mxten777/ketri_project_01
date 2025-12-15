@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
   Upload,
   X,
   File,
@@ -15,10 +15,10 @@ import {
   Globe,
   Lock,
   Check,
-  AlertCircle
-} from 'lucide-react';
-import Button from './common/Button';
-import Card from './common/Card';
+  AlertCircle,
+} from "lucide-react";
+import Button from "./common/Button";
+import Card from "./common/Card";
 
 interface FileUploadModalProps {
   isOpen: boolean;
@@ -39,33 +39,35 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
   onClose,
   onUpload,
   categories,
-  isUploading
+  isUploading,
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<SelectedFile[]>([]);
-  const [category, setCategory] = useState('general');
+  const [category, setCategory] = useState("general");
   const [tags, setTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState('');
-  const [description, setDescription] = useState('');
+  const [tagInput, setTagInput] = useState("");
+  const [description, setDescription] = useState("");
   const [isPublic, setIsPublic] = useState(true);
   const [isDragOver, setIsDragOver] = useState(false);
-  const [step, setStep] = useState<'upload' | 'details'>('upload');
-  
+  const [step, setStep] = useState<"upload" | "details">("upload");
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // 파일 선택 처리
   const handleFileSelect = (files: FileList | File[]) => {
     const filesArray = Array.from(files);
-    const newFiles: SelectedFile[] = filesArray.map(file => ({
+    const newFiles: SelectedFile[] = filesArray.map((file) => ({
       file,
       id: Math.random().toString(36).substr(2, 9),
-      preview: file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined
+      preview: file.type.startsWith("image/")
+        ? URL.createObjectURL(file)
+        : undefined,
     }));
-    
-    setSelectedFiles(prev => [...prev, ...newFiles]);
-    
+
+    setSelectedFiles((prev) => [...prev, ...newFiles]);
+
     // 파일이 선택되면 상세 정보 단계로 이동
     if (filesArray.length > 0) {
-      setStep('details');
+      setStep("details");
     }
   };
 
@@ -85,7 +87,7 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(false);
-    
+
     const droppedFiles = e.dataTransfer.files;
     if (droppedFiles.length > 0) {
       handleFileSelect(droppedFiles);
@@ -94,18 +96,18 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
 
   // 파일 제거
   const removeFile = (id: string) => {
-    setSelectedFiles(prev => {
-      const newFiles = prev.filter(f => f.id !== id);
-      const fileToRemove = prev.find(f => f.id === id);
+    setSelectedFiles((prev) => {
+      const newFiles = prev.filter((f) => f.id !== id);
+      const fileToRemove = prev.find((f) => f.id === id);
       if (fileToRemove?.preview) {
         URL.revokeObjectURL(fileToRemove.preview);
       }
-      
+
       // 모든 파일이 제거되면 업로드 단계로 돌아가기
       if (newFiles.length === 0) {
-        setStep('upload');
+        setStep("upload");
       }
-      
+
       return newFiles;
     });
   };
@@ -113,64 +115,67 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
   // 태그 추가
   const addTag = () => {
     if (tagInput.trim() && !tags.includes(tagInput.trim())) {
-      setTags(prev => [...prev, tagInput.trim()]);
-      setTagInput('');
+      setTags((prev) => [...prev, tagInput.trim()]);
+      setTagInput("");
     }
   };
 
   // 태그 제거
   const removeTag = (tagToRemove: string) => {
-    setTags(prev => prev.filter(tag => tag !== tagToRemove));
+    setTags((prev) => prev.filter((tag) => tag !== tagToRemove));
   };
 
   // 업로드 처리
   const handleUpload = () => {
     if (selectedFiles.length === 0) return;
-    
+
     const metadata = {
       category,
       tags,
       description,
-      isPublic
+      isPublic,
     };
-    
-    onUpload(selectedFiles.map(f => f.file), metadata);
+
+    onUpload(
+      selectedFiles.map((f) => f.file),
+      metadata
+    );
   };
 
   // 모달 리셋
   const handleClose = () => {
     // 미리보기 URL 정리
-    selectedFiles.forEach(file => {
+    selectedFiles.forEach((file) => {
       if (file.preview) {
         URL.revokeObjectURL(file.preview);
       }
     });
-    
+
     setSelectedFiles([]);
-    setCategory('general');
+    setCategory("general");
     setTags([]);
-    setTagInput('');
-    setDescription('');
+    setTagInput("");
+    setDescription("");
     setIsPublic(true);
-    setStep('upload');
+    setStep("upload");
     onClose();
   };
 
   // 파일 아이콘 가져오기
   const getFileIcon = (fileType: string) => {
-    if (fileType.startsWith('image/')) return <ImageIcon className="w-8 h-8" />;
-    if (fileType.startsWith('video/')) return <Video className="w-8 h-8" />;
-    if (fileType.startsWith('audio/')) return <Music className="w-8 h-8" />;
+    if (fileType.startsWith("image/")) return <ImageIcon className="w-8 h-8" />;
+    if (fileType.startsWith("video/")) return <Video className="w-8 h-8" />;
+    if (fileType.startsWith("audio/")) return <Music className="w-8 h-8" />;
     return <FileText className="w-8 h-8" />;
   };
 
   // 파일 크기 포맷팅
   const formatFileSize = (bytes: number): string => {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
   if (!isOpen) return null;
@@ -202,7 +207,9 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
                   파일 업로드
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400 text-sm">
-                  {step === 'upload' ? '업로드할 파일을 선택하세요' : '파일 정보를 입력하세요'}
+                  {step === "upload"
+                    ? "업로드할 파일을 선택하세요"
+                    : "파일 정보를 입력하세요"}
                 </p>
               </div>
             </div>
@@ -218,23 +225,25 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
 
           {/* Content */}
           <div className="p-6">
-            {step === 'upload' ? (
+            {step === "upload" ? (
               /* Upload Step */
               <div className="space-y-6">
                 {/* Drop Zone */}
                 <div
                   className={`border-2 border-dashed rounded-xl p-12 text-center transition-colors ${
                     isDragOver
-                      ? 'border-primary bg-primary/5'
-                      : 'border-gray-300 dark:border-gray-600 hover:border-primary/50'
+                      ? "border-primary bg-primary/5"
+                      : "border-gray-300 dark:border-gray-600 hover:border-primary/50"
                   }`}
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}
                   onDrop={handleDrop}
                 >
-                  <Upload className={`w-16 h-16 mx-auto mb-4 ${
-                    isDragOver ? 'text-primary' : 'text-gray-400'
-                  }`} />
+                  <Upload
+                    className={`w-16 h-16 mx-auto mb-4 ${
+                      isDragOver ? "text-primary" : "text-gray-400"
+                    }`}
+                  />
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                     파일을 여기에 드롭하세요
                   </h3>
@@ -248,16 +257,18 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
                     <Plus className="w-4 h-4" />
                     파일 선택
                   </Button>
-                  
+
                   <input
                     ref={fileInputRef}
                     type="file"
                     multiple
                     accept="*/*"
-                    onChange={(e) => e.target.files && handleFileSelect(e.target.files)}
+                    onChange={(e) =>
+                      e.target.files && handleFileSelect(e.target.files)
+                    }
                     className="hidden"
                   />
-                  
+
                   <div className="mt-4 text-xs text-gray-500 dark:text-gray-400">
                     최대 100MB • 모든 파일 형식 지원
                   </div>
@@ -266,10 +277,22 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
                 {/* File Types Info */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   {[
-                    { icon: ImageIcon, label: '이미지', types: 'JPG, PNG, GIF, WebP' },
-                    { icon: Video, label: '비디오', types: 'MP4, AVI, MOV, WebM' },
-                    { icon: Music, label: '오디오', types: 'MP3, WAV, OGG' },
-                    { icon: FileText, label: '문서', types: 'PDF, DOC, XLS, TXT' }
+                    {
+                      icon: ImageIcon,
+                      label: "이미지",
+                      types: "JPG, PNG, GIF, WebP",
+                    },
+                    {
+                      icon: Video,
+                      label: "비디오",
+                      types: "MP4, AVI, MOV, WebM",
+                    },
+                    { icon: Music, label: "오디오", types: "MP3, WAV, OGG" },
+                    {
+                      icon: FileText,
+                      label: "문서",
+                      types: "PDF, DOC, XLS, TXT",
+                    },
                   ].map((type, index) => (
                     <Card key={index} className="p-4 text-center">
                       <type.icon className="w-8 h-8 text-gray-400 mx-auto mb-2" />
@@ -341,7 +364,7 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
                       onChange={(e) => setCategory(e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
                     >
-                      {categories.map(cat => (
+                      {categories.map((cat) => (
                         <option key={cat} value={cat}>
                           {cat}
                         </option>
@@ -364,7 +387,9 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
                           className="w-4 h-4 text-primary border-gray-300 focus:ring-primary"
                         />
                         <Globe className="w-4 h-4 text-green-600" />
-                        <span className="text-gray-900 dark:text-white">공개</span>
+                        <span className="text-gray-900 dark:text-white">
+                          공개
+                        </span>
                       </label>
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input
@@ -375,7 +400,9 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
                           className="w-4 h-4 text-primary border-gray-300 focus:ring-primary"
                         />
                         <Lock className="w-4 h-4 text-red-600" />
-                        <span className="text-gray-900 dark:text-white">비공개</span>
+                        <span className="text-gray-900 dark:text-white">
+                          비공개
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -393,7 +420,7 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
                         type="text"
                         value={tagInput}
                         onChange={(e) => setTagInput(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && addTag()}
+                        onKeyPress={(e) => e.key === "Enter" && addTag()}
                         placeholder="태그를 입력하세요"
                         className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
                       />
@@ -406,10 +433,10 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
                         추가
                       </Button>
                     </div>
-                    
+
                     {tags.length > 0 && (
                       <div className="flex flex-wrap gap-2">
-                        {tags.map(tag => (
+                        {tags.map((tag) => (
                           <span
                             key={tag}
                             className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full text-sm"
@@ -444,32 +471,49 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
 
                 {/* Upload Summary */}
                 <Card className="p-4 bg-gray-50 dark:bg-gray-700">
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">업로드 요약</h4>
+                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                    업로드 요약
+                  </h4>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                      <span className="text-gray-600 dark:text-gray-400">파일 수:</span>
+                      <span className="text-gray-600 dark:text-gray-400">
+                        파일 수:
+                      </span>
                       <span className="font-medium text-gray-900 dark:text-white ml-2">
                         {selectedFiles.length}개
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-600 dark:text-gray-400">총 크기:</span>
+                      <span className="text-gray-600 dark:text-gray-400">
+                        총 크기:
+                      </span>
                       <span className="font-medium text-gray-900 dark:text-white ml-2">
-                        {formatFileSize(selectedFiles.reduce((acc, file) => acc + file.file.size, 0))}
+                        {formatFileSize(
+                          selectedFiles.reduce(
+                            (acc, file) => acc + file.file.size,
+                            0
+                          )
+                        )}
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-600 dark:text-gray-400">카테고리:</span>
+                      <span className="text-gray-600 dark:text-gray-400">
+                        카테고리:
+                      </span>
                       <span className="font-medium text-gray-900 dark:text-white ml-2">
                         {category}
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-600 dark:text-gray-400">공개:</span>
-                      <span className={`font-medium ml-2 ${
-                        isPublic ? 'text-green-600' : 'text-red-600'
-                      }`}>
-                        {isPublic ? '공개' : '비공개'}
+                      <span className="text-gray-600 dark:text-gray-400">
+                        공개:
+                      </span>
+                      <span
+                        className={`font-medium ml-2 ${
+                          isPublic ? "text-green-600" : "text-red-600"
+                        }`}
+                      >
+                        {isPublic ? "공개" : "비공개"}
                       </span>
                     </div>
                   </div>
@@ -482,25 +526,23 @@ const FileUploadModal: React.FC<FileUploadModalProps> = ({
           <div className="flex items-center justify-between p-6 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
               <AlertCircle className="w-4 h-4" />
-              {step === 'upload' ? (
-                '드래그 앤 드롭 또는 파일 선택을 사용하세요'
-              ) : (
-                `${selectedFiles.length}개 파일 준비됨`
-              )}
+              {step === "upload"
+                ? "드래그 앤 드롭 또는 파일 선택을 사용하세요"
+                : `${selectedFiles.length}개 파일 준비됨`}
             </div>
-            
+
             <div className="flex items-center gap-3">
-              {step === 'details' && (
+              {step === "details" && (
                 <Button
                   variant="outline"
-                  onClick={() => setStep('upload')}
+                  onClick={() => setStep("upload")}
                   disabled={isUploading}
                 >
                   이전
                 </Button>
               )}
-              
-              {step === 'upload' ? (
+
+              {step === "upload" ? (
                 <Button
                   onClick={handleClose}
                   variant="outline"

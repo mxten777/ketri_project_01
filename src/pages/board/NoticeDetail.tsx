@@ -1,12 +1,20 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, User, Eye, Edit, Trash2, Pin } from 'lucide-react';
-import { getNoticeById, deleteNotice } from '../../services/noticeService';
-import { useAuth } from '../../contexts/AuthContext';
-import { Notice } from '../../types';
-import Button from '../../components/common/Button';
-import Card from '../../components/common/Card';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  ArrowLeft,
+  Calendar,
+  User,
+  Eye,
+  Edit,
+  Trash2,
+  Pin,
+} from "lucide-react";
+import { getNoticeById, deleteNotice } from "../../services/noticeService";
+import { useAuth } from "../../contexts/AuthContext";
+import { Notice } from "../../types";
+import Button from "../../components/common/Button";
+import Card from "../../components/common/Card";
 
 const NoticeDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,7 +22,7 @@ const NoticeDetail = () => {
   const [loading, setLoading] = useState(true);
   const { userData } = useAuth();
   const navigate = useNavigate();
-  const isAdmin = userData?.role === 'admin';
+  const isAdmin = userData?.role === "admin";
 
   useEffect(() => {
     if (id) {
@@ -28,34 +36,34 @@ const NoticeDetail = () => {
       const data = await getNoticeById(noticeId);
       setNotice(data);
     } catch (error) {
-      console.error('Error loading notice:', error);
+      console.error("Error loading notice:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('정말로 이 공지사항을 삭제하시겠습니까?')) {
+    if (!window.confirm("정말로 이 공지사항을 삭제하시겠습니까?")) {
       return;
     }
 
     try {
       await deleteNotice(id!);
-      navigate('/board/notice');
+      navigate("/board/notice");
     } catch (error) {
-      console.error('Error deleting notice:', error);
-      alert('삭제에 실패했습니다.');
+      console.error("Error deleting notice:", error);
+      alert("삭제에 실패했습니다.");
     }
   };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return date.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -74,7 +82,7 @@ const NoticeDetail = () => {
           <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
             공지사항을 찾을 수 없습니다
           </h2>
-          <Button onClick={() => navigate('/board/notice')}>
+          <Button onClick={() => navigate("/board/notice")}>
             <ArrowLeft className="w-5 h-5 mr-2" />
             목록으로
           </Button>
@@ -94,7 +102,7 @@ const NoticeDetail = () => {
           {/* Back Button */}
           <Button
             variant="ghost"
-            onClick={() => navigate('/board/notice')}
+            onClick={() => navigate("/board/notice")}
             className="mb-6"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
@@ -197,7 +205,7 @@ const NoticeDetail = () => {
 
           {/* Navigation */}
           <div className="mt-6 flex justify-center">
-            <Button onClick={() => navigate('/board/notice')}>
+            <Button onClick={() => navigate("/board/notice")}>
               <ArrowLeft className="w-5 h-5 mr-2" />
               목록으로
             </Button>

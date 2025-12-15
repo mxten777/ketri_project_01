@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Upload,
   File,
@@ -22,35 +22,37 @@ import {
   Check,
   AlertCircle,
   Folder,
-  Clock
-} from 'lucide-react';
-import { 
-  fileUploadService, 
-  UploadedFile, 
+  Clock,
+} from "lucide-react";
+import {
+  fileUploadService,
+  UploadedFile,
   FileFilters,
-  UploadProgress 
-} from '../../services/fileUploadService';
-import Card from '../../components/common/Card';
-import Button from '../../components/common/Button';
-import { useAuth } from '../../contexts/AuthContext';
-import { formatDate, formatRelativeTime } from '../../utils/dateUtils';
-import FileUploadModal from '../../components/FileUploadModal';
+  UploadProgress,
+} from "../../services/fileUploadService";
+import Card from "../../components/common/Card";
+import Button from "../../components/common/Button";
+import { useAuth } from "../../contexts/AuthContext";
+import { formatDate, formatRelativeTime } from "../../utils/dateUtils";
+import FileUploadModal from "../../components/FileUploadModal";
 
 const FileManager: React.FC = () => {
   const { user, userData } = useAuth();
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [statistics, setStatistics] = useState<any>(null);
   const [categories, setCategories] = useState<string[]>([]);
-  const [popularTags, setPopularTags] = useState<{ tag: string; count: number }[]>([]);
+  const [popularTags, setPopularTags] = useState<
+    { tag: string; count: number }[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<UploadProgress[]>([]);
   const [filters, setFilters] = useState<FileFilters>({});
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedFile, setSelectedFile] = useState<UploadedFile | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -73,20 +75,21 @@ const FileManager: React.FC = () => {
   const loadInitialData = async () => {
     try {
       setLoading(true);
-      const [filesData, statsData, categoriesData, tagsData] = await Promise.all([
-        fileUploadService.getFiles({ ...filters, searchQuery }),
-        fileUploadService.getFileStatistics(),
-        fileUploadService.getCategories(),
-        fileUploadService.getPopularTags()
-      ]);
-      
+      const [filesData, statsData, categoriesData, tagsData] =
+        await Promise.all([
+          fileUploadService.getFiles({ ...filters, searchQuery }),
+          fileUploadService.getFileStatistics(),
+          fileUploadService.getCategories(),
+          fileUploadService.getPopularTags(),
+        ]);
+
       setFiles(filesData.files);
       setHasMore(filesData.hasMore);
       setStatistics(statsData);
       setCategories(categoriesData);
       setPopularTags(tagsData);
     } catch (error) {
-      console.error('Error loading initial data:', error);
+      console.error("Error loading initial data:", error);
     } finally {
       setLoading(false);
     }
@@ -94,12 +97,15 @@ const FileManager: React.FC = () => {
 
   const loadFiles = async () => {
     try {
-      const filesData = await fileUploadService.getFiles({ ...filters, searchQuery });
+      const filesData = await fileUploadService.getFiles({
+        ...filters,
+        searchQuery,
+      });
       setFiles(filesData.files);
       setHasMore(filesData.hasMore);
       setCurrentPage(1);
     } catch (error) {
-      console.error('Error loading files:', error);
+      console.error("Error loading files:", error);
     }
   };
 
@@ -109,17 +115,17 @@ const FileManager: React.FC = () => {
   };
 
   const handleFilterChange = (key: keyof FileFilters, value: any) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
-      [key]: value === 'all' ? undefined : value
+      [key]: value === "all" ? undefined : value,
     }));
     setCurrentPage(1);
   };
 
   const handleFileSelect = (fileId: string) => {
-    setSelectedFiles(prev => 
+    setSelectedFiles((prev) =>
       prev.includes(fileId)
-        ? prev.filter(id => id !== fileId)
+        ? prev.filter((id) => id !== fileId)
         : [...prev, fileId]
     );
   };
@@ -128,29 +134,32 @@ const FileManager: React.FC = () => {
     if (selectedFiles.length === files.length) {
       setSelectedFiles([]);
     } else {
-      setSelectedFiles(files.map(file => file.id!));
+      setSelectedFiles(files.map((file) => file.id!));
     }
   };
 
   // 파일 업로드 처리
-  const handleFileUpload = async (uploadFiles: FileList | File[], uploadMetadata?: any) => {
+  const handleFileUpload = async (
+    uploadFiles: FileList | File[],
+    uploadMetadata?: any
+  ) => {
     if (!user || !userData) return;
 
     try {
       setUploading(true);
       setUploadProgress([]);
-      
+
       const filesArray = Array.from(uploadFiles);
       const metadata = {
-        category: uploadMetadata?.category || 'general',
+        category: uploadMetadata?.category || "general",
         tags: uploadMetadata?.tags || [],
-        description: uploadMetadata?.description || '',
+        description: uploadMetadata?.description || "",
         isPublic: uploadMetadata?.isPublic ?? true,
         uploaderInfo: {
           uid: user.uid,
-          name: userData.displayName || user.email || '익명',
-          email: user.email || ''
-        }
+          name: userData.displayName || user.email || "익명",
+          email: user.email || "",
+        },
       };
 
       await fileUploadService.uploadMultipleFiles(
@@ -166,7 +175,7 @@ const FileManager: React.FC = () => {
       await loadInitialData(); // 통계 업데이트
       setShowUploadModal(false);
     } catch (error) {
-      console.error('Error uploading files:', error);
+      console.error("Error uploading files:", error);
     } finally {
       setUploading(false);
       setUploadProgress([]);
@@ -186,7 +195,7 @@ const FileManager: React.FC = () => {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(false);
-    
+
     const droppedFiles = e.dataTransfer.files;
     if (droppedFiles.length > 0) {
       handleFileUpload(droppedFiles);
@@ -196,49 +205,56 @@ const FileManager: React.FC = () => {
   const handleDownload = async (fileId: string) => {
     try {
       const downloadURL = await fileUploadService.downloadFile(fileId);
-      window.open(downloadURL, '_blank');
+      window.open(downloadURL, "_blank");
     } catch (error) {
-      console.error('Error downloading file:', error);
+      console.error("Error downloading file:", error);
     }
   };
 
   const handleDeleteFile = async (fileId: string) => {
     if (!user) return;
-    
-    if (window.confirm('정말로 삭제하시겠습니까?')) {
+
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
       try {
-        await fileUploadService.deleteFile(fileId, user.uid, userData?.role === 'admin');
+        await fileUploadService.deleteFile(
+          fileId,
+          user.uid,
+          userData?.role === "admin"
+        );
         loadFiles();
         loadInitialData(); // 통계 업데이트
       } catch (error) {
-        console.error('Error deleting file:', error);
+        console.error("Error deleting file:", error);
       }
     }
   };
 
   const getFileIcon = (fileType: string) => {
     const type = fileType.toLowerCase();
-    
-    if (type.includes('image')) return <Image className="w-5 h-5" />;
-    if (type.includes('video')) return <Video className="w-5 h-5" />;
-    if (type.includes('audio')) return <Music className="w-5 h-5" />;
-    if (type.includes('archive') || type.includes('zip')) return <Archive className="w-5 h-5" />;
-    
+
+    if (type.includes("image")) return <Image className="w-5 h-5" />;
+    if (type.includes("video")) return <Video className="w-5 h-5" />;
+    if (type.includes("audio")) return <Music className="w-5 h-5" />;
+    if (type.includes("archive") || type.includes("zip"))
+      return <Archive className="w-5 h-5" />;
+
     return <FileText className="w-5 h-5" />;
   };
 
   const getFileTypeColor = (fileType: string) => {
     const type = fileType.toLowerCase();
-    
-    if (type.includes('image')) return 'text-blue-600';
-    if (type.includes('video')) return 'text-red-600';
-    if (type.includes('audio')) return 'text-green-600';
-    if (type.includes('pdf')) return 'text-red-500';
-    if (type.includes('word') || type.includes('doc')) return 'text-blue-500';
-    if (type.includes('excel') || type.includes('sheet')) return 'text-green-500';
-    if (type.includes('archive') || type.includes('zip')) return 'text-yellow-600';
-    
-    return 'text-gray-600';
+
+    if (type.includes("image")) return "text-blue-600";
+    if (type.includes("video")) return "text-red-600";
+    if (type.includes("audio")) return "text-green-600";
+    if (type.includes("pdf")) return "text-red-500";
+    if (type.includes("word") || type.includes("doc")) return "text-blue-500";
+    if (type.includes("excel") || type.includes("sheet"))
+      return "text-green-500";
+    if (type.includes("archive") || type.includes("zip"))
+      return "text-yellow-600";
+
+    return "text-gray-600";
   };
 
   if (loading) {
@@ -285,10 +301,12 @@ const FileManager: React.FC = () => {
               </Button>
               <Button
                 variant="outline"
-                onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
+                onClick={() =>
+                  setViewMode(viewMode === "grid" ? "list" : "grid")
+                }
                 className="flex items-center gap-2"
               >
-                {viewMode === 'grid' ? '목록' : '그리드'}
+                {viewMode === "grid" ? "목록" : "그리드"}
               </Button>
             </div>
           </div>
@@ -406,7 +424,7 @@ const FileManager: React.FC = () => {
             {showFilters && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
+                animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-gray-200 dark:border-gray-700"
               >
@@ -416,12 +434,14 @@ const FileManager: React.FC = () => {
                     카테고리
                   </label>
                   <select
-                    value={filters.category || 'all'}
-                    onChange={(e) => handleFilterChange('category', e.target.value)}
+                    value={filters.category || "all"}
+                    onChange={(e) =>
+                      handleFilterChange("category", e.target.value)
+                    }
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
                   >
                     <option value="all">전체</option>
-                    {categories.map(category => (
+                    {categories.map((category) => (
                       <option key={category} value={category}>
                         {category}
                       </option>
@@ -435,8 +455,10 @@ const FileManager: React.FC = () => {
                     파일 타입
                   </label>
                   <select
-                    value={filters.fileType || 'all'}
-                    onChange={(e) => handleFilterChange('fileType', e.target.value)}
+                    value={filters.fileType || "all"}
+                    onChange={(e) =>
+                      handleFilterChange("fileType", e.target.value)
+                    }
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
                   >
                     <option value="all">전체</option>
@@ -454,8 +476,19 @@ const FileManager: React.FC = () => {
                     공개 여부
                   </label>
                   <select
-                    value={filters.isPublic === undefined ? 'all' : filters.isPublic.toString()}
-                    onChange={(e) => handleFilterChange('isPublic', e.target.value === 'all' ? undefined : e.target.value === 'true')}
+                    value={
+                      filters.isPublic === undefined
+                        ? "all"
+                        : filters.isPublic.toString()
+                    }
+                    onChange={(e) =>
+                      handleFilterChange(
+                        "isPublic",
+                        e.target.value === "all"
+                          ? undefined
+                          : e.target.value === "true"
+                      )
+                    }
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
                   >
                     <option value="all">전체</option>
@@ -470,8 +503,10 @@ const FileManager: React.FC = () => {
                     업로더
                   </label>
                   <select
-                    value={filters.uploadedBy || 'all'}
-                    onChange={(e) => handleFilterChange('uploadedBy', e.target.value)}
+                    value={filters.uploadedBy || "all"}
+                    onChange={(e) =>
+                      handleFilterChange("uploadedBy", e.target.value)
+                    }
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
                   >
                     <option value="all">전체</option>
@@ -496,8 +531,8 @@ const FileManager: React.FC = () => {
                 size="sm"
                 variant="outline"
                 onClick={() => {
-                  selectedFiles.forEach(fileId => {
-                    const file = files.find(f => f.id === fileId);
+                  selectedFiles.forEach((fileId) => {
+                    const file = files.find((f) => f.id === fileId);
                     if (file) handleDownload(fileId);
                   });
                 }}
@@ -510,8 +545,10 @@ const FileManager: React.FC = () => {
                 size="sm"
                 variant="outline"
                 onClick={() => {
-                  if (window.confirm('선택한 파일들을 정말로 삭제하시겠습니까?')) {
-                    selectedFiles.forEach(fileId => handleDeleteFile(fileId));
+                  if (
+                    window.confirm("선택한 파일들을 정말로 삭제하시겠습니까?")
+                  ) {
+                    selectedFiles.forEach((fileId) => handleDeleteFile(fileId));
                     setSelectedFiles([]);
                   }
                 }}
@@ -556,12 +593,15 @@ const FileManager: React.FC = () => {
             <div className="text-center py-20">
               <File className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-600 dark:text-gray-400 text-lg">
-                {searchQuery || Object.keys(filters).some(key => filters[key as keyof FileFilters])
-                  ? '검색 결과가 없습니다.'
-                  : '업로드된 파일이 없습니다.'}
+                {searchQuery ||
+                Object.keys(filters).some(
+                  (key) => filters[key as keyof FileFilters]
+                )
+                  ? "검색 결과가 없습니다."
+                  : "업로드된 파일이 없습니다."}
               </p>
             </div>
-          ) : viewMode === 'grid' ? (
+          ) : viewMode === "grid" ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {files.map((file, index) => (
                 <motion.div
@@ -602,7 +642,8 @@ const FileManager: React.FC = () => {
                           >
                             <Download className="w-4 h-4" />
                           </Button>
-                          {(file.uploadedBy === user?.uid || userData?.role === 'admin') && (
+                          {(file.uploadedBy === user?.uid ||
+                            userData?.role === "admin") && (
                             <Button
                               size="sm"
                               variant="ghost"
@@ -616,14 +657,15 @@ const FileManager: React.FC = () => {
                       </div>
 
                       {/* Preview */}
-                      {file.fileType.startsWith('image/') && (
+                      {file.fileType.startsWith("image/") && (
                         <div className="mb-4">
                           <img
                             src={file.downloadURL}
                             alt={file.originalName}
                             className="w-full h-32 object-cover rounded-lg"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).style.display = 'none';
+                              (e.target as HTMLImageElement).style.display =
+                                "none";
                             }}
                           />
                         </div>
@@ -656,7 +698,7 @@ const FileManager: React.FC = () => {
                             </span>
                           )}
                         </div>
-                        
+
                         <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                           <span className="flex items-center gap-1">
                             <User className="w-3 h-3" />
@@ -678,7 +720,7 @@ const FileManager: React.FC = () => {
                         {/* Tags */}
                         {file.tags && file.tags.length > 0 && (
                           <div className="flex flex-wrap gap-1 mt-2">
-                            {file.tags.slice(0, 2).map(tag => (
+                            {file.tags.slice(0, 2).map((tag) => (
                               <span
                                 key={tag}
                                 className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs rounded"
@@ -709,7 +751,10 @@ const FileManager: React.FC = () => {
                       <th className="px-6 py-4 text-left">
                         <input
                           type="checkbox"
-                          checked={selectedFiles.length === files.length && files.length > 0}
+                          checked={
+                            selectedFiles.length === files.length &&
+                            files.length > 0
+                          }
                           onChange={handleSelectAll}
                           className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
                         />
@@ -750,7 +795,9 @@ const FileManager: React.FC = () => {
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className={`${getFileTypeColor(file.fileType)}`}>
+                            <div
+                              className={`${getFileTypeColor(file.fileType)}`}
+                            >
                               {getFileIcon(file.fileType)}
                             </div>
                             <div>
@@ -767,7 +814,8 @@ const FileManager: React.FC = () => {
                         </td>
                         <td className="px-6 py-4">
                           <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded">
-                            {file.fileType.split('/')[1]?.toUpperCase() || 'FILE'}
+                            {file.fileType.split("/")[1]?.toUpperCase() ||
+                              "FILE"}
                           </span>
                         </td>
                         <td className="px-6 py-4">
@@ -803,7 +851,8 @@ const FileManager: React.FC = () => {
                             >
                               <Download className="w-4 h-4" />
                             </Button>
-                            {(file.uploadedBy === user?.uid || userData?.role === 'admin') && (
+                            {(file.uploadedBy === user?.uid ||
+                              userData?.role === "admin") && (
                               <Button
                                 size="sm"
                                 variant="ghost"
@@ -834,7 +883,9 @@ const FileManager: React.FC = () => {
               className="fixed bottom-6 right-6 bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 max-w-md w-full"
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-gray-900 dark:text-white">파일 업로드</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white">
+                  파일 업로드
+                </h3>
                 <Button
                   size="sm"
                   variant="ghost"
@@ -852,10 +903,10 @@ const FileManager: React.FC = () => {
                         {progress.fileName}
                       </span>
                       <div className="flex items-center gap-2">
-                        {progress.status === 'completed' && (
+                        {progress.status === "completed" && (
                           <Check className="w-4 h-4 text-green-500" />
                         )}
-                        {progress.status === 'error' && (
+                        {progress.status === "error" && (
                           <AlertCircle className="w-4 h-4 text-red-500" />
                         )}
                         <span className="text-gray-600 dark:text-gray-400">
@@ -866,11 +917,11 @@ const FileManager: React.FC = () => {
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                       <div
                         className={`h-2 rounded-full transition-all ${
-                          progress.status === 'completed'
-                            ? 'bg-green-500'
-                            : progress.status === 'error'
-                            ? 'bg-red-500'
-                            : 'bg-primary'
+                          progress.status === "completed"
+                            ? "bg-green-500"
+                            : progress.status === "error"
+                            ? "bg-red-500"
+                            : "bg-primary"
                         }`}
                         style={{ width: `${progress.progress}%` }}
                       />
@@ -906,7 +957,9 @@ const FileManager: React.FC = () => {
                   {/* Header */}
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-3">
-                      <div className={`${getFileTypeColor(selectedFile.fileType)}`}>
+                      <div
+                        className={`${getFileTypeColor(selectedFile.fileType)}`}
+                      >
                         {getFileIcon(selectedFile.fileType)}
                       </div>
                       <div>
@@ -914,7 +967,10 @@ const FileManager: React.FC = () => {
                           {selectedFile.originalName}
                         </h2>
                         <p className="text-gray-600 dark:text-gray-400">
-                          {fileUploadService.formatFileSize(selectedFile.fileSize)} • {selectedFile.fileType}
+                          {fileUploadService.formatFileSize(
+                            selectedFile.fileSize
+                          )}{" "}
+                          • {selectedFile.fileType}
                         </p>
                       </div>
                     </div>
@@ -928,7 +984,7 @@ const FileManager: React.FC = () => {
                   </div>
 
                   {/* Preview */}
-                  {selectedFile.fileType.startsWith('image/') && (
+                  {selectedFile.fileType.startsWith("image/") && (
                     <div className="mb-6">
                       <img
                         src={selectedFile.downloadURL}
@@ -941,48 +997,73 @@ const FileManager: React.FC = () => {
                   {/* Info */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-3">파일 정보</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
+                        파일 정보
+                      </h3>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-gray-600 dark:text-gray-400">카테고리:</span>
-                          <span className="text-gray-900 dark:text-white">{selectedFile.category}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600 dark:text-gray-400">공개 여부:</span>
+                          <span className="text-gray-600 dark:text-gray-400">
+                            카테고리:
+                          </span>
                           <span className="text-gray-900 dark:text-white">
-                            {selectedFile.isPublic ? '공개' : '비공개'}
+                            {selectedFile.category}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600 dark:text-gray-400">다운로드 수:</span>
-                          <span className="text-gray-900 dark:text-white">{selectedFile.downloadCount}</span>
+                          <span className="text-gray-600 dark:text-gray-400">
+                            공개 여부:
+                          </span>
+                          <span className="text-gray-900 dark:text-white">
+                            {selectedFile.isPublic ? "공개" : "비공개"}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600 dark:text-gray-400">
+                            다운로드 수:
+                          </span>
+                          <span className="text-gray-900 dark:text-white">
+                            {selectedFile.downloadCount}
+                          </span>
                         </div>
                         {selectedFile.metadata.width && (
                           <div className="flex justify-between">
-                            <span className="text-gray-600 dark:text-gray-400">해상도:</span>
+                            <span className="text-gray-600 dark:text-gray-400">
+                              해상도:
+                            </span>
                             <span className="text-gray-900 dark:text-white">
-                              {selectedFile.metadata.width} × {selectedFile.metadata.height}
+                              {selectedFile.metadata.width} ×{" "}
+                              {selectedFile.metadata.height}
                             </span>
                           </div>
                         )}
                       </div>
                     </div>
-                    
+
                     <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-3">업로드 정보</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
+                        업로드 정보
+                      </h3>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-gray-600 dark:text-gray-400">업로더:</span>
-                          <span className="text-gray-900 dark:text-white">{selectedFile.uploaderName}</span>
+                          <span className="text-gray-600 dark:text-gray-400">
+                            업로더:
+                          </span>
+                          <span className="text-gray-900 dark:text-white">
+                            {selectedFile.uploaderName}
+                          </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600 dark:text-gray-400">업로드일:</span>
+                          <span className="text-gray-600 dark:text-gray-400">
+                            업로드일:
+                          </span>
                           <span className="text-gray-900 dark:text-white">
                             {formatDate(selectedFile.createdAt.toDate())}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600 dark:text-gray-400">수정일:</span>
+                          <span className="text-gray-600 dark:text-gray-400">
+                            수정일:
+                          </span>
                           <span className="text-gray-900 dark:text-white">
                             {formatDate(selectedFile.updatedAt.toDate())}
                           </span>
@@ -994,7 +1075,9 @@ const FileManager: React.FC = () => {
                   {/* Description */}
                   {selectedFile.description && (
                     <div className="mb-6">
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-3">설명</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
+                        설명
+                      </h3>
                       <p className="text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
                         {selectedFile.description}
                       </p>
@@ -1004,9 +1087,11 @@ const FileManager: React.FC = () => {
                   {/* Tags */}
                   {selectedFile.tags && selectedFile.tags.length > 0 && (
                     <div className="mb-6">
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-3">태그</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
+                        태그
+                      </h3>
                       <div className="flex flex-wrap gap-2">
-                        {selectedFile.tags.map(tag => (
+                        {selectedFile.tags.map((tag) => (
                           <span
                             key={tag}
                             className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full text-sm"
@@ -1028,7 +1113,8 @@ const FileManager: React.FC = () => {
                       <Download className="w-4 h-4" />
                       다운로드
                     </Button>
-                    {(selectedFile.uploadedBy === user?.uid || userData?.role === 'admin') && (
+                    {(selectedFile.uploadedBy === user?.uid ||
+                      userData?.role === "admin") && (
                       <>
                         <Button
                           variant="outline"

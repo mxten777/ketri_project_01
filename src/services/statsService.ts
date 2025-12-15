@@ -6,10 +6,10 @@ import {
   limit,
   getCountFromServer,
   where,
-  Timestamp
-} from 'firebase/firestore';
-import { db } from '../config/firebase';
-import type { User } from '../types';
+  Timestamp,
+} from "firebase/firestore";
+import { db } from "../config/firebase";
+import type { User } from "../types";
 
 // 대시보드 통계 타입 정의
 export interface DashboardStats {
@@ -26,7 +26,7 @@ export interface DashboardStats {
 
 export interface RecentActivity {
   id: string;
-  type: 'qna' | 'resource' | 'user' | 'notice';
+  type: "qna" | "resource" | "user" | "notice";
   title: string;
   author: string;
   createdAt: Date;
@@ -44,22 +44,22 @@ export interface UserStats {
 export const getStatistics = async () => {
   try {
     // ?�원 ??
-    const usersRef = collection(db, 'users');
+    const usersRef = collection(db, "users");
     const usersSnapshot = await getCountFromServer(usersRef);
     const totalUsers = usersSnapshot.data().count;
 
     // 공�??�항 ??
-    const noticesRef = collection(db, 'notices');
+    const noticesRef = collection(db, "notices");
     const noticesSnapshot = await getCountFromServer(noticesRef);
     const totalNotices = noticesSnapshot.data().count;
 
     // QnA ??
-    const qnaRef = collection(db, 'qna');
+    const qnaRef = collection(db, "qna");
     const qnaSnapshot = await getCountFromServer(qnaRef);
     const totalQna = qnaSnapshot.data().count;
 
     // ?�료??�??�운로드 ??
-    const resourcesRef = collection(db, 'resources');
+    const resourcesRef = collection(db, "resources");
     const resourcesSnapshot = await getDocs(resourcesRef);
     const totalDownloads = resourcesSnapshot.docs.reduce(
       (sum, doc) => sum + (doc.data().downloads || 0),
@@ -73,7 +73,7 @@ export const getStatistics = async () => {
       totalDownloads,
     };
   } catch (error) {
-    console.error('Error fetching statistics:', error);
+    console.error("Error fetching statistics:", error);
     throw error;
   }
 };
@@ -81,8 +81,8 @@ export const getStatistics = async () => {
 // 최근 가???�원 조회
 export const getRecentUsers = async (limitCount: number = 10) => {
   try {
-    const usersRef = collection(db, 'users');
-    const q = query(usersRef, orderBy('createdAt', 'desc'), limit(limitCount));
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, orderBy("createdAt", "desc"), limit(limitCount));
     const snapshot = await getDocs(q);
 
     return snapshot.docs.map((doc) => ({
@@ -90,7 +90,7 @@ export const getRecentUsers = async (limitCount: number = 10) => {
       ...doc.data(),
     })) as User[];
   } catch (error) {
-    console.error('Error fetching recent users:', error);
+    console.error("Error fetching recent users:", error);
     throw error;
   }
 };
@@ -98,8 +98,12 @@ export const getRecentUsers = async (limitCount: number = 10) => {
 // 최근 공�??�항 조회
 export const getRecentNotices = async (limitCount: number = 5) => {
   try {
-    const noticesRef = collection(db, 'notices');
-    const q = query(noticesRef, orderBy('createdAt', 'desc'), limit(limitCount));
+    const noticesRef = collection(db, "notices");
+    const q = query(
+      noticesRef,
+      orderBy("createdAt", "desc"),
+      limit(limitCount)
+    );
     const snapshot = await getDocs(q);
 
     return snapshot.docs.map((doc) => ({
@@ -107,7 +111,7 @@ export const getRecentNotices = async (limitCount: number = 5) => {
       ...doc.data(),
     }));
   } catch (error) {
-    console.error('Error fetching recent notices:', error);
+    console.error("Error fetching recent notices:", error);
     throw error;
   }
 };
@@ -115,8 +119,8 @@ export const getRecentNotices = async (limitCount: number = 5) => {
 // 최근 QnA 조회
 export const getRecentQnA = async (limitCount: number = 5) => {
   try {
-    const qnaRef = collection(db, 'qnas');
-    const q = query(qnaRef, orderBy('createdAt', 'desc'), limit(limitCount));
+    const qnaRef = collection(db, "qnas");
+    const q = query(qnaRef, orderBy("createdAt", "desc"), limit(limitCount));
     const snapshot = await getDocs(q);
 
     return snapshot.docs.map((doc) => ({
@@ -124,20 +128,22 @@ export const getRecentQnA = async (limitCount: number = 5) => {
       ...doc.data(),
     }));
   } catch (error) {
-    console.error('Error fetching recent QnA:', error);
+    console.error("Error fetching recent QnA:", error);
     throw error;
   }
 };
 
 // 최근 활동 통합 조회
-export const getRecentActivities = async (limitCount: number = 10): Promise<RecentActivity[]> => {
+export const getRecentActivities = async (
+  limitCount: number = 10
+): Promise<RecentActivity[]> => {
   try {
     const activities: RecentActivity[] = [];
 
     // 최근 QnA 활동
     const qnasQuery = query(
-      collection(db, 'qna'),
-      orderBy('createdAt', 'desc'),
+      collection(db, "qna"),
+      orderBy("createdAt", "desc"),
       limit(5)
     );
     const qnasSnapshot = await getDocs(qnasQuery);
@@ -145,18 +151,21 @@ export const getRecentActivities = async (limitCount: number = 10): Promise<Rece
       const data = doc.data();
       activities.push({
         id: doc.id,
-        type: 'qna',
+        type: "qna",
         title: data.title,
-        author: data.authorName || '익명',
-        createdAt: data.createdAt instanceof Date ? data.createdAt : (data.createdAt?.toDate?.() || new Date()),
-        status: data.status || 'active',
+        author: data.authorName || "익명",
+        createdAt:
+          data.createdAt instanceof Date
+            ? data.createdAt
+            : data.createdAt?.toDate?.() || new Date(),
+        status: data.status || "active",
       });
     });
 
     // 최근 자료 활동
     const resourcesQuery = query(
-      collection(db, 'resources'),
-      orderBy('createdAt', 'desc'),
+      collection(db, "resources"),
+      orderBy("createdAt", "desc"),
       limit(5)
     );
     const resourcesSnapshot = await getDocs(resourcesQuery);
@@ -164,17 +173,20 @@ export const getRecentActivities = async (limitCount: number = 10): Promise<Rece
       const data = doc.data();
       activities.push({
         id: doc.id,
-        type: 'resource',
+        type: "resource",
         title: data.title,
-        author: data.authorName || '관리자',
-        createdAt: data.createdAt instanceof Date ? data.createdAt : (data.createdAt?.toDate?.() || new Date()),
+        author: data.authorName || "관리자",
+        createdAt:
+          data.createdAt instanceof Date
+            ? data.createdAt
+            : data.createdAt?.toDate?.() || new Date(),
       });
     });
 
     // 최근 사용자 가입
     const usersQuery = query(
-      collection(db, 'users'),
-      orderBy('createdAt', 'desc'),
+      collection(db, "users"),
+      orderBy("createdAt", "desc"),
       limit(3)
     );
     const usersSnapshot = await getDocs(usersQuery);
@@ -182,10 +194,13 @@ export const getRecentActivities = async (limitCount: number = 10): Promise<Rece
       const data = doc.data();
       activities.push({
         id: doc.id,
-        type: 'user',
+        type: "user",
         title: `${data.displayName || data.email}님이 가입했습니다`,
-        author: 'System',
-        createdAt: data.createdAt instanceof Date ? data.createdAt : (data.createdAt?.toDate?.() || new Date()),
+        author: "System",
+        createdAt:
+          data.createdAt instanceof Date
+            ? data.createdAt
+            : data.createdAt?.toDate?.() || new Date(),
       });
     });
 
@@ -194,7 +209,7 @@ export const getRecentActivities = async (limitCount: number = 10): Promise<Rece
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice(0, limitCount);
   } catch (error) {
-    console.error('최근 활동 조회 실패:', error);
+    console.error("최근 활동 조회 실패:", error);
     return []; // 에러 시 빈 배열 반환
   }
 };
@@ -202,16 +217,19 @@ export const getRecentActivities = async (limitCount: number = 10): Promise<Rece
 // ?�별 가?�자 ?�계 (최근 6개월)
 export const getMonthlyUserStats = async () => {
   try {
-    const usersRef = collection(db, 'users');
+    const usersRef = collection(db, "users");
     const snapshot = await getDocs(usersRef);
 
     const monthlyData: Record<string, number> = {};
     const now = new Date();
-    
+
     // 최근 6개월 초기??
     for (let i = 5; i >= 0; i--) {
       const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+        2,
+        "0"
+      )}`;
       monthlyData[key] = 0;
     }
 
@@ -220,7 +238,9 @@ export const getMonthlyUserStats = async () => {
       const data = doc.data();
       if (data.createdAt) {
         const date = data.createdAt.toDate();
-        const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        const key = `${date.getFullYear()}-${String(
+          date.getMonth() + 1
+        ).padStart(2, "0")}`;
         if (monthlyData[key] !== undefined) {
           monthlyData[key]++;
         }
@@ -232,7 +252,7 @@ export const getMonthlyUserStats = async () => {
       count,
     }));
   } catch (error) {
-    console.error('Error fetching monthly user stats:', error);
+    console.error("Error fetching monthly user stats:", error);
     throw error;
   }
 };
@@ -240,7 +260,7 @@ export const getMonthlyUserStats = async () => {
 // 카테고리�?QnA ?�계
 export const getQnACategoryStats = async () => {
   try {
-    const qnaRef = collection(db, 'qna');
+    const qnaRef = collection(db, "qna");
     const snapshot = await getDocs(qnaRef);
 
     const categoryData: Record<string, number> = {
@@ -252,7 +272,7 @@ export const getQnACategoryStats = async () => {
 
     snapshot.docs.forEach((doc) => {
       const data = doc.data();
-      const category = data.category || 'general';
+      const category = data.category || "general";
       if (categoryData[category] !== undefined) {
         categoryData[category]++;
       }
@@ -263,7 +283,7 @@ export const getQnACategoryStats = async () => {
       count,
     }));
   } catch (error) {
-    console.error('Error fetching QnA category stats:', error);
+    console.error("Error fetching QnA category stats:", error);
     throw error;
   }
 };
@@ -271,9 +291,9 @@ export const getQnACategoryStats = async () => {
 // ?��? ?�료???�계
 export const getAnswerRate = async () => {
   try {
-    const qnaRef = collection(db, 'qna');
+    const qnaRef = collection(db, "qna");
     const snapshot = await getDocs(qnaRef);
-    
+
     const total = snapshot.size;
     const answered = snapshot.docs.filter(
       (doc) => doc.data().isAnswered === true
@@ -285,7 +305,7 @@ export const getAnswerRate = async () => {
       rate: total > 0 ? Math.round((answered / total) * 100) : 0,
     };
   } catch (error) {
-    console.error('Error fetching answer rate:', error);
+    console.error("Error fetching answer rate:", error);
     throw error;
   }
 };
@@ -293,8 +313,12 @@ export const getAnswerRate = async () => {
 // ?�기 ?�료 Top 5
 export const getPopularResources = async (limitCount: number = 5) => {
   try {
-    const resourcesRef = collection(db, 'resources');
-    const q = query(resourcesRef, orderBy('downloads', 'desc'), limit(limitCount));
+    const resourcesRef = collection(db, "resources");
+    const q = query(
+      resourcesRef,
+      orderBy("downloads", "desc"),
+      limit(limitCount)
+    );
     const snapshot = await getDocs(q);
 
     return snapshot.docs.map((doc) => ({
@@ -302,7 +326,7 @@ export const getPopularResources = async (limitCount: number = 5) => {
       ...doc.data(),
     }));
   } catch (error) {
-    console.error('Error fetching popular resources:', error);
+    console.error("Error fetching popular resources:", error);
     throw error;
   }
 };
@@ -314,32 +338,34 @@ export const getUserStats = async (): Promise<UserStats> => {
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
     // 전체 사용자 수
-    const totalUsersQuery = query(collection(db, 'users'));
+    const totalUsersQuery = query(collection(db, "users"));
     const totalUsersSnapshot = await getCountFromServer(totalUsersQuery);
     const totalUsers = totalUsersSnapshot.data().count;
 
     // 활성 사용자 수 (30일 내 로그인)
     const activeUsersQuery = query(
-      collection(db, 'users'),
-      where('lastLoginAt', '>=', Timestamp.fromDate(thirtyDaysAgo))
+      collection(db, "users"),
+      where("lastLoginAt", ">=", Timestamp.fromDate(thirtyDaysAgo))
     );
     const activeUsersSnapshot = await getCountFromServer(activeUsersQuery);
     const activeUsers = activeUsersSnapshot.data().count;
 
     // 관리자 사용자 수
     const adminUsersQuery = query(
-      collection(db, 'users'),
-      where('role', '==', 'admin')
+      collection(db, "users"),
+      where("role", "==", "admin")
     );
     const adminUsersSnapshot = await getCountFromServer(adminUsersQuery);
     const adminUsers = adminUsersSnapshot.data().count;
 
     // 최근 30일 가입자 수
     const recentRegistrationsQuery = query(
-      collection(db, 'users'),
-      where('createdAt', '>=', Timestamp.fromDate(thirtyDaysAgo))
+      collection(db, "users"),
+      where("createdAt", ">=", Timestamp.fromDate(thirtyDaysAgo))
     );
-    const recentRegistrationsSnapshot = await getCountFromServer(recentRegistrationsQuery);
+    const recentRegistrationsSnapshot = await getCountFromServer(
+      recentRegistrationsQuery
+    );
     const recentRegistrations = recentRegistrationsSnapshot.data().count;
 
     return {
@@ -349,7 +375,7 @@ export const getUserStats = async (): Promise<UserStats> => {
       recentRegistrations,
     };
   } catch (error) {
-    console.error('사용자 통계 조회 실패:', error);
+    console.error("사용자 통계 조회 실패:", error);
     throw error;
   }
 };
@@ -366,32 +392,32 @@ export const getMonthlyActivityStats = async (months: number = 6) => {
 
       // QnA 통계
       const qnasQuery = query(
-        collection(db, 'qnas'),
-        where('createdAt', '>=', Timestamp.fromDate(monthStart)),
-        where('createdAt', '<=', Timestamp.fromDate(monthEnd))
+        collection(db, "qnas"),
+        where("createdAt", ">=", Timestamp.fromDate(monthStart)),
+        where("createdAt", "<=", Timestamp.fromDate(monthEnd))
       );
       const qnasSnapshot = await getCountFromServer(qnasQuery);
 
       // 자료 통계
       const resourcesQuery = query(
-        collection(db, 'resources'),
-        where('createdAt', '>=', Timestamp.fromDate(monthStart)),
-        where('createdAt', '<=', Timestamp.fromDate(monthEnd))
+        collection(db, "resources"),
+        where("createdAt", ">=", Timestamp.fromDate(monthStart)),
+        where("createdAt", "<=", Timestamp.fromDate(monthEnd))
       );
       const resourcesSnapshot = await getCountFromServer(resourcesQuery);
 
       // 사용자 가입 통계
       const usersQuery = query(
-        collection(db, 'users'),
-        where('createdAt', '>=', Timestamp.fromDate(monthStart)),
-        where('createdAt', '<=', Timestamp.fromDate(monthEnd))
+        collection(db, "users"),
+        where("createdAt", ">=", Timestamp.fromDate(monthStart)),
+        where("createdAt", "<=", Timestamp.fromDate(monthEnd))
       );
       const usersSnapshot = await getCountFromServer(usersQuery);
 
       monthlyData.push({
-        month: monthStart.toLocaleDateString('ko-KR', { 
-          year: 'numeric', 
-          month: 'short' 
+        month: monthStart.toLocaleDateString("ko-KR", {
+          year: "numeric",
+          month: "short",
         }),
         qnas: qnasSnapshot.data().count,
         resources: resourcesSnapshot.data().count,
@@ -401,7 +427,7 @@ export const getMonthlyActivityStats = async (months: number = 6) => {
 
     return monthlyData;
   } catch (error) {
-    console.error('월별 통계 조회 실패:', error);
+    console.error("월별 통계 조회 실패:", error);
     throw error;
   }
 };
@@ -417,22 +443,32 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
       totalNotices: 0,
       totalDownloads: 0,
       activeUsers: 0,
-      recentRegistrations: 0
+      recentRegistrations: 0,
     };
 
     try {
-      const [usersCount, qnaCount, resourcesCount, noticesCount] = await Promise.all([
-        getCountFromServer(collection(db, 'users')).catch(() => ({ data: () => ({ count: 0 }) })),
-        getCountFromServer(collection(db, 'qna')).catch(() => ({ data: () => ({ count: 0 }) })),
-        getCountFromServer(collection(db, 'resources')).catch(() => ({ data: () => ({ count: 0 }) })),
-        getCountFromServer(collection(db, 'notices')).catch(() => ({ data: () => ({ count: 0 }) }))
-      ]);
+      const [usersCount, qnaCount, resourcesCount, noticesCount] =
+        await Promise.all([
+          getCountFromServer(collection(db, "users")).catch(() => ({
+            data: () => ({ count: 0 }),
+          })),
+          getCountFromServer(collection(db, "qna")).catch(() => ({
+            data: () => ({ count: 0 }),
+          })),
+          getCountFromServer(collection(db, "resources")).catch(() => ({
+            data: () => ({ count: 0 }),
+          })),
+          getCountFromServer(collection(db, "notices")).catch(() => ({
+            data: () => ({ count: 0 }),
+          })),
+        ]);
 
       let totalDownloads = 0;
       try {
-        const resourcesSnapshot = await getDocs(collection(db, 'resources'));
+        const resourcesSnapshot = await getDocs(collection(db, "resources"));
         totalDownloads = resourcesSnapshot.docs.reduce(
-          (sum, doc) => sum + (doc.data().downloads || 0), 0
+          (sum, doc) => sum + (doc.data().downloads || 0),
+          0
         );
       } catch {
         totalDownloads = 0;
@@ -445,13 +481,13 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
         totalNotices: noticesCount.data().count || 0,
         totalDownloads,
         activeUsers: usersCount.data().count || 0,
-        recentRegistrations: 0
+        recentRegistrations: 0,
       };
     } catch {
       return defaultStats;
     }
   } catch (error) {
-    console.error('Error fetching dashboard stats:', error);
+    console.error("Error fetching dashboard stats:", error);
     return {
       totalUsers: 0,
       totalQnAs: 0,
@@ -459,9 +495,7 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
       totalNotices: 0,
       totalDownloads: 0,
       activeUsers: 0,
-      recentRegistrations: 0
+      recentRegistrations: 0,
     };
   }
 };
-
-

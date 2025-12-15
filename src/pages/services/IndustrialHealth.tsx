@@ -12,7 +12,8 @@ const IndustrialHealth = () => {
             </h1>
             <p className="text-lg text-white/90">
               중대재해처벌법 대응부터 작업환경측정, 근골격계 유해요인조사까지
-              사업장 안전보건관리체계 구축을 위한 전문 컨설팅 서비스를 제공합니다
+              사업장 안전보건관리체계 구축을 위한 전문 컨설팅 서비스를
+              제공합니다
             </p>
           </div>
         </div>
@@ -67,9 +68,11 @@ const IndustrialHealth = () => {
                       <h2 className="heading-md mb-6">산업보건컨설팅 서비스</h2>
                       <div className="prose dark:prose-invert max-w-none">
                         <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
-                          한국환경안전연구소는 산업안전보건법 및 중대재해처벌법에 따른 전문 컨설팅
-                          서비스를 제공합니다. 2017년부터 650여 사업장의 안전보건 관리체계 구축을 지원하며,
-                          사고 예방과 법적 컴플라이언스를 위한 체계적인 솔루션을 제공합니다.
+                          한국환경안전연구소는 산업안전보건법 및
+                          중대재해처벌법에 따른 전문 컨설팅 서비스를 제공합니다.
+                          2017년부터 650여 사업장의 안전보건 관리체계 구축을
+                          지원하며, 사고 예방과 법적 컴플라이언스를 위한
+                          체계적인 솔루션을 제공합니다.
                         </p>
 
                         <div className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 rounded-xl p-6 mb-8">
@@ -77,7 +80,9 @@ const IndustrialHealth = () => {
                             ⚠️ 중대재해처벌법 대응 필수 지원
                           </h3>
                           <p className="text-neutral-700 dark:text-neutral-300 mb-3">
-                            2022년 1월 27일 시행된 중대재해처벌법에 따라 5명 이상 사업장은 안전보건 관리체계 구축이 의무화되었습니다.
+                            2022년 1월 27일 시행된 중대재해처벌법에 따라 5명
+                            이상 사업장은 안전보건 관리체계 구축이
+                            의무화되었습니다.
                           </p>
                           <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
                             <li>• 안전보건관리체계 구축 및 이행여부 점검</li>
@@ -95,10 +100,14 @@ const IndustrialHealth = () => {
                               근골격계 유해요인조사 (의무조사)
                             </h4>
                             <p className="text-neutral-600 dark:text-neutral-400">
-                              • 산업안전보건법 제24조 따른 3년 주기 의무조사 (5인 이상 사업장)<br/>
-                              • KOSHA-H-30-2020 기법에 따른 과학적 위험도 평가<br/>
-                              • 작업장 맞춤형 개선안 및 예방관리프로그램 제공<br/>
-                              • 근골격계질환 예방을 위한 교육 및 체조개선 가이드라인
+                              • 산업안전보건법 제24조 따른 3년 주기 의무조사
+                              (5인 이상 사업장)
+                              <br />
+                              • KOSHA-H-30-2020 기법에 따른 과학적 위험도 평가
+                              <br />
+                              • 작업장 맞춤형 개선안 및 예방관리프로그램 제공
+                              <br />• 근골격계질환 예방을 위한 교육 및 체조개선
+                              가이드라인
                             </p>
                           </div>
                           <div className="border-l-4 border-secondary-500 pl-4 py-2">
@@ -106,10 +115,15 @@ const IndustrialHealth = () => {
                               화학물질 노출평가 및 관리 (CRA)
                             </h4>
                             <p className="text-neutral-600 dark:text-neutral-400">
-                              • 화관법 개정(2021.1.16)에 따른 화학물질 위험성평가 의무화<br/>
-                              • 개인노출평가 및 작업환경노출평가 수행<br/>
-                              • ECETOC TRA, EASE, Stoffenmanager 등 국제 검증 모델 사용<br/>
-                              • 리스크 특성비에 따른 위험도 결정 및 관리방안 수립
+                              • 화관법 개정(2021.1.16)에 따른 화학물질
+                              위험성평가 의무화
+                              <br />
+                              • 개인노출평가 및 작업환경노출평가 수행
+                              <br />
+                              • ECETOC TRA, EASE, Stoffenmanager 등 국제 검증
+                              모델 사용
+                              <br />• 리스크 특성비에 따른 위험도 결정 및
+                              관리방안 수립
                             </p>
                           </div>
                           <div className="border-l-4 border-accent-500 pl-4 py-2">
@@ -117,10 +131,14 @@ const IndustrialHealth = () => {
                               작업환경측정 (고용노동부 지정기관)
                             </h4>
                             <p className="text-neutral-600 dark:text-neutral-400">
-                              • 산업안전보건법 제125조 따른 6개월마다 의무측정<br/>
-                              • 소음, 분진, 유기화합물, 금속류 등 190여종 유해인자 측정<br/>
-                              • KOSHA-A-1-2021 작업환경측정 및 시료채취보고서 작성<br/>
-                              • 노출기준 초과 시 개선조치 및 재측정 지원
+                              • 산업안전보건법 제125조 따른 6개월마다 의무측정
+                              <br />
+                              • 소음, 분진, 유기화합물, 금속류 등 190여종
+                              유해인자 측정
+                              <br />
+                              • KOSHA-A-1-2021 작업환경측정 및 시료채취보고서
+                              작성
+                              <br />• 노출기준 초과 시 개선조치 및 재측정 지원
                             </p>
                           </div>
                           <div className="border-l-4 border-primary-500 pl-4 py-2">

@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Save } from 'lucide-react';
-import { createNotice, updateNotice, getNoticeById } from '../../services/noticeService';
-import { useAuth } from '../../contexts/AuthContext';
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft, Save } from "lucide-react";
+import {
+  createNotice,
+  updateNotice,
+  getNoticeById,
+} from "../../services/noticeService";
+import { useAuth } from "../../contexts/AuthContext";
 
-import Button from '../../components/common/Button';
-import Card from '../../components/common/Card';
+import Button from "../../components/common/Button";
+import Card from "../../components/common/Card";
 
 const NoticeForm = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,13 +19,13 @@ const NoticeForm = () => {
   const { userData } = useAuth();
 
   const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-    category: '일반',
+    title: "",
+    content: "",
+    category: "일반",
     isPinned: false,
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (isEditMode && id) {
@@ -41,56 +45,65 @@ const NoticeForm = () => {
         });
       }
     } catch (error) {
-      console.error('Error loading notice:', error);
-      setError('공지사항을 불러오는데 실패했습니다.');
+      console.error("Error loading notice:", error);
+      setError("공지사항을 불러오는데 실패했습니다.");
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value, type } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+      [name]:
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     if (!formData.title.trim()) {
-      setError('제목을 입력해주세요.');
+      setError("제목을 입력해주세요.");
       setLoading(false);
       return;
     }
 
     if (!formData.content.trim()) {
-      setError('내용을 입력해주세요.');
+      setError("내용을 입력해주세요.");
       setLoading(false);
       return;
     }
 
     try {
       const noticeData = {
-        noticeId: id || '',
+        noticeId: id || "",
         title: formData.title,
         content: formData.content,
         excerpt: formData.content.substring(0, 100),
         author: {
-          uid: userData?.uid || '',
-          name: userData?.displayName || '관리자'
+          uid: userData?.uid || "",
+          name: userData?.displayName || "관리자",
         },
-        category: formData.category as 'general' | 'service' | 'system' | 'event',
+        category: formData.category as
+          | "general"
+          | "service"
+          | "system"
+          | "event",
         isPinned: formData.isPinned,
         isImportant: false,
         attachments: [],
         tags: [],
         views: 0,
         viewCount: 0,
-        status: 'published' as const,
+        status: "published" as const,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       };
 
       if (isEditMode && id) {
@@ -99,18 +112,18 @@ const NoticeForm = () => {
         await createNotice(noticeData);
       }
 
-      navigate('/board/notice');
+      navigate("/board/notice");
     } catch (error) {
-      console.error('Error saving notice:', error);
-      setError('저장에 실패했습니다. 다시 시도해주세요.');
+      console.error("Error saving notice:", error);
+      setError("저장에 실패했습니다. 다시 시도해주세요.");
     } finally {
       setLoading(false);
     }
   };
 
   // 관리자가 아니면 접근 불가
-  if (userData?.role !== 'admin') {
-    navigate('/board/notice');
+  if (userData?.role !== "admin") {
+    navigate("/board/notice");
     return null;
   }
 
@@ -125,7 +138,7 @@ const NoticeForm = () => {
           {/* Back Button */}
           <Button
             variant="ghost"
-            onClick={() => navigate('/board/notice')}
+            onClick={() => navigate("/board/notice")}
             className="mb-6"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
@@ -134,24 +147,29 @@ const NoticeForm = () => {
 
           <Card className="p-8">
             <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-6">
-              {isEditMode ? '공지사항 수정' : '공지사항 작성'}
+              {isEditMode ? "공지사항 수정" : "공지사항 작성"}
             </h1>
 
             {/* Error Message */}
             {error && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
+                animate={{ opacity: 1, height: "auto" }}
                 className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
               >
-                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+                <p className="text-sm text-red-600 dark:text-red-400">
+                  {error}
+                </p>
               </motion.div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Category */}
               <div>
-                <label htmlFor="category" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                <label
+                  htmlFor="category"
+                  className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                >
                   카테고리
                 </label>
                 <select
@@ -171,7 +189,10 @@ const NoticeForm = () => {
 
               {/* Title */}
               <div>
-                <label htmlFor="title" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                >
                   제목
                 </label>
                 <input
@@ -188,7 +209,10 @@ const NoticeForm = () => {
 
               {/* Content */}
               <div>
-                <label htmlFor="content" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                <label
+                  htmlFor="content"
+                  className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                >
                   내용
                 </label>
                 <textarea
@@ -213,7 +237,10 @@ const NoticeForm = () => {
                   onChange={handleChange}
                   className="w-4 h-4 text-primary-500 border-neutral-300 rounded focus:ring-primary-500"
                 />
-                <label htmlFor="isPinned" className="ml-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                <label
+                  htmlFor="isPinned"
+                  className="ml-2 text-sm font-medium text-neutral-700 dark:text-neutral-300"
+                >
                   상단 고정
                 </label>
               </div>
@@ -227,12 +254,16 @@ const NoticeForm = () => {
                   className="flex-1"
                 >
                   <Save className="w-5 h-5 mr-2" />
-                  {loading ? '저장 중...' : isEditMode ? '수정하기' : '등록하기'}
+                  {loading
+                    ? "저장 중..."
+                    : isEditMode
+                    ? "수정하기"
+                    : "등록하기"}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => navigate('/board/notice')}
+                  onClick={() => navigate("/board/notice")}
                   disabled={loading}
                 >
                   취소

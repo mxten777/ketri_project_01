@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronRight,
   ChevronLeft,
@@ -13,17 +13,17 @@ import {
   Calendar,
   FileText,
   AlertCircle,
-} from 'lucide-react';
-import { createQuote } from '../services/quoteService';
-import { useAuth } from '../contexts/AuthContext';
+} from "lucide-react";
+import { createQuote } from "../services/quoteService";
+import { useAuth } from "../contexts/AuthContext";
 
 const serviceOptions = [
-  { value: 'industrial-health', label: '산업보건 컨설팅', icon: Building2 },
-  { value: 'water-testing', label: '먹는물 검사', icon: FileText },
-  { value: 'dialysis-water', label: '혈액투석용수 검사', icon: FileText },
-  { value: 'indoor-air', label: '실내공기질 측정', icon: FileText },
-  { value: 'asbestos', label: '석면 조사·분석', icon: FileText },
-  { value: 'other', label: '기타 서비스', icon: MessageSquare },
+  { value: "industrial-health", label: "산업보건 컨설팅", icon: Building2 },
+  { value: "water-testing", label: "먹는물 검사", icon: FileText },
+  { value: "dialysis-water", label: "혈액투석용수 검사", icon: FileText },
+  { value: "indoor-air", label: "실내공기질 측정", icon: FileText },
+  { value: "asbestos", label: "석면 조사·분석", icon: FileText },
+  { value: "other", label: "기타 서비스", icon: MessageSquare },
 ];
 
 interface FormData {
@@ -43,14 +43,14 @@ const QuoteRequest: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
-    serviceType: '',
-    companyName: '',
-    contactPerson: user?.displayName || '',
-    phone: '',
-    email: user?.email || '',
-    preferredDate: '',
-    location: '',
-    details: '',
+    serviceType: "",
+    companyName: "",
+    contactPerson: user?.displayName || "",
+    phone: "",
+    email: user?.email || "",
+    preferredDate: "",
+    location: "",
+    details: "",
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
 
@@ -61,29 +61,29 @@ const QuoteRequest: React.FC = () => {
 
     if (step === 1) {
       if (!formData.serviceType) {
-        newErrors.serviceType = '서비스를 선택해주세요.';
+        newErrors.serviceType = "서비스를 선택해주세요.";
       }
     }
 
     if (step === 2) {
       if (!formData.companyName.trim()) {
-        newErrors.companyName = '회사명을 입력해주세요.';
+        newErrors.companyName = "회사명을 입력해주세요.";
       }
       if (!formData.contactPerson.trim()) {
-        newErrors.contactPerson = '담당자명을 입력해주세요.';
+        newErrors.contactPerson = "담당자명을 입력해주세요.";
       }
       if (!formData.phone.trim()) {
-        newErrors.phone = '연락처를 입력해주세요.';
+        newErrors.phone = "연락처를 입력해주세요.";
       } else if (!/^[\d-]+$/.test(formData.phone)) {
-        newErrors.phone = '올바른 연락처 형식이 아닙니다.';
+        newErrors.phone = "올바른 연락처 형식이 아닙니다.";
       }
       if (!formData.email.trim()) {
-        newErrors.email = '이메일을 입력해주세요.';
+        newErrors.email = "이메일을 입력해주세요.";
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        newErrors.email = '올바른 이메일 형식이 아닙니다.';
+        newErrors.email = "올바른 이메일 형식이 아닙니다.";
       }
       if (!formData.location.trim()) {
-        newErrors.location = '현장 위치를 입력해주세요.';
+        newErrors.location = "현장 위치를 입력해주세요.";
       }
     }
 
@@ -108,7 +108,12 @@ const QuoteRequest: React.FC = () => {
       setSubmitting(true);
 
       await createQuote({
-        serviceType: formData.serviceType as 'water' | 'dialysis' | 'asbestos' | 'indoor-air' | 'industrial-health',
+        serviceType: formData.serviceType as
+          | "water"
+          | "dialysis"
+          | "asbestos"
+          | "indoor-air"
+          | "industrial-health",
         companyName: formData.companyName,
         contactPerson: formData.contactPerson,
         phone: formData.phone,
@@ -121,11 +126,13 @@ const QuoteRequest: React.FC = () => {
         userEmail: user?.email || formData.email,
       });
 
-      alert('견적 요청이 성공적으로 제출되었습니다.\n빠른 시일 내에 연락드리겠습니다.');
-      navigate('/');
+      alert(
+        "견적 요청이 성공적으로 제출되었습니다.\n빠른 시일 내에 연락드리겠습니다."
+      );
+      navigate("/");
     } catch (error) {
-      console.error('Failed to submit quote:', error);
-      alert('견적 요청 제출에 실패했습니다. 다시 시도해주세요.');
+      console.error("Failed to submit quote:", error);
+      alert("견적 요청 제출에 실패했습니다. 다시 시도해주세요.");
     } finally {
       setSubmitting(false);
     }
@@ -139,10 +146,10 @@ const QuoteRequest: React.FC = () => {
             <div
               className={`w-12 h-12 rounded-full flex items-center justify-center font-bold transition-all ${
                 currentStep > step
-                  ? 'bg-green-500 text-white'
+                  ? "bg-green-500 text-white"
                   : currentStep === step
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-400'
+                  ? "bg-primary text-white"
+                  : "bg-gray-200 dark:bg-gray-700 text-gray-400"
               }`}
             >
               {currentStep > step ? <Check className="w-6 h-6" /> : step}
@@ -150,17 +157,23 @@ const QuoteRequest: React.FC = () => {
             <span
               className={`mt-2 text-sm font-medium ${
                 currentStep >= step
-                  ? 'text-gray-900 dark:text-white'
-                  : 'text-gray-400'
+                  ? "text-gray-900 dark:text-white"
+                  : "text-gray-400"
               }`}
             >
-              {step === 1 ? '서비스 선택' : step === 2 ? '상세 정보' : '확인 및 제출'}
+              {step === 1
+                ? "서비스 선택"
+                : step === 2
+                ? "상세 정보"
+                : "확인 및 제출"}
             </span>
           </div>
           {index < 2 && (
             <div
               className={`w-24 h-1 mx-2 ${
-                currentStep > step ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-700'
+                currentStep > step
+                  ? "bg-green-500"
+                  : "bg-gray-200 dark:bg-gray-700"
               }`}
             />
           )}
@@ -188,11 +201,13 @@ const QuoteRequest: React.FC = () => {
           return (
             <button
               key={service.value}
-              onClick={() => setFormData({ ...formData, serviceType: service.value })}
+              onClick={() =>
+                setFormData({ ...formData, serviceType: service.value })
+              }
               className={`p-6 rounded-xl border-2 transition-all text-left ${
                 formData.serviceType === service.value
-                  ? 'border-primary bg-primary/5'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-primary/50'
+                  ? "border-primary bg-primary/5"
+                  : "border-gray-200 dark:border-gray-700 hover:border-primary/50"
               }`}
             >
               <Icon className="w-8 h-8 text-primary mb-3" />
@@ -237,9 +252,13 @@ const QuoteRequest: React.FC = () => {
             <input
               type="text"
               value={formData.companyName}
-              onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, companyName: e.target.value })
+              }
               className={`w-full pl-12 pr-4 py-3 border rounded-lg dark:bg-gray-700 dark:text-white ${
-                errors.companyName ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                errors.companyName
+                  ? "border-red-500"
+                  : "border-gray-300 dark:border-gray-600"
               }`}
               placeholder="회사명을 입력하세요"
             />
@@ -259,9 +278,13 @@ const QuoteRequest: React.FC = () => {
             <input
               type="text"
               value={formData.contactPerson}
-              onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, contactPerson: e.target.value })
+              }
               className={`w-full pl-12 pr-4 py-3 border rounded-lg dark:bg-gray-700 dark:text-white ${
-                errors.contactPerson ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                errors.contactPerson
+                  ? "border-red-500"
+                  : "border-gray-300 dark:border-gray-600"
               }`}
               placeholder="담당자명을 입력하세요"
             />
@@ -281,14 +304,20 @@ const QuoteRequest: React.FC = () => {
             <input
               type="tel"
               value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
               className={`w-full pl-12 pr-4 py-3 border rounded-lg dark:bg-gray-700 dark:text-white ${
-                errors.phone ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                errors.phone
+                  ? "border-red-500"
+                  : "border-gray-300 dark:border-gray-600"
               }`}
               placeholder="010-1234-5678"
             />
           </div>
-          {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
+          {errors.phone && (
+            <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
+          )}
         </div>
 
         {/* Email */}
@@ -301,14 +330,20 @@ const QuoteRequest: React.FC = () => {
             <input
               type="email"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               className={`w-full pl-12 pr-4 py-3 border rounded-lg dark:bg-gray-700 dark:text-white ${
-                errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                errors.email
+                  ? "border-red-500"
+                  : "border-gray-300 dark:border-gray-600"
               }`}
               placeholder="example@company.com"
             />
           </div>
-          {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
+          {errors.email && (
+            <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+          )}
         </div>
 
         {/* Location */}
@@ -319,9 +354,13 @@ const QuoteRequest: React.FC = () => {
           <input
             type="text"
             value={formData.location}
-            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, location: e.target.value })
+            }
             className={`w-full px-4 py-3 border rounded-lg dark:bg-gray-700 dark:text-white ${
-              errors.location ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+              errors.location
+                ? "border-red-500"
+                : "border-gray-300 dark:border-gray-600"
             }`}
             placeholder="서울시 강남구..."
           />
@@ -340,7 +379,9 @@ const QuoteRequest: React.FC = () => {
             <input
               type="date"
               value={formData.preferredDate}
-              onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, preferredDate: e.target.value })
+              }
               className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
             />
           </div>
@@ -353,7 +394,9 @@ const QuoteRequest: React.FC = () => {
           </label>
           <textarea
             value={formData.details}
-            onChange={(e) => setFormData({ ...formData, details: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, details: e.target.value })
+            }
             rows={5}
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white resize-none"
             placeholder="추가 요청사항이 있으시면 입력해주세요..."
@@ -368,8 +411,10 @@ const QuoteRequest: React.FC = () => {
   );
 
   const renderStep3 = () => {
-    const selectedService = serviceOptions.find((s) => s.value === formData.serviceType);
-    
+    const selectedService = serviceOptions.find(
+      (s) => s.value === formData.serviceType
+    );
+
     return (
       <motion.div
         initial={{ opacity: 0, x: 20 }}
@@ -422,7 +467,9 @@ const QuoteRequest: React.FC = () => {
           </div>
           {formData.preferredDate && (
             <div className="flex justify-between border-b border-gray-200 dark:border-gray-600 pb-3">
-              <span className="text-gray-600 dark:text-gray-400">희망 날짜</span>
+              <span className="text-gray-600 dark:text-gray-400">
+                희망 날짜
+              </span>
               <span className="font-medium text-gray-900 dark:text-white">
                 {formData.preferredDate}
               </span>
@@ -498,7 +545,7 @@ const QuoteRequest: React.FC = () => {
                 disabled={submitting}
                 className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
               >
-                {submitting ? '제출 중...' : '제출하기'}
+                {submitting ? "제출 중..." : "제출하기"}
                 <Check className="w-5 h-5" />
               </button>
             )}

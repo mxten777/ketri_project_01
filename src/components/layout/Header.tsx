@@ -143,9 +143,13 @@ const Header = () => {
         <div className="flex items-center justify-between h-20 md:h-22 lg:h-24">
           {/* Logo */}
           <Link to="" className="flex items-center flex-shrink-0">
-            <img 
-              src={isDarkMode ? "/images/logo_horizontal_trans.png" : "/images/logo_horizontal.png"}
-              alt="한국환경안전연구소" 
+            <img
+              src={
+                isDarkMode
+                  ? "/images/logo_horizontal_trans.png"
+                  : "/images/logo_horizontal.png"
+              }
+              alt="한국환경안전연구소"
               className="h-10 sm:h-11 md:h-12 lg:h-13 w-auto object-contain"
             />
           </Link>

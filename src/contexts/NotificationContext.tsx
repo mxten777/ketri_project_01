@@ -1,18 +1,18 @@
-import React, { 
-  createContext, 
-  useContext, 
-  useState, 
-  useEffect, 
-  useCallback, 
-  ReactNode 
-} from 'react';
-import { useAuth } from './AuthContext';
-import { 
-  notificationService, 
-  Notification, 
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  ReactNode,
+} from "react";
+import { useAuth } from "./AuthContext";
+import {
+  notificationService,
+  Notification,
   NotificationFilters,
-  NotificationStats 
-} from '../services/notificationService';
+  NotificationStats,
+} from "../services/notificationService";
 
 interface NotificationContextType {
   notifications: Notification[];
@@ -33,7 +33,9 @@ interface NotificationContextType {
   deleteReadNotifications: () => Promise<void>;
 
   // 알림 생성 (관리자용)
-  createNotification: (notification: Omit<Notification, 'id' | 'createdAt' | 'isRead'>) => Promise<string>;
+  createNotification: (
+    notification: Omit<Notification, "id" | "createdAt" | "isRead">
+  ) => Promise<string>;
 
   // 필터 및 설정
   filters: NotificationFilters;
@@ -51,13 +53,17 @@ interface NotificationContextType {
   setShowDesktopNotifications: (show: boolean) => void;
 }
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined
+);
 
 interface NotificationProviderProps {
   children: ReactNode;
 }
 
-export const NotificationProvider: React.FC<NotificationProviderProps> = ({ children }) => {
+export const NotificationProvider: React.FC<NotificationProviderProps> = ({
+  children,
+}) => {
   const { user, userData } = useAuth();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -67,7 +73,8 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
   const [filters, setFilters] = useState<NotificationFilters>({});
   const [enableRealtime, setEnableRealtime] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [showDesktopNotifications, setShowDesktopNotifications] = useState(true);
+  const [showDesktopNotifications, setShowDesktopNotifications] =
+    useState(true);
 
   // 실시간 알림 리스너
   useEffect(() => {
@@ -78,28 +85,33 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 
     try {
       setIsLoading(true);
-      
+
       // 알림 목록 구독
-      unsubscribeNotifications = notificationService.subscribeToUserNotifications(
-        user.uid,
-        (newNotifications) => {
-          setNotifications(prev => {
-            // 새로운 알림 감지 및 알림음/데스크톱 알림 처리
-            const newNotificationIds = newNotifications
-              .filter(n => !prev.find(p => p.id === n.id))
-              .map(n => n.id);
+      unsubscribeNotifications =
+        notificationService.subscribeToUserNotifications(
+          user.uid,
+          (newNotifications) => {
+            setNotifications((prev) => {
+              // 새로운 알림 감지 및 알림음/데스크톱 알림 처리
+              const newNotificationIds = newNotifications
+                .filter((n) => !prev.find((p) => p.id === n.id))
+                .map((n) => n.id);
 
-            if (newNotificationIds.length > 0) {
-              handleNewNotifications(newNotifications.filter(n => newNotificationIds.includes(n.id!)));
-            }
+              if (newNotificationIds.length > 0) {
+                handleNewNotifications(
+                  newNotifications.filter((n) =>
+                    newNotificationIds.includes(n.id!)
+                  )
+                );
+              }
 
-            return newNotifications;
-          });
-          setError(null);
-          setIsLoading(false);
-        },
-        filters
-      );
+              return newNotifications;
+            });
+            setError(null);
+            setIsLoading(false);
+          },
+          filters
+        );
 
       // 미읽은 알림 수 구독
       unsubscribeUnreadCount = notificationService.subscribeToUnreadCount(
@@ -109,10 +121,9 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 
       // 통계 로드
       loadStats();
-
     } catch (err) {
-      console.error('Error setting up notification listeners:', err);
-      setError('알림을 불러오는데 실패했습니다.');
+      console.error("Error setting up notification listeners:", err);
+      setError("알림을 불러오는데 실패했습니다.");
       setIsLoading(false);
     }
 
@@ -123,45 +134,48 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
   }, [user, enableRealtime, filters]);
 
   // 새로운 알림 처리 (소리, 데스크톱 알림)
-  const handleNewNotifications = useCallback((newNotifications: Notification[]) => {
-    newNotifications.forEach(notification => {
-      // 알림음 재생
-      if (soundEnabled) {
-        playNotificationSound(notification.priority);
-      }
-
-      // 데스크톱 알림 표시
-      if (showDesktopNotifications && 'Notification' in window) {
-        if (Notification.permission === 'granted') {
-          showDesktopNotification(notification);
-        } else if (Notification.permission !== 'denied') {
-          Notification.requestPermission().then(permission => {
-            if (permission === 'granted') {
-              showDesktopNotification(notification);
-            }
-          });
+  const handleNewNotifications = useCallback(
+    (newNotifications: Notification[]) => {
+      newNotifications.forEach((notification) => {
+        // 알림음 재생
+        if (soundEnabled) {
+          playNotificationSound(notification.priority);
         }
-      }
-    });
-  }, [soundEnabled, showDesktopNotifications]);
+
+        // 데스크톱 알림 표시
+        if (showDesktopNotifications && "Notification" in window) {
+          if (Notification.permission === "granted") {
+            showDesktopNotification(notification);
+          } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then((permission) => {
+              if (permission === "granted") {
+                showDesktopNotification(notification);
+              }
+            });
+          }
+        }
+      });
+    },
+    [soundEnabled, showDesktopNotifications]
+  );
 
   // 알림음 재생
-  const playNotificationSound = (priority: Notification['priority']) => {
+  const playNotificationSound = (priority: Notification["priority"]) => {
     try {
       const audio = new Audio();
-      
+
       switch (priority) {
-        case 'urgent':
-          audio.src = '/sounds/urgent.wav';
+        case "urgent":
+          audio.src = "/sounds/urgent.wav";
           break;
-        case 'high':
-          audio.src = '/sounds/high.wav';
+        case "high":
+          audio.src = "/sounds/high.wav";
           break;
         default:
-          audio.src = '/sounds/normal.wav';
+          audio.src = "/sounds/normal.wav";
           break;
       }
-      
+
       audio.volume = 0.5;
       audio.play().catch(() => {});
     } catch (err) {
@@ -174,11 +188,11 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     try {
       const desktopNotification = new Notification(notification.title, {
         body: notification.message,
-        icon: '/icon-192x192.png',
-        badge: '/icon-192x192.png',
+        icon: "/icon-192x192.png",
+        badge: "/icon-192x192.png",
         tag: notification.id,
-        requireInteraction: notification.priority === 'urgent',
-        silent: false
+        requireInteraction: notification.priority === "urgent",
+        silent: false,
       });
 
       desktopNotification.onclick = () => {
@@ -190,7 +204,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
       };
 
       // 자동 닫기 (긴급하지 않은 경우)
-      if (notification.priority !== 'urgent') {
+      if (notification.priority !== "urgent") {
         setTimeout(() => {
           desktopNotification.close();
         }, 5000);
@@ -205,36 +219,41 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     if (!user) return;
 
     try {
-      const statsData = await notificationService.getNotificationStats(user.uid);
+      const statsData = await notificationService.getNotificationStats(
+        user.uid
+      );
       setStats(statsData);
     } catch (err) {
-      console.error('Error loading notification stats:', err);
+      console.error("Error loading notification stats:", err);
     }
   }, [user]);
 
   // 알림 목록 수동 로드
-  const loadNotifications = useCallback(async (newFilters?: NotificationFilters) => {
-    if (!user) return;
+  const loadNotifications = useCallback(
+    async (newFilters?: NotificationFilters) => {
+      if (!user) return;
 
-    try {
-      setIsLoading(true);
-      setError(null);
+      try {
+        setIsLoading(true);
+        setError(null);
 
-      if (newFilters) {
-        setFilters(newFilters);
+        if (newFilters) {
+          setFilters(newFilters);
+        }
+
+        // 실시간이 비활성화된 경우에만 수동 로드
+        if (!enableRealtime) {
+          // 여기에 수동 로드 로직 구현 (필요시)
+        }
+      } catch (err) {
+        console.error("Error loading notifications:", err);
+        setError("알림을 불러오는데 실패했습니다.");
+      } finally {
+        setIsLoading(false);
       }
-
-      // 실시간이 비활성화된 경우에만 수동 로드
-      if (!enableRealtime) {
-        // 여기에 수동 로드 로직 구현 (필요시)
-      }
-    } catch (err) {
-      console.error('Error loading notifications:', err);
-      setError('알림을 불러오는데 실패했습니다.');
-    } finally {
-      setIsLoading(false);
-    }
-  }, [user, enableRealtime]);
+    },
+    [user, enableRealtime]
+  );
 
   // 알림 새로고침
   const refreshNotifications = useCallback(async () => {
@@ -243,26 +262,29 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
   }, [loadNotifications, filters, loadStats]);
 
   // 알림 읽음 처리
-  const markAsRead = useCallback(async (notificationId: string) => {
-    try {
-      await notificationService.markAsRead(notificationId);
-      
-      // 로컬 상태 업데이트 (실시간이 비활성화된 경우)
-      if (!enableRealtime) {
-        setNotifications(prev =>
-          prev.map(notification =>
-            notification.id === notificationId
-              ? { ...notification, isRead: true }
-              : notification
-          )
-        );
-        setUnreadCount(prev => Math.max(0, prev - 1));
+  const markAsRead = useCallback(
+    async (notificationId: string) => {
+      try {
+        await notificationService.markAsRead(notificationId);
+
+        // 로컬 상태 업데이트 (실시간이 비활성화된 경우)
+        if (!enableRealtime) {
+          setNotifications((prev) =>
+            prev.map((notification) =>
+              notification.id === notificationId
+                ? { ...notification, isRead: true }
+                : notification
+            )
+          );
+          setUnreadCount((prev) => Math.max(0, prev - 1));
+        }
+      } catch (err) {
+        console.error("Error marking notification as read:", err);
+        setError("알림 처리에 실패했습니다.");
       }
-    } catch (err) {
-      console.error('Error marking notification as read:', err);
-      setError('알림 처리에 실패했습니다.');
-    }
-  }, [enableRealtime]);
+    },
+    [enableRealtime]
+  );
 
   // 모든 알림 읽음 처리
   const markAllAsRead = useCallback(async () => {
@@ -270,34 +292,37 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 
     try {
       await notificationService.markAllAsRead(user.uid);
-      
+
       if (!enableRealtime) {
-        setNotifications(prev =>
-          prev.map(notification => ({ ...notification, isRead: true }))
+        setNotifications((prev) =>
+          prev.map((notification) => ({ ...notification, isRead: true }))
         );
         setUnreadCount(0);
       }
     } catch (err) {
-      console.error('Error marking all notifications as read:', err);
-      setError('알림 처리에 실패했습니다.');
+      console.error("Error marking all notifications as read:", err);
+      setError("알림 처리에 실패했습니다.");
     }
   }, [user, enableRealtime]);
 
   // 알림 삭제
-  const deleteNotification = useCallback(async (notificationId: string) => {
-    try {
-      await notificationService.deleteNotification(notificationId);
-      
-      if (!enableRealtime) {
-        setNotifications(prev =>
-          prev.filter(notification => notification.id !== notificationId)
-        );
+  const deleteNotification = useCallback(
+    async (notificationId: string) => {
+      try {
+        await notificationService.deleteNotification(notificationId);
+
+        if (!enableRealtime) {
+          setNotifications((prev) =>
+            prev.filter((notification) => notification.id !== notificationId)
+          );
+        }
+      } catch (err) {
+        console.error("Error deleting notification:", err);
+        setError("알림 삭제에 실패했습니다.");
       }
-    } catch (err) {
-      console.error('Error deleting notification:', err);
-      setError('알림 삭제에 실패했습니다.');
-    }
-  }, [enableRealtime]);
+    },
+    [enableRealtime]
+  );
 
   // 모든 알림 삭제
   const deleteAllNotifications = useCallback(async () => {
@@ -305,14 +330,14 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 
     try {
       await notificationService.deleteAllUserNotifications(user.uid);
-      
+
       if (!enableRealtime) {
         setNotifications([]);
         setUnreadCount(0);
       }
     } catch (err) {
-      console.error('Error deleting all notifications:', err);
-      setError('알림 삭제에 실패했습니다.');
+      console.error("Error deleting all notifications:", err);
+      setError("알림 삭제에 실패했습니다.");
     }
   }, [user, enableRealtime]);
 
@@ -322,28 +347,33 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 
     try {
       await notificationService.deleteReadNotifications(user.uid);
-      
+
       if (!enableRealtime) {
-        setNotifications(prev => prev.filter(notification => !notification.isRead));
+        setNotifications((prev) =>
+          prev.filter((notification) => !notification.isRead)
+        );
       }
     } catch (err) {
-      console.error('Error deleting read notifications:', err);
-      setError('알림 삭제에 실패했습니다.');
+      console.error("Error deleting read notifications:", err);
+      setError("알림 삭제에 실패했습니다.");
     }
   }, [user, enableRealtime]);
 
   // 알림 생성 (관리자용)
-  const createNotification = useCallback(async (
-    notification: Omit<Notification, 'id' | 'createdAt' | 'isRead'>
-  ): Promise<string> => {
-    try {
-      return await notificationService.createNotification(notification);
-    } catch (err) {
-      console.error('Error creating notification:', err);
-      setError('알림 생성에 실패했습니다.');
-      throw err;
-    }
-  }, []);
+  const createNotification = useCallback(
+    async (
+      notification: Omit<Notification, "id" | "createdAt" | "isRead">
+    ): Promise<string> => {
+      try {
+        return await notificationService.createNotification(notification);
+      } catch (err) {
+        console.error("Error creating notification:", err);
+        setError("알림 생성에 실패했습니다.");
+        throw err;
+      }
+    },
+    []
+  );
 
   // 필터 초기화
   const clearFilters = useCallback(() => {
@@ -352,7 +382,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 
   // 데스크톱 알림 권한 요청 (초기화 시)
   useEffect(() => {
-    if ('Notification' in window && Notification.permission === 'default') {
+    if ("Notification" in window && Notification.permission === "default") {
       Notification.requestPermission();
     }
   }, []);
@@ -366,9 +396,9 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
       }
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [user]);
 
@@ -400,7 +430,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     soundEnabled,
     setSoundEnabled,
     showDesktopNotifications,
-    setShowDesktopNotifications
+    setShowDesktopNotifications,
   };
 
   return (
@@ -414,7 +444,9 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 export const useNotifications = (): NotificationContextType => {
   const context = useContext(NotificationContext);
   if (context === undefined) {
-    throw new Error('useNotifications must be used within a NotificationProvider');
+    throw new Error(
+      "useNotifications must be used within a NotificationProvider"
+    );
   }
   return context;
 };

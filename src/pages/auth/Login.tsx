@@ -80,11 +80,11 @@ const Login = () => {
             }}
           />
         ))}
-        
+
         {/* 그라디언트 오브젝트들 */}
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-primary-500/30 to-secondary-500/30 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-secondary-500/20 to-primary-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        
+
         {/* 기하학적 패턴 */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 w-32 h-32 border border-primary-400 rotate-45 animate-spin-slow"></div>
@@ -96,7 +96,6 @@ const Login = () => {
       {/* 메인 컨테이너 */}
       <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
         <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
           {/* 왼쪽: 브랜딩 영역 */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -115,15 +114,19 @@ const Login = () => {
                 </h1>
                 <div className="h-1 w-24 bg-gradient-to-r from-primary-400 to-secondary-400 mx-auto lg:mx-0 mt-4"></div>
               </motion.div>
-              
+
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 className="text-xl lg:text-2xl text-gray-300 leading-relaxed"
               >
-                <span className="font-semibold text-primary-200">한국환경안전연구소</span>의<br />
-                전문적인 환경 분석 서비스를<br />
+                <span className="font-semibold text-primary-200">
+                  한국환경안전연구소
+                </span>
+                의<br />
+                전문적인 환경 분석 서비스를
+                <br />
                 경험해보세요
               </motion.p>
 
@@ -134,11 +137,15 @@ const Login = () => {
                 className="grid grid-cols-2 gap-6 pt-8"
               >
                 <div className="text-center p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
-                  <div className="text-3xl font-bold text-primary-300">8,500+</div>
+                  <div className="text-3xl font-bold text-primary-300">
+                    8,500+
+                  </div>
                   <div className="text-sm text-gray-300">검사 완료</div>
                 </div>
                 <div className="text-center p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
-                  <div className="text-3xl font-bold text-secondary-300">650+</div>
+                  <div className="text-3xl font-bold text-secondary-300">
+                    650+
+                  </div>
                   <div className="text-sm text-gray-300">고객사</div>
                 </div>
               </motion.div>
@@ -193,7 +200,6 @@ const Login = () => {
                 onSubmit={handleSubmit}
                 className="space-y-6"
               >
-
                 {/* 이메일 입력 */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -232,7 +238,11 @@ const Login = () => {
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary-500"
                     >
-                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                      {showPassword ? (
+                        <EyeOff className="w-5 h-5" />
+                      ) : (
+                        <Eye className="w-5 h-5" />
+                      )}
                     </button>
                   </div>
                 </div>
@@ -246,7 +256,9 @@ const Login = () => {
                       onChange={(e) => setRememberMe(e.target.checked)}
                       className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
                     />
-                    <span className="ml-2 text-sm text-gray-600">자동 로그인</span>
+                    <span className="ml-2 text-sm text-gray-600">
+                      자동 로그인
+                    </span>
                   </label>
                   <Link
                     to="/reset-password"
@@ -257,7 +269,10 @@ const Login = () => {
                 </div>
 
                 {/* 로그인 버튼 */}
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
                   <Button
                     type="submit"
                     className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
@@ -289,7 +304,7 @@ const Login = () => {
               </div>
 
               {/* 회원가입 링크 */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.7 }}

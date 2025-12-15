@@ -219,6 +219,7 @@ npm update
 ### 🔧 개발 환경 설정
 
 #### VS Code 확장 프로그램 (권장)
+
 - ES7+ React/Redux/React-Native snippets
 - Tailwind CSS IntelliSense
 - TypeScript Importer
@@ -226,6 +227,7 @@ npm update
 - Auto Rename Tag
 
 #### 환경변수 설정 예제
+
 ```env
 VITE_FIREBASE_API_KEY=AIzaSyBxxxxxxxxxxxxxxxxxxxxx
 VITE_FIREBASE_AUTH_DOMAIN=ketri-project.firebaseapp.com
@@ -344,6 +346,7 @@ Copyright © 2024 한국환경안전연구소 (KETRI). All rights reserved.
 ## 🎯 개발 진행 현황
 
 ### ✅ Phase 1: 프론트엔드 구축 (완료)
+
 - ✅ 프로젝트 초기 설정 & 기술 스택 구성
 - ✅ 디자인 시스템 구축 (컬러, 타이포그래피, 컴포넌트)
 - ✅ 공통 컴포넌트 라이브러리 (Button, Card, Modal, Layout 등)
@@ -354,6 +357,7 @@ Copyright © 2024 한국환경안전연구소 (KETRI). All rights reserved.
 - ✅ Vercel 배포 설정 완료
 
 ### ✅ Phase 2: 백엔드 연동 (완료)
+
 - ✅ **Firebase Authentication** - 회원가입, 로그인, 권한 관리
 - ✅ **Firebase Firestore** - 실시간 데이터베이스 CRUD
 - ✅ **Firebase Storage** - 파일 업로드/다운로드 시스템
@@ -362,6 +366,7 @@ Copyright © 2024 한국환경안전연구소 (KETRI). All rights reserved.
 - ✅ **사용자 관리** - Context API 기반 상태 관리
 
 ### ✅ Phase 3: 관리자 시스템 & 고급 기능 (완료)
+
 - ✅ **통합 관리자 대시보드** - 실시간 통계 및 모니터링
 - ✅ **사용자 관리 시스템** - 역할 관리, 활동 추적, 상태 관리
 - ✅ **콘텐츠 관리 시스템** - 게시물 CRUD, 벌크 작업, 필터링
@@ -372,6 +377,7 @@ Copyright © 2024 한국환경안전연구소 (KETRI). All rights reserved.
 - ✅ **자료실 관리 시스템** - 파일 업로드, 다운로드 통계
 
 ### 🚀 Phase 4: 최종 최적화 & 배포 (진행 중)
+
 - 🔄 **통계 분석 대시보드** - 고급 차트, 사용자 분석, 콘텐츠 성과 분석
 - ⏳ **성능 최적화** - Bundle 분석, 이미지 최적화, 캐싱 전략
 - ⏳ **테스트 작성** - Unit Tests, Integration Tests
@@ -380,15 +386,15 @@ Copyright © 2024 한국환경안전연구소 (KETRI). All rights reserved.
 
 ## 📊 프로젝트 통계
 
-| 구분 | 내용 |
-|------|------|
-| **총 개발 기간** | 3개월 (2024.09 - 2024.12) |
-| **총 페이지 수** | 20+ 페이지 (사용자 15개, 관리자 8개) |
-| **컴포넌트 수** | 50+ 개 재사용 컴포넌트 |
-| **Firebase 컬렉션** | 8개 주요 컬렉션 |
-| **API 엔드포인트** | 30+ 개 서비스 함수 |
-| **TypeScript 커버리지** | 100% |
-| **반응형 브레이크포인트** | 4단계 (Mobile → Desktop) |
+| 구분                      | 내용                                 |
+| ------------------------- | ------------------------------------ |
+| **총 개발 기간**          | 3개월 (2024.09 - 2024.12)            |
+| **총 페이지 수**          | 20+ 페이지 (사용자 15개, 관리자 8개) |
+| **컴포넌트 수**           | 50+ 개 재사용 컴포넌트               |
+| **Firebase 컬렉션**       | 8개 주요 컬렉션                      |
+| **API 엔드포인트**        | 30+ 개 서비스 함수                   |
+| **TypeScript 커버리지**   | 100%                                 |
+| **반응형 브레이크포인트** | 4단계 (Mobile → Desktop)             |
 
 ---
 

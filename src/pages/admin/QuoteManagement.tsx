@@ -1,11 +1,11 @@
-import { useEffect, useState, createElement } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  FileText, 
-  Filter, 
-  Search, 
-  Eye, 
-  Trash2, 
+import { useEffect, useState, createElement } from "react";
+import { motion } from "framer-motion";
+import {
+  FileText,
+  Filter,
+  Search,
+  Eye,
+  Trash2,
   X,
   Calendar,
   Building2,
@@ -16,22 +16,22 @@ import {
   AlertCircle,
   CheckCircle,
   Clock,
-  XCircle
-} from 'lucide-react';
-import { 
-  getAllQuotes, 
-  updateQuoteStatus, 
+  XCircle,
+} from "lucide-react";
+import {
+  getAllQuotes,
+  updateQuoteStatus,
   deleteQuote,
-  getQuoteStats 
-} from '../../services/quoteService';
-import type { QuoteRequest } from '../../types';
+  getQuoteStats,
+} from "../../services/quoteService";
+import type { QuoteRequest } from "../../types";
 
 const QuoteManagement = () => {
   const [quotes, setQuotes] = useState<QuoteRequest[]>([]);
   const [filteredQuotes, setFilteredQuotes] = useState<QuoteRequest[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selectedQuote, setSelectedQuote] = useState<QuoteRequest | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
@@ -40,26 +40,43 @@ const QuoteManagement = () => {
     pending: 0,
     reviewed: 0,
     completed: 0,
-    rejected: 0
+    rejected: 0,
   });
 
   // Service type 한글 매핑
   const serviceTypeMap: Record<string, string> = {
-    'industrial-health': '산업보건컨설팅',
-    'water-testing': '먹는물 검사',
-    'dialysis-water': '혈액투석용수 검사',
-    'indoor-air': '실내공기질 측정',
-    'asbestos': '석면조사·분석',
-    'other': '기타 서비스'
+    "industrial-health": "산업보건컨설팅",
+    "water-testing": "먹는물 검사",
+    "dialysis-water": "혈액투석용수 검사",
+    "indoor-air": "실내공기질 측정",
+    asbestos: "석면조사·분석",
+    other: "기타 서비스",
   };
 
   // Status 한글 매핑
-  const statusMap: Record<string, { label: string; color: string; icon: any }> = {
-    pending: { label: '접수 대기', color: 'text-orange-600 bg-orange-50 dark:bg-orange-900/20', icon: Clock },
-    reviewed: { label: '검토 중', color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20', icon: Eye },
-    completed: { label: '처리 완료', color: 'text-green-600 bg-green-50 dark:bg-green-900/20', icon: CheckCircle },
-    rejected: { label: '반려', color: 'text-red-600 bg-red-50 dark:bg-red-900/20', icon: XCircle }
-  };
+  const statusMap: Record<string, { label: string; color: string; icon: any }> =
+    {
+      pending: {
+        label: "접수 대기",
+        color: "text-orange-600 bg-orange-50 dark:bg-orange-900/20",
+        icon: Clock,
+      },
+      reviewed: {
+        label: "검토 중",
+        color: "text-blue-600 bg-blue-50 dark:bg-blue-900/20",
+        icon: Eye,
+      },
+      completed: {
+        label: "처리 완료",
+        color: "text-green-600 bg-green-50 dark:bg-green-900/20",
+        icon: CheckCircle,
+      },
+      rejected: {
+        label: "반려",
+        color: "text-red-600 bg-red-50 dark:bg-red-900/20",
+        icon: XCircle,
+      },
+    };
 
   useEffect(() => {
     loadQuotes();
@@ -76,8 +93,8 @@ const QuoteManagement = () => {
       const data = await getAllQuotes();
       setQuotes(data);
     } catch (error) {
-      console.error('견적 목록 로드 실패:', error);
-      alert('견적 목록을 불러오는데 실패했습니다.');
+      console.error("견적 목록 로드 실패:", error);
+      alert("견적 목록을 불러오는데 실패했습니다.");
     } finally {
       setLoading(false);
     }
@@ -88,7 +105,7 @@ const QuoteManagement = () => {
       const data = await getQuoteStats();
       setStats(data);
     } catch (error) {
-      console.error('통계 로드 실패:', error);
+      console.error("통계 로드 실패:", error);
     }
   };
 
@@ -96,18 +113,19 @@ const QuoteManagement = () => {
     let filtered = [...quotes];
 
     // 상태 필터
-    if (statusFilter !== 'all') {
-      filtered = filtered.filter(q => q.status === statusFilter);
+    if (statusFilter !== "all") {
+      filtered = filtered.filter((q) => q.status === statusFilter);
     }
 
     // 검색어 필터
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      filtered = filtered.filter(q =>
-        q.companyName?.toLowerCase().includes(term) ||
-        q.contactPerson?.toLowerCase().includes(term) ||
-        q.email?.toLowerCase().includes(term) ||
-        q.phone?.includes(term)
+      filtered = filtered.filter(
+        (q) =>
+          q.companyName?.toLowerCase().includes(term) ||
+          q.contactPerson?.toLowerCase().includes(term) ||
+          q.email?.toLowerCase().includes(term) ||
+          q.phone?.includes(term)
       );
     }
 
@@ -115,26 +133,33 @@ const QuoteManagement = () => {
   };
 
   const handleStatusChange = async (quoteId: string, newStatus: string) => {
-    if (!confirm(`견적 상태를 '${statusMap[newStatus]?.label}'(으)로 변경하시겠습니까?`)) {
+    if (
+      !confirm(
+        `견적 상태를 '${statusMap[newStatus]?.label}'(으)로 변경하시겠습니까?`
+      )
+    ) {
       return;
     }
 
     try {
-      await updateQuoteStatus(quoteId, newStatus as QuoteRequest['status']);
+      await updateQuoteStatus(quoteId, newStatus as QuoteRequest["status"]);
       await loadQuotes();
       await loadStats();
-      alert('상태가 변경되었습니다.');
-      
+      alert("상태가 변경되었습니다.");
+
       // 상세 모달이 열려있으면 새로고침
       if (selectedQuote && selectedQuote.id === quoteId) {
-        const updated = quotes.find(q => q.id === quoteId);
+        const updated = quotes.find((q) => q.id === quoteId);
         if (updated) {
-          setSelectedQuote({ ...updated, status: newStatus as QuoteRequest['status'] });
+          setSelectedQuote({
+            ...updated,
+            status: newStatus as QuoteRequest["status"],
+          });
         }
       }
     } catch (error) {
-      console.error('상태 변경 실패:', error);
-      alert('상태 변경에 실패했습니다.');
+      console.error("상태 변경 실패:", error);
+      alert("상태 변경에 실패했습니다.");
     }
   };
 
@@ -151,17 +176,17 @@ const QuoteManagement = () => {
       await loadStats();
       setDeleteConfirm(null);
       setShowDetailModal(false);
-      alert('견적이 삭제되었습니다.');
+      alert("견적이 삭제되었습니다.");
     } catch (error) {
-      console.error('삭제 실패:', error);
-      alert('견적 삭제에 실패했습니다.');
+      console.error("삭제 실패:", error);
+      alert("견적 삭제에 실패했습니다.");
     }
   };
 
   const formatDate = (date: any) => {
-    if (!date) return '-';
+    if (!date) return "-";
     const d = date.toDate ? date.toDate() : new Date(date);
-    return d.toLocaleDateString('ko-KR');
+    return d.toLocaleDateString("ko-KR");
   };
 
   const openDetailModal = (quote: QuoteRequest) => {
@@ -207,8 +232,12 @@ const QuoteManagement = () => {
               <FileText className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
             </div>
           </div>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">전체</p>
-          <p className="text-2xl font-bold text-neutral-900 dark:text-white">{stats.total}</p>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
+            전체
+          </p>
+          <p className="text-2xl font-bold text-neutral-900 dark:text-white">
+            {stats.total}
+          </p>
         </motion.div>
 
         <motion.div
@@ -222,7 +251,9 @@ const QuoteManagement = () => {
               <Clock className="w-5 h-5 text-orange-600" />
             </div>
           </div>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">접수 대기</p>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
+            접수 대기
+          </p>
           <p className="text-2xl font-bold text-orange-600">{stats.pending}</p>
         </motion.div>
 
@@ -237,7 +268,9 @@ const QuoteManagement = () => {
               <Eye className="w-5 h-5 text-blue-600" />
             </div>
           </div>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">검토 중</p>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
+            검토 중
+          </p>
           <p className="text-2xl font-bold text-blue-600">{stats.reviewed}</p>
         </motion.div>
 
@@ -252,7 +285,9 @@ const QuoteManagement = () => {
               <CheckCircle className="w-5 h-5 text-green-600" />
             </div>
           </div>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">처리 완료</p>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
+            처리 완료
+          </p>
           <p className="text-2xl font-bold text-green-600">{stats.completed}</p>
         </motion.div>
 
@@ -267,7 +302,9 @@ const QuoteManagement = () => {
               <XCircle className="w-5 h-5 text-red-600" />
             </div>
           </div>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">반려</p>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
+            반려
+          </p>
           <p className="text-2xl font-bold text-red-600">{stats.rejected}</p>
         </motion.div>
       </div>
@@ -320,9 +357,9 @@ const QuoteManagement = () => {
           <div className="bg-white dark:bg-neutral-800 rounded-xl p-12 shadow-sm border border-neutral-200 dark:border-neutral-700 text-center">
             <AlertCircle className="w-12 h-12 text-neutral-400 mx-auto mb-4" />
             <p className="text-neutral-600 dark:text-neutral-400">
-              {searchTerm || statusFilter !== 'all' 
-                ? '검색 조건에 맞는 견적 요청이 없습니다.' 
-                : '아직 견적 요청이 없습니다.'}
+              {searchTerm || statusFilter !== "all"
+                ? "검색 조건에 맞는 견적 요청이 없습니다."
+                : "아직 견적 요청이 없습니다."}
             </p>
           </div>
         ) : (
@@ -349,13 +386,18 @@ const QuoteManagement = () => {
                           <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
                             {quote.companyName}
                           </h3>
-                          <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${statusMap[quote.status].color}`}>
+                          <span
+                            className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                              statusMap[quote.status].color
+                            }`}
+                          >
                             <StatusIcon className="w-3.5 h-3.5" />
                             {statusMap[quote.status].label}
                           </span>
                         </div>
                         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
-                          {serviceTypeMap[quote.serviceType] || quote.serviceType}
+                          {serviceTypeMap[quote.serviceType] ||
+                            quote.serviceType}
                         </p>
                         <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-neutral-600 dark:text-neutral-400">
                           <span className="flex items-center gap-1">
@@ -380,7 +422,9 @@ const QuoteManagement = () => {
                     {/* Status Change */}
                     <select
                       value={quote.status}
-                      onChange={(e) => handleStatusChange(quote.id!, e.target.value)}
+                      onChange={(e) =>
+                        handleStatusChange(quote.id!, e.target.value)
+                      }
                       className="px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg 
                                bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white text-sm
                                focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -406,13 +450,14 @@ const QuoteManagement = () => {
                     <button
                       onClick={() => handleDelete(quote.id!)}
                       className={`px-4 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm font-medium whitespace-nowrap
-                                ${deleteConfirm === quote.id
-                                  ? 'bg-red-500 hover:bg-red-600 text-white'
-                                  : 'bg-neutral-100 dark:bg-neutral-700 hover:bg-red-50 dark:hover:bg-red-900/20 text-neutral-600 dark:text-neutral-400 hover:text-red-600'
+                                ${
+                                  deleteConfirm === quote.id
+                                    ? "bg-red-500 hover:bg-red-600 text-white"
+                                    : "bg-neutral-100 dark:bg-neutral-700 hover:bg-red-50 dark:hover:bg-red-900/20 text-neutral-600 dark:text-neutral-400 hover:text-red-600"
                                 }`}
                     >
                       <Trash2 className="w-4 h-4" />
-                      {deleteConfirm === quote.id ? '확인' : '삭제'}
+                      {deleteConfirm === quote.id ? "확인" : "삭제"}
                     </button>
                   </div>
                 </div>
@@ -447,8 +492,14 @@ const QuoteManagement = () => {
             <div className="p-6 space-y-6">
               {/* Status Badge */}
               <div className="flex items-center gap-2">
-                <span className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium ${statusMap[selectedQuote.status].color}`}>
-                  {createElement(statusMap[selectedQuote.status].icon, { className: 'w-4 h-4' })}
+                <span
+                  className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium ${
+                    statusMap[selectedQuote.status].color
+                  }`}
+                >
+                  {createElement(statusMap[selectedQuote.status].icon, {
+                    className: "w-4 h-4",
+                  })}
                   {statusMap[selectedQuote.status].label}
                 </span>
               </div>
@@ -461,7 +512,8 @@ const QuoteManagement = () => {
                 <div className="flex items-center gap-2 p-3 bg-neutral-50 dark:bg-neutral-700/50 rounded-lg">
                   <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                   <span className="text-neutral-900 dark:text-white font-medium">
-                    {serviceTypeMap[selectedQuote.serviceType] || selectedQuote.serviceType}
+                    {serviceTypeMap[selectedQuote.serviceType] ||
+                      selectedQuote.serviceType}
                   </span>
                 </div>
               </div>
@@ -551,7 +603,7 @@ const QuoteManagement = () => {
                 </label>
                 <div className="p-4 bg-neutral-50 dark:bg-neutral-700/50 rounded-lg">
                   <p className="text-neutral-900 dark:text-white whitespace-pre-wrap">
-                    {selectedQuote.details || '없음'}
+                    {selectedQuote.details || "없음"}
                   </p>
                 </div>
               </div>
@@ -559,14 +611,18 @@ const QuoteManagement = () => {
               {/* Timestamps */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-neutral-200 dark:border-neutral-700">
                 <div>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">요청 일시</p>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
+                    요청 일시
+                  </p>
                   <p className="text-neutral-900 dark:text-white font-medium">
                     {formatDate(selectedQuote.createdAt)}
                   </p>
                 </div>
                 {selectedQuote.updatedAt && (
                   <div>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">최종 수정</p>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
+                      최종 수정
+                    </p>
                     <p className="text-neutral-900 dark:text-white font-medium">
                       {formatDate(selectedQuote.updatedAt)}
                     </p>
@@ -594,13 +650,14 @@ const QuoteManagement = () => {
               <button
                 onClick={() => handleDelete(selectedQuote.id!)}
                 className={`px-6 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 font-medium
-                          ${deleteConfirm === selectedQuote.id
-                            ? 'bg-red-500 hover:bg-red-600 text-white'
-                            : 'bg-neutral-100 dark:bg-neutral-700 hover:bg-red-50 dark:hover:bg-red-900/20 text-neutral-600 dark:text-neutral-400 hover:text-red-600'
+                          ${
+                            deleteConfirm === selectedQuote.id
+                              ? "bg-red-500 hover:bg-red-600 text-white"
+                              : "bg-neutral-100 dark:bg-neutral-700 hover:bg-red-50 dark:hover:bg-red-900/20 text-neutral-600 dark:text-neutral-400 hover:text-red-600"
                           }`}
               >
                 <Trash2 className="w-4 h-4" />
-                {deleteConfirm === selectedQuote.id ? '삭제 확인' : '삭제'}
+                {deleteConfirm === selectedQuote.id ? "삭제 확인" : "삭제"}
               </button>
               <button
                 onClick={closeDetailModal}

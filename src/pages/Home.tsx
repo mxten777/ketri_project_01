@@ -35,28 +35,32 @@ const Home = () => {
     {
       icon: <Droplets className="w-8 h-8" />,
       title: "먹는물 검사",
-      description: "KOLAS 인증으로 수돗물·지하수·정수기 등 59개 항목 수질검사 서비스",
+      description:
+        "KOLAS 인증으로 수돗물·지하수·정수기 등 59개 항목 수질검사 서비스",
       path: "/water-testing",
       color: "from-cyan-500 to-blue-500",
     },
     {
       icon: <FlaskConical className="w-8 h-8" />,
       title: "혈액특성용수",
-      description: "투석용수 21개 항목, 전처리용수 15개 항목 검사로 환자 안전 도모",
+      description:
+        "투석용수 21개 항목, 전처리용수 15개 항목 검사로 환자 안전 도모",
       path: "/dialysis-water",
       color: "from-purple-500 to-pink-500",
     },
     {
       icon: <Wind className="w-8 h-8" />,
       title: "실내공기질 측정",
-      description: "PM10, PM2.5, CO₂, 라돈 등 다중이용시설 9개 항목 실내공기질 측정",
+      description:
+        "PM10, PM2.5, CO₂, 라돈 등 다중이용시설 9개 항목 실내공기질 측정",
       path: "/indoor-air-quality",
       color: "from-green-500 to-emerald-500",
     },
     {
       icon: <Shield className="w-8 h-8" />,
       title: "석면조사·분석",
-      description: "환경부 지정 석면조사기관으로 정성·정량분석 및 위해성 평가 서비스",
+      description:
+        "환경부 지정 석면조사기관으로 정성·정량분석 및 위해성 평가 서비스",
       path: "/asbestos",
       color: "from-orange-500 to-red-500",
     },
@@ -282,7 +286,8 @@ const Home = () => {
           >
             <h2 className="heading-lg mb-4">왜 KETRI를 선택해야 할까요?</h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-              7년간의 검증된 전문성과 체계적인 품질관리 시스템으로 고객의 신뢰를 얻고 있습니다
+              7년간의 검증된 전문성과 체계적인 품질관리 시스템으로 고객의 신뢰를
+              얻고 있습니다
             </p>
           </motion.div>
 
@@ -301,7 +306,7 @@ const Home = () => {
                 KOLAS 공인인증
               </h3>
               <p className="text-neutral-600 dark:text-neutral-400">
-                국가공인시험기관으로서 공신력 있는 검사 결과를 제공하며, 
+                국가공인시험기관으로서 공신력 있는 검사 결과를 제공하며,
                 국제적으로 인정받는 품질관리 시스템을 운영합니다
               </p>
             </motion.div>
@@ -320,8 +325,8 @@ const Home = () => {
                 신속한 검사 처리
               </h3>
               <p className="text-neutral-600 dark:text-neutral-400">
-                체계적인 검사 프로세스와 최신 장비를 통해 
-                평균 3-5일 내 정확한 검사 결과를 제공합니다
+                체계적인 검사 프로세스와 최신 장비를 통해 평균 3-5일 내 정확한
+                검사 결과를 제공합니다
               </p>
             </motion.div>
 
@@ -339,8 +344,8 @@ const Home = () => {
                 전문가 컨설팅
               </h3>
               <p className="text-neutral-600 dark:text-neutral-400">
-                각 분야별 전문가가 검사 결과 해석부터 개선방안 제시까지 
-                맞춤형 컨설팅 서비스를 제공합니다
+                각 분야별 전문가가 검사 결과 해석부터 개선방안 제시까지 맞춤형
+                컨설팅 서비스를 제공합니다
               </p>
             </motion.div>
           </div>
@@ -401,16 +406,17 @@ const Home = () => {
             >
               <h2 className="heading-lg mb-6">
                 고객의 신뢰를 바탕으로
-                <br />성장해온 7년
+                <br />
+                성장해온 7년
               </h2>
               <p className="text-lg text-white/90 mb-8">
-                2017년 설립 이후 650여 고객사와 함께 성장하며, 
-                8,500건 이상의 검사를 성공적으로 수행했습니다. 
-                정확하고 신속한 서비스로 95%의 고객 만족도를 달성했습니다.
+                2017년 설립 이후 650여 고객사와 함께 성장하며, 8,500건 이상의
+                검사를 성공적으로 수행했습니다. 정확하고 신속한 서비스로 95%의
+                고객 만족도를 달성했습니다.
               </p>
               <Link to="/about/greeting">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   variant="outline"
                   className="border-white text-white hover:bg-white hover:text-primary-600"
                 >
@@ -470,26 +476,28 @@ const Home = () => {
                 step: "01",
                 title: "문의 및 상담",
                 description: "전문 상담원이 검사 항목과 일정을 안내해드립니다",
-                icon: <MessageCircle className="w-8 h-8" />
+                icon: <MessageCircle className="w-8 h-8" />,
               },
               {
-                step: "02", 
+                step: "02",
                 title: "시료 접수",
                 description: "직접 방문 또는 택배로 시료를 접수받습니다",
-                icon: <Package className="w-8 h-8" />
+                icon: <Package className="w-8 h-8" />,
               },
               {
                 step: "03",
                 title: "검사 수행",
-                description: "KOLAS 인증 장비와 표준절차로 정확한 검사를 실시합니다",
-                icon: <Search className="w-8 h-8" />
+                description:
+                  "KOLAS 인증 장비와 표준절차로 정확한 검사를 실시합니다",
+                icon: <Search className="w-8 h-8" />,
               },
               {
                 step: "04",
                 title: "결과 발송",
-                description: "검사 완료 후 공식 성적서와 해석 자료를 제공합니다",
-                icon: <FileText className="w-8 h-8" />
-              }
+                description:
+                  "검사 완료 후 공식 성적서와 해석 자료를 제공합니다",
+                icon: <FileText className="w-8 h-8" />,
+              },
             ].map((process, index) => (
               <motion.div
                 key={index}

@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   Upload,
   File,
@@ -11,18 +11,18 @@ import {
   Folder,
   Globe,
   Lock,
-} from 'lucide-react';
-import { uploadFile, createResource } from '../../services/resourceService';
-import { useAuth } from '../../contexts/AuthContext';
-import Button from '../../components/common/Button';
-import Card from '../../components/common/Card';
+} from "lucide-react";
+import { uploadFile, createResource } from "../../services/resourceService";
+import { useAuth } from "../../contexts/AuthContext";
+import Button from "../../components/common/Button";
+import Card from "../../components/common/Card";
 
 const categories = [
-  { value: 'manual', label: '매뉴얼', icon: FileText },
-  { value: 'form', label: '신청서', icon: File },
-  { value: 'report', label: '보고서', icon: FileText },
-  { value: 'certificate', label: '성적서', icon: File },
-  { value: 'other', label: '기타', icon: Folder },
+  { value: "manual", label: "매뉴얼", icon: FileText },
+  { value: "form", label: "신청서", icon: File },
+  { value: "report", label: "보고서", icon: FileText },
+  { value: "certificate", label: "성적서", icon: File },
+  { value: "other", label: "기타", icon: Folder },
 ];
 
 const ResourceForm: React.FC = () => {
@@ -31,20 +31,20 @@ const ResourceForm: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    category: 'manual',
+    title: "",
+    description: "",
+    category: "manual",
     isPublic: true,
   });
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [dragOver, setDragOver] = useState(false);
 
   // 관리자 권한 확인
-  if (!user || userData?.role !== 'admin') {
+  if (!user || userData?.role !== "admin") {
     return (
       <Card className="p-8 text-center max-w-md mx-auto mt-20">
         <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
@@ -54,7 +54,7 @@ const ResourceForm: React.FC = () => {
         <p className="text-neutral-600 dark:text-neutral-400 mb-4">
           관리자만 자료를 업로드할 수 있습니다.
         </p>
-        <Button onClick={() => navigate('/board/resources')} variant="outline">
+        <Button onClick={() => navigate("/board/resources")} variant="outline">
           <ArrowLeft className="w-4 h-4 mr-2" />
           자료실로 돌아가기
         </Button>
@@ -66,27 +66,27 @@ const ResourceForm: React.FC = () => {
     // 파일 크기 체크 (10MB)
     const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
-      return '파일 크기는 10MB를 초과할 수 없습니다.';
+      return "파일 크기는 10MB를 초과할 수 없습니다.";
     }
 
     // 파일 형식 체크
     const allowedTypes = [
-      'application/pdf',
-      'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'application/vnd.ms-excel',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/vnd.ms-powerpoint',
-      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-      'image/jpeg',
-      'image/png',
-      'image/gif',
-      'application/zip',
-      'application/x-zip-compressed',
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/vnd.ms-excel",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/vnd.ms-powerpoint",
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "application/zip",
+      "application/x-zip-compressed",
     ];
 
     if (!allowedTypes.includes(file.type)) {
-      return '지원하지 않는 파일 형식입니다. (PDF, Word, Excel, PowerPoint, 이미지, ZIP 파일만 가능)';
+      return "지원하지 않는 파일 형식입니다. (PDF, Word, Excel, PowerPoint, 이미지, ZIP 파일만 가능)";
     }
 
     return null;
@@ -100,7 +100,7 @@ const ResourceForm: React.FC = () => {
     }
 
     setSelectedFile(file);
-    setError('');
+    setError("");
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,7 +133,7 @@ const ResourceForm: React.FC = () => {
   const handleRemoveFile = () => {
     setSelectedFile(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
@@ -141,23 +141,23 @@ const ResourceForm: React.FC = () => {
     e.preventDefault();
 
     if (!selectedFile) {
-      setError('파일을 선택해주세요.');
+      setError("파일을 선택해주세요.");
       return;
     }
 
     if (!formData.title.trim()) {
-      setError('제목을 입력해주세요.');
+      setError("제목을 입력해주세요.");
       return;
     }
 
     if (!formData.description.trim()) {
-      setError('설명을 입력해주세요.');
+      setError("설명을 입력해주세요.");
       return;
     }
 
     try {
       setUploading(true);
-      setError('');
+      setError("");
       setUploadProgress(30);
 
       // 파일 업로드
@@ -168,14 +168,19 @@ const ResourceForm: React.FC = () => {
       await createResource({
         title: formData.title.trim(),
         description: formData.description.trim(),
-        category: formData.category as "manual" | "form" | "report" | "certificate" | "other",
+        category: formData.category as
+          | "manual"
+          | "form"
+          | "report"
+          | "certificate"
+          | "other",
         fileName: fileData.fileName,
         fileSize: fileData.fileSize,
         fileType: fileData.fileType,
         fileUrl: fileData.fileUrl,
         uploadedBy: {
           uid: user.uid,
-          name: user.displayName || '관리자'
+          name: user.displayName || "관리자",
         },
         isPublic: formData.isPublic,
       });
@@ -184,11 +189,13 @@ const ResourceForm: React.FC = () => {
 
       // 자료실로 이동
       setTimeout(() => {
-        navigate('/board/resources');
+        navigate("/board/resources");
       }, 500);
     } catch (error) {
-      console.error('Failed to upload resource:', error);
-      setError(error instanceof Error ? error.message : '업로드에 실패했습니다.');
+      console.error("Failed to upload resource:", error);
+      setError(
+        error instanceof Error ? error.message : "업로드에 실패했습니다."
+      );
       setUploadProgress(0);
     } finally {
       setUploading(false);
@@ -196,11 +203,11 @@ const ResourceForm: React.FC = () => {
   };
 
   const formatFileSize = (bytes: number): string => {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
   };
 
   return (
@@ -211,10 +218,7 @@ const ResourceForm: React.FC = () => {
     >
       {/* 헤더 */}
       <div className="flex items-center gap-4">
-        <Button
-          onClick={() => navigate('/board/resources')}
-          variant="ghost"
-        >
+        <Button onClick={() => navigate("/board/resources")} variant="ghost">
           <ArrowLeft className="w-4 h-4 mr-2" />
           자료실로
         </Button>
@@ -237,8 +241,8 @@ const ResourceForm: React.FC = () => {
               onDrop={handleDrop}
               className={`border-2 border-dashed rounded-lg p-8 text-center transition-all ${
                 dragOver
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/10'
-                  : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400'
+                  ? "border-primary-500 bg-primary-50 dark:bg-primary-900/10"
+                  : "border-neutral-300 dark:border-neutral-600 hover:border-primary-400"
               }`}
             >
               {selectedFile ? (
@@ -301,13 +305,15 @@ const ResourceForm: React.FC = () => {
             <input
               type="text"
               value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, title: e.target.value })
+              }
               placeholder="자료 제목을 입력하세요"
               className="w-full px-3 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               maxLength={100}
               required
-              />
-            </div>
+            />
+          </div>
 
           {/* 설명 */}
           <div>
@@ -316,14 +322,16 @@ const ResourceForm: React.FC = () => {
             </label>
             <textarea
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
               placeholder="자료에 대한 설명을 입력하세요"
               rows={4}
               className="w-full px-3 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
               maxLength={500}
               required
             />
-            </div>
+          </div>
 
           {/* 카테고리 */}
           <div>
@@ -332,7 +340,9 @@ const ResourceForm: React.FC = () => {
             </label>
             <select
               value={formData.category}
-              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, category: e.target.value })
+              }
               className="w-full px-3 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               required
             >
@@ -342,7 +352,7 @@ const ResourceForm: React.FC = () => {
                 </option>
               ))}
             </select>
-            </div>
+          </div>
 
           {/* 공개 설정 */}
           <div className="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-lg">
@@ -351,10 +361,15 @@ const ResourceForm: React.FC = () => {
                 type="checkbox"
                 id="isPublic"
                 checked={formData.isPublic}
-                onChange={(e) => setFormData({ ...formData, isPublic: e.target.checked })}
+                onChange={(e) =>
+                  setFormData({ ...formData, isPublic: e.target.checked })
+                }
                 className="w-4 h-4 text-primary-600 bg-neutral-100 border-neutral-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-neutral-800 dark:bg-neutral-700 dark:border-neutral-600"
               />
-              <label htmlFor="isPublic" className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <label
+                htmlFor="isPublic"
+                className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300"
+              >
                 {formData.isPublic ? (
                   <>
                     <Globe className="w-4 h-4 text-green-600" />
@@ -369,12 +384,11 @@ const ResourceForm: React.FC = () => {
               </label>
             </div>
             <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
-              {formData.isPublic 
-                ? '모든 사용자가 다운로드할 수 있습니다.' 
-                : '관리자만 확인하고 다운로드할 수 있습니다.'
-              }
+              {formData.isPublic
+                ? "모든 사용자가 다운로드할 수 있습니다."
+                : "관리자만 확인하고 다운로드할 수 있습니다."}
             </p>
-            </div>
+          </div>
 
           {/* 에러 메시지 */}
           {error && (
@@ -404,7 +418,7 @@ const ResourceForm: React.FC = () => {
           <div className="flex gap-3 pt-4">
             <Button
               type="button"
-              onClick={() => navigate('/board/resources')}
+              onClick={() => navigate("/board/resources")}
               variant="outline"
               className="flex-1"
               disabled={uploading}
@@ -421,7 +435,11 @@ const ResourceForm: React.FC = () => {
                   <motion.div
                     className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                   />
                   업로드 중...
                 </>

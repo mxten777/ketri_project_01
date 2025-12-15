@@ -1,38 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Save, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import { getResourceById, updateResource } from '../../services/resourceService';
-import type { Resource } from '../../types';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft, Save, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import {
+  getResourceById,
+  updateResource,
+} from "../../services/resourceService";
+import type { Resource } from "../../types";
 
 const categoryOptions = [
-  { value: 'manual', label: '매뉴얼' },
-  { value: 'form', label: '신청서' },
-  { value: 'report', label: '보고서' },
-  { value: 'certificate', label: '성적서' },
-  { value: 'other', label: '기타' },
+  { value: "manual", label: "매뉴얼" },
+  { value: "form", label: "신청서" },
+  { value: "report", label: "보고서" },
+  { value: "certificate", label: "성적서" },
+  { value: "other", label: "기타" },
 ];
 
 const ResourceEdit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user, userData } = useAuth();
-  
+
   const [resource, setResource] = useState<Resource | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    category: 'manual' as Resource['category'],
+    title: "",
+    description: "",
+    category: "manual" as Resource["category"],
     isPublic: true,
   });
 
   useEffect(() => {
-    if (!userData || userData.role !== 'admin') {
-      navigate('/board/resources');
+    if (!userData || userData.role !== "admin") {
+      navigate("/board/resources");
       return;
     }
 
@@ -47,10 +50,10 @@ const ResourceEdit: React.FC = () => {
     try {
       setLoading(true);
       const data = await getResourceById(id);
-      
+
       if (!data) {
-        alert('존재하지 않는 자료입니다.');
-        navigate('/admin/resources');
+        alert("존재하지 않는 자료입니다.");
+        navigate("/admin/resources");
         return;
       }
 
@@ -62,35 +65,40 @@ const ResourceEdit: React.FC = () => {
         isPublic: data.isPublic,
       });
     } catch (error) {
-      console.error('Error fetching resource:', error);
-      alert('자료를 불러오는데 실패했습니다.');
-      navigate('/admin/resources');
+      console.error("Error fetching resource:", error);
+      alert("자료를 불러오는데 실패했습니다.");
+      navigate("/admin/resources");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value, type } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+      [name]:
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!id || !resource) return;
 
     // 유효성 검사
     if (!formData.title.trim()) {
-      alert('제목을 입력해주세요.');
+      alert("제목을 입력해주세요.");
       return;
     }
 
     if (!formData.description.trim()) {
-      alert('설명을 입력해주세요.');
+      alert("설명을 입력해주세요.");
       return;
     }
 
@@ -104,21 +112,23 @@ const ResourceEdit: React.FC = () => {
         isPublic: formData.isPublic,
       });
 
-      alert('자료가 수정되었습니다.');
-      navigate('/admin/resources');
+      alert("자료가 수정되었습니다.");
+      navigate("/admin/resources");
     } catch (error) {
-      console.error('Error updating resource:', error);
-      alert('자료 수정에 실패했습니다.');
+      console.error("Error updating resource:", error);
+      alert("자료 수정에 실패했습니다.");
     } finally {
       setSaving(false);
     }
   };
 
-  if (!userData || userData.role !== 'admin') {
+  if (!userData || userData.role !== "admin") {
     return (
       <div className="container-custom py-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">접근 권한이 없습니다</h1>
+          <h1 className="text-2xl font-bold text-red-600 mb-4">
+            접근 권한이 없습니다
+          </h1>
           <p className="text-neutral-600 dark:text-neutral-400">
             관리자만 접근할 수 있는 페이지입니다.
           </p>
@@ -132,7 +142,9 @@ const ResourceEdit: React.FC = () => {
       <div className="container-custom py-8">
         <div className="text-center">
           <div className="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="mt-4 text-neutral-600 dark:text-neutral-400">자료를 불러오는 중...</p>
+          <p className="mt-4 text-neutral-600 dark:text-neutral-400">
+            자료를 불러오는 중...
+          </p>
         </div>
       </div>
     );
@@ -142,7 +154,9 @@ const ResourceEdit: React.FC = () => {
     return (
       <div className="container-custom py-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">자료를 찾을 수 없습니다</h1>
+          <h1 className="text-2xl font-bold text-red-600 mb-4">
+            자료를 찾을 수 없습니다
+          </h1>
           <Link to="/admin/resources" className="btn btn-primary">
             자료실 관리로 돌아가기
           </Link>
@@ -177,7 +191,7 @@ const ResourceEdit: React.FC = () => {
             {/* 기본 정보 */}
             <div className="card p-8">
               <h2 className="text-xl font-bold mb-6">기본 정보</h2>
-              
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="lg:col-span-2">
                   <label className="block text-sm font-medium mb-2">
@@ -205,7 +219,7 @@ const ResourceEdit: React.FC = () => {
                     className="input w-full"
                     required
                   >
-                    {categoryOptions.map(option => (
+                    {categoryOptions.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
                       </option>
@@ -214,7 +228,9 @@ const ResourceEdit: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">공개 설정</label>
+                  <label className="block text-sm font-medium mb-2">
+                    공개 설정
+                  </label>
                   <div className="flex items-center gap-4">
                     <label className="flex items-center gap-2">
                       <input
@@ -222,7 +238,9 @@ const ResourceEdit: React.FC = () => {
                         name="isPublic"
                         value="true"
                         checked={formData.isPublic}
-                        onChange={() => setFormData(prev => ({ ...prev, isPublic: true }))}
+                        onChange={() =>
+                          setFormData((prev) => ({ ...prev, isPublic: true }))
+                        }
                         className="w-4 h-4 text-primary-600"
                       />
                       <span>공개</span>
@@ -233,7 +251,9 @@ const ResourceEdit: React.FC = () => {
                         name="isPublic"
                         value="false"
                         checked={!formData.isPublic}
-                        onChange={() => setFormData(prev => ({ ...prev, isPublic: false }))}
+                        onChange={() =>
+                          setFormData((prev) => ({ ...prev, isPublic: false }))
+                        }
                         className="w-4 h-4 text-primary-600"
                       />
                       <span>비공개</span>
@@ -261,32 +281,43 @@ const ResourceEdit: React.FC = () => {
             {/* 파일 정보 */}
             <div className="card p-8">
               <h2 className="text-xl font-bold mb-6">현재 파일 정보</h2>
-              
+
               <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <div className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">파일명</div>
+                    <div className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">
+                      파일명
+                    </div>
                     <div className="font-medium">{resource.fileName}</div>
                   </div>
                   <div>
-                    <div className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">파일 크기</div>
+                    <div className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">
+                      파일 크기
+                    </div>
                     <div className="font-medium">
                       {(resource.fileSize / 1024 / 1024).toFixed(2)} MB
                     </div>
                   </div>
                   <div>
-                    <div className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">파일 형식</div>
+                    <div className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">
+                      파일 형식
+                    </div>
                     <div className="font-medium">{resource.fileType}</div>
                   </div>
                   <div>
-                    <div className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">다운로드 수</div>
-                    <div className="font-medium">{resource.downloads || 0}회</div>
+                    <div className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">
+                      다운로드 수
+                    </div>
+                    <div className="font-medium">
+                      {resource.downloads || 0}회
+                    </div>
                   </div>
                 </div>
-                
+
                 <div className="mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-700">
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                    ※ 파일 자체는 수정할 수 없습니다. 파일을 변경하려면 새로 업로드해주세요.
+                    ※ 파일 자체는 수정할 수 없습니다. 파일을 변경하려면 새로
+                    업로드해주세요.
                   </p>
                 </div>
               </div>

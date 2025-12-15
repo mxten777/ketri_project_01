@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FileText,
   Plus,
@@ -21,32 +21,35 @@ import {
   CheckCircle,
   MoreVertical,
   Download,
-  Upload
-} from 'lucide-react';
-import { 
-  contentManagementService, 
-  ContentItem, 
+  Upload,
+} from "lucide-react";
+import {
+  contentManagementService,
+  ContentItem,
   ContentFilters,
-  ContentStatistics 
-} from '../../services/contentManagementService';
-import Card from '../../components/common/Card';
-import Button from '../../components/common/Button';
-import { formatDate, formatRelativeTime } from '../../utils/dateUtils';
+  ContentStatistics,
+} from "../../services/contentManagementService";
+import Card from "../../components/common/Card";
+import Button from "../../components/common/Button";
+import { formatDate, formatRelativeTime } from "../../utils/dateUtils";
 
 const ContentManagement: React.FC = () => {
   const [content, setContent] = useState<ContentItem[]>([]);
   const [statistics, setStatistics] = useState<ContentStatistics | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
-  const [popularTags, setPopularTags] = useState<{ tag: string; count: number }[]>([]);
+  const [popularTags, setPopularTags] = useState<
+    { tag: string; count: number }[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<ContentFilters>({});
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedContent, setSelectedContent] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [selectedContentItem, setSelectedContentItem] = useState<ContentItem | null>(null);
+  const [selectedContentItem, setSelectedContentItem] =
+    useState<ContentItem | null>(null);
 
   // 데이터 로드
   useEffect(() => {
@@ -63,20 +66,21 @@ const ContentManagement: React.FC = () => {
   const loadInitialData = async () => {
     try {
       setLoading(true);
-      const [contentData, statsData, categoriesData, tagsData] = await Promise.all([
-        contentManagementService.getContent({ ...filters, searchQuery }),
-        contentManagementService.getContentStatistics(),
-        contentManagementService.getCategories(),
-        contentManagementService.getPopularTags()
-      ]);
-      
+      const [contentData, statsData, categoriesData, tagsData] =
+        await Promise.all([
+          contentManagementService.getContent({ ...filters, searchQuery }),
+          contentManagementService.getContentStatistics(),
+          contentManagementService.getCategories(),
+          contentManagementService.getPopularTags(),
+        ]);
+
       setContent(contentData.content);
       setHasMore(contentData.hasMore);
       setStatistics(statsData);
       setCategories(categoriesData);
       setPopularTags(tagsData);
     } catch (error) {
-      console.error('Error loading initial data:', error);
+      console.error("Error loading initial data:", error);
     } finally {
       setLoading(false);
     }
@@ -84,12 +88,15 @@ const ContentManagement: React.FC = () => {
 
   const loadContent = async () => {
     try {
-      const contentData = await contentManagementService.getContent({ ...filters, searchQuery });
+      const contentData = await contentManagementService.getContent({
+        ...filters,
+        searchQuery,
+      });
       setContent(contentData.content);
       setHasMore(contentData.hasMore);
       setCurrentPage(1);
     } catch (error) {
-      console.error('Error loading content:', error);
+      console.error("Error loading content:", error);
     }
   };
 
@@ -99,17 +106,17 @@ const ContentManagement: React.FC = () => {
   };
 
   const handleFilterChange = (key: keyof ContentFilters, value: any) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
-      [key]: value === 'all' ? undefined : value
+      [key]: value === "all" ? undefined : value,
     }));
     setCurrentPage(1);
   };
 
   const handleContentSelect = (contentId: string) => {
-    setSelectedContent(prev => 
+    setSelectedContent((prev) =>
       prev.includes(contentId)
-        ? prev.filter(id => id !== contentId)
+        ? prev.filter((id) => id !== contentId)
         : [...prev, contentId]
     );
   };
@@ -118,20 +125,25 @@ const ContentManagement: React.FC = () => {
     if (selectedContent.length === content.length) {
       setSelectedContent([]);
     } else {
-      setSelectedContent(content.map(item => item.id!));
+      setSelectedContent(content.map((item) => item.id!));
     }
   };
 
-  const handleBulkStatusUpdate = async (status: 'draft' | 'published' | 'archived') => {
+  const handleBulkStatusUpdate = async (
+    status: "draft" | "published" | "archived"
+  ) => {
     if (selectedContent.length === 0) return;
-    
+
     try {
-      await contentManagementService.updateContentStatus(selectedContent, status);
+      await contentManagementService.updateContentStatus(
+        selectedContent,
+        status
+      );
       setSelectedContent([]);
       loadContent();
       loadInitialData(); // 통계 업데이트
     } catch (error) {
-      console.error('Error updating content status:', error);
+      console.error("Error updating content status:", error);
     }
   };
 
@@ -141,31 +153,31 @@ const ContentManagement: React.FC = () => {
       loadContent();
       loadInitialData(); // 통계 업데이트
     } catch (error) {
-      console.error('Error deleting content:', error);
+      console.error("Error deleting content:", error);
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'published':
-        return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
-      case 'draft':
-        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400';
-      case 'archived':
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400';
+      case "published":
+        return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400";
+      case "draft":
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400";
+      case "archived":
+        return "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400";
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400';
+        return "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400";
     }
   };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'published':
-        return '발행됨';
-      case 'draft':
-        return '임시저장';
-      case 'archived':
-        return '보관됨';
+      case "published":
+        return "발행됨";
+      case "draft":
+        return "임시저장";
+      case "archived":
+        return "보관됨";
       default:
         return status;
     }
@@ -173,14 +185,14 @@ const ContentManagement: React.FC = () => {
 
   const getTypeText = (type: string) => {
     switch (type) {
-      case 'announcement':
-        return '공지사항';
-      case 'news':
-        return '뉴스';
-      case 'event':
-        return '이벤트';
-      case 'notice':
-        return '알림';
+      case "announcement":
+        return "공지사항";
+      case "news":
+        return "뉴스";
+      case "event":
+        return "이벤트";
+      case "notice":
+        return "알림";
       default:
         return type;
     }
@@ -222,15 +234,16 @@ const ContentManagement: React.FC = () => {
                 onClick={() => setShowCreateModal(true)}
                 className="flex items-center gap-2"
               >
-                <Plus className="w-4 h-4" />
-                새 컨텐츠
+                <Plus className="w-4 h-4" />새 컨텐츠
               </Button>
               <Button
                 variant="outline"
-                onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
+                onClick={() =>
+                  setViewMode(viewMode === "grid" ? "list" : "grid")
+                }
                 className="flex items-center gap-2"
               >
-                {viewMode === 'grid' ? '목록' : '그리드'}
+                {viewMode === "grid" ? "목록" : "그리드"}
               </Button>
             </div>
           </div>
@@ -348,7 +361,7 @@ const ContentManagement: React.FC = () => {
             {showFilters && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
+                animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-gray-200 dark:border-gray-700"
               >
@@ -358,8 +371,8 @@ const ContentManagement: React.FC = () => {
                     컨텐츠 유형
                   </label>
                   <select
-                    value={filters.type || 'all'}
-                    onChange={(e) => handleFilterChange('type', e.target.value)}
+                    value={filters.type || "all"}
+                    onChange={(e) => handleFilterChange("type", e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
                   >
                     <option value="all">전체</option>
@@ -376,12 +389,14 @@ const ContentManagement: React.FC = () => {
                     카테고리
                   </label>
                   <select
-                    value={filters.category || 'all'}
-                    onChange={(e) => handleFilterChange('category', e.target.value)}
+                    value={filters.category || "all"}
+                    onChange={(e) =>
+                      handleFilterChange("category", e.target.value)
+                    }
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
                   >
                     <option value="all">전체</option>
-                    {categories.map(category => (
+                    {categories.map((category) => (
                       <option key={category} value={category}>
                         {category}
                       </option>
@@ -395,8 +410,10 @@ const ContentManagement: React.FC = () => {
                     상태
                   </label>
                   <select
-                    value={filters.status || 'all'}
-                    onChange={(e) => handleFilterChange('status', e.target.value)}
+                    value={filters.status || "all"}
+                    onChange={(e) =>
+                      handleFilterChange("status", e.target.value)
+                    }
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
                   >
                     <option value="all">전체</option>
@@ -412,8 +429,19 @@ const ContentManagement: React.FC = () => {
                     추천 여부
                   </label>
                   <select
-                    value={filters.featured === undefined ? 'all' : filters.featured.toString()}
-                    onChange={(e) => handleFilterChange('featured', e.target.value === 'all' ? undefined : e.target.value === 'true')}
+                    value={
+                      filters.featured === undefined
+                        ? "all"
+                        : filters.featured.toString()
+                    }
+                    onChange={(e) =>
+                      handleFilterChange(
+                        "featured",
+                        e.target.value === "all"
+                          ? undefined
+                          : e.target.value === "true"
+                      )
+                    }
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
                   >
                     <option value="all">전체</option>
@@ -438,7 +466,7 @@ const ContentManagement: React.FC = () => {
               <Button
                 size="sm"
                 variant="outline"
-                onClick={() => handleBulkStatusUpdate('published')}
+                onClick={() => handleBulkStatusUpdate("published")}
                 className="flex items-center gap-1"
               >
                 <Globe className="w-4 h-4" />
@@ -447,7 +475,7 @@ const ContentManagement: React.FC = () => {
               <Button
                 size="sm"
                 variant="outline"
-                onClick={() => handleBulkStatusUpdate('draft')}
+                onClick={() => handleBulkStatusUpdate("draft")}
                 className="flex items-center gap-1"
               >
                 <Edit className="w-4 h-4" />
@@ -456,7 +484,7 @@ const ContentManagement: React.FC = () => {
               <Button
                 size="sm"
                 variant="outline"
-                onClick={() => handleBulkStatusUpdate('archived')}
+                onClick={() => handleBulkStatusUpdate("archived")}
                 className="flex items-center gap-1"
               >
                 <Archive className="w-4 h-4" />
@@ -476,12 +504,15 @@ const ContentManagement: React.FC = () => {
             <div className="text-center py-20">
               <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-600 dark:text-gray-400 text-lg">
-                {searchQuery || Object.keys(filters).some(key => filters[key as keyof ContentFilters])
-                  ? '검색 결과가 없습니다.'
-                  : '등록된 컨텐츠가 없습니다.'}
+                {searchQuery ||
+                Object.keys(filters).some(
+                  (key) => filters[key as keyof ContentFilters]
+                )
+                  ? "검색 결과가 없습니다."
+                  : "등록된 컨텐츠가 없습니다."}
               </p>
             </div>
-          ) : viewMode === 'grid' ? (
+          ) : viewMode === "grid" ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {content.map((item, index) => (
                 <motion.div
@@ -501,7 +532,11 @@ const ContentManagement: React.FC = () => {
                             onChange={() => handleContentSelect(item.id!)}
                             className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
                           />
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(item.status)}`}>
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                              item.status
+                            )}`}
+                          >
                             {getStatusText(item.status)}
                           </span>
                           {item.featured && (
@@ -520,7 +555,9 @@ const ContentManagement: React.FC = () => {
                           <Button
                             size="sm"
                             variant="ghost"
-                            onClick={() => handleEditContent(content.id, content)}
+                            onClick={() =>
+                              handleEditContent(content.id, content)
+                            }
                             className="p-1"
                           >
                             <Edit className="w-4 h-4" />
@@ -553,24 +590,29 @@ const ContentManagement: React.FC = () => {
                           {item.title}
                         </h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
-                          {item.content.replace(/<[^>]*>/g, '')}
+                          {item.content.replace(/<[^>]*>/g, "")}
                         </p>
                       </div>
 
                       {/* Meta */}
                       <div className="space-y-2">
                         <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                          <span className={`px-2 py-1 rounded text-xs ${
-                            item.type === 'announcement' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                            item.type === 'news' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
-                            item.type === 'event' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                            'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
-                          }`}>
+                          <span
+                            className={`px-2 py-1 rounded text-xs ${
+                              item.type === "announcement"
+                                ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                                : item.type === "news"
+                                ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                                : item.type === "event"
+                                ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                                : "bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400"
+                            }`}
+                          >
                             {getTypeText(item.type)}
                           </span>
                           <span>{item.category}</span>
                         </div>
-                        
+
                         <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                           <div className="flex items-center gap-3">
                             <span className="flex items-center gap-1">
@@ -598,14 +640,16 @@ const ContentManagement: React.FC = () => {
                             {formatRelativeTime(item.createdAt.toDate())}
                           </span>
                           {item.publishedAt && (
-                            <span>발행: {formatDate(item.publishedAt.toDate())}</span>
+                            <span>
+                              발행: {formatDate(item.publishedAt.toDate())}
+                            </span>
                           )}
                         </div>
 
                         {/* Tags */}
                         {item.tags && item.tags.length > 0 && (
                           <div className="flex flex-wrap gap-1 mt-2">
-                            {item.tags.slice(0, 3).map(tag => (
+                            {item.tags.slice(0, 3).map((tag) => (
                               <span
                                 key={tag}
                                 className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-400 rounded"
@@ -636,7 +680,10 @@ const ContentManagement: React.FC = () => {
                       <th className="px-6 py-4 text-left">
                         <input
                           type="checkbox"
-                          checked={selectedContent.length === content.length && content.length > 0}
+                          checked={
+                            selectedContent.length === content.length &&
+                            content.length > 0
+                          }
                           onChange={handleSelectAll}
                           className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
                         />
@@ -694,17 +741,26 @@ const ContentManagement: React.FC = () => {
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <span className={`px-2 py-1 rounded text-xs ${
-                            item.type === 'announcement' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                            item.type === 'news' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
-                            item.type === 'event' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                            'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
-                          }`}>
+                          <span
+                            className={`px-2 py-1 rounded text-xs ${
+                              item.type === "announcement"
+                                ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                                : item.type === "news"
+                                ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                                : item.type === "event"
+                                ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                                : "bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400"
+                            }`}
+                          >
                             {getTypeText(item.type)}
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(item.status)}`}>
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                              item.status
+                            )}`}
+                          >
                             {getStatusText(item.status)}
                           </span>
                         </td>
@@ -747,7 +803,9 @@ const ContentManagement: React.FC = () => {
                             <Button
                               size="sm"
                               variant="ghost"
-                              onClick={() => {/* TODO: 편집 */}}
+                              onClick={() => {
+                                /* TODO: 편집 */
+                              }}
                               className="p-1"
                             >
                               <Edit className="w-4 h-4" />
@@ -793,15 +851,24 @@ const ContentManagement: React.FC = () => {
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(selectedContentItem.status)}`}>
+                        <span
+                          className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
+                            selectedContentItem.status
+                          )}`}
+                        >
                           {getStatusText(selectedContentItem.status)}
                         </span>
-                        <span className={`px-3 py-1 rounded text-sm ${
-                          selectedContentItem.type === 'announcement' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                          selectedContentItem.type === 'news' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
-                          selectedContentItem.type === 'event' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                          'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
-                        }`}>
+                        <span
+                          className={`px-3 py-1 rounded text-sm ${
+                            selectedContentItem.type === "announcement"
+                              ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                              : selectedContentItem.type === "news"
+                              ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                              : selectedContentItem.type === "event"
+                              ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                              : "bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400"
+                          }`}
+                        >
                           {getTypeText(selectedContentItem.type)}
                         </span>
                         {selectedContentItem.featured && (
@@ -848,9 +915,11 @@ const ContentManagement: React.FC = () => {
 
                   {/* Content */}
                   <div className="mb-6">
-                    <div 
+                    <div
                       className="prose prose-gray dark:prose-invert max-w-none"
-                      dangerouslySetInnerHTML={{ __html: selectedContentItem.content }}
+                      dangerouslySetInnerHTML={{
+                        __html: selectedContentItem.content,
+                      }}
                     />
                   </div>
 
@@ -886,69 +955,77 @@ const ContentManagement: React.FC = () => {
                   </div>
 
                   {/* Tags */}
-                  {selectedContentItem.tags && selectedContentItem.tags.length > 0 && (
-                    <div className="mb-6">
-                      <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        태그
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedContentItem.tags.map(tag => (
-                          <span
-                            key={tag}
-                            className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm text-gray-600 dark:text-gray-400 rounded-full"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
+                  {selectedContentItem.tags &&
+                    selectedContentItem.tags.length > 0 && (
+                      <div className="mb-6">
+                        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          태그
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedContentItem.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm text-gray-600 dark:text-gray-400 rounded-full"
+                            >
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
 
                   {/* Attachments */}
-                  {selectedContentItem.attachments && selectedContentItem.attachments.length > 0 && (
-                    <div className="mb-6">
-                      <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        첨부파일
-                      </h4>
-                      <div className="space-y-2">
-                        {selectedContentItem.attachments.map((file, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
-                          >
-                            <div className="flex items-center gap-2">
-                              <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center">
-                                <FileText className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                              </div>
-                              <div>
-                                <div className="text-sm font-medium text-gray-900 dark:text-white">
-                                  {file.name}
+                  {selectedContentItem.attachments &&
+                    selectedContentItem.attachments.length > 0 && (
+                      <div className="mb-6">
+                        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          첨부파일
+                        </h4>
+                        <div className="space-y-2">
+                          {selectedContentItem.attachments.map(
+                            (file, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center">
+                                    <FileText className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                                  </div>
+                                  <div>
+                                    <div className="text-sm font-medium text-gray-900 dark:text-white">
+                                      {file.name}
+                                    </div>
+                                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                                      {(file.size / 1024 / 1024).toFixed(2)} MB
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="text-xs text-gray-500 dark:text-gray-400">
-                                  {(file.size / 1024 / 1024).toFixed(2)} MB
-                                </div>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() =>
+                                    window.open(file.url, "_blank")
+                                  }
+                                  className="flex items-center gap-1"
+                                >
+                                  <Download className="w-4 h-4" />
+                                  다운로드
+                                </Button>
                               </div>
-                            </div>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => window.open(file.url, '_blank')}
-                              className="flex items-center gap-1"
-                            >
-                              <Download className="w-4 h-4" />
-                              다운로드
-                            </Button>
-                          </div>
-                        ))}
+                            )
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
 
                   {/* Actions */}
                   <div className="flex items-center justify-end gap-3">
                     <Button
                       variant="outline"
-                      onClick={() => {/* TODO: 편집 */}}
+                      onClick={() => {
+                        /* TODO: 편집 */
+                      }}
                       className="flex items-center gap-2"
                     >
                       <Edit className="w-4 h-4" />
@@ -956,7 +1033,9 @@ const ContentManagement: React.FC = () => {
                     </Button>
                     <Button
                       variant="outline"
-                      onClick={() => handleDeleteContent(selectedContentItem.id!)}
+                      onClick={() =>
+                        handleDeleteContent(selectedContentItem.id!)
+                      }
                       className="flex items-center gap-2 text-red-600 hover:text-red-700"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -982,7 +1061,10 @@ const ContentManagement: React.FC = () => {
             <ul className="list-disc list-inside space-y-1 text-blue-700 dark:text-blue-300">
               <li>발행된 컨텐츠는 웹사이트에 즉시 노출됩니다.</li>
               <li>임시저장된 컨텐츠는 작성자만 확인할 수 있습니다.</li>
-              <li>보관된 컨텐츠는 웹사이트에 노출되지 않으며 관리자만 확인 가능합니다.</li>
+              <li>
+                보관된 컨텐츠는 웹사이트에 노출되지 않으며 관리자만 확인
+                가능합니다.
+              </li>
               <li>컨텐츠 삭제는 영구적이며 복구할 수 없습니다.</li>
             </ul>
           </div>

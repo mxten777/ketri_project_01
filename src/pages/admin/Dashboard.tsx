@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
   Users,
   FileText,
@@ -9,7 +9,7 @@ import {
   Calendar,
   CheckCircle,
   Clock,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   getStatistics,
   getRecentUsers,
@@ -17,8 +17,8 @@ import {
   getRecentQnA,
   getMonthlyUserStats,
   getAnswerRate,
-} from '../../services/statsService';
-import type { User } from '../../types';
+} from "../../services/statsService";
+import type { User } from "../../types";
 
 interface Statistics {
   totalUsers: number;
@@ -88,21 +88,21 @@ const Dashboard: React.FC = () => {
       setMonthlyUsers(monthlyData);
       setAnswerRate(answerRateData);
     } catch (error) {
-      console.error('Failed to fetch dashboard data:', error);
+      console.error("Failed to fetch dashboard data:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const formatDate = (timestamp: any) => {
-    if (!timestamp) return '-';
+    if (!timestamp) return "-";
     const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-    return new Intl.DateTimeFormat('ko-KR', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
+    return new Intl.DateTimeFormat("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
     }).format(date);
   };
 
@@ -152,7 +152,9 @@ const Dashboard: React.FC = () => {
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
               {stats.totalUsers.toLocaleString()}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">총 회원 수</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              총 회원 수
+            </p>
           </motion.div>
 
           <motion.div
@@ -178,7 +180,7 @@ const Dashboard: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow"
-            onClick={() => window.location.href = '/admin/qna'}
+            onClick={() => (window.location.href = "/admin/qna")}
           >
             <div className="flex items-center justify-between mb-4">
               <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
@@ -202,7 +204,7 @@ const Dashboard: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow"
-            onClick={() => window.location.href = '/admin/resources'}
+            onClick={() => (window.location.href = "/admin/resources")}
           >
             <div className="flex items-center justify-between mb-4">
               <div className="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
@@ -213,7 +215,9 @@ const Dashboard: React.FC = () => {
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
               {stats.totalDownloads.toLocaleString()}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">자료실 관리</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              자료실 관리
+            </p>
           </motion.div>
         </div>
 
@@ -284,7 +288,7 @@ const Dashboard: React.FC = () => {
                   >
                     <div>
                       <p className="font-medium text-gray-900 dark:text-white">
-                        {user.displayName || '이름 없음'}
+                        {user.displayName || "이름 없음"}
                       </p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         {user.email}
@@ -293,12 +297,12 @@ const Dashboard: React.FC = () => {
                     <div className="text-right">
                       <span
                         className={`inline-block px-2 py-1 rounded text-xs font-medium ${
-                          user.role === 'admin'
-                            ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
-                            : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+                          user.role === "admin"
+                            ? "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+                            : "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400"
                         }`}
                       >
-                        {user.role === 'admin' ? '관리자' : '회원'}
+                        {user.role === "admin" ? "관리자" : "회원"}
                       </span>
                       <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         {formatDate(user.createdAt)}

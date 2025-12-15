@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   Search,
   X,
@@ -12,8 +12,8 @@ import {
   CheckCircle,
   Calendar,
   User,
-  Loader2
-} from 'lucide-react';
+  Loader2,
+} from "lucide-react";
 import {
   searchAll,
   searchByType,
@@ -21,8 +21,8 @@ import {
   getRecentSearches,
   clearRecentSearches,
   removeRecentSearch,
-  SearchResult
-} from '../../services/searchService';
+  SearchResult,
+} from "../../services/searchService";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -30,10 +30,12 @@ interface SearchModalProps {
 }
 
 const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
-  const [filter, setFilter] = useState<'all' | 'notice' | 'qna' | 'resource'>('all');
+  const [filter, setFilter] = useState<"all" | "notice" | "qna" | "resource">(
+    "all"
+  );
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [showRecent, setShowRecent] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -41,9 +43,24 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 
   // 타입별 아이콘 및 라벨
   const typeConfig = {
-    notice: { icon: FileText, label: '공지사항', color: 'text-blue-600', bgColor: 'bg-blue-50 dark:bg-blue-900/20' },
-    qna: { icon: MessageSquare, label: 'Q&A', color: 'text-purple-600', bgColor: 'bg-purple-50 dark:bg-purple-900/20' },
-    resource: { icon: FolderOpen, label: '자료실', color: 'text-green-600', bgColor: 'bg-green-50 dark:bg-green-900/20' }
+    notice: {
+      icon: FileText,
+      label: "공지사항",
+      color: "text-blue-600",
+      bgColor: "bg-blue-50 dark:bg-blue-900/20",
+    },
+    qna: {
+      icon: MessageSquare,
+      label: "Q&A",
+      color: "text-purple-600",
+      bgColor: "bg-purple-50 dark:bg-purple-900/20",
+    },
+    resource: {
+      icon: FolderOpen,
+      label: "자료실",
+      color: "text-green-600",
+      bgColor: "bg-green-50 dark:bg-green-900/20",
+    },
   };
 
   useEffect(() => {
@@ -51,7 +68,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
       // 모달 열릴 때 최근 검색어 로드
       setRecentSearches(getRecentSearches());
       setShowRecent(true);
-      setSearchTerm('');
+      setSearchTerm("");
       setResults([]);
       // 포커스
       setTimeout(() => inputRef.current?.focus(), 100);
@@ -84,7 +101,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
       setLoading(true);
       let searchResults: SearchResult[] = [];
 
-      if (filter === 'all') {
+      if (filter === "all") {
         searchResults = await searchAll(searchTerm);
       } else {
         searchResults = await searchByType(searchTerm, filter);
@@ -92,8 +109,8 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 
       setResults(searchResults);
     } catch (error) {
-      console.error('검색 실패:', error);
-      alert('검색 중 오류가 발생했습니다.');
+      console.error("검색 실패:", error);
+      alert("검색 중 오류가 발생했습니다.");
     } finally {
       setLoading(false);
     }
@@ -104,12 +121,12 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     saveRecentSearch(searchTerm);
 
     // 페이지 이동
-    let path = '';
-    if (result.type === 'notice') {
+    let path = "";
+    if (result.type === "notice") {
       path = `/board/notice/${result.id}`;
-    } else if (result.type === 'qna') {
+    } else if (result.type === "qna") {
       path = `/board/qna/${result.id}`;
-    } else if (result.type === 'resource') {
+    } else if (result.type === "resource") {
       path = `/board/resources`;
     }
 
@@ -137,10 +154,13 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
       return text;
     }
 
-    const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+    const parts = text.split(new RegExp(`(${highlight})`, "gi"));
     return parts.map((part, index) =>
       part.toLowerCase() === highlight.toLowerCase() ? (
-        <mark key={index} className="bg-yellow-200 dark:bg-yellow-900/50 text-neutral-900 dark:text-white px-0.5 rounded">
+        <mark
+          key={index}
+          className="bg-yellow-200 dark:bg-yellow-900/50 text-neutral-900 dark:text-white px-0.5 rounded"
+        >
           {part}
         </mark>
       ) : (
@@ -149,17 +169,22 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     );
   };
 
-  const formatDate = (date: Date | { toDate: () => Date } | string | undefined) => {
-    if (!date) return '';
-    const d = typeof date === 'object' && 'toDate' in date ? date.toDate() : new Date(date);
+  const formatDate = (
+    date: Date | { toDate: () => Date } | string | undefined
+  ) => {
+    if (!date) return "";
+    const d =
+      typeof date === "object" && "toDate" in date
+        ? date.toDate()
+        : new Date(date);
     const now = new Date();
     const diff = now.getTime() - d.getTime();
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-    if (days === 0) return '오늘';
-    if (days === 1) return '어제';
+    if (days === 0) return "오늘";
+    if (days === 1) return "어제";
     if (days < 7) return `${days}일 전`;
-    return d.toLocaleDateString('ko-KR');
+    return d.toLocaleDateString("ko-KR");
   };
 
   if (!isOpen) return null;
@@ -199,7 +224,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
               />
               {searchTerm && (
                 <button
-                  onClick={() => setSearchTerm('')}
+                  onClick={() => setSearchTerm("")}
                   className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-lg transition-colors"
                 >
                   <X className="w-5 h-5 text-neutral-400" />
@@ -210,43 +235,43 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
             {/* Filter Tabs */}
             <div className="flex gap-2 mt-4">
               <button
-                onClick={() => setFilter('all')}
+                onClick={() => setFilter("all")}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  filter === 'all'
-                    ? 'bg-primary-500 text-white'
-                    : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-600'
+                  filter === "all"
+                    ? "bg-primary-500 text-white"
+                    : "bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                 }`}
               >
                 전체
               </button>
               <button
-                onClick={() => setFilter('notice')}
+                onClick={() => setFilter("notice")}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-                  filter === 'notice'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-600'
+                  filter === "notice"
+                    ? "bg-blue-500 text-white"
+                    : "bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                 }`}
               >
                 <FileText className="w-4 h-4" />
                 공지사항
               </button>
               <button
-                onClick={() => setFilter('qna')}
+                onClick={() => setFilter("qna")}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-                  filter === 'qna'
-                    ? 'bg-purple-500 text-white'
-                    : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-600'
+                  filter === "qna"
+                    ? "bg-purple-500 text-white"
+                    : "bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                 }`}
               >
                 <MessageSquare className="w-4 h-4" />
                 Q&A
               </button>
               <button
-                onClick={() => setFilter('resource')}
+                onClick={() => setFilter("resource")}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-                  filter === 'resource'
-                    ? 'bg-green-500 text-white'
-                    : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-600'
+                  filter === "resource"
+                    ? "bg-green-500 text-white"
+                    : "bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                 }`}
               >
                 <FolderOpen className="w-4 h-4" />
@@ -317,15 +342,19 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                       className="w-full text-left p-6 hover:bg-neutral-50 dark:hover:bg-neutral-700/50 transition-colors"
                     >
                       <div className="flex items-start gap-4">
-                        <div className={`p-2 rounded-lg flex-shrink-0 ${config.bgColor}`}>
+                        <div
+                          className={`p-2 rounded-lg flex-shrink-0 ${config.bgColor}`}
+                        >
                           <Icon className={`w-5 h-5 ${config.color}`} />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className={`text-xs font-medium ${config.color}`}>
+                            <span
+                              className={`text-xs font-medium ${config.color}`}
+                            >
                               {config.label}
                             </span>
-                            {result.type === 'qna' && result.isAnswered && (
+                            {result.type === "qna" && result.isAnswered && (
                               <span className="inline-flex items-center gap-1 text-xs text-green-600 dark:text-green-400">
                                 <CheckCircle className="w-3 h-3" />
                                 답변완료
@@ -368,7 +397,8 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                   <Search className="w-8 h-8 text-neutral-400" />
                 </div>
                 <p className="text-neutral-600 dark:text-neutral-400 text-center mb-2">
-                  '<span className="font-semibold">{searchTerm}</span>'에 대한 검색 결과가 없습니다
+                  '<span className="font-semibold">{searchTerm}</span>'에 대한
+                  검색 결과가 없습니다
                 </p>
                 <p className="text-sm text-neutral-500 dark:text-neutral-500 text-center">
                   다른 검색어를 입력해 보세요
@@ -394,7 +424,11 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
           {results.length > 0 && (
             <div className="p-4 border-t border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/50">
               <p className="text-sm text-neutral-600 dark:text-neutral-400 text-center">
-                총 <span className="font-semibold text-primary-600 dark:text-primary-400">{results.length}</span>개의 검색 결과
+                총{" "}
+                <span className="font-semibold text-primary-600 dark:text-primary-400">
+                  {results.length}
+                </span>
+                개의 검색 결과
               </p>
             </div>
           )}

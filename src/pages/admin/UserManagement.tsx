@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Users,
   Search,
@@ -23,10 +23,10 @@ import {
   XCircle,
   Clock,
   Settings,
-} from 'lucide-react';
-import Card from '../../components/common/Card';
-import Button from '../../components/common/Button';
-import { useAuth } from '../../contexts/AuthContext';
+} from "lucide-react";
+import Card from "../../components/common/Card";
+import Button from "../../components/common/Button";
+import { useAuth } from "../../contexts/AuthContext";
 import {
   getUsers,
   getUserStatistics,
@@ -37,10 +37,10 @@ import {
   type UserListOptions,
   type UserListResult,
   type UserActivity,
-} from '../../services/userManagementService';
-import type { User } from '../../types';
-import { formatDistanceToNow } from 'date-fns';
-import { ko } from 'date-fns/locale';
+} from "../../services/userManagementService";
+import type { User } from "../../types";
+import { formatDistanceToNow } from "date-fns";
+import { ko } from "date-fns/locale";
 
 const UserManagement: React.FC = () => {
   const { user, userData } = useAuth();
@@ -50,14 +50,18 @@ const UserManagement: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showUserDetail, setShowUserDetail] = useState(false);
   const [userActivities, setUserActivities] = useState<UserActivity[]>([]);
-  
+
   // 필터 및 검색 상태
-  const [searchTerm, setSearchTerm] = useState('');
-  const [roleFilter, setRoleFilter] = useState<'all' | 'admin' | 'user'>('all');
-  const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive'>('all');
-  const [sortBy, setSortBy] = useState<'createdAt' | 'lastLoginAt' | 'displayName' | 'email'>('createdAt');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-  
+  const [searchTerm, setSearchTerm] = useState("");
+  const [roleFilter, setRoleFilter] = useState<"all" | "admin" | "user">("all");
+  const [statusFilter, setStatusFilter] = useState<
+    "all" | "active" | "inactive"
+  >("all");
+  const [sortBy, setSortBy] = useState<
+    "createdAt" | "lastLoginAt" | "displayName" | "email"
+  >("createdAt");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
   // 페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(20);
@@ -65,7 +69,7 @@ const UserManagement: React.FC = () => {
   const [hasMore, setHasMore] = useState(false);
 
   // 관리자 권한 확인
-  if (!user || userData?.role !== 'admin') {
+  if (!user || userData?.role !== "admin") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-neutral-900">
         <Card className="p-8 text-center max-w-md mx-auto">
@@ -100,12 +104,12 @@ const UserManagement: React.FC = () => {
         sortOrder,
         ...options,
       });
-      
+
       setUsers(result.users);
       setTotalCount(result.totalCount);
       setHasMore(result.hasMore);
     } catch (error) {
-      console.error('사용자 목록 로드 실패:', error);
+      console.error("사용자 목록 로드 실패:", error);
     } finally {
       setLoading(false);
     }
@@ -116,7 +120,7 @@ const UserManagement: React.FC = () => {
       const stats = await getUserStatistics();
       setStatistics(stats);
     } catch (error) {
-      console.error('통계 로드 실패:', error);
+      console.error("통계 로드 실패:", error);
     }
   };
 
@@ -139,18 +143,21 @@ const UserManagement: React.FC = () => {
   }, [searchTerm]);
 
   // 사용자 역할 변경
-  const handleRoleChange = async (userId: string, newRole: 'user' | 'admin') => {
+  const handleRoleChange = async (
+    userId: string,
+    newRole: "user" | "admin"
+  ) => {
     try {
       await updateUserRole(userId, newRole);
       await loadUsers();
       await loadStatistics();
-      
+
       // 선택된 사용자 정보 업데이트
       if (selectedUser && selectedUser.id === userId) {
-        setSelectedUser(prev => prev ? { ...prev, role: newRole } : null);
+        setSelectedUser((prev) => (prev ? { ...prev, role: newRole } : null));
       }
     } catch (error) {
-      console.error('역할 변경 실패:', error);
+      console.error("역할 변경 실패:", error);
     }
   };
 
@@ -160,13 +167,15 @@ const UserManagement: React.FC = () => {
       await toggleUserStatus(userId, !currentStatus);
       await loadUsers();
       await loadStatistics();
-      
+
       // 선택된 사용자 정보 업데이트
       if (selectedUser && selectedUser.id === userId) {
-        setSelectedUser(prev => prev ? { ...prev, isActive: !currentStatus } : null);
+        setSelectedUser((prev) =>
+          prev ? { ...prev, isActive: !currentStatus } : null
+        );
       }
     } catch (error) {
-      console.error('상태 변경 실패:', error);
+      console.error("상태 변경 실패:", error);
     }
   };
 
@@ -174,12 +183,12 @@ const UserManagement: React.FC = () => {
   const handleUserDetail = async (user: User) => {
     setSelectedUser(user);
     setShowUserDetail(true);
-    
+
     try {
       const activities = await getUserActivities(user.id, 20);
       setUserActivities(activities);
     } catch (error) {
-      console.error('사용자 활동 로드 실패:', error);
+      console.error("사용자 활동 로드 실패:", error);
     }
   };
 
@@ -191,15 +200,15 @@ const UserManagement: React.FC = () => {
   // 정렬 변경
   const handleSort = (field: typeof sortBy) => {
     if (sortBy === field) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     } else {
       setSortBy(field);
-      setSortOrder('desc');
+      setSortOrder("desc");
     }
   };
 
   const getRoleBadge = (role: string) => {
-    return role === 'admin' ? (
+    return role === "admin" ? (
       <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400 rounded-full">
         <ShieldCheck className="w-3 h-3" />
         관리자
@@ -228,13 +237,13 @@ const UserManagement: React.FC = () => {
 
   const getActivityIcon = (action: string) => {
     switch (action) {
-      case 'login':
+      case "login":
         return <CheckCircle className="w-4 h-4 text-green-600" />;
-      case 'logout':
+      case "logout":
         return <XCircle className="w-4 h-4 text-gray-600" />;
-      case 'role_change':
+      case "role_change":
         return <Shield className="w-4 h-4 text-purple-600" />;
-      case 'profile_update':
+      case "profile_update":
         return <Edit className="w-4 h-4 text-blue-600" />;
       default:
         return <Clock className="w-4 h-4 text-gray-600" />;
@@ -257,7 +266,11 @@ const UserManagement: React.FC = () => {
             등록된 사용자를 관리하고 권한을 설정하세요
           </p>
         </div>
-        <Button onClick={() => loadUsers()} variant="outline" className="flex items-center gap-2">
+        <Button
+          onClick={() => loadUsers()}
+          variant="outline"
+          className="flex items-center gap-2"
+        >
           <RefreshCw className="w-4 h-4" />
           새로고침
         </Button>
@@ -271,7 +284,9 @@ const UserManagement: React.FC = () => {
               <p className="text-2xl font-bold text-neutral-900 dark:text-white">
                 {statistics.totalUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">전체 사용자</p>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                전체 사용자
+              </p>
             </div>
           </Card>
           <Card className="p-4">
@@ -279,7 +294,9 @@ const UserManagement: React.FC = () => {
               <p className="text-2xl font-bold text-green-600">
                 {statistics.activeUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">활성 사용자</p>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                활성 사용자
+              </p>
             </div>
           </Card>
           <Card className="p-4">
@@ -287,7 +304,9 @@ const UserManagement: React.FC = () => {
               <p className="text-2xl font-bold text-red-600">
                 {statistics.inactiveUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">비활성 사용자</p>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                비활성 사용자
+              </p>
             </div>
           </Card>
           <Card className="p-4">
@@ -295,7 +314,9 @@ const UserManagement: React.FC = () => {
               <p className="text-2xl font-bold text-purple-600">
                 {statistics.adminUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">관리자</p>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                관리자
+              </p>
             </div>
           </Card>
           <Card className="p-4">
@@ -303,7 +324,9 @@ const UserManagement: React.FC = () => {
               <p className="text-2xl font-bold text-blue-600">
                 {statistics.regularUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">일반 사용자</p>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                일반 사용자
+              </p>
             </div>
           </Card>
           <Card className="p-4">
@@ -311,7 +334,9 @@ const UserManagement: React.FC = () => {
               <p className="text-2xl font-bold text-orange-600">
                 {statistics.weeklyNewUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">주간 신규</p>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                주간 신규
+              </p>
             </div>
           </Card>
           <Card className="p-4">
@@ -319,7 +344,9 @@ const UserManagement: React.FC = () => {
               <p className="text-2xl font-bold text-teal-600">
                 {statistics.monthlyActiveUsers}
               </p>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">월간 활성</p>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                월간 활성
+              </p>
             </div>
           </Card>
         </div>
@@ -343,7 +370,9 @@ const UserManagement: React.FC = () => {
           {/* 역할 필터 */}
           <select
             value={roleFilter}
-            onChange={(e) => setRoleFilter(e.target.value as 'all' | 'admin' | 'user')}
+            onChange={(e) =>
+              setRoleFilter(e.target.value as "all" | "admin" | "user")
+            }
             className="px-4 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           >
             <option value="all">모든 역할</option>
@@ -354,7 +383,9 @@ const UserManagement: React.FC = () => {
           {/* 상태 필터 */}
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as 'all' | 'active' | 'inactive')}
+            onChange={(e) =>
+              setStatusFilter(e.target.value as "all" | "active" | "inactive")
+            }
             className="px-4 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           >
             <option value="all">모든 상태</option>
@@ -366,7 +397,10 @@ const UserManagement: React.FC = () => {
           <select
             value={`${sortBy}-${sortOrder}`}
             onChange={(e) => {
-              const [field, order] = e.target.value.split('-') as [typeof sortBy, typeof sortOrder];
+              const [field, order] = e.target.value.split("-") as [
+                typeof sortBy,
+                typeof sortOrder
+              ];
               setSortBy(field);
               setSortOrder(order);
             }}
@@ -435,12 +469,13 @@ const UserManagement: React.FC = () => {
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-purple-600 rounded-full flex items-center justify-center">
                               <span className="text-white font-medium text-sm">
-                                {user.displayName?.[0] || user.email[0].toUpperCase()}
+                                {user.displayName?.[0] ||
+                                  user.email[0].toUpperCase()}
                               </span>
                             </div>
                             <div>
                               <p className="font-medium text-neutral-900 dark:text-white">
-                                {user.displayName || user.name || '이름 없음'}
+                                {user.displayName || user.name || "이름 없음"}
                               </p>
                               <p className="text-sm text-neutral-500 dark:text-neutral-400">
                                 {user.email}
@@ -448,17 +483,25 @@ const UserManagement: React.FC = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4">
-                          {getRoleBadge(user.role)}
-                        </td>
+                        <td className="px-6 py-4">{getRoleBadge(user.role)}</td>
                         <td className="px-6 py-4">
                           {getStatusBadge(user.isActive !== false)}
                         </td>
                         <td className="px-6 py-4 text-sm text-neutral-500 dark:text-neutral-400">
-                          {user.createdAt ? formatDistanceToNow(user.createdAt, { addSuffix: true, locale: ko }) : '-'}
+                          {user.createdAt
+                            ? formatDistanceToNow(user.createdAt, {
+                                addSuffix: true,
+                                locale: ko,
+                              })
+                            : "-"}
                         </td>
                         <td className="px-6 py-4 text-sm text-neutral-500 dark:text-neutral-400">
-                          {user.lastLoginAt ? formatDistanceToNow(user.lastLoginAt, { addSuffix: true, locale: ko }) : '로그인 기록 없음'}
+                          {user.lastLoginAt
+                            ? formatDistanceToNow(user.lastLoginAt, {
+                                addSuffix: true,
+                                locale: ko,
+                              })
+                            : "로그인 기록 없음"}
                         </td>
                         <td className="px-6 py-4 text-right">
                           <div className="flex items-center justify-end gap-2">
@@ -472,23 +515,37 @@ const UserManagement: React.FC = () => {
                             </Button>
                             <select
                               value={user.role}
-                              onChange={(e) => handleRoleChange(user.id, e.target.value as 'user' | 'admin')}
+                              onChange={(e) =>
+                                handleRoleChange(
+                                  user.id,
+                                  e.target.value as "user" | "admin"
+                                )
+                              }
                               className="text-xs px-2 py-1 border border-neutral-200 dark:border-neutral-600 rounded bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white"
                             >
                               <option value="user">사용자</option>
                               <option value="admin">관리자</option>
                             </select>
                             <Button
-                              onClick={() => handleStatusToggle(user.id, user.isActive !== false)}
+                              onClick={() =>
+                                handleStatusToggle(
+                                  user.id,
+                                  user.isActive !== false
+                                )
+                              }
                               variant="ghost"
                               size="sm"
                               className={`p-2 ${
-                                user.isActive !== false 
-                                  ? 'text-red-600 hover:bg-red-50' 
-                                  : 'text-green-600 hover:bg-green-50'
+                                user.isActive !== false
+                                  ? "text-red-600 hover:bg-red-50"
+                                  : "text-green-600 hover:bg-green-50"
                               }`}
                             >
-                              {user.isActive !== false ? <UserMinus className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
+                              {user.isActive !== false ? (
+                                <UserMinus className="w-4 h-4" />
+                              ) : (
+                                <UserPlus className="w-4 h-4" />
+                              )}
                             </Button>
                           </div>
                         </td>
@@ -503,7 +560,8 @@ const UserManagement: React.FC = () => {
             {totalCount > pageSize && (
               <div className="flex items-center justify-between px-6 py-4 border-t border-neutral-200 dark:border-neutral-700">
                 <div className="text-sm text-neutral-500 dark:text-neutral-400">
-                  총 {totalCount}명 중 {(currentPage - 1) * pageSize + 1}-{Math.min(currentPage * pageSize, totalCount)}명 표시
+                  총 {totalCount}명 중 {(currentPage - 1) * pageSize + 1}-
+                  {Math.min(currentPage * pageSize, totalCount)}명 표시
                 </div>
                 <div className="flex items-center gap-2">
                   <Button
@@ -570,14 +628,19 @@ const UserManagement: React.FC = () => {
                 <div className="flex items-start gap-4">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-purple-600 rounded-full flex items-center justify-center">
                     <span className="text-white font-semibold text-xl">
-                      {selectedUser.displayName?.[0] || selectedUser.email[0].toUpperCase()}
+                      {selectedUser.displayName?.[0] ||
+                        selectedUser.email[0].toUpperCase()}
                     </span>
                   </div>
                   <div className="flex-1">
                     <h4 className="text-xl font-semibold text-neutral-900 dark:text-white">
-                      {selectedUser.displayName || selectedUser.name || '이름 없음'}
+                      {selectedUser.displayName ||
+                        selectedUser.name ||
+                        "이름 없음"}
                     </h4>
-                    <p className="text-neutral-600 dark:text-neutral-400">{selectedUser.email}</p>
+                    <p className="text-neutral-600 dark:text-neutral-400">
+                      {selectedUser.email}
+                    </p>
                     <div className="flex items-center gap-2 mt-2">
                       {getRoleBadge(selectedUser.role)}
                       {getStatusBadge(selectedUser.isActive !== false)}
@@ -588,23 +651,31 @@ const UserManagement: React.FC = () => {
                 {/* 상세 정보 */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-4">
-                    <h5 className="font-medium text-neutral-900 dark:text-white">연락처 정보</h5>
+                    <h5 className="font-medium text-neutral-900 dark:text-white">
+                      연락처 정보
+                    </h5>
                     <div className="space-y-3">
                       <div className="flex items-center gap-2 text-sm">
                         <Mail className="w-4 h-4 text-neutral-500" />
-                        <span className="text-neutral-600 dark:text-neutral-400">{selectedUser.email}</span>
+                        <span className="text-neutral-600 dark:text-neutral-400">
+                          {selectedUser.email}
+                        </span>
                       </div>
                       {selectedUser.phoneNumber && (
                         <div className="flex items-center gap-2 text-sm">
                           <Phone className="w-4 h-4 text-neutral-500" />
-                          <span className="text-neutral-600 dark:text-neutral-400">{selectedUser.phoneNumber}</span>
+                          <span className="text-neutral-600 dark:text-neutral-400">
+                            {selectedUser.phoneNumber}
+                          </span>
                         </div>
                       )}
                       {(selectedUser.department || selectedUser.position) && (
                         <div className="flex items-center gap-2 text-sm">
                           <Building className="w-4 h-4 text-neutral-500" />
                           <span className="text-neutral-600 dark:text-neutral-400">
-                            {[selectedUser.department, selectedUser.position].filter(Boolean).join(' - ')}
+                            {[selectedUser.department, selectedUser.position]
+                              .filter(Boolean)
+                              .join(" - ")}
                           </span>
                         </div>
                       )}
@@ -612,18 +683,28 @@ const UserManagement: React.FC = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <h5 className="font-medium text-neutral-900 dark:text-white">활동 정보</h5>
+                    <h5 className="font-medium text-neutral-900 dark:text-white">
+                      활동 정보
+                    </h5>
                     <div className="space-y-3">
                       <div className="flex items-center gap-2 text-sm">
                         <Calendar className="w-4 h-4 text-neutral-500" />
                         <span className="text-neutral-600 dark:text-neutral-400">
-                          가입: {selectedUser.createdAt ? selectedUser.createdAt.toLocaleDateString('ko-KR') : '-'}
+                          가입:{" "}
+                          {selectedUser.createdAt
+                            ? selectedUser.createdAt.toLocaleDateString("ko-KR")
+                            : "-"}
                         </span>
                       </div>
                       <div className="flex items-center gap-2 text-sm">
                         <Clock className="w-4 h-4 text-neutral-500" />
                         <span className="text-neutral-600 dark:text-neutral-400">
-                          마지막 로그인: {selectedUser.lastLoginAt ? selectedUser.lastLoginAt.toLocaleDateString('ko-KR') : '기록 없음'}
+                          마지막 로그인:{" "}
+                          {selectedUser.lastLoginAt
+                            ? selectedUser.lastLoginAt.toLocaleDateString(
+                                "ko-KR"
+                              )
+                            : "기록 없음"}
                         </span>
                       </div>
                     </div>
@@ -632,11 +713,16 @@ const UserManagement: React.FC = () => {
 
                 {/* 최근 활동 */}
                 <div>
-                  <h5 className="font-medium text-neutral-900 dark:text-white mb-4">최근 활동</h5>
+                  <h5 className="font-medium text-neutral-900 dark:text-white mb-4">
+                    최근 활동
+                  </h5>
                   <div className="space-y-3 max-h-64 overflow-y-auto">
                     {userActivities.length > 0 ? (
                       userActivities.map((activity) => (
-                        <div key={activity.id} className="flex items-start gap-3 p-3 bg-neutral-50 dark:bg-neutral-700 rounded-lg">
+                        <div
+                          key={activity.id}
+                          className="flex items-start gap-3 p-3 bg-neutral-50 dark:bg-neutral-700 rounded-lg"
+                        >
                           <div className="flex-shrink-0 mt-0.5">
                             {getActivityIcon(activity.action)}
                           </div>
@@ -645,7 +731,10 @@ const UserManagement: React.FC = () => {
                               {activity.details || activity.action}
                             </p>
                             <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                              {formatDistanceToNow(activity.timestamp, { addSuffix: true, locale: ko })}
+                              {formatDistanceToNow(activity.timestamp, {
+                                addSuffix: true,
+                                locale: ko,
+                              })}
                             </p>
                           </div>
                         </div>

@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Mail, 
-  Lock, 
-  Eye, 
-  EyeOff, 
-  ArrowRight, 
-  Shield, 
+import {
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  ArrowRight,
+  Shield,
   Sparkles,
   ChevronRight,
   Activity,
   BarChart3,
   Users,
-  Settings
+  Settings,
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import Button from "../../components/common/Button";
@@ -40,8 +40,8 @@ const AdminLogin = () => {
 
   // 관리자가 아닌 사용자가 접근 시 리다이렉트
   useEffect(() => {
-    if (userData && userData.role !== 'admin') {
-      navigate('/');
+    if (userData && userData.role !== "admin") {
+      navigate("/");
     }
   }, [userData, navigate]);
 
@@ -68,15 +68,21 @@ const AdminLogin = () => {
         err.code === "auth/user-not-found" ||
         err.code === "auth/wrong-password"
       ) {
-        setError("관리자 인증에 실패했습니다. 이메일 또는 비밀번호를 확인해주세요.");
+        setError(
+          "관리자 인증에 실패했습니다. 이메일 또는 비밀번호를 확인해주세요."
+        );
       } else if (err.code === "auth/invalid-email") {
         setError("유효하지 않은 관리자 이메일 주소입니다.");
       } else if (err.code === "auth/user-disabled") {
         setError("비활성화된 관리자 계정입니다.");
       } else if (err.code === "auth/too-many-requests") {
-        setError("보안상 너무 많은 시도가 있었습니다. 잠시 후 다시 시도해주세요.");
+        setError(
+          "보안상 너무 많은 시도가 있었습니다. 잠시 후 다시 시도해주세요."
+        );
       } else {
-        setError("관리자 로그인 중 오류가 발생했습니다. 시스템 관리자에게 문의하세요.");
+        setError(
+          "관리자 로그인 중 오류가 발생했습니다. 시스템 관리자에게 문의하세요."
+        );
       }
     } finally {
       setIsLoading(false);
@@ -86,8 +92,12 @@ const AdminLogin = () => {
   const adminFeatures = [
     { icon: BarChart3, title: "고급 분석", desc: "실시간 비즈니스 인사이트" },
     { icon: Users, title: "사용자 관리", desc: "통합 회원 관리 시스템" },
-    { icon: Activity, title: "시스템 모니터링", desc: "서비스 상태 실시간 추적" },
-    { icon: Settings, title: "시스템 설정", desc: "전체 플랫폼 제어" }
+    {
+      icon: Activity,
+      title: "시스템 모니터링",
+      desc: "서비스 상태 실시간 추적",
+    },
+    { icon: Settings, title: "시스템 설정", desc: "전체 플랫폼 제어" },
   ];
 
   if (!mounted) return null;
@@ -95,8 +105,14 @@ const AdminLogin = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
       {/* 배경 효과 */}
-      <div className="absolute inset-0 opacity-20" style={{backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%239C92AC\" fill-opacity=\"0.05\"%3E%3Ccircle cx=\"30\" cy=\"30\" r=\"2\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
-      
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage:
+            'url(\'data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\')',
+        }}
+      ></div>
+
       {/* 글로우 효과 */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
@@ -126,7 +142,11 @@ const AdminLogin = () => {
                 <Shield className="w-12 h-12 text-purple-400" />
                 <motion.div
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
                   className="absolute -inset-2 rounded-full border border-purple-400/30"
                 />
               </div>
@@ -150,8 +170,9 @@ const AdminLogin = () => {
                 </span>
               </h2>
               <p className="text-lg text-slate-300 leading-relaxed">
-                한국환경안전연구소의 통합 관리 시스템에 오신 것을 환영합니다. 
-                강력한 분석 도구와 실시간 모니터링으로 효율적인 업무 관리를 경험하세요.
+                한국환경안전연구소의 통합 관리 시스템에 오신 것을 환영합니다.
+                강력한 분석 도구와 실시간 모니터링으로 효율적인 업무 관리를
+                경험하세요.
               </p>
             </motion.div>
           </div>
@@ -172,8 +193,12 @@ const AdminLogin = () => {
                 className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group cursor-pointer"
               >
                 <feature.icon className="w-8 h-8 text-purple-400 mb-3 group-hover:scale-110 transition-transform duration-300" />
-                <h3 className="font-semibold text-white mb-1">{feature.title}</h3>
-                <p className="text-sm text-slate-300 leading-relaxed">{feature.desc}</p>
+                <h3 className="font-semibold text-white mb-1">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-slate-300 leading-relaxed">
+                  {feature.desc}
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -220,8 +245,12 @@ const AdminLogin = () => {
                 >
                   <Shield className="w-8 h-8 text-white" />
                 </motion.div>
-                <h3 className="text-2xl font-bold text-white mb-2">관리자 로그인</h3>
-                <p className="text-slate-300">보안 인증을 통해 시스템에 접근하세요</p>
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  관리자 로그인
+                </h3>
+                <p className="text-slate-300">
+                  보안 인증을 통해 시스템에 접근하세요
+                </p>
               </div>
 
               {/* 에러 메시지 */}
@@ -284,7 +313,11 @@ const AdminLogin = () => {
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white transition-colors duration-200"
                     >
-                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                      {showPassword ? (
+                        <EyeOff className="w-5 h-5" />
+                      ) : (
+                        <Eye className="w-5 h-5" />
+                      )}
                     </button>
                   </div>
                 </motion.div>
@@ -326,7 +359,11 @@ const AdminLogin = () => {
                       <>
                         <motion.div
                           animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          transition={{
+                            duration: 1,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
                           className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                         />
                         <span>인증 중...</span>

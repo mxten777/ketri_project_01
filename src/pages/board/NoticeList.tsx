@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Plus, Pin, Eye, Calendar, User, Edit, Trash2 } from 'lucide-react';
-import { getNotices, deleteNotice } from '../../services/noticeService';
-import { useAuth } from '../../contexts/AuthContext';
-import type { Notice } from '../../types';
-import Button from '../../components/common/Button';
-import Card from '../../components/common/Card';
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Plus, Pin, Eye, Calendar, User, Edit, Trash2 } from "lucide-react";
+import { getNotices, deleteNotice } from "../../services/noticeService";
+import { useAuth } from "../../contexts/AuthContext";
+import type { Notice } from "../../types";
+import Button from "../../components/common/Button";
+import Card from "../../components/common/Card";
 
 const NoticeList = () => {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
   const { userData } = useAuth();
   const navigate = useNavigate();
-  const isAdmin = userData?.role === 'admin';
+  const isAdmin = userData?.role === "admin";
 
   useEffect(() => {
     fetchNotices();
@@ -25,32 +25,32 @@ const NoticeList = () => {
       const data = await getNotices(20);
       setNotices(data);
     } catch (error) {
-      console.error('Error loading notices:', error);
+      console.error("Error loading notices:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('정말로 이 공지사항을 삭제하시겠습니까?')) {
+    if (!window.confirm("정말로 이 공지사항을 삭제하시겠습니까?")) {
       return;
     }
 
     try {
       await deleteNotice(id);
-      setNotices(notices.filter(notice => notice.id !== id));
+      setNotices(notices.filter((notice) => notice.id !== id));
     } catch (error) {
-      console.error('Error deleting notice:', error);
-      alert('삭제에 실패했습니다.');
+      console.error("Error deleting notice:", error);
+      alert("삭제에 실패했습니다.");
     }
   };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
+    return date.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
     });
   };
 
@@ -72,16 +72,14 @@ const NoticeList = () => {
         >
           {/* Header */}
           <div className="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-3xl p-8 mb-8 text-white shadow-premium">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="flex items-center justify-between"
             >
               <div>
-                <h1 className="text-4xl font-bold mb-4">
-                  📢 공지사항
-                </h1>
+                <h1 className="text-4xl font-bold mb-4">📢 공지사항</h1>
                 <p className="text-xl opacity-90">
                   한국환경안전연구소의 새로운 소식을 확인하세요
                 </p>
@@ -92,8 +90,8 @@ const NoticeList = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <Button 
-                    onClick={() => navigate('/board/notice/create')}
+                  <Button
+                    onClick={() => navigate("/board/notice/create")}
                     className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/30 shadow-premium"
                   >
                     <Plus className="w-5 h-5 mr-2" />
@@ -128,13 +126,15 @@ const NoticeList = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
-                  <div className={`bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-premium border transition-all duration-300 hover:shadow-2xl hover:scale-[1.01] ${
-                    notice.isPinned 
-                      ? 'border-primary-300 bg-gradient-to-r from-primary-50/80 to-secondary-50/80 dark:from-primary-900/20 dark:to-secondary-900/20 shadow-primary-200/50'
-                      : 'border-white/50 dark:border-neutral-700/50 hover:border-primary-200'
-                  }`}>
+                  <div
+                    className={`bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-premium border transition-all duration-300 hover:shadow-2xl hover:scale-[1.01] ${
+                      notice.isPinned
+                        ? "border-primary-300 bg-gradient-to-r from-primary-50/80 to-secondary-50/80 dark:from-primary-900/20 dark:to-secondary-900/20 shadow-primary-200/50"
+                        : "border-white/50 dark:border-neutral-700/50 hover:border-primary-200"
+                    }`}
+                  >
                     <div className="flex items-start justify-between">
-                      <Link 
+                      <Link
                         to={`/board/notice/${notice.id}`}
                         className="flex-1 group"
                       >
@@ -149,15 +149,15 @@ const NoticeList = () => {
                             {notice.category}
                           </span>
                         </div>
-                        
+
                         <h2 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 group-hover:text-primary-500 transition-colors">
                           {notice.title}
                         </h2>
-                        
+
                         <p className="text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-2">
                           {notice.content}
                         </p>
-                        
+
                         <div className="flex items-center space-x-4 text-sm text-neutral-500 dark:text-neutral-500">
                           <span className="flex items-center space-x-1">
                             <User className="w-4 h-4" />
@@ -165,7 +165,9 @@ const NoticeList = () => {
                           </span>
                           <span className="flex items-center space-x-1">
                             <Calendar className="w-4 h-4" />
-                            <span>{formatDate(notice.createdAt.toString())}</span>
+                            <span>
+                              {formatDate(notice.createdAt.toString())}
+                            </span>
                           </span>
                           <span className="flex items-center space-x-1">
                             <Eye className="w-4 h-4" />
@@ -173,11 +175,13 @@ const NoticeList = () => {
                           </span>
                         </div>
                       </Link>
-                      
+
                       {isAdmin && (
                         <div className="flex items-center space-x-2 ml-4">
                           <button
-                            onClick={() => navigate(`/board/notice/edit/${notice.id}`)}
+                            onClick={() =>
+                              navigate(`/board/notice/edit/${notice.id}`)
+                            }
                             className="p-2 text-neutral-500 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors"
                             title="수정"
                           >

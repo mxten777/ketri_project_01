@@ -1,31 +1,33 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { 
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import {
   FileText,
-  Download, 
-  Eye, 
-  User, 
+  Download,
+  Eye,
+  User,
   Calendar,
   Filter,
   Trash2,
   Edit,
   Plus,
   FileIcon,
-  FolderOpen
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import { getResources, deleteResource } from '../../services/resourceService';
-import type { Resource } from '../../types';
+  FolderOpen,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { getResources, deleteResource } from "../../services/resourceService";
+import type { Resource } from "../../types";
 
 const ResourceAdmin = () => {
   const { user, userData } = useAuth();
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<'all' | 'manual' | 'form' | 'report' | 'certificate' | 'other'>('all');
+  const [filter, setFilter] = useState<
+    "all" | "manual" | "form" | "report" | "certificate" | "other"
+  >("all");
 
   useEffect(() => {
-    if (!userData || userData.role !== 'admin') {
+    if (!userData || userData.role !== "admin") {
       return;
     }
     fetchResources();
@@ -34,74 +36,81 @@ const ResourceAdmin = () => {
   const fetchResources = async () => {
     try {
       setLoading(true);
-      const data = await getResources(filter === 'all' ? undefined : filter);
+      const data = await getResources(filter === "all" ? undefined : filter);
       setResources(data);
     } catch (error) {
-      console.error('Error fetching resources:', error);
+      console.error("Error fetching resources:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDeleteResource = async (resourceId: string) => {
-    if (!window.confirm('정말 삭제하시겠습니까?')) {
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
       return;
     }
 
     try {
       await deleteResource(resourceId);
       fetchResources(); // 목록 새로고침
-      alert('삭제되었습니다.');
+      alert("삭제되었습니다.");
     } catch (error) {
-      console.error('Error deleting resource:', error);
-      alert('삭제에 실패했습니다.');
+      console.error("Error deleting resource:", error);
+      alert("삭제에 실패했습니다.");
     }
   };
 
-  const formatDate = (timestamp: { seconds: number; nanoseconds: number } | null) => {
-    if (!timestamp) return '';
-    return new Date(timestamp.seconds * 1000).toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
+  const formatDate = (
+    timestamp: { seconds: number; nanoseconds: number } | null
+  ) => {
+    if (!timestamp) return "";
+    return new Date(timestamp.seconds * 1000).toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   };
 
   const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
   const getCategoryLabel = (category: string) => {
     const labels: Record<string, string> = {
-      manual: '매뉴얼',
-      form: '신청서',
-      report: '보고서',
-      certificate: '성적서',
-      other: '기타'
+      manual: "매뉴얼",
+      form: "신청서",
+      report: "보고서",
+      certificate: "성적서",
+      other: "기타",
     };
     return labels[category] || category;
   };
 
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
-      manual: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-      form: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-      report: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-      certificate: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
-      other: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300'
+      manual:
+        "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
+      form: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+      report:
+        "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300",
+      certificate:
+        "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
+      other: "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300",
     };
     return colors[category] || colors.other;
   };
 
-  if (!userData || userData.role !== 'admin') {
+  if (!userData || userData.role !== "admin") {
     return (
       <div className="container-custom py-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">접근 권한이 없습니다</h1>
+          <h1 className="text-2xl font-bold text-red-600 mb-4">
+            접근 권한이 없습니다
+          </h1>
           <p className="text-neutral-600 dark:text-neutral-400">
             관리자만 접근할 수 있는 페이지입니다.
           </p>
@@ -125,7 +134,7 @@ const ResourceAdmin = () => {
               업로드된 자료를 관리하고 새로운 자료를 추가할 수 있습니다.
             </p>
           </div>
-          
+
           <Link
             to="/board/resources/new"
             className="btn btn-primary flex items-center gap-2"
@@ -140,20 +149,20 @@ const ResourceAdmin = () => {
           <Filter className="w-5 h-5 text-neutral-400" />
           <div className="flex gap-2 flex-wrap">
             {[
-              { value: 'all', label: '전체' },
-              { value: 'manual', label: '매뉴얼' },
-              { value: 'form', label: '신청서' },
-              { value: 'report', label: '보고서' },
-              { value: 'certificate', label: '성적서' },
-              { value: 'other', label: '기타' }
+              { value: "all", label: "전체" },
+              { value: "manual", label: "매뉴얼" },
+              { value: "form", label: "신청서" },
+              { value: "report", label: "보고서" },
+              { value: "certificate", label: "성적서" },
+              { value: "other", label: "기타" },
             ].map((cat) => (
               <button
                 key={cat.value}
                 onClick={() => setFilter(cat.value as any)}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                   filter === cat.value
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-neutral-200 text-neutral-700 hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600'
+                    ? "bg-primary-600 text-white"
+                    : "bg-neutral-200 text-neutral-700 hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600"
                 }`}
               >
                 {cat.label}
@@ -173,7 +182,9 @@ const ResourceAdmin = () => {
                 <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                   {resources.length}
                 </div>
-                <div className="text-sm text-neutral-600 dark:text-neutral-400">총 자료 수</div>
+                <div className="text-sm text-neutral-600 dark:text-neutral-400">
+                  총 자료 수
+                </div>
               </div>
             </div>
           </div>
@@ -187,7 +198,9 @@ const ResourceAdmin = () => {
                 <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                   {resources.reduce((sum, r) => sum + (r.downloads || 0), 0)}
                 </div>
-                <div className="text-sm text-neutral-600 dark:text-neutral-400">총 다운로드</div>
+                <div className="text-sm text-neutral-600 dark:text-neutral-400">
+                  총 다운로드
+                </div>
               </div>
             </div>
           </div>
@@ -201,7 +214,9 @@ const ResourceAdmin = () => {
                 <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
                   {resources.reduce((sum, r) => sum + (r.views || 0), 0)}
                 </div>
-                <div className="text-sm text-neutral-600 dark:text-neutral-400">총 조회수</div>
+                <div className="text-sm text-neutral-600 dark:text-neutral-400">
+                  총 조회수
+                </div>
               </div>
             </div>
           </div>
@@ -213,9 +228,11 @@ const ResourceAdmin = () => {
               </div>
               <div>
                 <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                  {new Set(resources.map(r => r.category)).size}
+                  {new Set(resources.map((r) => r.category)).size}
                 </div>
-                <div className="text-sm text-neutral-600 dark:text-neutral-400">카테고리 수</div>
+                <div className="text-sm text-neutral-600 dark:text-neutral-400">
+                  카테고리 수
+                </div>
               </div>
             </div>
           </div>
@@ -225,12 +242,16 @@ const ResourceAdmin = () => {
         {loading ? (
           <div className="text-center py-12">
             <div className="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
-            <p className="mt-4 text-neutral-600 dark:text-neutral-400">로딩 중...</p>
+            <p className="mt-4 text-neutral-600 dark:text-neutral-400">
+              로딩 중...
+            </p>
           </div>
         ) : resources.length === 0 ? (
           <div className="text-center py-12">
             <FileText className="w-16 h-16 text-neutral-400 mx-auto mb-4" />
-            <p className="text-neutral-600 dark:text-neutral-400">자료가 없습니다.</p>
+            <p className="text-neutral-600 dark:text-neutral-400">
+              자료가 없습니다.
+            </p>
           </div>
         ) : (
           <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-soft overflow-hidden">
@@ -239,17 +260,32 @@ const ResourceAdmin = () => {
                 <thead className="bg-neutral-50 dark:bg-neutral-700 border-b border-neutral-200 dark:border-neutral-600">
                   <tr>
                     <th className="text-left py-4 px-6 font-semibold">제목</th>
-                    <th className="text-left py-4 px-6 font-semibold">카테고리</th>
-                    <th className="text-left py-4 px-6 font-semibold">파일정보</th>
-                    <th className="text-center py-4 px-6 font-semibold">다운로드</th>
-                    <th className="text-center py-4 px-6 font-semibold">조회수</th>
-                    <th className="text-left py-4 px-6 font-semibold">업로드일</th>
-                    <th className="text-center py-4 px-6 font-semibold">관리</th>
+                    <th className="text-left py-4 px-6 font-semibold">
+                      카테고리
+                    </th>
+                    <th className="text-left py-4 px-6 font-semibold">
+                      파일정보
+                    </th>
+                    <th className="text-center py-4 px-6 font-semibold">
+                      다운로드
+                    </th>
+                    <th className="text-center py-4 px-6 font-semibold">
+                      조회수
+                    </th>
+                    <th className="text-left py-4 px-6 font-semibold">
+                      업로드일
+                    </th>
+                    <th className="text-center py-4 px-6 font-semibold">
+                      관리
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
                   {resources.map((resource) => (
-                    <tr key={resource.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-700/50">
+                    <tr
+                      key={resource.id}
+                      className="hover:bg-neutral-50 dark:hover:bg-neutral-700/50"
+                    >
                       <td className="py-4 px-6">
                         <div className="flex items-start gap-3">
                           <div className="w-8 h-8 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -266,7 +302,11 @@ const ResourceAdmin = () => {
                         </div>
                       </td>
                       <td className="py-4 px-6">
-                        <span className={`text-xs px-2 py-1 rounded-full ${getCategoryColor(resource.category)}`}>
+                        <span
+                          className={`text-xs px-2 py-1 rounded-full ${getCategoryColor(
+                            resource.category
+                          )}`}
+                        >
                           {getCategoryLabel(resource.category)}
                         </span>
                       </td>
@@ -281,7 +321,9 @@ const ResourceAdmin = () => {
                       <td className="py-4 px-6 text-center">
                         <div className="flex items-center justify-center gap-1">
                           <Download className="w-4 h-4 text-neutral-400" />
-                          <span className="text-sm">{resource.downloads || 0}</span>
+                          <span className="text-sm">
+                            {resource.downloads || 0}
+                          </span>
                         </div>
                       </td>
                       <td className="py-4 px-6 text-center">

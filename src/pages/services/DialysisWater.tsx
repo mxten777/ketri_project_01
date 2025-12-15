@@ -3,10 +3,12 @@ const DialysisWater = () => {
     <div className="min-h-screen">
       <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white py-16 lg:py-24">
         <div className="container-custom">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">혈액투석용수 검사</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold mb-4">
+            혈액투석용수 검사
+          </h1>
           <p className="text-lg">
-            신장학회 가이드라인 및 ISO 13959 기준 준수\n
-            환자 안전을 위한 투석용수 36개 항목 전문 검사 서비스
+            신장학회 가이드라인 및 ISO 13959 기준 준수\n 환자 안전을 위한
+            투석용수 36개 항목 전문 검사 서비스
           </p>
         </div>
       </div>
@@ -16,11 +18,11 @@ const DialysisWater = () => {
           <h2 className="heading-md mb-6">투석용수 검사 서비스</h2>
           <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
-              한국환경안전연구소는 혈액투석용수 전문 검사기관으로 
-              2017년부터 전국 200여 개 투석센터의 용수검사를 수행해왔습니다. 
-              대한신장학회 가이드라인, ISO 13959(Concentrates for haemodialysis), 
-              ISO 11663(Quality of dialysis fluid) 등 국제표준에 따른 36개 항목 검사로 
-              환자 안전과 투석 효율성 향상에 기여하고 있습니다.
+              한국환경안전연구소는 혈액투석용수 전문 검사기관으로 2017년부터
+              전국 200여 개 투석센터의 용수검사를 수행해왔습니다. 대한신장학회
+              가이드라인, ISO 13959(Concentrates for haemodialysis), ISO
+              11663(Quality of dialysis fluid) 등 국제표준에 따른 36개 항목
+              검사로 환자 안전과 투석 효율성 향상에 기여하고 있습니다.
             </p>
 
             <h3 className="text-2xl font-bold mt-8 mb-4">투석용수 중요성</h3>

@@ -97,7 +97,6 @@ const Register = () => {
       {/* 메인 컨테이너 */}
       <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
         <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
           {/* 왼쪽: 브랜딩 */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -126,8 +125,12 @@ const Register = () => {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-secondary-500 to-primary-500 rounded-2xl mb-4 shadow-2xl">
                   <span className="text-2xl">✨</span>
                 </div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">회원가입</h1>
-                <p className="text-gray-600">새로운 계정을 만들어 서비스를 시작하세요</p>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                  회원가입
+                </h1>
+                <p className="text-gray-600">
+                  새로운 계정을 만들어 서비스를 시작하세요
+                </p>
               </div>
 
               {/* 에러 메시지 */}
@@ -141,7 +144,9 @@ const Register = () => {
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* 이름 */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">이름</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    이름
+                  </label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <input
@@ -158,7 +163,9 @@ const Register = () => {
 
                 {/* 이메일 */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">이메일</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    이메일
+                  </label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <input
@@ -175,7 +182,9 @@ const Register = () => {
 
                 {/* 비밀번호 */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">비밀번호</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    비밀번호
+                  </label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <input
@@ -192,14 +201,20 @@ const Register = () => {
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
                     >
-                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                      {showPassword ? (
+                        <EyeOff className="w-5 h-5" />
+                      ) : (
+                        <Eye className="w-5 h-5" />
+                      )}
                     </button>
                   </div>
                 </div>
 
                 {/* 비밀번호 확인 */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">비밀번호 확인</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    비밀번호 확인
+                  </label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <input
@@ -213,10 +228,16 @@ const Register = () => {
                     />
                     <button
                       type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
                     >
-                      {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                      {showConfirmPassword ? (
+                        <EyeOff className="w-5 h-5" />
+                      ) : (
+                        <Eye className="w-5 h-5" />
+                      )}
                     </button>
                   </div>
                 </div>
@@ -243,7 +264,9 @@ const Register = () => {
 
               {/* 로그인 링크 */}
               <div className="mt-8 text-center p-6 bg-gradient-to-r from-secondary-50 to-primary-50 rounded-2xl">
-                <span className="text-sm text-gray-600 block mb-3">이미 계정이 있으신가요?</span>
+                <span className="text-sm text-gray-600 block mb-3">
+                  이미 계정이 있으신가요?
+                </span>
                 <Link
                   to="/login"
                   className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-secondary-600 hover:text-secondary-700 bg-white rounded-xl border border-secondary-200 hover:border-secondary-300 transition-all duration-200 shadow-md hover:shadow-lg"

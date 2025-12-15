@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import {
-  ArrowLeft,
-  Save,
-  Lock,
-  Globe,
-  AlertCircle,
-} from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
-import { createQnA, updateQnA } from '../../services/qnaService';
-import { QnAFormData } from '../../types';
-import Button from '../../components/common/Button';
-import Card from '../../components/common/Card';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft, Save, Lock, Globe, AlertCircle } from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
+import { createQnA, updateQnA } from "../../services/qnaService";
+import { QnAFormData } from "../../types";
+import Button from "../../components/common/Button";
+import Card from "../../components/common/Card";
 
 const QnAForm: React.FC = () => {
   const navigate = useNavigate();
@@ -20,9 +14,9 @@ const QnAForm: React.FC = () => {
   const { user, userData } = useAuth();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<QnAFormData>({
-    title: '',
-    content: '',
-    category: 'general',
+    title: "",
+    content: "",
+    category: "general",
     isSecret: false,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -37,18 +31,19 @@ const QnAForm: React.FC = () => {
       try {
         setLoading(true);
         const qnaData = await qnaService.getQnAById(id);
-        
+
         if (!qnaData) {
-          alert('게시글을 찾을 수 없습니다.');
-          navigate('/board/qna');
+          alert("게시글을 찾을 수 없습니다.");
+          navigate("/board/qna");
           return;
         }
 
         // 수정 권한 확인
-        const canEdit = user?.uid === qnaData.authorId || userData?.role === 'admin';
+        const canEdit =
+          user?.uid === qnaData.authorId || userData?.role === "admin";
         if (!canEdit) {
-          alert('수정 권한이 없습니다.');
-          navigate('/board/qna');
+          alert("수정 권한이 없습니다.");
+          navigate("/board/qna");
           return;
         }
 
@@ -59,9 +54,9 @@ const QnAForm: React.FC = () => {
           isSecret: qnaData.isSecret,
         });
       } catch (error) {
-        console.error('QnA 로드 오류:', error);
-        alert('게시글을 불러오는데 실패했습니다.');
-        navigate('/board/qna');
+        console.error("QnA 로드 오류:", error);
+        alert("게시글을 불러오는데 실패했습니다.");
+        navigate("/board/qna");
       } finally {
         setLoading(false);
       }
@@ -71,29 +66,29 @@ const QnAForm: React.FC = () => {
   }, [isEditMode, id, user, userData, navigate]);
 
   const categories = [
-    { value: 'general', label: '일반문의' },
-    { value: 'service', label: '서비스' },
-    { value: 'technical', label: '기술지원' },
-    { value: 'account', label: '계정' },
+    { value: "general", label: "일반문의" },
+    { value: "service", label: "서비스" },
+    { value: "technical", label: "기술지원" },
+    { value: "account", label: "계정" },
   ];
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = '제목을 입력해주세요.';
+      newErrors.title = "제목을 입력해주세요.";
     } else if (formData.title.length < 5) {
-      newErrors.title = '제목은 5자 이상 입력해주세요.';
+      newErrors.title = "제목은 5자 이상 입력해주세요.";
     } else if (formData.title.length > 100) {
-      newErrors.title = '제목은 100자 이하로 입력해주세요.';
+      newErrors.title = "제목은 100자 이하로 입력해주세요.";
     }
 
     if (!formData.content.trim()) {
-      newErrors.content = '내용을 입력해주세요.';
+      newErrors.content = "내용을 입력해주세요.";
     } else if (formData.content.length < 10) {
-      newErrors.content = '내용은 10자 이상 입력해주세요.';
+      newErrors.content = "내용은 10자 이상 입력해주세요.";
     } else if (formData.content.length > 5000) {
-      newErrors.content = '내용은 5000자 이하로 입력해주세요.';
+      newErrors.content = "내용은 5000자 이하로 입력해주세요.";
     }
 
     setErrors(newErrors);
@@ -102,10 +97,10 @@ const QnAForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!user) {
-      alert('로그인이 필요합니다.');
-      navigate('/auth/login');
+      alert("로그인이 필요합니다.");
+      navigate("/auth/login");
       return;
     }
 
@@ -119,37 +114,40 @@ const QnAForm: React.FC = () => {
       if (isEditMode && id) {
         // 수정
         await updateQnA(id, formData);
-        alert('질문이 수정되었습니다.');
+        alert("질문이 수정되었습니다.");
         navigate(`/board/qna/${id}`);
       } else {
         // 새 작성
         const newQnAId = await createQnA({
           ...formData,
           authorId: user.uid,
-          authorName: userData?.displayName || user.email || '익명',
+          authorName: userData?.displayName || user.email || "익명",
         });
-        alert('질문이 등록되었습니다.');
+        alert("질문이 등록되었습니다.");
         navigate(`/board/qna/${newQnAId}`);
       }
     } catch (error) {
-      console.error('QnA 저장 오류:', error);
-      alert(isEditMode ? '수정에 실패했습니다.' : '등록에 실패했습니다.');
+      console.error("QnA 저장 오류:", error);
+      alert(isEditMode ? "수정에 실패했습니다." : "등록에 실패했습니다.");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleInputChange = (field: keyof QnAFormData, value: string | boolean) => {
-    setFormData(prev => ({
+  const handleInputChange = (
+    field: keyof QnAFormData,
+    value: string | boolean
+  ) => {
+    setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
-    
+
     // 에러 메시지 제거
     if (errors[field]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [field]: '',
+        [field]: "",
       }));
     }
   };
@@ -164,9 +162,7 @@ const QnAForm: React.FC = () => {
         <p className="text-neutral-600 dark:text-neutral-400 mb-4">
           질문을 작성하려면 로그인해주세요.
         </p>
-        <Button onClick={() => navigate('/auth/login')}>
-          로그인하기
-        </Button>
+        <Button onClick={() => navigate("/auth/login")}>로그인하기</Button>
       </Card>
     );
   }
@@ -179,15 +175,12 @@ const QnAForm: React.FC = () => {
     >
       {/* 헤더 */}
       <div className="flex items-center gap-4">
-        <Button
-          onClick={() => navigate('/board/qna')}
-          variant="ghost"
-        >
+        <Button onClick={() => navigate("/board/qna")} variant="ghost">
           <ArrowLeft className="w-4 h-4 mr-2" />
           목록으로
         </Button>
         <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">
-          {isEditMode ? '질문 수정' : '질문 작성'}
+          {isEditMode ? "질문 수정" : "질문 작성"}
         </h1>
       </div>
 
@@ -201,7 +194,7 @@ const QnAForm: React.FC = () => {
             </label>
             <select
               value={formData.category}
-              onChange={(e) => handleInputChange('category', e.target.value)}
+              onChange={(e) => handleInputChange("category", e.target.value)}
               className="w-full px-3 py-2 border border-neutral-200 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               required
             >
@@ -221,12 +214,12 @@ const QnAForm: React.FC = () => {
             <input
               type="text"
               value={formData.title}
-              onChange={(e) => handleInputChange('title', e.target.value)}
+              onChange={(e) => handleInputChange("title", e.target.value)}
               placeholder="질문 제목을 입력해주세요 (5-100자)"
               className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
-                errors.title 
-                  ? 'border-red-300 dark:border-red-600' 
-                  : 'border-neutral-200 dark:border-neutral-600'
+                errors.title
+                  ? "border-red-300 dark:border-red-600"
+                  : "border-neutral-200 dark:border-neutral-600"
               }`}
               maxLength={100}
               required
@@ -248,13 +241,13 @@ const QnAForm: React.FC = () => {
             </label>
             <textarea
               value={formData.content}
-              onChange={(e) => handleInputChange('content', e.target.value)}
+              onChange={(e) => handleInputChange("content", e.target.value)}
               placeholder="질문 내용을 자세히 적어주세요 (10-5000자)"
               rows={15}
               className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none ${
-                errors.content 
-                  ? 'border-red-300 dark:border-red-600' 
-                  : 'border-neutral-200 dark:border-neutral-600'
+                errors.content
+                  ? "border-red-300 dark:border-red-600"
+                  : "border-neutral-200 dark:border-neutral-600"
               }`}
               maxLength={5000}
               required
@@ -276,10 +269,15 @@ const QnAForm: React.FC = () => {
                 type="checkbox"
                 id="isSecret"
                 checked={formData.isSecret}
-                onChange={(e) => handleInputChange('isSecret', e.target.checked)}
+                onChange={(e) =>
+                  handleInputChange("isSecret", e.target.checked)
+                }
                 className="w-4 h-4 text-primary-600 bg-neutral-100 border-neutral-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-neutral-800 dark:bg-neutral-700 dark:border-neutral-600"
               />
-              <label htmlFor="isSecret" className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <label
+                htmlFor="isSecret"
+                className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300"
+              >
                 {formData.isSecret ? (
                   <>
                     <Lock className="w-4 h-4 text-amber-600" />
@@ -294,10 +292,9 @@ const QnAForm: React.FC = () => {
               </label>
             </div>
             <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
-              {formData.isSecret 
-                ? '작성자와 관리자만 볼 수 있는 비밀글입니다.' 
-                : '모든 사용자가 볼 수 있는 공개글입니다.'
-              }
+              {formData.isSecret
+                ? "작성자와 관리자만 볼 수 있는 비밀글입니다."
+                : "모든 사용자가 볼 수 있는 공개글입니다."}
             </p>
           </div>
 
@@ -305,7 +302,7 @@ const QnAForm: React.FC = () => {
           <div className="flex gap-3 pt-4">
             <Button
               type="button"
-              onClick={() => navigate('/board/qna')}
+              onClick={() => navigate("/board/qna")}
               variant="outline"
               className="flex-1"
               disabled={loading}
@@ -320,12 +317,12 @@ const QnAForm: React.FC = () => {
               {loading ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  {isEditMode ? '수정 중...' : '등록 중...'}
+                  {isEditMode ? "수정 중..." : "등록 중..."}
                 </>
               ) : (
                 <>
                   <Save className="w-4 h-4 mr-2" />
-                  {isEditMode ? '수정하기' : '등록하기'}
+                  {isEditMode ? "수정하기" : "등록하기"}
                 </>
               )}
             </Button>

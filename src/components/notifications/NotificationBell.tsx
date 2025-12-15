@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Bell,
   BellRing,
@@ -15,20 +15,22 @@ import {
   UserPlus,
   Shield,
   Activity,
-  ExternalLink
-} from 'lucide-react';
-import { useNotifications } from '../../contexts/NotificationContext';
-import { Notification } from '../../services/notificationService';
-import Button from '../common/Button';
+  ExternalLink,
+} from "lucide-react";
+import { useNotifications } from "../../contexts/NotificationContext";
+import { Notification } from "../../services/notificationService";
+import Button from "../common/Button";
 
-import { formatRelativeTime } from '../../utils/dateUtils';
-import { useNavigate } from 'react-router-dom';
+import { formatRelativeTime } from "../../utils/dateUtils";
+import { useNavigate } from "react-router-dom";
 
 interface NotificationBellProps {
   className?: string;
 }
 
-const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) => {
+const NotificationBell: React.FC<NotificationBellProps> = ({
+  className = "",
+}) => {
   const navigate = useNavigate();
   const {
     notifications,
@@ -43,7 +45,7 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
     soundEnabled,
     setSoundEnabled,
     showDesktopNotifications,
-    setShowDesktopNotifications
+    setShowDesktopNotifications,
   } = useNotifications();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -54,33 +56,36 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
   // 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
         setShowSettings(false);
         setShowFilters(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // 알림 타입별 아이콘
-  const getNotificationIcon = (type: Notification['type']) => {
+  const getNotificationIcon = (type: Notification["type"]) => {
     switch (type) {
-      case 'qna':
+      case "qna":
         return <MessageCircle className="w-4 h-4" />;
-      case 'resource':
+      case "resource":
         return <FileText className="w-4 h-4" />;
-      case 'quote':
+      case "quote":
         return <FileText className="w-4 h-4" />;
-      case 'file':
+      case "file":
         return <Upload className="w-4 h-4" />;
-      case 'user':
+      case "user":
         return <UserPlus className="w-4 h-4" />;
-      case 'admin':
+      case "admin":
         return <Shield className="w-4 h-4" />;
-      case 'system':
+      case "system":
         return <Activity className="w-4 h-4" />;
       default:
         return <Bell className="w-4 h-4" />;
@@ -88,18 +93,18 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
   };
 
   // 우선순위별 색상
-  const getPriorityColor = (priority: Notification['priority']) => {
+  const getPriorityColor = (priority: Notification["priority"]) => {
     switch (priority) {
-      case 'urgent':
-        return 'text-red-600 bg-red-50 border-red-200';
-      case 'high':
-        return 'text-orange-600 bg-orange-50 border-orange-200';
-      case 'normal':
-        return 'text-blue-600 bg-blue-50 border-blue-200';
-      case 'low':
-        return 'text-gray-600 bg-gray-50 border-gray-200';
+      case "urgent":
+        return "text-red-600 bg-red-50 border-red-200";
+      case "high":
+        return "text-orange-600 bg-orange-50 border-orange-200";
+      case "normal":
+        return "text-blue-600 bg-blue-50 border-blue-200";
+      case "low":
+        return "text-gray-600 bg-gray-50 border-gray-200";
       default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
+        return "text-gray-600 bg-gray-50 border-gray-200";
     }
   };
 
@@ -119,7 +124,7 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
   const handleFilterChange = (key: keyof typeof filters, value: any) => {
     setFilters({
       ...filters,
-      [key]: value === 'all' ? undefined : value
+      [key]: value === "all" ? undefined : value,
     });
   };
 
@@ -135,7 +140,7 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
         ) : (
           <Bell className="w-6 h-6" />
         )}
-        
+
         {/* Unread Badge */}
         {unreadCount > 0 && (
           <motion.span
@@ -143,7 +148,7 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
             animate={{ scale: 1 }}
             className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium"
           >
-            {unreadCount > 99 ? '99+' : unreadCount}
+            {unreadCount > 99 ? "99+" : unreadCount}
           </motion.span>
         )}
       </button>
@@ -196,7 +201,7 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
                     모두 읽음
                   </Button>
                 )}
-                
+
                 <Button
                   size="sm"
                   variant="outline"
@@ -214,15 +219,17 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
               {showFilters && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
+                  animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   className="border-b border-gray-200 dark:border-gray-700"
                 >
                   <div className="p-4 space-y-3">
                     <div className="grid grid-cols-2 gap-2">
                       <select
-                        value={filters.type || 'all'}
-                        onChange={(e) => handleFilterChange('type', e.target.value)}
+                        value={filters.type || "all"}
+                        onChange={(e) =>
+                          handleFilterChange("type", e.target.value)
+                        }
                         className="px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-primary dark:bg-gray-700 dark:text-white"
                       >
                         <option value="all">모든 타입</option>
@@ -236,8 +243,19 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
                       </select>
 
                       <select
-                        value={filters.isRead === undefined ? 'all' : filters.isRead.toString()}
-                        onChange={(e) => handleFilterChange('isRead', e.target.value === 'all' ? undefined : e.target.value === 'true')}
+                        value={
+                          filters.isRead === undefined
+                            ? "all"
+                            : filters.isRead.toString()
+                        }
+                        onChange={(e) =>
+                          handleFilterChange(
+                            "isRead",
+                            e.target.value === "all"
+                              ? undefined
+                              : e.target.value === "true"
+                          )
+                        }
                         className="px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-primary dark:bg-gray-700 dark:text-white"
                       >
                         <option value="all">전체</option>
@@ -247,8 +265,10 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
                     </div>
 
                     <select
-                      value={filters.priority || 'all'}
-                      onChange={(e) => handleFilterChange('priority', e.target.value)}
+                      value={filters.priority || "all"}
+                      onChange={(e) =>
+                        handleFilterChange("priority", e.target.value)
+                      }
                       className="w-full px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-primary dark:bg-gray-700 dark:text-white"
                     >
                       <option value="all">모든 우선순위</option>
@@ -267,7 +287,7 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
               {showSettings && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
+                  animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   className="border-b border-gray-200 dark:border-gray-700"
                 >
@@ -291,7 +311,9 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
                       <input
                         type="checkbox"
                         checked={showDesktopNotifications}
-                        onChange={(e) => setShowDesktopNotifications(e.target.checked)}
+                        onChange={(e) =>
+                          setShowDesktopNotifications(e.target.checked)
+                        }
                         className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
                       />
                     </label>
@@ -324,27 +346,35 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       className={`p-4 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors ${
-                        !notification.isRead ? 'bg-blue-50 dark:bg-blue-900/20' : ''
+                        !notification.isRead
+                          ? "bg-blue-50 dark:bg-blue-900/20"
+                          : ""
                       }`}
                     >
                       <div className="flex items-start gap-3">
                         {/* Icon */}
-                        <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                          getPriorityColor(notification.priority)
-                        }`}>
+                        <div
+                          className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${getPriorityColor(
+                            notification.priority
+                          )}`}
+                        >
                           {getNotificationIcon(notification.type)}
                         </div>
 
                         {/* Content */}
-                        <div 
+                        <div
                           className="flex-1 min-w-0"
                           onClick={() => handleNotificationClick(notification)}
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
-                              <h4 className={`text-sm font-medium ${
-                                !notification.isRead ? 'text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-300'
-                              }`}>
+                              <h4
+                                className={`text-sm font-medium ${
+                                  !notification.isRead
+                                    ? "text-gray-900 dark:text-white"
+                                    : "text-gray-700 dark:text-gray-300"
+                                }`}
+                              >
                                 {notification.title}
                                 {!notification.isRead && (
                                   <span className="ml-2 w-2 h-2 bg-blue-500 rounded-full inline-block"></span>
@@ -353,21 +383,30 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
                               <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
                                 {notification.message}
                               </p>
-                              
+
                               {/* Time and Priority */}
                               <div className="flex items-center gap-2 mt-2">
                                 <span className="text-xs text-gray-500 dark:text-gray-500">
-                                  {formatRelativeTime(notification.createdAt.toDate())}
+                                  {formatRelativeTime(
+                                    notification.createdAt.toDate()
+                                  )}
                                 </span>
-                                
-                                {notification.priority !== 'normal' && (
-                                  <span className={`text-xs px-2 py-1 rounded-full ${
-                                    notification.priority === 'urgent' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                                    notification.priority === 'high' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
-                                    'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-400'
-                                  }`}>
-                                    {notification.priority === 'urgent' ? '긴급' : 
-                                     notification.priority === 'high' ? '높음' : '낮음'}
+
+                                {notification.priority !== "normal" && (
+                                  <span
+                                    className={`text-xs px-2 py-1 rounded-full ${
+                                      notification.priority === "urgent"
+                                        ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                                        : notification.priority === "high"
+                                        ? "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"
+                                        : "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+                                    }`}
+                                  >
+                                    {notification.priority === "urgent"
+                                      ? "긴급"
+                                      : notification.priority === "high"
+                                      ? "높음"
+                                      : "낮음"}
                                   </span>
                                 )}
 
@@ -392,7 +431,7 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
                                   <Check className="w-3 h-3" />
                                 </Button>
                               )}
-                              
+
                               <Button
                                 size="sm"
                                 variant="ghost"
@@ -420,7 +459,7 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ className = '' }) =
                 <Button
                   variant="ghost"
                   onClick={() => {
-                    navigate('/notifications');
+                    navigate("/notifications");
                     setIsOpen(false);
                   }}
                   className="text-sm text-primary hover:text-primary-dark"

@@ -46,9 +46,9 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="mb-6">
-              <img 
-                src="/images/logo_horizontal_trans.png" 
-                alt="한국환경안전연구소" 
+              <img
+                src="/images/logo_horizontal_trans.png"
+                alt="한국환경안전연구소"
                 className="h-12 w-auto object-contain"
               />
             </div>
@@ -143,15 +143,13 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary-400 flex-shrink-0" />
-                <span className="text-sm">
-                  FAX: 043.237.7626
-                </span>
+                <span className="text-sm">FAX: 043.237.7626</span>
               </li>
               <li className="flex items-center space-x-3">
-                <span className="w-5 h-5 text-primary-400 flex-shrink-0 text-center text-xs">📄</span>
-                <span className="text-sm">
-                  사업자등록번호: 317-81-01323
+                <span className="w-5 h-5 text-primary-400 flex-shrink-0 text-center text-xs">
+                  📄
                 </span>
+                <span className="text-sm">사업자등록번호: 317-81-01323</span>
               </li>
             </ul>
 

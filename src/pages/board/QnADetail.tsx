@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import {
-  ArrowLeft,
-  MessageSquare,
-  Clock,
-  User,
-  Trash2,
-} from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
-import { 
-  getQnAById, 
-  deleteQnA
-} from '../../services/qnaService';
-import { QnA } from '../../types';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { ArrowLeft, MessageSquare, Clock, User, Trash2 } from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
+import { getQnAById, deleteQnA } from "../../services/qnaService";
+import { QnA } from "../../types";
 
 const QnADetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,25 +20,27 @@ const QnADetail: React.FC = () => {
       try {
         setLoading(true);
         const qnaData = await getQnAById(id);
-        
+
         if (!qnaData) {
           return;
         }
 
         // 비밀글인 경우 권한 확인
-        if (qnaData.isSecret && 
-            qnaData.authorId !== user?.uid && 
-            userData?.role !== 'admin') {
-          alert('비밀글입니다. 작성자와 관리자만 볼 수 있습니다.');
-          navigate('/board/qna');
+        if (
+          qnaData.isSecret &&
+          qnaData.authorId !== user?.uid &&
+          userData?.role !== "admin"
+        ) {
+          alert("비밀글입니다. 작성자와 관리자만 볼 수 있습니다.");
+          navigate("/board/qna");
           return;
         }
 
         setQnA(qnaData);
-        
+
         // 조회수는 자동으로 증가됨
       } catch (error) {
-        console.error('QnA 로드 실패:', error);
+        console.error("QnA 로드 실패:", error);
       } finally {
         setLoading(false);
       }
@@ -60,40 +53,46 @@ const QnADetail: React.FC = () => {
     if (!qna || !user) return;
 
     // 권한 확인
-    if (qna.authorId !== user.uid && userData?.role !== 'admin') {
-      alert('삭제 권한이 없습니다.');
+    if (qna.authorId !== user.uid && userData?.role !== "admin") {
+      alert("삭제 권한이 없습니다.");
       return;
     }
 
-    if (window.confirm('정말로 삭제하시겠습니까?')) {
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
       try {
         await deleteQnA(qna.id);
-        navigate('/board/qna');
+        navigate("/board/qna");
       } catch (error) {
-        console.error('삭제 실패:', error);
-        alert('삭제에 실패했습니다.');
+        console.error("삭제 실패:", error);
+        alert("삭제에 실패했습니다.");
       }
     }
   };
 
   const formatDate = (dateValue: string | Date) => {
-    const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
-    return new Intl.DateTimeFormat('ko-KR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
+    const date =
+      typeof dateValue === "string" ? new Date(dateValue) : dateValue;
+    return new Intl.DateTimeFormat("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     }).format(date);
   };
 
   const getCategoryLabel = (category: string) => {
     switch (category) {
-      case 'general': return '일반문의';
-      case 'technical': return '기술문의';
-      case 'account': return '계정문의';
-      case 'complaint': return '불만신고';
-      default: return category;
+      case "general":
+        return "일반문의";
+      case "technical":
+        return "기술문의";
+      case "account":
+        return "계정문의";
+      case "complaint":
+        return "불만신고";
+      default:
+        return category;
     }
   };
 
@@ -109,7 +108,9 @@ const QnADetail: React.FC = () => {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
-          <h2 className="text-xl font-semibold mb-4">게시글을 찾을 수 없습니다</h2>
+          <h2 className="text-xl font-semibold mb-4">
+            게시글을 찾을 수 없습니다
+          </h2>
           <Link to="/board/qna" className="text-primary-600 hover:underline">
             목록으로 돌아가기
           </Link>
@@ -146,7 +147,7 @@ const QnADetail: React.FC = () => {
                     비밀글
                   </span>
                 )}
-                {qna.status === 'answered' && (
+                {qna.status === "answered" && (
                   <span className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium">
                     답변완료
                   </span>
@@ -170,9 +171,9 @@ const QnADetail: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* 관리 버튼 */}
-            {(qna.authorId === user?.uid || userData?.role === 'admin') && (
+            {(qna.authorId === user?.uid || userData?.role === "admin") && (
               <div className="flex items-center gap-2">
                 <Link
                   to={`/board/qna/edit/${qna.id}`}
@@ -194,17 +195,21 @@ const QnADetail: React.FC = () => {
 
         {/* 내용 */}
         <div className="p-6">
-          <div 
+          <div
             className="prose prose-neutral dark:prose-invert max-w-none"
-            dangerouslySetInnerHTML={{ __html: qna.content.replace(/\n/g, '<br>') }}
+            dangerouslySetInnerHTML={{
+              __html: qna.content.replace(/\n/g, "<br>"),
+            }}
           />
         </div>
 
         {/* 답변 섹션 */}
-        {qna.status === 'answered' && (
+        {qna.status === "answered" && (
           <div className="border-t border-neutral-200 dark:border-neutral-700">
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 border-b border-neutral-200 dark:border-neutral-700">
-              <h3 className="font-semibold text-blue-900 dark:text-blue-100">관리자 답변</h3>
+              <h3 className="font-semibold text-blue-900 dark:text-blue-100">
+                관리자 답변
+              </h3>
             </div>
             <div className="p-6">
               <div className="flex items-start gap-4">

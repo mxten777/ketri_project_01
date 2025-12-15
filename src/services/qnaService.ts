@@ -26,7 +26,7 @@ export const getQnAList = async (): Promise<QnA[]> => {
       orderBy("isPinned", "desc"),
       orderBy("createdAt", "desc")
     );
-    
+
     const querySnapshot = await getDocs(q);
     const qnaList: QnA[] = [];
 
@@ -165,7 +165,7 @@ export const addAnswer = async (
 ): Promise<void> => {
   try {
     const batch = writeBatch(db);
-    
+
     // QnA 문서 업데이트
     const qnaRef = doc(db, QNA_COLLECTION, qnaId);
     batch.update(qnaRef, {
@@ -235,7 +235,10 @@ export const updateQnAStatus = async (
 };
 
 // QnA 핀 고정/해제 (관리자용)
-export const toggleQnAPin = async (id: string, isPinned: boolean): Promise<void> => {
+export const toggleQnAPin = async (
+  id: string,
+  isPinned: boolean
+): Promise<void> => {
   try {
     const docRef = doc(db, QNA_COLLECTION, id);
     await updateDoc(docRef, {
@@ -256,7 +259,7 @@ export const getMyQnAList = async (userId: string): Promise<QnA[]> => {
       where("authorId", "==", userId),
       orderBy("createdAt", "desc")
     );
-    
+
     const querySnapshot = await getDocs(q);
     const qnaList: QnA[] = [];
 
@@ -297,7 +300,7 @@ export const getQnAByCategory = async (category: string): Promise<QnA[]> => {
       where("category", "==", category),
       orderBy("createdAt", "desc")
     );
-    
+
     const querySnapshot = await getDocs(q);
     const qnaList: QnA[] = [];
 
@@ -344,13 +347,16 @@ export const deleteQna = async (id: string): Promise<void> => {
   }
 };
 
-export const toggleAnswered = async (id: string, answered: boolean): Promise<void> => {
+export const toggleAnswered = async (
+  id: string,
+  answered: boolean
+): Promise<void> => {
   try {
     const qnaRef = doc(db, QNA_COLLECTION, id);
     await updateDoc(qnaRef, {
       status: answered ? "answered" : "pending",
       answeredAt: answered ? serverTimestamp() : null,
-      updatedAt: serverTimestamp()
+      updatedAt: serverTimestamp(),
     });
   } catch (error) {
     console.error("Error toggling answered status:", error);

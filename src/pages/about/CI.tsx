@@ -1,12 +1,32 @@
-import { motion } from 'framer-motion';
-import { Palette, Eye, Heart, Target, Lightbulb, Shield } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Palette, Eye, Heart, Target, Lightbulb, Shield } from "lucide-react";
 
 const CI = () => {
   const colors = [
-    { name: 'Primary Blue', hex: '#2563eb', rgb: 'RGB(37, 99, 235)', description: '신뢰성과 전문성' },
-    { name: 'Secondary Green', hex: '#059669', rgb: 'RGB(5, 150, 105)', description: '환경과 성장' },
-    { name: 'Accent Orange', hex: '#ea580c', rgb: 'RGB(234, 88, 12)', description: '활력과 혁신' },
-    { name: 'Neutral Gray', hex: '#6b7280', rgb: 'RGB(107, 114, 128)', description: '균형과 안정' }
+    {
+      name: "Primary Blue",
+      hex: "#2563eb",
+      rgb: "RGB(37, 99, 235)",
+      description: "신뢰성과 전문성",
+    },
+    {
+      name: "Secondary Green",
+      hex: "#059669",
+      rgb: "RGB(5, 150, 105)",
+      description: "환경과 성장",
+    },
+    {
+      name: "Accent Orange",
+      hex: "#ea580c",
+      rgb: "RGB(234, 88, 12)",
+      description: "활력과 혁신",
+    },
+    {
+      name: "Neutral Gray",
+      hex: "#6b7280",
+      rgb: "RGB(107, 114, 128)",
+      description: "균형과 안정",
+    },
   ];
 
   return (
@@ -38,17 +58,19 @@ const CI = () => {
           className="text-center mb-16"
         >
           <h2 className="heading-lg mb-8">브랜드 로고</h2>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Logo Display */}
             <div className="space-y-8">
               {/* Light Mode Logo */}
               <div className="bg-white rounded-2xl p-8 shadow-soft">
-                <h3 className="text-lg font-bold mb-4 text-neutral-800">라이트 모드</h3>
+                <h3 className="text-lg font-bold mb-4 text-neutral-800">
+                  라이트 모드
+                </h3>
                 <div className="bg-neutral-50 rounded-xl p-8 flex items-center justify-center">
-                  <img 
-                    src="/images/logo_horizontal.png" 
-                    alt="KETRI Logo Light" 
+                  <img
+                    src="/images/logo_horizontal.png"
+                    alt="KETRI Logo Light"
                     className="h-16 object-contain"
                   />
                 </div>
@@ -58,9 +80,9 @@ const CI = () => {
               <div className="bg-neutral-800 rounded-2xl p-8 shadow-soft">
                 <h3 className="text-lg font-bold mb-4 text-white">다크 모드</h3>
                 <div className="bg-neutral-700 rounded-xl p-8 flex items-center justify-center">
-                  <img 
-                    src="/images/logo_horizontal_trans.png" 
-                    alt="KETRI Logo Dark" 
+                  <img
+                    src="/images/logo_horizontal_trans.png"
+                    alt="KETRI Logo Dark"
                     className="h-16 object-contain"
                   />
                 </div>
@@ -72,17 +94,18 @@ const CI = () => {
               <h3 className="text-2xl font-bold mb-6">로고의 의미</h3>
               <div className="prose dark:prose-invert max-w-none">
                 <p className="text-lg mb-6">
-                  한국환경안전연구소의 로고는 <strong>환경보호</strong>와 <strong>안전</strong>이라는 
-                  핵심 가치를 시각적으로 표현합니다.
+                  한국환경안전연구소의 로고는 <strong>환경보호</strong>와{" "}
+                  <strong>안전</strong>이라는 핵심 가치를 시각적으로 표현합니다.
                 </p>
-                
+
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
                     <div className="w-3 h-3 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
                     <div>
                       <h4 className="font-bold mb-2">신뢰성</h4>
                       <p className="text-neutral-600 dark:text-neutral-400">
-                        깔끔하고 전문적인 디자인으로 신뢰할 수 있는 기관임을 표현
+                        깔끔하고 전문적인 디자인으로 신뢰할 수 있는 기관임을
+                        표현
                       </p>
                     </div>
                   </div>
@@ -120,7 +143,7 @@ const CI = () => {
           className="mb-16"
         >
           <h2 className="heading-lg text-center mb-12">브랜드 컬러</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {colors.map((color, index) => (
               <motion.div
@@ -130,17 +153,23 @@ const CI = () => {
                 transition={{ duration: 0.6, delay: 0.1 * index }}
                 className="bg-white dark:bg-neutral-800 rounded-2xl overflow-hidden shadow-soft"
               >
-                <div 
+                <div
                   className="h-24 w-full"
                   style={{ backgroundColor: color.hex }}
                 ></div>
                 <div className="p-6">
                   <h4 className="font-bold text-lg mb-2">{color.name}</h4>
                   <div className="text-sm space-y-1 mb-3">
-                    <div className="font-mono text-neutral-600 dark:text-neutral-400">{color.hex}</div>
-                    <div className="font-mono text-neutral-600 dark:text-neutral-400">{color.rgb}</div>
+                    <div className="font-mono text-neutral-600 dark:text-neutral-400">
+                      {color.hex}
+                    </div>
+                    <div className="font-mono text-neutral-600 dark:text-neutral-400">
+                      {color.rgb}
+                    </div>
                   </div>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">{color.description}</p>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    {color.description}
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -155,7 +184,7 @@ const CI = () => {
           className="mb-16"
         >
           <h2 className="heading-lg text-center mb-12">브랜드 가치</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="text-center p-8 bg-white dark:bg-neutral-800 rounded-2xl shadow-soft">
               <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -226,11 +255,15 @@ const CI = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-8"
         >
-          <h2 className="text-2xl font-bold text-center mb-8">CI 사용 가이드라인</h2>
-          
+          <h2 className="text-2xl font-bold text-center mb-8">
+            CI 사용 가이드라인
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-lg font-bold mb-4 text-green-600">권장사항</h3>
+              <h3 className="text-lg font-bold mb-4 text-green-600">
+                권장사항
+              </h3>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>

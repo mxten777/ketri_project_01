@@ -1,39 +1,52 @@
-import { motion } from 'framer-motion';
-import { MapPin, Clock, Car, Bus, Phone, Mail, Navigation, Route } from 'lucide-react';
+import { motion } from "framer-motion";
+import {
+  MapPin,
+  Clock,
+  Car,
+  Bus,
+  Phone,
+  Mail,
+  Navigation,
+  Route,
+} from "lucide-react";
 
 const Location = () => {
   const transportInfo = [
     {
-      type: '자가용',
+      type: "자가용",
       icon: Car,
       routes: [
-        '경부고속도로 → 청주IC → 청주시내 → 서원구 남이면',
-        '중부고속도로 → 남청주IC → 서원구 방향 → 남이면',
-        '청주시내에서 36번 국도 → 남이면 → 양동3길'
-      ]
+        "경부고속도로 → 청주IC → 청주시내 → 서원구 남이면",
+        "중부고속도로 → 남청주IC → 서원구 방향 → 남이면",
+        "청주시내에서 36번 국도 → 남이면 → 양동3길",
+      ],
     },
     {
-      type: '대중교통',
+      type: "대중교통",
       icon: Bus,
       routes: [
-        '청주시외버스터미널 → 남이면행 시내버스',
-        '청주역 → 남이면행 버스 이용',
-        '청주공항 → 시내버스 환승 → 남이면'
-      ]
-    }
+        "청주시외버스터미널 → 남이면행 시내버스",
+        "청주역 → 남이면행 버스 이용",
+        "청주공항 → 시내버스 환승 → 남이면",
+      ],
+    },
   ];
 
   const landmarks = [
-    { name: '청주시청', distance: '15km', time: '20분' },
-    { name: '청주대학교', distance: '8km', time: '12분' },
-    { name: '청주공항', distance: '25km', time: '30분' },
-    { name: '청주역', distance: '18km', time: '25분' }
+    { name: "청주시청", distance: "15km", time: "20분" },
+    { name: "청주대학교", distance: "8km", time: "12분" },
+    { name: "청주공항", distance: "25km", time: "30분" },
+    { name: "청주역", distance: "18km", time: "25분" },
   ];
 
   const operatingHours = [
-    { day: '월요일 - 금요일', time: '09:00 - 18:00', note: '점심시간: 12:00 - 13:00' },
-    { day: '토요일', time: '09:00 - 13:00', note: '오후 휴무' },
-    { day: '일요일/공휴일', time: '휴무', note: '응급시 전화 문의' }
+    {
+      day: "월요일 - 금요일",
+      time: "09:00 - 18:00",
+      note: "점심시간: 12:00 - 13:00",
+    },
+    { day: "토요일", time: "09:00 - 13:00", note: "오후 휴무" },
+    { day: "일요일/공휴일", time: "휴무", note: "응급시 전화 문의" },
   ];
 
   return (
@@ -68,7 +81,7 @@ const Location = () => {
           <div className="space-y-8">
             <div>
               <h2 className="text-2xl font-bold mb-6">연락처 정보</h2>
-              
+
               <div className="space-y-6">
                 <div className="flex items-start gap-4 p-6 bg-white dark:bg-neutral-800 rounded-2xl shadow-soft">
                   <MapPin className="w-6 h-6 text-primary-500 mt-1" />
@@ -114,10 +127,17 @@ const Location = () => {
             {/* Operating Hours */}
             <div>
               <h3 className="text-xl font-bold mb-4">운영시간</h3>
-              
+
               <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-soft overflow-hidden">
                 {operatingHours.map((schedule, index) => (
-                  <div key={schedule.day} className={`p-4 ${index < operatingHours.length - 1 ? 'border-b border-neutral-200 dark:border-neutral-700' : ''}`}>
+                  <div
+                    key={schedule.day}
+                    className={`p-4 ${
+                      index < operatingHours.length - 1
+                        ? "border-b border-neutral-200 dark:border-neutral-700"
+                        : ""
+                    }`}
+                  >
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="font-medium">{schedule.day}</div>
@@ -126,7 +146,13 @@ const Location = () => {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className={`font-bold ${schedule.time === '휴무' ? 'text-red-500' : 'text-green-600 dark:text-green-400'}`}>
+                        <div
+                          className={`font-bold ${
+                            schedule.time === "휴무"
+                              ? "text-red-500"
+                              : "text-green-600 dark:text-green-400"
+                          }`}
+                        >
                           {schedule.time}
                         </div>
                       </div>
@@ -140,7 +166,7 @@ const Location = () => {
           {/* Map Placeholder */}
           <div className="space-y-6">
             <h3 className="text-xl font-bold">위치 안내</h3>
-            
+
             <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-soft overflow-hidden">
               <div className="aspect-[4/3] bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
                 <div className="text-center">
@@ -151,13 +177,13 @@ const Location = () => {
                   </p>
                 </div>
               </div>
-              
+
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <Navigation className="w-5 h-5 text-primary-500" />
                   <span className="font-medium">길찾기</span>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-3">
                   <button className="flex items-center justify-center gap-2 py-2 px-4 bg-green-500 text-white rounded-lg text-sm hover:bg-green-600 transition-colors">
                     <span>네이버맵</span>
@@ -179,7 +205,7 @@ const Location = () => {
           className="mb-16"
         >
           <h2 className="heading-lg text-center mb-12">교통안내</h2>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {transportInfo.map((transport, index) => {
               const Icon = transport.icon;
@@ -197,7 +223,7 @@ const Location = () => {
                     </div>
                     <h3 className="text-xl font-bold">{transport.type}</h3>
                   </div>
-                  
+
                   <div className="space-y-4">
                     {transport.routes.map((route, routeIndex) => (
                       <div key={routeIndex} className="flex items-start gap-3">
@@ -222,7 +248,7 @@ const Location = () => {
           className="mb-16"
         >
           <h2 className="heading-lg text-center mb-12">주요 랜드마크</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {landmarks.map((landmark, index) => (
               <motion.div
@@ -256,8 +282,10 @@ const Location = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-8"
         >
-          <h2 className="text-2xl font-bold text-center mb-8">주차 및 방문 안내</h2>
-          
+          <h2 className="text-2xl font-bold text-center mb-8">
+            주차 및 방문 안내
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -265,7 +293,8 @@ const Location = () => {
               </div>
               <h3 className="font-bold mb-2">주차공간</h3>
               <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                충분한 주차공간 확보<br />
+                충분한 주차공간 확보
+                <br />
                 무료 주차 가능
               </p>
             </div>
@@ -276,7 +305,8 @@ const Location = () => {
               </div>
               <h3 className="font-bold mb-2">방문 예약</h3>
               <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                사전 방문 예약 권장<br />
+                사전 방문 예약 권장
+                <br />
                 전화 또는 이메일 문의
               </p>
             </div>
@@ -287,7 +317,8 @@ const Location = () => {
               </div>
               <h3 className="font-bold mb-2">연락처</h3>
               <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                043.237.7624~5<br />
+                043.237.7624~5
+                <br />
                 평일 09:00-18:00
               </p>
             </div>
@@ -295,8 +326,9 @@ const Location = () => {
 
           <div className="mt-8 p-6 bg-white dark:bg-neutral-800 rounded-xl text-center">
             <p className="text-neutral-600 dark:text-neutral-300">
-              <strong>방문 시 참고사항:</strong> 시료 접수나 상담을 위한 방문시에는 
-              사전에 전화로 연락해 주시면 더욱 신속한 서비스를 받으실 수 있습니다.
+              <strong>방문 시 참고사항:</strong> 시료 접수나 상담을 위한
+              방문시에는 사전에 전화로 연락해 주시면 더욱 신속한 서비스를 받으실
+              수 있습니다.
             </p>
           </div>
         </motion.div>

@@ -3,10 +3,12 @@ const Asbestos = () => {
     <div className="min-h-screen">
       <div className="bg-gradient-to-br from-orange-600 to-red-600 text-white py-16 lg:py-24">
         <div className="container-custom">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">석면조사 및 분석</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold mb-4">
+            석면조사 및 분석
+          </h1>
           <p className="text-lg">
-            환경부 지정 석면조사기관\n
-            석면안전관리법에 따른 전문적이고 체계적인 석면 안전관리 서비스
+            환경부 지정 석면조사기관\n 석면안전관리법에 따른 전문적이고 체계적인
+            석면 안전관리 서비스
           </p>
         </div>
       </div>
@@ -16,10 +18,11 @@ const Asbestos = () => {
           <h2 className="heading-md mb-6">석면조사·분석 서비스</h2>
           <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
-              한국환경안전연구소는 환경부 지정 석면조사기관(등록번호: 2017-AB-001)으로 
-              2017년부터 1,200여 건의 석면조사 및 3,000여 건의 석면분석을 수행해왔습니다. 
-              석면안전관리법, 산업안전보건법, 환경정책기본법 등 관련 법령에 따른 
-              전문적이고 체계적인 석면 안전관리 서비스를 제공합니다.
+              한국환경안전연구소는 환경부 지정 석면조사기관(등록번호:
+              2017-AB-001)으로 2017년부터 1,200여 건의 석면조사 및 3,000여 건의
+              석면분석을 수행해왔습니다. 석면안전관리법, 산업안전보건법,
+              환경정책기본법 등 관련 법령에 따른 전문적이고 체계적인 석면
+              안전관리 서비스를 제공합니다.
             </p>
 
             <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-6 mb-8">

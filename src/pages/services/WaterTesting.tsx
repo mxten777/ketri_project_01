@@ -3,9 +3,13 @@ const WaterTesting = () => {
     <div className="min-h-screen">
       <div className="bg-gradient-to-br from-cyan-600 to-blue-600 text-white py-16 lg:py-24">
         <div className="container-custom">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">먹는물 수질검사</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold mb-4">
+            먹는물 수질검사
+          </h1>
           <p className="text-lg">
-            환경부 지정 수질검사기관 (KOLAS 인증)\uC73c로 59개 항목 수질검사 서비스\n            먹는물관리법과 수돇법에 따른 정확하고 신속한 분석으로 안전한 먹는물을 책임집니다
+            환경부 지정 수질검사기관 (KOLAS 인증)\uC73c로 59개 항목 수질검사
+            서비스\n 먹는물관리법과 수돇법에 따른 정확하고 신속한 분석으로
+            안전한 먹는물을 책임집니다
           </p>
         </div>
       </div>
@@ -15,9 +19,10 @@ const WaterTesting = () => {
           <h2 className="heading-md mb-6">먹는물 수질검사 서비스</h2>
           <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
-              한국환경안전연구소는 환경부 지정 수질검사기관(KOLAS No.KT-1234)으로 
-              2017년부터 5,000여 건의 수질검사를 수행했습니다. ISO/IEC 17025 국제 표준에 따른 
-              품질관리 시스템으로 59개 항목의 정확하고 신속한 수질검사 서비스를 제공합니다.
+              한국환경안전연구소는 환경부 지정 수질검사기관(KOLAS
+              No.KT-1234)으로 2017년부터 5,000여 건의 수질검사를 수행했습니다.
+              ISO/IEC 17025 국제 표준에 따른 품질관리 시스템으로 59개 항목의
+              정확하고 신속한 수질검사 서비스를 제공합니다.
             </p>
 
             <h3 className="text-2xl font-bold mt-8 mb-4">검사 대상 시설</h3>
@@ -59,12 +64,15 @@ const WaterTesting = () => {
                 🧪 KOLAS 인증 수질검사 능력 (총 59개 항목)
               </h3>
               <p className="text-neutral-700 dark:text-neutral-300 mb-4">
-                먹는물 수질기준 및 검사 등에 관한 규칙에 따른 전체 59개 항목 분석 가능하며, 
-                ISO/IEC 17025 국제표준에 따른 품질보증 시스템으로 정확한 결과를 제공합니다.
+                먹는물 수질기준 및 검사 등에 관한 규칙에 따른 전체 59개 항목
+                분석 가능하며, ISO/IEC 17025 국제표준에 따른 품질보증 시스템으로
+                정확한 결과를 제공합니다.
               </p>
             </div>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">수질검사 항목 (KOLAS 인증범위)</h3>
+            <h3 className="text-2xl font-bold mt-8 mb-4">
+              수질검사 항목 (KOLAS 인증범위)
+            </h3>
             <div className="overflow-x-auto mb-8">
               <table className="w-full border-collapse">
                 <thead>
@@ -100,8 +108,9 @@ const WaterTesting = () => {
                       15개
                     </td>
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      납, 불소, 비소, 세레늄, 수은, 시안, 크롬(6가), 암모니아성질소,
-                      질산성질소, 카드뮴, 붕소, 브롬산염, 스트론튬, 페놀, 우라늄
+                      납, 불소, 비소, 세레늄, 수은, 시안, 크롬(6가),
+                      암모니아성질소, 질산성질소, 카드뮴, 붕소, 브롬산염,
+                      스트론튬, 페놀, 우라늄
                     </td>
                   </tr>
                   <tr className="bg-white dark:bg-neutral-800">
@@ -112,8 +121,9 @@ const WaterTesting = () => {
                       18개
                     </td>
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      총트리할로메탄, 클로로포름, 브로모디클로로메탄, 디브로모클로로메탄,
-                      브로모포름, 테트라클로로에틸렌, 트리클로로에틸렌, 1,1,1-트리클로로에탄 외
+                      총트리할로메탄, 클로로포름, 브로모디클로로메탄,
+                      디브로모클로로메탄, 브로모포름, 테트라클로로에틸렌,
+                      트리클로로에틸렌, 1,1,1-트리클로로에탄 외
                     </td>
                   </tr>
                   <tr className="bg-neutral-50 dark:bg-neutral-700">
