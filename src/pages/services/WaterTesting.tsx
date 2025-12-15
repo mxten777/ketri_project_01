@@ -20,7 +20,7 @@ const WaterTesting = () => {
           <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 환경부 지정 수질검사기관(KOLAS
-              No.KT-1234)으로 2017년부터 5,000여 건의 수질검사를 수행했습니다.
+              No.KT-1234)으로 2006년부터 5,000여 건의 수질검사를 수행했습니다.
               ISO/IEC 17025 국제 표준에 따른 품질관리 시스템으로 59개 항목의
               정확하고 신속한 수질검사 서비스를 제공합니다.
             </p>

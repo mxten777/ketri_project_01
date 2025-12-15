@@ -2,39 +2,6 @@ import { motion } from "framer-motion";
 import { Users, UserCheck, Building, Award, Droplets, Wind, Shield } from "lucide-react";
 
 const Organization = () => {
-  const departments = [
-    {
-      name: "대표이사",
-      description: "전체 경영 총괄",
-      members: 1,
-      color: "bg-purple-500",
-    },
-    {
-      name: "경영관리팀",
-      description: "경영기획, 인사, 재무, 총무",
-      members: 3,
-      color: "bg-blue-500",
-    },
-    {
-      name: "영업팀",
-      description: "고객관리, 수주, 마케팅",
-      members: 4,
-      color: "bg-green-500",
-    },
-    {
-      name: "기술연구팀",
-      description: "연구개발, 기술지원, 품질관리",
-      members: 8,
-      color: "bg-orange-500",
-    },
-    {
-      name: "분석팀",
-      description: "시료분석, 현장조사, 측정업무",
-      members: 12,
-      color: "bg-red-500",
-    },
-  ];
-
   const certifications = [
     { title: "KOLAS 시험기관 인정", type: "국가공인" },
     { title: "ISO/IEC 17025", type: "국제표준" },
@@ -72,45 +39,45 @@ const Organization = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center mb-16"
         >
-          <h2 className="heading-lg mb-8">조직 현황</h2>
+          <h2 className="heading-lg mb-6 sm:mb-8">조직 현황</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-soft">
-              <Users className="w-12 h-12 text-primary-500 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-2">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
+            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
+              <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-primary-500 mx-auto mb-3 sm:mb-4" />
+              <div className="text-2xl sm:text-3xl font-bold text-primary-600 dark:text-primary-400 mb-1 sm:mb-2">
                 28
               </div>
-              <div className="text-sm text-neutral-600 dark:text-neutral-400">
+              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
                 총 직원 수
               </div>
             </div>
 
-            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-soft">
-              <Building className="w-12 h-12 text-blue-500 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
+              <Building className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-blue-500 mx-auto mb-3 sm:mb-4" />
+              <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1 sm:mb-2">
                 5
               </div>
-              <div className="text-sm text-neutral-600 dark:text-neutral-400">
+              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
                 부서
               </div>
             </div>
 
-            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-soft">
-              <UserCheck className="w-12 h-12 text-green-500 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
+            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
+              <UserCheck className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-green-500 mx-auto mb-3 sm:mb-4" />
+              <div className="text-2xl sm:text-3xl font-bold text-green-600 dark:text-green-400 mb-1 sm:mb-2">
                 85%
               </div>
-              <div className="text-sm text-neutral-600 dark:text-neutral-400">
+              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
                 전문인력 비율
               </div>
             </div>
 
-            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-soft">
-              <Award className="w-12 h-12 text-orange-500 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">
+            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
+              <Award className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-orange-500 mx-auto mb-3 sm:mb-4" />
+              <div className="text-2xl sm:text-3xl font-bold text-orange-600 dark:text-orange-400 mb-1 sm:mb-2">
                 15+
               </div>
-              <div className="text-sm text-neutral-600 dark:text-neutral-400">
+              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
                 보유 자격증
               </div>
             </div>
@@ -122,11 +89,11 @@ const Organization = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-16"
+          className="mb-12 sm:mb-16"
         >
-          <h3 className="text-2xl font-bold text-center mb-12">조직 구성도</h3>
+          <h3 className="text-xl sm:text-2xl font-bold text-center mb-8 sm:mb-12">조직 구성도</h3>
 
-          <div className="bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 rounded-3xl p-8 lg:p-12 shadow-soft">
+          <div className="bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 rounded-3xl p-6 sm:p-8 lg:p-12 shadow-soft">
             <div className="relative max-w-6xl mx-auto">
               {/* CEO Level */}
               <div className="flex flex-col items-center mb-0">
@@ -134,13 +101,13 @@ const Organization = () => {
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.6 }}
-                  className="bg-gradient-to-br from-purple-500 to-purple-700 text-white px-12 py-6 rounded-2xl shadow-premium"
+                  className="bg-gradient-to-br from-purple-500 to-purple-700 text-white px-8 sm:px-12 py-4 sm:py-6 rounded-2xl shadow-premium"
                 >
-                  <div className="text-2xl font-bold text-center">대표 이사</div>
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-center">대표 이사</div>
                 </motion.div>
                 
                 {/* Main vertical line from CEO */}
-                <div className="w-1 h-20 bg-blue-500"></div>
+                <div className="w-1 h-12 sm:h-16 lg:h-20 bg-blue-500"></div>
               </div>
 
               {/* Board Level with Center Line */}

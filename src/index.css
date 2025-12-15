@@ -190,6 +190,23 @@
   @apply bg-neutral-400 dark:bg-neutral-500;
 }
 
+/* Custom Scrollbar for small containers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-neutral-100 dark:bg-neutral-800 rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-primary-300 dark:bg-primary-600 rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-400 dark:bg-primary-500;
+}
+
 /* Selection */
 ::selection {
   @apply bg-primary-500 text-white;

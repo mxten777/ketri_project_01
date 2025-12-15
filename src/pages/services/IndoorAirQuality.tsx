@@ -19,7 +19,7 @@ const IndoorAirQuality = () => {
           <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 환경부 지정 실내공기질 측정대행업체(등록번호:
-              2017-001)로 2017년부터 500여 개 시설의 실내공기질 측정을
+              2017-001)로 2006년부터 500여 개 시설의 실내공기질 측정을
               수행해왔습니다. 실내공기질 관리법에 따른 9개 항목 측정과 더불어
               개선방안 제시, 후속 관리까지 포괄적인 서비스를 제공합니다.
             </p>

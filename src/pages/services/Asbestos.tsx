@@ -19,7 +19,7 @@ const Asbestos = () => {
           <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 환경부 지정 석면조사기관(등록번호:
-              2017-AB-001)으로 2017년부터 1,200여 건의 석면조사 및 3,000여 건의
+              2017-AB-001)으로 2006년부터 1,200여 건의 석면조사 및 3,000여 건의
               석면분석을 수행해왔습니다. 석면안전관리법, 산업안전보건법,
               환경정책기본법 등 관련 법령에 따른 전문적이고 체계적인 석면
               안전관리 서비스를 제공합니다.

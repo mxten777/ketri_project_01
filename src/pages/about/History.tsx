@@ -1,224 +1,381 @@
 import { motion } from "framer-motion";
-import { Calendar, Building, Award, Users } from "lucide-react";
+import { Calendar, Building, Award, Users, Sparkles, TrendingUp, CheckCircle2 } from "lucide-react";
 
 const History = () => {
   const historyData = [
     {
-      year: "2024",
-      events: [
-        "실내공기질 측정업 확대",
-        "디지털 고객서비스 플랫폼 구축",
-        "AI 기반 분석 시스템 도입",
-      ],
-    },
-    {
-      year: "2023",
-      events: [
-        "석면 조사·분석 부문 역량 강화",
-        "먹는물 검사 서비스 고도화",
-        "ISO/IEC 17025 인정범위 확대",
-      ],
-    },
-    {
-      year: "2022",
-      events: ["청주 본원 시설 확장", "전문 인력 충원", "분석장비 현대화 완료"],
-    },
-    {
-      year: "2021",
-      events: [
-        "산업보건 서비스 확대",
-        "환경 컨설팅 부문 신설",
-        "고객 만족도 95% 달성",
-      ],
-    },
-    {
       year: "2020",
       events: [
-        "코로나19 대응 방역 서비스",
-        "실내공기질 측정업 등록",
-        "디지털 검사결과 시스템 도입",
+        "기술유출방지시스템 구축",
+        "제주도 사택(APT) 분양",
       ],
     },
     {
       year: "2019",
       events: [
-        "먹는물 수질검사업 등록",
-        "KOLAS 시험기관 인정",
-        "연구개발 전담 조직 신설",
+        "국가공인 석면해체작업 감리인 등록(충청북도청)",
+        "신사옥 증축 이전",
       ],
     },
     {
-      year: "2018",
+      year: "2016",
       events: [
-        "석면 조사기관 지정",
-        "전문 분석실 구축",
-        "품질관리 시스템 구축",
+        "안전보건경영시스템(KOSHA-MS)인증(한국산업안전보건공단)",
       ],
     },
     {
-      year: "2017",
+      year: "2015",
       events: [
-        "한국환경안전연구소 설립",
-        "청주 본원 개원",
-        "산업보건 서비스 개시",
+        "상호변경 ((유)한국환경안전연구소)",
+      ],
+    },
+    {
+      year: "2012",
+      events: [
+        "(유)한국환경시험연구소 서울지사 폐지",
+      ],
+    },
+    {
+      year: "2010",
+      events: [
+        "국가공인 석면조사기관 지정(노동부)",
+        "자본금 증자(3억9천)",
+        "본사 사무동 증축",
+        "신기술혁신 중소기업(Inno-Biz)인증",
+        "자본금 증자(4억3백)",
+        "국가공인 실내공기질측정기관 지정(충청북도청)",
+      ],
+    },
+    {
+      year: "2009",
+      events: [
+        "기업부설연구소(R&D Center)설립",
+        "자본금 증자(2억7천)",
+      ],
+    },
+    {
+      year: "2007",
+      events: [
+        "국가공인 먹는물수질검사기관 지정(환경부)",
+        "국가공인 작업환경측정기관 지정(노동부)",
+      ],
+    },
+    {
+      year: "2006",
+      events: [
+        "(유)한국환경시험연구소 설립",
       ],
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 },
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24">
-        <div className="container-custom">
+    <div className="min-h-screen bg-gradient-to-b from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
+      {/* Hero Section - Premium Design */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 text-white py-20 lg:py-32">
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        </div>
+
+        <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">연혁</h1>
-            <p className="text-lg lg:text-xl opacity-90 max-w-2xl mx-auto">
-              2017년부터 시작된 한국환경안전연구소의 성장과 발전 과정
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-white/20"
+            >
+              <TrendingUp className="w-5 h-5" />
+              <span className="text-sm font-medium">Our Journey</span>
+            </motion.div>
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+              한국환경안전연구소의 역사
+            </h1>
+            <p className="text-lg lg:text-xl opacity-90 max-w-3xl mx-auto leading-relaxed">
+              2006년부터 시작된 성장과 혁신의 19년<br className="hidden sm:inline" />
+              신뢰와 전문성으로 함께 걸어온 길
             </p>
           </motion.div>
         </div>
+
+        {/* Wave Divider */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-16 lg:h-24">
+            <path fill="currentColor" fillOpacity="1" d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z" className="text-neutral-50 dark:text-neutral-950"></path>
+          </svg>
+        </div>
       </section>
 
-      {/* Main Content */}
-      <section className="section container-custom">
-        {/* Stats Section */}
+      {/* Stats Section - Premium Cards */}
+      <section className="section container-custom -mt-16 lg:-mt-24 relative z-20">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-20"
         >
-          <div className="text-center">
-            <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Calendar className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+          <motion.div 
+            variants={itemVariants}
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-200 dark:border-neutral-700"
+          >
+            <div className="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <Calendar className="w-7 h-7 text-white" />
             </div>
-            <div className="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-1">
-              8
+            <div className="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-1 text-center">
+              19년
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">
+            <div className="text-sm text-neutral-600 dark:text-neutral-400 text-center">
               설립 년차
             </div>
-          </div>
+          </motion.div>
 
-          <div className="text-center">
-            <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Building className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+          <motion.div 
+            variants={itemVariants}
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-200 dark:border-neutral-700"
+          >
+            <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <Building className="w-7 h-7 text-white" />
             </div>
-            <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">
-              5
+            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1 text-center">
+              5개
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">
+            <div className="text-sm text-neutral-600 dark:text-neutral-400 text-center">
               주요 사업영역
             </div>
-          </div>
+          </motion.div>
 
-          <div className="text-center">
-            <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Award className="w-8 h-8 text-green-600 dark:text-green-400" />
+          <motion.div 
+            variants={itemVariants}
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-200 dark:border-neutral-700"
+          >
+            <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <Award className="w-7 h-7 text-white" />
             </div>
-            <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-1">
+            <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-1 text-center">
               10+
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">
+            <div className="text-sm text-neutral-600 dark:text-neutral-400 text-center">
               인증 및 지정
             </div>
-          </div>
+          </motion.div>
 
-          <div className="text-center">
-            <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Users className="w-8 h-8 text-orange-600 dark:text-orange-400" />
+          <motion.div 
+            variants={itemVariants}
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-200 dark:border-neutral-700"
+          >
+            <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <Users className="w-7 h-7 text-white" />
             </div>
-            <div className="text-2xl font-bold text-orange-600 dark:text-orange-400 mb-1">
+            <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-1 text-center">
               25+
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">
+            <div className="text-sm text-neutral-600 dark:text-neutral-400 text-center">
               전문 인력
             </div>
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* History Timeline */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <h2 className="heading-lg text-center mb-12">연도별 주요 성과</h2>
+        {/* History Timeline - Vertical Modern Design */}
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 bg-primary-100 dark:bg-primary-900/30 px-5 py-2 rounded-full mb-6"
+            >
+              <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+              <span className="text-sm font-semibold text-primary-600 dark:text-primary-400">Our Milestones</span>
+            </motion.div>
+            
+            <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
+              주요 성과 및 발전 과정
+            </h2>
+            
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+              한국환경안전연구소의 주요 이정표와 성장의 역사
+            </p>
+          </div>
 
-          <div className="space-y-8">
-            {historyData.map((item, index) => (
-              <motion.div
-                key={item.year}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-                className={`flex items-start gap-8 ${
-                  index % 2 === 1 ? "flex-row-reverse" : ""
-                }`}
-              >
-                {/* Year Badge */}
-                <div className="flex-shrink-0 w-24 h-24 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">
-                    {item.year}
-                  </span>
-                </div>
+          {/* Vertical Timeline */}
+          <div className="max-w-4xl mx-auto relative">
+            {/* Central Line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary-500 via-secondary-500 to-primary-500 transform -translate-x-1/2 hidden lg:block"></div>
 
-                {/* Timeline Line */}
-                <div className="flex-shrink-0 w-px bg-neutral-200 dark:bg-neutral-700 min-h-full"></div>
-
-                {/* Content */}
-                <div
-                  className={`flex-1 ${index % 2 === 1 ? "text-right" : ""}`}
+            <div className="space-y-12">
+              {historyData.map((item, index) => (
+                <motion.div
+                  key={item.year}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="relative"
                 >
-                  <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-soft">
-                    <ul className="space-y-3">
-                      {item.events.map((event, eventIndex) => (
-                        <li
-                          key={eventIndex}
-                          className="flex items-center gap-3 text-neutral-700 dark:text-neutral-300"
-                        >
-                          {index % 2 === 0 ? (
-                            <>
-                              <div className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0"></div>
-                              <span>{event}</span>
-                            </>
-                          ) : (
-                            <>
-                              <span>{event}</span>
-                              <div className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0"></div>
-                            </>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                  {/* Desktop Layout */}
+                  <div className="hidden lg:grid lg:grid-cols-2 gap-8 items-center">
+                    {/* Left Side */}
+                    {index % 2 === 0 ? (
+                      <>
+                        <div className="text-right pr-12">
+                          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-lg border border-neutral-200 dark:border-neutral-700 inline-block">
+                            <ul className="space-y-3 text-left">
+                              {item.events.map((event, eventIndex) => (
+                                <li
+                                  key={eventIndex}
+                                  className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300"
+                                >
+                                  <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
+                                  <span className="text-sm leading-relaxed">{event}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
 
-        {/* Mission Statement */}
+                        {/* Center Year Badge */}
+                        <div className="absolute left-1/2 transform -translate-x-1/2 w-20 h-20 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-2xl shadow-xl flex items-center justify-center border-4 border-white dark:border-neutral-900">
+                          <span className="text-white font-bold text-lg">{item.year}</span>
+                        </div>
+
+                        {/* Right Side - Empty */}
+                        <div></div>
+                      </>
+                    ) : (
+                      <>
+                        {/* Left Side - Empty */}
+                        <div></div>
+
+                        {/* Center Year Badge */}
+                        <div className="absolute left-1/2 transform -translate-x-1/2 w-20 h-20 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-2xl shadow-xl flex items-center justify-center border-4 border-white dark:border-neutral-900">
+                          <span className="text-white font-bold text-lg">{item.year}</span>
+                        </div>
+
+                        {/* Right Side */}
+                        <div className="pl-12">
+                          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-lg border border-neutral-200 dark:border-neutral-700 inline-block">
+                            <ul className="space-y-3 text-left">
+                              {item.events.map((event, eventIndex) => (
+                                <li
+                                  key={eventIndex}
+                                  className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300"
+                                >
+                                  <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
+                                  <span className="text-sm leading-relaxed">{event}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Mobile Layout */}
+                  <div className="lg:hidden flex gap-4">
+                    {/* Year Badge */}
+                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-xl shadow-lg flex items-center justify-center">
+                      <span className="text-white font-bold">{item.year}</span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1">
+                      <div className="bg-white dark:bg-neutral-800 rounded-2xl p-5 shadow-lg border border-neutral-200 dark:border-neutral-700">
+                        <ul className="space-y-3">
+                          {item.events.map((event, eventIndex) => (
+                            <li
+                              key={eventIndex}
+                              className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300"
+                            >
+                              <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
+                              <span className="text-sm leading-relaxed">{event}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Vision Section - Premium Design */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-16 text-center bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-8"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl"
         >
-          <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
-            미래를 향한 비전
-          </h3>
-          <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto">
-            한국환경안전연구소는 지속가능한 환경과 안전한 사회를 만들기 위해
-            끊임없이 연구하고 발전해 나가겠습니다. 앞으로도 고객 여러분의 신뢰를
-            바탕으로
-            <strong> 환경안전 분야의 선도기관</strong>으로 성장하겠습니다.
-          </p>
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="relative z-10 text-center text-white max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 sm:px-5 py-2 rounded-full mb-4 sm:mb-6">
+              <TrendingUp className="w-4 h-4" />
+              <span className="text-xs sm:text-sm font-semibold">Our Vision</span>
+            </div>
+
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6">
+              미래를 향한 비전
+            </h3>
+            
+            <p className="text-base sm:text-lg lg:text-xl leading-relaxed opacity-90 mb-6 sm:mb-8">
+              한국환경안전연구소는 지속가능한 환경과 안전한 사회를 만들기 위해
+              끊임없이 연구하고 발전해 나가겠습니다. 앞으로도 고객 여러분의 신뢰를
+              바탕으로 <span className="font-bold underline decoration-2 underline-offset-4">환경안전 분야의 선도기관</span>으로 성장하겠습니다.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
+              <div className="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-xl border border-white/20">
+                <span className="text-sm sm:text-base font-semibold">지속가능성</span>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-xl border border-white/20">
+                <span className="text-sm sm:text-base font-semibold">혁신</span>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-xl border border-white/20">
+                <span className="text-sm sm:text-base font-semibold">신뢰</span>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-xl border border-white/20">
+                <span className="text-sm sm:text-base font-semibold">전문성</span>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </section>
     </div>

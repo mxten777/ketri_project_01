@@ -42,11 +42,11 @@ const Location = () => {
   const operatingHours = [
     {
       day: "월요일 - 금요일",
-      time: "09:00 - 18:00",
+      time: "08:00 - 18:00",
       note: "점심시간: 12:00 - 13:00",
     },
-    { day: "토요일", time: "09:00 - 13:00", note: "오후 휴무" },
-    { day: "일요일/공휴일", time: "휴무", note: "응급시 전화 문의" },
+    { day: "토요일", time: "휴무", note: "" },
+    { day: "일요일/공휴일", time: "휴무", note: "" },
   ];
 
   return (
@@ -91,7 +91,7 @@ const Location = () => {
                       충북 청주시 서원구 남이면 양동3길 7-30
                     </p>
                     <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
-                      우편번호: 28211
+                      우편번호: 28805
                     </p>
                   </div>
                 </div>
@@ -101,10 +101,10 @@ const Location = () => {
                   <div>
                     <h3 className="font-bold mb-2">전화번호</h3>
                     <p className="text-neutral-700 dark:text-neutral-300">
-                      대표: 043.237.7624~5
+                      대표: 043-237-7624~5
                     </p>
                     <p className="text-neutral-700 dark:text-neutral-300">
-                      팩스: 043.237.7626
+                      팩스: 043-237-7826
                     </p>
                   </div>
                 </div>
@@ -114,7 +114,7 @@ const Location = () => {
                   <div>
                     <h3 className="font-bold mb-2">이메일</h3>
                     <p className="text-neutral-700 dark:text-neutral-300">
-                      info@ketri.re.kr
+                      kesri0728@naver.com
                     </p>
                     <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
                       업무 문의 및 견적 요청

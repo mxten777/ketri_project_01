@@ -18,7 +18,7 @@ const DialysisWater = () => {
           <h2 className="heading-md mb-6">투석용수 검사 서비스</h2>
           <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
-              한국환경안전연구소는 혈액투석용수 전문 검사기관으로 2017년부터
+              한국환경안전연구소는 혈액투석용수 전문 검사기관으로 2006년부터
               전국 200여 개 투석센터의 용수검사를 수행해왔습니다. 대한신장학회
               가이드라인, ISO 13959(Concentrates for haemodialysis), ISO
               11663(Quality of dialysis fluid) 등 국제표준에 따른 36개 항목

@@ -153,7 +153,7 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              KOLAS 인증 시험기관으로 2017년부터 축적된 전문성과 신뢰성
+              KOLAS 인증 시험기관으로 2006년부터 축적된 전문성과 신뢰성
               <br className="hidden sm:block" />
               정확하고 신속한 검사 서비스로 고객만족을 실현합니다
             </motion.p>
@@ -166,7 +166,7 @@ const Home = () => {
             >
               <Link to="/industrial-health">
                 <Button
-                  size="default"
+                  size="lg"
                   className="bg-white text-primary-600 hover:bg-neutral-100 px-6 py-3 text-base font-semibold"
                 >
                   서비스 둘러보기
@@ -175,7 +175,7 @@ const Home = () => {
               </Link>
               <Link to="/board/qna">
                 <Button
-                  size="default"
+                  size="lg"
                   variant="outline"
                   className="border-white text-white hover:bg-white hover:text-primary-600 px-6 py-3 text-base font-semibold"
                 >
@@ -286,7 +286,7 @@ const Home = () => {
           >
             <h2 className="heading-lg mb-4">왜 KETRI를 선택해야 할까요?</h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-              7년간의 검증된 전문성과 체계적인 품질관리 시스템으로 고객의 신뢰를
+              19년간의 검증된 전문성과 체계적인 품질관리 시스템으로 고객의 신뢰를
               얻고 있습니다
             </p>
           </motion.div>
@@ -407,10 +407,10 @@ const Home = () => {
               <h2 className="heading-lg mb-6">
                 고객의 신뢰를 바탕으로
                 <br />
-                성장해온 7년
+                성장해온 19년
               </h2>
               <p className="text-lg text-white/90 mb-8">
-                2017년 설립 이후 650여 고객사와 함께 성장하며, 8,500건 이상의
+                2006년 설립 이후 650여 고객사와 함께 성장하며, 8,500건 이상의
                 검사를 성공적으로 수행했습니다. 정확하고 신속한 서비스로 95%의
                 고객 만족도를 달성했습니다.
               </p>
@@ -446,7 +446,7 @@ const Home = () => {
                 <div className="text-white/80">고객 만족도</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
-                <div className="text-3xl font-bold mb-2">7년</div>
+                <div className="text-3xl font-bold mb-2">19년</div>
                 <div className="text-white/80">신뢰의 경험</div>
               </div>
             </motion.div>

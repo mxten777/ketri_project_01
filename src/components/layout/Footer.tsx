@@ -128,9 +128,10 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
-                <span className="text-sm leading-relaxed">
-                  충북 청주시 서원구 남이면 양동3길 7-30
-                </span>
+                <div className="text-sm leading-relaxed">
+                  <div>충북 청주시 서원구 남이면 양동3길 7-30</div>
+                  <div className="text-neutral-500 text-xs mt-1">(우) 28805</div>
+                </div>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary-400 flex-shrink-0" />
@@ -138,18 +139,28 @@ const Footer = () => {
                   href="tel:043-237-7624"
                   className="text-sm hover:text-primary-400 transition-colors duration-200"
                 >
-                  TEL: 043.237.7624~5
+                  TEL: 043-237-7624~5
                 </a>
               </li>
               <li className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-primary-400 flex-shrink-0" />
-                <span className="text-sm">FAX: 043.237.7626</span>
+                <span className="w-5 h-5 text-primary-400 flex-shrink-0 text-center text-xs">📠</span>
+                <span className="text-sm">FAX: 043-237-7826</span>
               </li>
               <li className="flex items-center space-x-3">
-                <span className="w-5 h-5 text-primary-400 flex-shrink-0 text-center text-xs">
-                  📄
-                </span>
-                <span className="text-sm">사업자등록번호: 317-81-01323</span>
+                <Mail className="w-5 h-5 text-primary-400 flex-shrink-0" />
+                <a
+                  href="mailto:kesri0728@naver.com"
+                  className="text-sm hover:text-primary-400 transition-colors duration-200"
+                >
+                  kesri0728@naver.com
+                </a>
+              </li>
+              <li className="flex items-center space-x-3">
+                <span className="w-5 h-5 text-primary-400 flex-shrink-0 text-center text-xs">📄</span>
+                <div className="text-sm">
+                  <div>사업자: 317-81-01323</div>
+                  <div className="text-neutral-500 text-xs mt-0.5">법인: 150111-0098934</div>
+                </div>
               </li>
             </ul>
 
@@ -177,7 +188,7 @@ const Footer = () => {
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <div className="text-sm text-neutral-500">
-              © {currentYear} 한국환경안전연구소 (KETRI). All rights reserved.
+              © {currentYear} 한국환경안전연구소 (KETRI). All rights reserved. | 대표이사: 이정식
             </div>
             <div className="flex items-center space-x-6 text-sm">
               {footerLinks.support.slice(-2).map((link) => (
@@ -197,18 +208,6 @@ const Footer = () => {
                 Admin
               </Link>
             </div>
-          </div>
-
-          {/* Business Info */}
-          <div className="mt-4 pt-4 border-t border-neutral-800 text-xs text-neutral-600 space-y-1">
-            <p>
-              사업자등록번호: 317-81-01323 | 대표자: 김환경 | 통신판매업신고:
-              제2024-서울강남-12345호
-            </p>
-            <p>
-              공인시험기관 인정번호: KOLAS-T-XXX | 먹는물 수질검사기관 지정번호:
-              서울-XX-XXX
-            </p>
           </div>
         </div>
       </div>
