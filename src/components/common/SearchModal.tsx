@@ -75,6 +75,18 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     }
   }, [isOpen]);
 
+  // ESC 키로 모달 닫기
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isOpen, onClose]);
+
   useEffect(() => {
     // 검색어 변경 시 자동 검색 (디바운스)
     if (searchTerm.trim().length < 2) {
@@ -208,6 +220,15 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
           exit={{ opacity: 0, y: -20 }}
           className="relative w-full max-w-3xl bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl overflow-hidden max-h-[80vh] flex flex-col"
         >
+          {/* Close Button */}
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 z-10 p-2 rounded-lg bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-colors"
+            aria-label="닫기"
+          >
+            <X className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
+          </button>
+
           {/* Search Input */}
           <div className="p-6 border-b border-neutral-200 dark:border-neutral-700">
             <div className="relative">
