@@ -492,7 +492,7 @@ const UserManagement: React.FC = () => {
             <option value="email-desc">이메일 내림차순</option>
           </select>
         </div>
-      </Card>
+      </div>
 
       {/* 사용자 목록 */}
       <Card className="overflow-hidden">
