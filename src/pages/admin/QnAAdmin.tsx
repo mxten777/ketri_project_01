@@ -364,7 +364,17 @@ const QnAAdmin = () => {
                       <td className="py-4 px-6">
                         <div className="flex items-center gap-1 text-sm text-gray-300">
                           <Calendar className="w-4 h-4" />
-                          {qna.createdAt instanceof Date ? formatDate({ seconds: qna.createdAt.getTime() / 1000, nanoseconds: 0 }) : formatDate(qna.createdAt as { seconds: number; nanoseconds: number })}
+                          {qna.createdAt instanceof Date
+                            ? formatDate({
+                                seconds: qna.createdAt.getTime() / 1000,
+                                nanoseconds: 0,
+                              })
+                            : formatDate(
+                                qna.createdAt as {
+                                  seconds: number;
+                                  nanoseconds: number;
+                                }
+                              )}
                         </div>
                       </td>
                       <td className="py-4 px-6 text-center">

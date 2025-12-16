@@ -70,7 +70,7 @@ const CI = () => {
                 <div className="bg-neutral-50 rounded-xl p-8 flex items-center justify-center">
                   <img
                     src="/images/logo_horizontal.png"
-                    alt="KETRI Logo Light"
+                    alt="KESRI Logo Light"
                     className="h-16 object-contain"
                   />
                 </div>
@@ -82,7 +82,7 @@ const CI = () => {
                 <div className="bg-neutral-700 rounded-xl p-8 flex items-center justify-center">
                   <img
                     src="/images/logo_horizontal_trans.png"
-                    alt="KETRI Logo Dark"
+                    alt="KESRI Logo Dark"
                     className="h-16 object-contain"
                   />
                 </div>

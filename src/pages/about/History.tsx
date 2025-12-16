@@ -13,52 +13,81 @@ const History = () => {
   const historyData = [
     {
       year: "2020",
-      events: ["기술유출방지시스템 구축", "제주도 사택(APT) 분양"],
+      month: "10",
+      events: ["기술유출방지시스템 구축"],
     },
     {
       year: "2019",
-      events: [
-        "국가공인 석면해체작업 감리인 등록(충청북도청)",
-        "신사옥 증축 이전",
-      ],
+      month: "09",
+      events: ["신사옥 신축 이전"],
+    },
+    {
+      year: "2019",
+      month: "08",
+      events: ["국가공인 석면해체작업 감리인 등록(충청북도청)"],
     },
     {
       year: "2016",
+      month: "12",
       events: ["안전보건경영시스템(KOSHA-MS)인증(한국산업안전보건공단)"],
     },
     {
       year: "2015",
+      month: "10",
       events: ["상호변경 ((유)한국환경안전연구소)"],
     },
     {
-      year: "2012",
-      events: ["(유)한국환경시험연구소 서울지사 폐지"],
-    },
-    {
       year: "2010",
+      month: "12",
       events: [
-        "국가공인 석면조사기관 지정(노동부)",
-        "자본금 증자(3억9천)",
-        "본사 사무동 증축",
-        "신기술혁신 중소기업(Inno-Biz)인증",
         "자본금 증자(4억3백)",
         "국가공인 실내공기질측정기관 지정(충청북도청)",
       ],
     },
     {
+      year: "2010",
+      month: "11",
+      events: ["신기술혁신 중소기업(Inno-Biz)인증"],
+    },
+    {
+      year: "2010",
+      month: "10",
+      events: ["본사 사무동 증축"],
+    },
+    {
+      year: "2010",
+      month: "06",
+      events: ["자본금 증자(3억9천)"],
+    },
+    {
+      year: "2010",
+      month: "02",
+      events: ["국가공인 석면조사기관 지정(노동부)"],
+    },
+    {
       year: "2009",
-      events: ["기업부설연구소(R&D Center)설립", "자본금 증자(2억7천)"],
+      month: "12",
+      events: ["자본금 증자(2억7천)"],
+    },
+    {
+      year: "2009",
+      month: "07",
+      events: ["기업부설연구소(R&D Center)설립"],
     },
     {
       year: "2007",
-      events: [
-        "국가공인 먹는물수질검사기관 지정(환경부)",
-        "국가공인 작업환경측정기관 지정(노동부)",
-      ],
+      month: "05",
+      events: ["국가공인 작업환경측정기관 지정(노동부)"],
+    },
+    {
+      year: "2007",
+      month: "04",
+      events: ["국가공인 먹는물수질검사기관 지정(환경부)"],
     },
     {
       year: "2006",
-      events: ["(유)한국환경시험연구소 설립"],
+      month: "07",
+      events: ["(주)한국환경시험연구소 설립"],
     },
   ];
 
@@ -241,7 +270,7 @@ const History = () => {
             <div className="space-y-12">
               {historyData.map((item, index) => (
                 <motion.div
-                  key={item.year}
+                  key={`${item.year}-${item.month}`}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
@@ -272,9 +301,12 @@ const History = () => {
                         </div>
 
                         {/* Center Year Badge */}
-                        <div className="absolute left-1/2 transform -translate-x-1/2 w-20 h-20 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-2xl shadow-xl flex items-center justify-center border-4 border-white dark:border-neutral-900">
+                        <div className="absolute left-1/2 transform -translate-x-1/2 w-24 h-24 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-white dark:border-neutral-900">
                           <span className="text-white font-bold text-lg">
                             {item.year}
+                          </span>
+                          <span className="text-white text-xs opacity-80">
+                            {item.month}월
                           </span>
                         </div>
 
@@ -287,9 +319,12 @@ const History = () => {
                         <div></div>
 
                         {/* Center Year Badge */}
-                        <div className="absolute left-1/2 transform -translate-x-1/2 w-20 h-20 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-2xl shadow-xl flex items-center justify-center border-4 border-white dark:border-neutral-900">
+                        <div className="absolute left-1/2 transform -translate-x-1/2 w-24 h-24 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-white dark:border-neutral-900">
                           <span className="text-white font-bold text-lg">
                             {item.year}
+                          </span>
+                          <span className="text-white text-xs opacity-80">
+                            {item.month}월
                           </span>
                         </div>
 
@@ -318,8 +353,9 @@ const History = () => {
                   {/* Mobile Layout */}
                   <div className="lg:hidden flex gap-4">
                     {/* Year Badge */}
-                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-xl shadow-lg flex items-center justify-center">
-                      <span className="text-white font-bold">{item.year}</span>
+                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-xl shadow-lg flex flex-col items-center justify-center">
+                      <span className="text-white font-bold text-sm">{item.year}</span>
+                      <span className="text-white text-xs opacity-80">{item.month}월</span>
                     </div>
 
                     {/* Content */}

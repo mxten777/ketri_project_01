@@ -288,7 +288,7 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="heading-lg mb-4">왜 KETRI를 선택해야 할까요?</h2>
+            <h2 className="heading-lg mb-4">왜 KESRI를 선택해야 할까요?</h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
               19년간의 검증된 전문성과 체계적인 품질관리 시스템으로 고객의
               신뢰를 얻고 있습니다

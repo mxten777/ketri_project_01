@@ -1,4 +1,4 @@
-# 한국환경안전연구소 (KETRI) 공식 웹사이트
+# 한국환경안전연구소 (KESRI) 공식 웹사이트
 
 > 프리미엄급 환경안전 전문기관 웹사이트 - **Production Ready** 🚀
 
@@ -318,13 +318,13 @@ Vercel 대시보드 > Settings > Domains에서 도메인 추가
 
 ## 📄 라이선스
 
-Copyright © 2024 한국환경안전연구소 (KETRI). All rights reserved.
+Copyright © 2024 한국환경안전연구소 (KESRI). All rights reserved.
 
 ## 👥 개발팀
 
 - **Development**: Vibe Coding Team
 - **Design**: Premium UI/UX Standards
-- **Client**: 한국환경안전연구소 (KETRI)
+- **Client**: 한국환경안전연구소 (KESRI)
 
 ## 📚 문서
 
@@ -339,8 +339,8 @@ Copyright © 2024 한국환경안전연구소 (KETRI). All rights reserved.
 
 ## 📞 문의
 
-- **Website**: https://ketri.re.kr
-- **Email**: info@ketri.re.kr
+- **Website**: https://kesri.re.kr
+- **Email**: info@kesri.re.kr
 - **Phone**: 043.237.7624~5
 
 ## 🎯 개발 진행 현황

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ketri.co.kr/sitemap.xml
+Sitemap: https://kesri.co.kr/sitemap.xml

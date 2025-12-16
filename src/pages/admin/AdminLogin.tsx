@@ -29,7 +29,9 @@ const AdminLogin = () => {
   const location = useLocation();
   const { login, userData } = useAuth();
 
-  const from = (location.state as { from?: { pathname: string } })?.from?.pathname || "/admin";
+  const from =
+    (location.state as { from?: { pathname: string } })?.from?.pathname ||
+    "/admin";
 
   useEffect(() => {
     setMounted(true);
@@ -144,7 +146,7 @@ const AdminLogin = () => {
               </div>
               <div>
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent">
-                  KETRI Admin
+                  KESRI Admin
                 </h1>
                 <p className="text-purple-200/80 text-sm">Management Portal</p>
               </div>
@@ -276,7 +278,7 @@ const AdminLogin = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
-                      placeholder="admin@ketri.co.kr"
+                      placeholder="admin@kesri.co.kr"
                       required
                     />
                   </div>

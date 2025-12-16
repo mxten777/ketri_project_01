@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // KETRI 브랜드 컬러 시스템
+        // KESRI 브랜드 컬러 시스템
         primary: {
           50: "#e6f0ff",
           100: "#cce1ff",

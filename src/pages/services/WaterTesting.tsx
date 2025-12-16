@@ -276,7 +276,7 @@ const WaterTesting = () => {
                   <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">
                     이메일
                   </p>
-                  <p className="font-bold text-lg">water@ketri.re.kr</p>
+                  <p className="font-bold text-lg">water@kesri.co.kr</p>
                 </div>
               </div>
             </div>
