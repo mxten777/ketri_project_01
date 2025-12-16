@@ -19,7 +19,7 @@ const Greeting = () => {
   const careerData = {
     education: [
       { year: "1994.2.23", degree: "충북대학교 공과대학 환경공학과 졸업" },
-      { year: "1994.3", degree: "충북대학교 대학원 환경공학과 석사과정 입학" },
+      { year: "1994.3.02", degree: "충북대학교 대학원 환경공학과 석사과정 입학" },
       { year: "1996.2.23", degree: "충북대학교 대학원 환경공학과 석사과정 졸업" },
       { year: "1997.8.25", degree: "충북대학교 대학원 환경공학과 박사과정 입학" },
       { year: "2006.2.23", degree: "충북대학교 대학원 환경공학과 박사과정 졸업" },
@@ -71,6 +71,16 @@ const Greeting = () => {
     <div className="min-h-screen bg-gradient-to-b from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
       {/* Hero Section - Premium Design */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 text-white py-20 lg:py-32">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src="/images/company/KakaoTalk_20251216_093557685.jpg" 
+            alt="한국환경안전연구소 전경"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-600/70 via-primary-700/65 to-secondary-600/70"></div>
+        </div>
+        
         {/* Decorative Elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -214,11 +224,11 @@ const Greeting = () => {
                           </div>
                           <div className="space-y-2">
                             {careerData.education.map((item, index) => (
-                              <div key={index} className="flex gap-3 text-sm">
-                                <span className="text-blue-600 dark:text-blue-400 font-medium whitespace-nowrap">
+                              <div key={index} className="flex gap-3 text-sm items-start">
+                                <span className="text-blue-600 dark:text-blue-400 font-medium flex-shrink-0 w-20 text-right">
                                   {item.year}
                                 </span>
-                                <span className="text-neutral-700 dark:text-neutral-300">
+                                <span className="text-neutral-700 dark:text-neutral-300 break-keep flex-1">
                                   {item.degree}
                                 </span>
                               </div>
