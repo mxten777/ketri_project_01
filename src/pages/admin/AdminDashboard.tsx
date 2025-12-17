@@ -298,32 +298,32 @@ const AdminDashboard: React.FC = () => {
 
   const quickActions = [
     {
-      title: "사용자 관리",
-      description: "회원 정보 및 권한 관리",
-      icon: Users,
+      title: "공지사항 관리",
+      description: "공지사항 작성 및 관리",
+      icon: Bell,
       color: "from-blue-500 to-blue-600",
-      path: "/admin/users",
+      path: "/admin/notices",
     },
     {
-      title: "컨텐츠 관리",
-      description: "공지사항 및 페이지 관리",
-      icon: FileText,
-      color: "from-green-500 to-green-600",
-      path: "/admin/content",
-    },
-    {
-      title: "Q&A 관리",
-      description: "문의사항 답변 및 관리",
+      title: "질문답변 관리",
+      description: "Q&A 게시글 관리",
       icon: MessageSquare,
-      color: "from-purple-500 to-purple-600",
+      color: "from-indigo-500 to-indigo-600",
       path: "/admin/qna",
     },
     {
-      title: "파일 관리",
-      description: "업로드 파일 및 자료실",
+      title: "자유게시판 관리",
+      description: "자유 게시글 관리",
+      icon: FileText,
+      color: "from-green-500 to-green-600",
+      path: "/admin/free",
+    },
+    {
+      title: "자료실 관리",
+      description: "파일 및 자료 관리",
       icon: Database,
       color: "from-orange-500 to-orange-600",
-      path: "/admin/files",
+      path: "/admin/resources",
     },
   ];
 

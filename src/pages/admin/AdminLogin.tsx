@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
@@ -26,12 +26,7 @@ const AdminLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
   const { login, userData } = useAuth();
-
-  const from =
-    (location.state as { from?: { pathname: string } })?.from?.pathname ||
-    "/admin";
 
   useEffect(() => {
     setMounted(true);
@@ -52,8 +47,8 @@ const AdminLogin = () => {
     try {
       await login(email, password);
 
-      // 관리자 권한 확인 후 리다이렉트
-      navigate(from, { replace: true });
+      // 관리자 대시보드로 리다이렉트
+      navigate("/admin/dashboard", { replace: true });
     } catch (err) {
       console.error("Admin login error:", err);
 
@@ -84,12 +79,12 @@ const AdminLogin = () => {
   };
 
   const adminFeatures = [
-    { icon: BarChart3, title: "고급 분석", desc: "실시간 비즈니스 인사이트" },
     { icon: Users, title: "사용자 관리", desc: "통합 회원 관리 시스템" },
+    { icon: BarChart3, title: "게시판 관리", desc: "공지사항 및 자료실 통합 관리" },
     {
       icon: Activity,
-      title: "시스템 모니터링",
-      desc: "서비스 상태 실시간 추적",
+      title: "실시간 모니터링",
+      desc: "시스템 상태 실시간 추적",
     },
     { icon: Settings, title: "시스템 설정", desc: "전체 플랫폼 제어" },
   ];
@@ -158,13 +153,13 @@ const AdminLogin = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <h2 className="text-4xl font-bold leading-tight mb-4">
-                Enterprise-Grade
+                한국환경안전연구소
                 <span className="block bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
-                  Administrative Portal
+                  관리자 전용 포털
                 </span>
               </h2>
               <p className="text-lg text-slate-300 leading-relaxed">
-                한국환경안전연구소의 통합 관리 시스템에 오신 것을 환영합니다.
+                KESRI 통합 관리 시스템에 오신 것을 환영합니다.
                 강력한 분석 도구와 실시간 모니터링으로 효율적인 업무 관리를
                 경험하세요.
               </p>

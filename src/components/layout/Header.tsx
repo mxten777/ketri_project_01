@@ -5,13 +5,12 @@ import {
   Menu,
   X,
   Search,
-  User,
   Moon,
   Sun,
   ChevronDown,
+  LogIn,
   LogOut,
 } from "lucide-react";
-import Button from "../common/Button";
 import SearchModal from "../common/SearchModal";
 import { useAuth } from "../../contexts/AuthContext";
 import { MenuItem } from "../../types";
@@ -28,19 +27,10 @@ const Header = () => {
     }
     return false;
   });
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { currentUser, userData, logout } = useAuth();
+  const { user, userData, logout } = useAuth();
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate("/");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
 
   const menuItems: MenuItem[] = [
     {
@@ -116,7 +106,7 @@ const Header = () => {
       label: "게시판",
       path: "/board",
       children: [
-        { label: "공지사항", path: "/board/notices" },
+        { label: "공지사항", path: "/board/notice" },
         { label: "질문답변", path: "/board/qna" },
         { label: "자유게시판", path: "/board/free" },
         { label: "자료실", path: "/board/resources" },
@@ -215,66 +205,32 @@ const Header = () => {
               )}
             </button>
 
-            {/* User Menu / Login */}
-            {currentUser ? (
-              <div className="relative">
+            {/* Login/Logout Button */}
+            {user ? (
+              <div className="flex items-center space-x-2">
+                <span className="hidden md:inline text-sm text-neutral-600 dark:text-neutral-400">
+                  {userData?.displayName || user.email}
+                </span>
                 <button
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center space-x-2 px-3 md:px-4 py-2 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200 whitespace-nowrap"
+                  onClick={async () => {
+                    await logout();
+                    navigate("/");
+                  }}
+                  className="p-2 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200"
+                  aria-label="로그아웃"
                 >
-                  <User className="w-5 h-5" />
-                  <span className="text-sm md:text-base font-medium max-w-20 md:max-w-24 truncate">
-                    {userData?.displayName || "사용자"}
-                  </span>
-                  <ChevronDown className="w-4 h-4" />
+                  <LogOut className="w-5 h-5" />
                 </button>
-
-                {/* User Dropdown */}
-                {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-neutral-800 rounded-xl shadow-premium border border-neutral-200 dark:border-neutral-700 py-2">
-                    <Link
-                      to="/my-page"
-                      className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-neutral-700 transition-colors"
-                      onClick={() => setIsUserMenuOpen(false)}
-                    >
-                      마이페이지
-                    </Link>
-                    {userData?.role === "admin" && (
-                      <Link
-                        to="/admin/dashboard"
-                        className="block px-4 py-3 text-sm md:text-base font-medium text-neutral-700 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-neutral-700 transition-colors"
-                        onClick={() => setIsUserMenuOpen(false)}
-                      >
-                        관리자 대시보드
-                      </Link>
-                    )}
-                    <hr className="my-2 border-neutral-200 dark:border-neutral-700" />
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-left px-4 py-3 text-sm md:text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-neutral-700 transition-colors flex items-center space-x-2"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      <span>로그아웃</span>
-                    </button>
-                  </div>
-                )}
               </div>
             ) : (
-              <Link
-                to="/login"
-                className="hidden sm:flex items-center space-x-2 px-3 md:px-4 py-2 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200"
+              <button
+                onClick={() => navigate("/auth/login")}
+                className="flex items-center space-x-1 px-3 py-2 rounded-lg bg-primary-500 text-white hover:bg-primary-600 transition-colors duration-200"
               >
-                <User className="w-5 h-5" />
-                <span className="text-sm md:text-base font-medium">로그인</span>
-              </Link>
+                <LogIn className="w-4 h-4" />
+                <span className="hidden md:inline text-sm">로그인</span>
+              </button>
             )}
-
-            {/* CTA Button */}
-            <Link to="/quote-request">
-              <Button size="sm" className="hidden lg:inline-flex">
-                견적문의
-              </Button>
-            </Link>
 
             {/* Mobile Menu Button */}
             <button

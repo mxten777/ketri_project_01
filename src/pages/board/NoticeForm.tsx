@@ -112,7 +112,8 @@ const NoticeForm = () => {
         await createNotice(noticeData);
       }
 
-      navigate("/board/notice");
+      // 관리자는 관리자 페이지로, 일반 사용자는 게시판으로
+      navigate(userData?.role === "admin" ? "/admin/notice" : "/board/notice");
     } catch (error) {
       console.error("Error saving notice:", error);
       setError("저장에 실패했습니다. 다시 시도해주세요.");

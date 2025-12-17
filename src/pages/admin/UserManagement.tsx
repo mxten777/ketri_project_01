@@ -71,29 +71,40 @@ const UserManagement: React.FC = () => {
   const [hasMore, setHasMore] = useState(false);
 
   // 데이터 로드
-  const loadUsers = useCallback(async (options?: Partial<UserListOptions>) => {
-    try {
-      setLoading(true);
-      const result = await getUsers({
-        page: currentPage,
-        pageSize,
-        search: searchTerm,
-        roleFilter,
-        statusFilter,
-        sortBy,
-        sortOrder,
-        ...options,
-      });
+  const loadUsers = useCallback(
+    async (options?: Partial<UserListOptions>) => {
+      try {
+        setLoading(true);
+        const result = await getUsers({
+          page: currentPage,
+          pageSize,
+          search: searchTerm,
+          roleFilter,
+          statusFilter,
+          sortBy,
+          sortOrder,
+          ...options,
+        });
 
-      setUsers(result.users);
-      setTotalCount(result.totalCount);
-      setHasMore(result.hasMore);
-    } catch (error) {
-      console.error("사용자 목록 로드 실패:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [currentPage, pageSize, searchTerm, roleFilter, statusFilter, sortBy, sortOrder]);
+        setUsers(result.users);
+        setTotalCount(result.totalCount);
+        setHasMore(result.hasMore);
+      } catch (error) {
+        console.error("사용자 목록 로드 실패:", error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [
+      currentPage,
+      pageSize,
+      searchTerm,
+      roleFilter,
+      statusFilter,
+      sortBy,
+      sortOrder,
+    ]
+  );
 
   const loadStatistics = useCallback(async () => {
     try {
@@ -584,7 +595,8 @@ const UserManagement: React.FC = () => {
                               <select
                                 value={user.role}
                                 onChange={(e) =>
-                                  user.id && handleRoleChange(
+                                  user.id &&
+                                  handleRoleChange(
                                     user.id,
                                     e.target.value as "user" | "admin"
                                   )
@@ -596,7 +608,8 @@ const UserManagement: React.FC = () => {
                               </select>
                               <Button
                                 onClick={() =>
-                                  user.id && handleStatusToggle(
+                                  user.id &&
+                                  handleStatusToggle(
                                     user.id,
                                     user.isActive !== false
                                   )

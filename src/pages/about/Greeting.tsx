@@ -19,10 +19,22 @@ const Greeting = () => {
   const careerData = {
     education: [
       { year: "1994.2.23", degree: "충북대학교 공과대학 환경공학과 졸업" },
-      { year: "1994.3.02", degree: "충북대학교 대학원 환경공학과 석사과정 입학" },
-      { year: "1996.2.23", degree: "충북대학교 대학원 환경공학과 석사과정 졸업" },
-      { year: "1997.8.25", degree: "충북대학교 대학원 환경공학과 박사과정 입학" },
-      { year: "2006.2.23", degree: "충북대학교 대학원 환경공학과 박사과정 졸업" },
+      {
+        year: "1994.3.02",
+        degree: "충북대학교 대학원 환경공학과 석사과정 입학",
+      },
+      {
+        year: "1996.2.23",
+        degree: "충북대학교 대학원 환경공학과 석사과정 졸업",
+      },
+      {
+        year: "1997.8.25",
+        degree: "충북대학교 대학원 환경공학과 박사과정 입학",
+      },
+      {
+        year: "2006.2.23",
+        degree: "충북대학교 대학원 환경공학과 박사과정 졸업",
+      },
     ],
     teaching: [
       { period: "1997.3 - 1997.8", position: "충청대학 환경공업과" },
@@ -73,14 +85,14 @@ const Greeting = () => {
       <section className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 text-white py-20 lg:py-32">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img 
-            src="/images/company/KakaoTalk_20251216_093557685.jpg" 
+          <img
+            src="/images/company/KakaoTalk_20251216_093557685.jpg"
             alt="한국환경안전연구소 전경"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-primary-600/70 via-primary-700/65 to-secondary-600/70"></div>
         </div>
-        
+
         {/* Decorative Elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -224,7 +236,10 @@ const Greeting = () => {
                           </div>
                           <div className="space-y-2">
                             {careerData.education.map((item, index) => (
-                              <div key={index} className="flex gap-3 text-sm items-start">
+                              <div
+                                key={index}
+                                className="flex gap-3 text-sm items-start"
+                              >
                                 <span className="text-blue-600 dark:text-blue-400 font-medium flex-shrink-0 w-20 text-right">
                                   {item.year}
                                 </span>
@@ -312,23 +327,40 @@ const Greeting = () => {
                 {/* Main Content */}
                 <div className="space-y-6 text-neutral-700 dark:text-neutral-300 leading-relaxed">
                   <p className="text-lg">
-                    저희 한국환경안전연구소는 국민의 건강과 직결된 유해 환경에 대한 명확한 평가를 통해 인체 및 생태 영향을 예측·감시하고, 환경성 질환으로부터 국민의 건강을 보호하고자 설립된 환경 전문 기관입니다. 설립 이래 환경과 보건 분야 전반에 걸친 시험·분석과 측정 서비스를 통해 사회적 책임을 성실히 수행해 왔습니다.
+                    저희 한국환경안전연구소는 국민의 건강과 직결된 유해 환경에
+                    대한 명확한 평가를 통해 인체 및 생태 영향을 예측·감시하고,
+                    환경성 질환으로부터 국민의 건강을 보호하고자 설립된 환경
+                    전문 기관입니다. 설립 이래 환경과 보건 분야 전반에 걸친
+                    시험·분석과 측정 서비스를 통해 사회적 책임을 성실히 수행해
+                    왔습니다.
                   </p>
 
                   <p className="text-lg">
-                    먹는물 수질검사, 실내공기질·작업환경 측정, 석면 조사·분석 등 다양한 환경 요소는 작은 오차 하나로도 큰 영향을 미칠 수 있습니다. 저희 연구소는 이러한 중요성을 깊이 인식하고, 국내 최고 수준의 기술력과 전문 인력을 기반으로 정확하고 신뢰할 수 있는 분석 결과를 제공하는 데 역량을 집중하고 있습니다.
+                    먹는물 수질검사, 실내공기질·작업환경 측정, 석면 조사·분석 등
+                    다양한 환경 요소는 작은 오차 하나로도 큰 영향을 미칠 수
+                    있습니다. 저희 연구소는 이러한 중요성을 깊이 인식하고, 국내
+                    최고 수준의 기술력과 전문 인력을 기반으로 정확하고 신뢰할 수
+                    있는 분석 결과를 제공하는 데 역량을 집중하고 있습니다.
                   </p>
 
                   <p className="text-lg">
-                    또한 단순한 측정과 분석에 그치지 않고, 지속적인 기술 개발과 체계적인 기술지원을 통해 고객이 필요로 하는 최적의 해결책을 제시하는 파트너가 되고자 합니다. 모든 업무 과정에서 공정성과 객관성을 최우선 가치로 삼아, 고객과 사회로부터 신뢰받는 기관으로 자리매김하고 있습니다.
+                    또한 단순한 측정과 분석에 그치지 않고, 지속적인 기술 개발과
+                    체계적인 기술지원을 통해 고객이 필요로 하는 최적의 해결책을
+                    제시하는 파트너가 되고자 합니다. 모든 업무 과정에서 공정성과
+                    객관성을 최우선 가치로 삼아, 고객과 사회로부터 신뢰받는
+                    기관으로 자리매김하고 있습니다.
                   </p>
 
                   <p className="text-lg">
-                    앞으로도 한국환경안전연구소는 환경 안전 분야의 전문 기관으로서 책임을 다하며, 더욱 체계적이고 선도적인 환경측정 및 분석 서비스를 제공함으로써, 고객 신뢰와 사회적 가치 실현을 위해 끊임없이 노력할 것입니다.
+                    앞으로도 한국환경안전연구소는 환경 안전 분야의 전문
+                    기관으로서 책임을 다하며, 더욱 체계적이고 선도적인 환경측정
+                    및 분석 서비스를 제공함으로써, 고객 신뢰와 사회적 가치
+                    실현을 위해 끊임없이 노력할 것입니다.
                   </p>
 
                   <p className="text-lg">
-                    여러분의 성원과 관심에 진심으로 감사드리며, 변함없는 신뢰로 보답하겠습니다.
+                    여러분의 성원과 관심에 진심으로 감사드리며, 변함없는 신뢰로
+                    보답하겠습니다.
                   </p>
                 </div>
 

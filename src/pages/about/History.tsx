@@ -354,8 +354,12 @@ const History = () => {
                   <div className="lg:hidden flex gap-4">
                     {/* Year Badge */}
                     <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-xl shadow-lg flex flex-col items-center justify-center">
-                      <span className="text-white font-bold text-sm">{item.year}</span>
-                      <span className="text-white text-xs opacity-80">{item.month}월</span>
+                      <span className="text-white font-bold text-sm">
+                        {item.year}
+                      </span>
+                      <span className="text-white text-xs opacity-80">
+                        {item.month}월
+                      </span>
                     </div>
 
                     {/* Content */}

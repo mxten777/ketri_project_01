@@ -164,21 +164,6 @@ const ResourceList: React.FC = () => {
                 분석 관련 자료 및 문서를 다운로드하실 수 있습니다
               </p>
             </div>
-            {userData?.role === "admin" && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                <Button
-                  onClick={() => navigate("/board/resources/upload")}
-                  className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/30 shadow-premium"
-                >
-                  <Upload className="w-4 h-4 mr-2" />
-                  자료 업로드
-                </Button>
-              </motion.div>
-            )}
           </motion.div>
         </div>
 

@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import Layout from "./components/layout/Layout";
+import AdminLayout from "./components/admin/AdminLayout";
 import Home from "./pages/Home";
 import ScrollToTop from "./components/common/ScrollToTop";
 import ProtectedRoute from "./components/common/ProtectedRoute";
@@ -23,6 +24,9 @@ const NoticeForm = lazy(() => import("./pages/board/NoticeForm"));
 const QnAList = lazy(() => import("./pages/board/QnAList"));
 const QnADetail = lazy(() => import("./pages/board/QnADetail"));
 const QnAForm = lazy(() => import("./pages/board/QnAForm"));
+const FreeList = lazy(() => import("./pages/board/FreeList"));
+const FreeDetail = lazy(() => import("./pages/board/FreeDetail"));
+const FreeForm = lazy(() => import("./pages/board/FreeForm"));
 const ResourceList = lazy(() => import("./pages/board/ResourceList"));
 const ResourceForm = lazy(() => import("./pages/board/ResourceForm"));
 const ResourceEdit = lazy(() => import("./pages/board/ResourceEdit"));
@@ -33,11 +37,11 @@ const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 const MyPage = lazy(() => import("./pages/MyPage"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const UserManagement = lazy(() => import("./pages/admin/UserManagement"));
-const QuoteManagement = lazy(() => import("./pages/admin/QuoteManagement"));
+const NoticeAdmin = lazy(() => import("./pages/admin/NoticeAdmin"));
 const QnAAdmin = lazy(() => import("./pages/admin/QnAAdmin"));
+const FreeAdmin = lazy(() => import("./pages/admin/FreeAdmin"));
 const ResourceAdmin = lazy(() => import("./pages/admin/ResourceAdmin"));
 const ContentManagement = lazy(() => import("./pages/admin/ContentManagement"));
-const FileManager = lazy(() => import("./pages/admin/FileManager"));
 
 // About Pages (연구소 소개)
 const Greeting = lazy(() => import("./pages/about/Greeting"));
@@ -67,9 +71,46 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <Layout>
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
+      <Routes>
+        {/* Admin Login - AdminLayout 없이 */}
+        <Route path="/admin/login" element={<Suspense fallback={<PageLoader />}><AdminLogin /></Suspense>} />
+        
+        {/* Admin Routes - AdminLayout 사용 */}
+        <Route
+          path="/admin/*"
+          element={
+            <ProtectedRoute requireAdmin>
+              <AdminLayout title="" description="">
+                <Suspense fallback={<PageLoader />}>
+                  <Routes>
+                    <Route path="/" element={<AdminDashboard />} />
+                    <Route path="/dashboard" element={<AdminDashboard />} />
+                    <Route path="/users" element={<UserManagement />} />
+                    <Route path="/notice" element={<NoticeAdmin />} />
+                    <Route path="/notice/create" element={<NoticeForm />} />
+                    <Route path="/notice/edit/:id" element={<NoticeForm />} />
+                    <Route path="/qna" element={<QnAAdmin />} />
+                    <Route path="/qna/edit/:id" element={<QnAForm />} />
+                    <Route path="/free" element={<FreeAdmin />} />
+                    <Route path="/free/edit/:id" element={<FreeForm />} />
+                    <Route path="/resources" element={<ResourceAdmin />} />
+                    <Route path="/resources/create" element={<ResourceForm />} />
+                    <Route path="/resources/edit/:id" element={<ResourceEdit />} />
+                    <Route path="/content" element={<ContentManagement />} />
+                  </Routes>
+                </Suspense>
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* General Routes - 일반 Layout 사용 */}
+        <Route
+          path="/*"
+          element={
+            <Layout>
+              <Suspense fallback={<PageLoader />}>
+                <Routes>
             {/* Home */}
             <Route path="/" element={<Home />} />
 
@@ -134,6 +175,26 @@ function App() {
               }
             />
 
+            {/* Free Board */}
+            <Route path="/board/free" element={<FreeList />} />
+            <Route path="/board/free/:id" element={<FreeDetail />} />
+            <Route
+              path="/board/free/new"
+              element={
+                <ProtectedRoute>
+                  <FreeForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/board/free/edit/:id"
+              element={
+                <ProtectedRoute>
+                  <FreeForm />
+                </ProtectedRoute>
+              }
+            />
+
             {/* Resource Library */}
             <Route path="/board/resources" element={<ResourceList />} />
             <Route
@@ -174,8 +235,9 @@ function App() {
             <Route path="/about/location" element={<Location />} />
 
             {/* Auth */}
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/register" element={<Register />} />
 
             {/* My Page - Protected */}
@@ -184,72 +246,6 @@ function App() {
               element={
                 <ProtectedRoute>
                   <MyPage />
-                </ProtectedRoute>
-              }
-            />
-
-            {/* Admin - Protected (Admin Only) */}
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/dashboard"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/users"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <UserManagement />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/quotes"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <QuoteManagement />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/qna"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <QnAAdmin />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/resources"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <ResourceAdmin />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/content"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <ContentManagement />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/files"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <FileManager />
                 </ProtectedRoute>
               }
             />
@@ -271,9 +267,12 @@ function App() {
                 </div>
               }
             />
-          </Routes>
-        </Suspense>
-      </Layout>
+                </Routes>
+              </Suspense>
+            </Layout>
+          }
+        />
+      </Routes>
     </Router>
   );
 }
