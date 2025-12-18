@@ -21,15 +21,13 @@ const IndoorAirQuality = () => {
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
-                  { label: "서비스 개요", id: "overview" },
-                  { label: "측정 대상 시설", id: "facilities" },
-                  { label: "측정 항목", id: "items" },
-                  { label: "측정 절차", id: "process" },
-                  { label: "개선 컨설팅", id: "consulting" },
+                  { label: "업무 소개", path: "/indoor-air-quality/introduction" },
+                  { label: "실내공기질 측정 검의 요청", path: "/indoor-air-quality/request" },
+                  { label: "실내공기질 성적서 조회", path: "/indoor-air-quality/report" },
                 ].map((item) => (
                   <a
-                    key={item.id}
-                    href={`#${item.id}`}
+                    key={item.path}
+                    href={item.path}
                     className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     {item.label}

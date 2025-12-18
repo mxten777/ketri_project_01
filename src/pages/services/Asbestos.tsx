@@ -21,15 +21,16 @@ const Asbestos = () => {
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
-                  { label: "서비스 개요", id: "overview" },
-                  { label: "주요 서비스", id: "services" },
-                  { label: "석면조사 대상", id: "targets" },
-                  { label: "조사 절차", id: "process" },
-                  { label: "분석 방법", id: "methods" },
+                  { label: "석면조사분석", path: "/asbestos/survey" },
+                  { label: "석면농도측정", path: "/asbestos/concentration" },
+                  { label: "석면비산정도측정", path: "/asbestos/dispersion" },
+                  { label: "석면해체제거감리", path: "/asbestos/supervision" },
+                  { label: "석면건축물 위해성평가", path: "/asbestos/risk-assessment" },
+                  { label: "석면건축물 공기질측정", path: "/asbestos/air-quality" },
                 ].map((item) => (
                   <a
-                    key={item.id}
-                    href={`#${item.id}`}
+                    key={item.path}
+                    href={item.path}
                     className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     {item.label}

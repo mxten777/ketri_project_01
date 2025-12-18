@@ -22,15 +22,14 @@ const WaterTesting = () => {
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
-                  { label: "서비스 개요", id: "overview" },
-                  { label: "검사 대상 시설", id: "facilities" },
-                  { label: "검사 항목", id: "items" },
-                  { label: "검사 절차", id: "process" },
-                  { label: "검사 비용", id: "pricing" },
+                  { label: "업무소개", path: "/water-testing/introduction" },
+                  { label: "수질검사대상 및 범위", path: "/water-testing/scope" },
+                  { label: "수질검사주기 및 수수료", path: "/water-testing/schedule" },
+                  { label: "검사의뢰 신청절차", path: "/water-testing/procedure" },
                 ].map((item) => (
                   <a
-                    key={item.id}
-                    href={`#${item.id}`}
+                    key={item.path}
+                    href={item.path}
                     className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     {item.label}

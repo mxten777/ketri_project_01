@@ -30,7 +30,15 @@ const IndustrialHealth = () => {
                 <nav className="space-y-2">
                   {[
                     {
-                      label: "근골격계 유해요인조사",
+                      label: "작업환경측정",
+                      path: "/industrial-health/work-environment",
+                    },
+                    {
+                      label: "위험성평가",
+                      path: "/industrial-health/risk-assessment",
+                    },
+                    {
+                      label: "근골격계유해요인조사",
                       path: "/industrial-health/musculoskeletal",
                     },
                     {
@@ -40,10 +48,6 @@ const IndustrialHealth = () => {
                     {
                       label: "산업보건컨설팅 실적",
                       path: "/industrial-health/portfolio",
-                    },
-                    {
-                      label: "업무소개",
-                      path: "/industrial-health/introduction",
                     },
                   ].map((item) => (
                     <a

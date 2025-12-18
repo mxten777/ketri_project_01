@@ -21,15 +21,15 @@ const DialysisWater = () => {
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
-                  { label: "서비스 개요", id: "overview" },
-                  { label: "투석용수 중요성", id: "importance" },
-                  { label: "검사 항목", id: "items" },
-                  { label: "검사 주기", id: "schedule" },
-                  { label: "검사 절차", id: "process" },
+                  { label: "업무소개", path: "/dialysis-water/introduction" },
+                  { label: "검사의뢰절차", path: "/dialysis-water/procedure" },
+                  { label: "검사주기 및 관련기준", path: "/dialysis-water/schedule" },
+                  { label: "수질기준 및 실험방법", path: "/dialysis-water/standards" },
+                  { label: "채수방법 및 시료채수위치", path: "/dialysis-water/sampling" },
                 ].map((item) => (
                   <a
-                    key={item.id}
-                    href={`#${item.id}`}
+                    key={item.path}
+                    href={item.path}
                     className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     {item.label}
