@@ -163,19 +163,22 @@ const Location = () => {
             </div>
           </div>
 
-          {/* Map Placeholder */}
+          {/* Map */}
           <div className="space-y-6">
             <h3 className="text-xl font-bold">위치 안내</h3>
 
             <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-soft overflow-hidden">
-              <div className="aspect-[4/3] bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-16 h-16 text-neutral-400 mx-auto mb-4" />
-                  <p className="text-neutral-500">지도가 여기에 표시됩니다</p>
-                  <p className="text-sm text-neutral-400 mt-2">
-                    Google Maps / Naver Map 연동
-                  </p>
-                </div>
+              <div className="aspect-[4/3]">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3201.234!2d127.4894!3d36.5674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDM0JzAyLjciTiAxMjfCsDI5JzIxLjgiRQ!5e0!3m2!1sko!2skr!4v1234567890"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="한국환경안전연구소 위치"
+                ></iframe>
               </div>
 
               <div className="p-6">
@@ -185,12 +188,22 @@ const Location = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
-                  <button className="flex items-center justify-center gap-2 py-2 px-4 bg-green-500 text-white rounded-lg text-sm hover:bg-green-600 transition-colors">
+                  <a
+                    href="https://map.naver.com/v5/search/충북%20청주시%20서원구%20남이면%20양동3길%207-30"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 py-2 px-4 bg-green-500 text-white rounded-lg text-sm hover:bg-green-600 transition-colors"
+                  >
                     <span>네이버맵</span>
-                  </button>
-                  <button className="flex items-center justify-center gap-2 py-2 px-4 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors">
+                  </a>
+                  <a
+                    href="https://www.google.com/maps/search/충북+청주시+서원구+남이면+양동3길+7-30"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 py-2 px-4 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors"
+                  >
                     <span>구글맵</span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
