@@ -1,4 +1,5 @@
-﻿import { motion } from "framer-motion";
+﻿import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   Building2,
@@ -20,8 +21,52 @@ import {
 } from "lucide-react";
 import Button from "../components/common/Button";
 import Card from "../components/common/Card";
+import { getNotices } from "../services/noticeService";
+import type { Notice } from "../types";
 
 const Home = () => {
+  const [notices, setNotices] = useState<Notice[]>([]);
+  const [loadingNotices, setLoadingNotices] = useState(true);
+
+  useEffect(() => {
+    fetchLatestNotices();
+  }, []);
+
+  const fetchLatestNotices = async () => {
+    try {
+      const data = await getNotices(5); // 최신 5개만 가져오기
+      setNotices(data);
+    } catch (error) {
+      console.error("Failed to load notices:", error);
+    } finally {
+      setLoadingNotices(false);
+    }
+  };
+
+  const formatDate = (timestamp: any) => {
+    try {
+      let date: Date;
+      if (timestamp?.toDate) {
+        date = timestamp.toDate();
+      } else if (timestamp?.seconds) {
+        date = new Date(timestamp.seconds * 1000);
+      } else if (typeof timestamp === 'string') {
+        date = new Date(timestamp);
+      } else if (timestamp instanceof Date) {
+        date = timestamp;
+      } else {
+        return '날짜 없음';
+      }
+      return date.toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+    } catch (error) {
+      return '날짜 없음';
+    }
+  };
+
   // 주요 서비스 데이터
   const services = [
     {
@@ -79,40 +124,6 @@ const Home = () => {
     { icon: <Users />, value: "650+", label: "협력 고객사" },
     { icon: <Award />, value: "11+", label: "보유 인증" },
     { icon: <TrendingUp />, value: "KOLAS", label: "공인 인증기관" },
-  ];
-
-  // 최신 공지사항 (더미 데이터)
-  const notices = [
-    {
-      id: 1,
-      title: "2025년 설 연휴 휴무 안내",
-      date: "2025-01-20",
-      isImportant: true,
-    },
-    {
-      id: 2,
-      title: "먹는물 수질검사 항목 추가 안내",
-      date: "2025-01-15",
-      isImportant: false,
-    },
-    {
-      id: 3,
-      title: "실내공기질 측정 견적 문의 이벤트",
-      date: "2025-01-10",
-      isImportant: false,
-    },
-    {
-      id: 4,
-      title: "석면조사 분석 서비스 확대",
-      date: "2025-01-05",
-      isImportant: false,
-    },
-    {
-      id: 5,
-      title: "홈페이지 리뉴얼 완료",
-      date: "2024-12-15",
-      isImportant: true,
-    },
   ];
 
   return (
@@ -381,44 +392,54 @@ const Home = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {notices.map((notice, index) => (
-              <motion.div
-                key={notice.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-              >
-                <Link to={`/board/notices/${notice.id}`}>
-                  <Card hover className="p-6 h-full flex flex-col shadow-md hover:shadow-xl bg-white dark:bg-gray-500 border border-gray-200 dark:border-gray-500 hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 bg-[#0069FF] rounded-xl flex items-center justify-center">
-                        <FileText className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex flex-col items-end gap-2">
-                        {notice.isImportant && (
-                          <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-                            중요
+          {loadingNotices ? (
+            <div className="flex justify-center items-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            </div>
+          ) : notices.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-neutral-500 dark:text-neutral-400">등록된 공지사항이 없습니다.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {notices.slice(0, 5).map((notice, index) => (
+                <motion.div
+                  key={notice.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                >
+                  <Link to={`/board/notice/${notice.id}`}>
+                    <Card hover className="p-6 h-full flex flex-col shadow-md hover:shadow-xl bg-white dark:bg-gray-500 border border-gray-200 dark:border-gray-500 hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="w-12 h-12 bg-[#0069FF] rounded-xl flex items-center justify-center">
+                          <FileText className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex flex-col items-end gap-2">
+                          {notice.isPinned && (
+                            <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                              중요
+                            </span>
+                          )}
+                          <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                            {formatDate(notice.createdAt)}
                           </span>
-                        )}
-                        <span className="text-sm text-neutral-500 dark:text-neutral-400">
-                          {notice.date}
-                        </span>
+                        </div>
                       </div>
-                    </div>
-                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-4 line-clamp-2 leading-relaxed">
-                      {notice.title}
-                    </h3>
-                    <p className="text-neutral-600 dark:text-neutral-400 text-sm mt-auto flex items-center hover:text-[#0069FF] transition-colors">
-                      자세히 보기
-                      <ArrowRight className="ml-1 w-4 h-4" />
-                    </p>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                      <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-4 line-clamp-2 leading-relaxed">
+                        {notice.title}
+                      </h3>
+                      <p className="text-neutral-600 dark:text-neutral-400 text-sm mt-auto flex items-center hover:text-[#0069FF] transition-colors">
+                        자세히 보기
+                        <ArrowRight className="ml-1 w-4 h-4" />
+                      </p>
+                    </Card>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          )}
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -426,7 +447,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mt-12"
           >
-            <Link to="/board/notices">
+            <Link to="/board/notice">
               <Button size="lg" variant="outline" className="border-2 hover:bg-primary-600 hover:text-white hover:border-primary-600 dark:border-gray-500 dark:text-white dark:hover:bg-primary-600">
                 전체 공지사항 보기
                 <ArrowRight className="ml-2 w-5 h-5" />

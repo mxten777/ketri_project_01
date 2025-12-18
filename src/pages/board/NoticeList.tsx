@@ -105,9 +105,9 @@ const NoticeList = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-4xl font-bold mb-4">📢 회사소식</h1>
+              <h1 className="text-4xl font-bold mb-4">📢 최신 공지사항</h1>
               <p className="text-xl opacity-90">
-                한국환경안전연구소의 새로운 소식을 확인하세요
+                한국환경안전연구소의 새로운 소식과 중요한 공지사항을 확인하세요
               </p>
             </motion.div>
           </div>
