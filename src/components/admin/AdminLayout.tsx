@@ -51,7 +51,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
               <Link to="/admin/dashboard" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
                 대시보드
               </Link>
-              <Link to="/admin/notices" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
+              <Link to="/admin/notice" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
                 공지사항 관리
               </Link>
               <Link to="/admin/qna" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">

@@ -52,7 +52,7 @@ const Location = () => {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24">
+      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -258,7 +258,7 @@ const Location = () => {
                 transition={{ duration: 0.6, delay: 0.1 * index }}
                 className="text-center p-6 bg-white dark:bg-neutral-800 rounded-2xl shadow-soft"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900/30 dark:to-secondary-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <MapPin className="w-8 h-8 text-primary-600 dark:text-primary-400" />
                 </div>
                 <h3 className="font-bold mb-2">{landmark.name}</h3>
@@ -280,7 +280,7 @@ const Location = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-8"
+          className="bg-primary-50 dark:bg-primary-900/20 rounded-2xl p-8"
         >
           <h2 className="text-2xl font-bold text-center mb-8">
             주차 및 방문 안내

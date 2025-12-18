@@ -185,7 +185,7 @@ const Certificates = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
       {/* Hero Section - Premium Design */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 text-white py-20 lg:py-32">
+      <section className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 text-white py-20 lg:py-32">
         {/* Decorative Elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -255,7 +255,7 @@ const Certificates = () => {
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
               className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-xl border border-neutral-200 dark:border-neutral-700 text-center group cursor-pointer"
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary-600 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300">
                 <Award className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
               <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary-600 dark:text-primary-400 mb-1">
@@ -536,7 +536,7 @@ const Certificates = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mt-12 sm:mt-16 lg:mt-20 relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl"
+          className="mt-12 sm:mt-16 lg:mt-20 relative overflow-hidden bg-primary-600 dark:bg-primary-700 rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl"
         >
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">

@@ -117,134 +117,165 @@ const Home = () => {
 
   return (
     <div className="overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[650px] flex items-center justify-center bg-gradient-to-br from-primary-600 via-primary-500 to-secondary-500 overflow-hidden">
-        {/* Background Pattern */}
+      {/* Hero Section - Figma Design */}
+      <section className="relative min-h-screen flex items-center justify-center bg-primary-600 dark:bg-primary-700 overflow-hidden">
+        {/* 기하학적 패턴 배경 */}
         <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-          ></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.2),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.15),transparent_50%)]"></div>
         </div>
 
-        <div className="container-custom relative z-10">
+        {/* 메인 컨텐츠 */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center text-white"
+            transition={{ duration: 1 }}
+            className="text-center text-white max-w-5xl mx-auto"
           >
+            {/* 메인 타이틀 */}
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 sm:mb-8 leading-tight px-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
               신뢰할 수 있는
               <br />
-              <span className="text-secondary-300">환경안전</span> 전문기관
+              <span className="text-white drop-shadow-lg">환경안전 전문기관</span>
             </motion.h1>
 
+            {/* 서브 타이틀 */}
             <motion.p
-              className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-10 text-white/90 max-w-3xl mx-auto leading-relaxed px-4"
+              className="text-xl sm:text-2xl md:text-3xl mb-12 text-white/95 font-light leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              <span className="font-semibold text-white">KOLAS 인증</span>{" "}
-              시험기관으로{" "}
-              <span className="font-semibold text-white">2006년</span>부터
-              축적된 전문성
-              <br className="hidden sm:block" />
-              <span className="font-semibold text-white">650+</span> 협력
-              고객사와 함께 성장하는 신뢰의 파트너
+              한국환경안전연구소
             </motion.p>
 
+            {/* CTA 버튼 */}
             <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
-              <Link to="/about/greeting" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  className="w-full sm:w-auto bg-white text-primary-600 hover:bg-neutral-100 hover:shadow-xl transition-all duration-300 px-8 py-3.5 text-base font-semibold"
-                >
+              <Link to="/about/greeting">
+                <button className="px-10 py-4 bg-white text-blue-600 rounded-full font-semibold text-lg hover:bg-blue-50 hover:shadow-2xl transform hover:scale-105 transition-all duration-300 min-w-[200px]">
                   회사 소개
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+                </button>
               </Link>
-              <Link to="/quote-request" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary-600 transition-all duration-300 px-8 py-3.5 text-base font-semibold"
-                >
+              <Link to="/quote-request">
+                <button className="px-10 py-4 bg-white/10 backdrop-blur-sm border-2 border-white text-white rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transform hover:scale-105 transition-all duration-300 min-w-[200px]">
                   견적 문의
-                </Button>
+                </button>
               </Link>
+            </motion.div>
+
+            {/* 통계 배지 */}
+            <motion.div
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+            >
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 + index * 0.1 }}
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.15)" }}
+                >
+                  <div className="text-white/80 mb-2">{stat.icon}</div>
+                  <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+                  <div className="text-sm text-white/80">{stat.label}</div>
+                </motion.div>
+              ))}
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* 하단 스크롤 인디케이터 */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 15, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
         >
-          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-3 bg-white/50 rounded-full"></div>
+          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2">
+            <motion.div
+              className="w-1.5 h-3 bg-white/60 rounded-full"
+              animate={{ y: [0, 12, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            ></motion.div>
           </div>
         </motion.div>
       </section>
 
-      {/* Services Section */}
-      <section className="section bg-neutral-50 dark:bg-neutral-900">
-        <div className="container-custom">
+      {/* Services Section - 6개 카드 레이아웃 */}
+      <section className="py-20 bg-white dark:bg-neutral-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="heading-lg mb-4">주요 서비스</h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-              다양한 분야의 전문 검사 및 컨설팅 서비스를 제공합니다
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-neutral-900 dark:text-white">
+              주요 서비스
+            </h2>
+            <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
+              한국환경안전연구소가 제공하는
+              <br className="hidden sm:block" />
+              전문적이고 신뢰할 수 있는 서비스입니다
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* 6개 서비스 카드 그리드 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {services.map((service, index) => (
               <motion.div
                 key={service.path}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <Link to={service.path}>
-                  <Card hover className="p-6 h-full">
-                    <div
-                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white mb-4`}
-                    >
-                      {service.icon}
+                <Link to={service.path} className="block group">
+                  <div className="relative h-full bg-white dark:bg-neutral-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-neutral-100 dark:border-neutral-700 overflow-hidden">
+                    {/* 호버 시 배경 그라데이션 */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                    
+                    {/* 아이콘 */}
+                    <div className="relative z-10 mb-6">
+                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                        {service.icon}
+                      </div>
                     </div>
-                    <h3 className="text-xl font-bold mb-2 text-neutral-900 dark:text-white">
+
+                    {/* 타이틀 */}
+                    <h3 className="relative z-10 text-2xl font-bold mb-4 text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                       {service.title}
                     </h3>
-                    <p className="text-neutral-600 dark:text-neutral-400 mb-4">
+
+                    {/* 설명 */}
+                    <p className="relative z-10 text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
                       {service.description}
                     </p>
-                    <div className="flex items-center text-primary-500 font-medium">
+
+                    {/* 자세히 보기 링크 */}
+                    <div className="relative z-10 flex items-center text-blue-600 dark:text-blue-400 font-semibold group-hover:translate-x-2 transition-transform duration-300">
                       자세히 보기
-                      <ChevronRight className="w-4 h-4 ml-1" />
+                      <ChevronRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
                     </div>
-                  </Card>
+
+                    {/* 장식 요소 */}
+                    <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-gradient-to-br from-blue-50 to-transparent dark:from-blue-900/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
                 </Link>
               </motion.div>
             ))}
@@ -252,102 +283,79 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="section bg-primary-600 text-white">
-        <div className="container-custom">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="text-center"
-              >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-2xl mb-4">
-                  {stat.icon}
-                </div>
-                <div className="text-3xl lg:text-4xl font-bold mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-white/80">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Why Choose Us Section */}
-      <section className="section bg-white dark:bg-neutral-800">
-        <div className="container-custom">
+      <section className="py-24 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="heading-lg mb-4">왜 KESRI를 선택해야 할까요?</h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-              19년간의 검증된 전문성과 체계적인 품질관리 시스템으로 고객의
-              신뢰를 얻고 있습니다
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-neutral-900 dark:text-white">
+              왜 KESRI를 선택해야 할까요?
+            </h2>
+            <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
+              19년간의 검증된 전문성과 체계적인 품질관리 시스템으로
+              <br className="hidden sm:block" />
+              고객의 신뢰를 얻고 있습니다
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className="text-center"
+              className="bg-white dark:bg-gray-500 border border-gray-200 dark:border-gray-500 rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-500 text-center"
             >
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Award className="w-10 h-10 text-white" />
+              <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <Award className="w-12 h-12 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">
+              <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
                 KOLAS 공인인증
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-400">
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 국가공인시험기관으로서 공신력 있는 검사 결과를 제공하며,
                 국제적으로 인정받는 품질관리 시스템을 운영합니다
               </p>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-center"
+              className="bg-white dark:bg-gray-500 border border-gray-200 dark:border-gray-500 rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-500 text-center"
             >
-              <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Clock className="w-10 h-10 text-white" />
+              <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <Clock className="w-12 h-12 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">
+              <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
                 신속한 검사 처리
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-400">
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 체계적인 검사 프로세스와 최신 장비를 통해 평균 3-5일 내 정확한
                 검사 결과를 제공합니다
               </p>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-center"
+              className="bg-white dark:bg-gray-500 border border-gray-200 dark:border-gray-500 rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-500 text-center"
             >
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Users className="w-10 h-10 text-white" />
+              <div className="w-24 h-24 bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <Users className="w-12 h-12 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">
+              <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
                 전문가 컨설팅
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-400">
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 각 분야별 전문가가 검사 결과 해석부터 개선방안 제시까지 맞춤형
                 컨설팅 서비스를 제공합니다
               </p>
@@ -357,49 +365,79 @@ const Home = () => {
       </section>
 
       {/* Notices Section */}
-      <section className="section">
+      <section className="section bg-gray-50 dark:bg-gray-700">
         <div className="container-custom">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="heading-md">최신 공지사항</h2>
-            <Link
-              to="/board/notices"
-              className="text-primary-500 hover:text-primary-600 flex items-center"
-            >
-              전체보기
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Link>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-neutral-900 dark:text-white">
+              최신 공지사항
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto leading-relaxed">
+              한국환경안전연구소의 새로운 소식과 중요한 공지사항을 확인하세요
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {notices.map((notice, index) => (
+              <motion.div
+                key={notice.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+              >
+                <Link to={`/board/notices/${notice.id}`}>
+                  <Card hover className="p-6 h-full flex flex-col shadow-md hover:shadow-xl bg-white dark:bg-gray-500 border border-gray-200 dark:border-gray-500 hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="w-12 h-12 bg-[#0069FF] rounded-xl flex items-center justify-center">
+                        <FileText className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="flex flex-col items-end gap-2">
+                        {notice.isImportant && (
+                          <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                            중요
+                          </span>
+                        )}
+                        <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                          {notice.date}
+                        </span>
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-4 line-clamp-2 leading-relaxed">
+                      {notice.title}
+                    </h3>
+                    <p className="text-neutral-600 dark:text-neutral-400 text-sm mt-auto flex items-center hover:text-[#0069FF] transition-colors">
+                      자세히 보기
+                      <ArrowRight className="ml-1 w-4 h-4" />
+                    </p>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
           </div>
 
-          <Card className="divide-y divide-neutral-200 dark:divide-neutral-700">
-            {notices.map((notice) => (
-              <Link
-                key={notice.id}
-                to={`/board/notices/${notice.id}`}
-                className="block p-4 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors duration-200"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3 flex-1 min-w-0">
-                    {notice.isImportant && (
-                      <span className="badge badge-danger flex-shrink-0">
-                        중요
-                      </span>
-                    )}
-                    <span className="text-neutral-900 dark:text-white truncate">
-                      {notice.title}
-                    </span>
-                  </div>
-                  <span className="text-sm text-neutral-500 ml-4 flex-shrink-0">
-                    {notice.date}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </Card>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
+            <Link to="/board/notices">
+              <Button size="lg" variant="outline" className="border-2 hover:bg-primary-600 hover:text-white hover:border-primary-600 dark:border-gray-500 dark:text-white dark:hover:bg-primary-600">
+                전체 공지사항 보기
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
       {/* Customer Trust Section */}
-      <section className="section bg-gradient-to-br from-primary-600 to-primary-800 text-white">
+      <section className="section bg-primary-600 dark:bg-primary-700 text-white">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -408,12 +446,12 @@ const Home = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="heading-lg mb-6">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
                 고객의 신뢰를 바탕으로
                 <br />
                 성장해온 19년
               </h2>
-              <p className="text-lg text-white/90 mb-8">
+              <p className="text-base md:text-lg text-white/90 mb-8 leading-relaxed">
                 2006년 설립 이후 650여 고객사와 함께 성장하며, 8,500건 이상의
                 검사를 성공적으로 수행했습니다. 정확하고 신속한 서비스로 95%의
                 고객 만족도를 달성했습니다.
@@ -422,7 +460,7 @@ const Home = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-primary-600"
+                  className="border-2 border-white text-white hover:bg-white hover:text-[#0069FF] dark:hover:bg-neutral-100 transition-all duration-300 font-bold shadow-lg"
                 >
                   회사 소개 보기
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -437,21 +475,21 @@ const Home = () => {
               transition={{ duration: 0.8 }}
               className="grid grid-cols-2 gap-6"
             >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
-                <div className="text-3xl font-bold mb-2">650+</div>
-                <div className="text-white/80">협력 고객사</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center shadow-xl hover:bg-white/20 transition-all duration-300">
+                <div className="text-4xl md:text-5xl font-bold mb-3">650+</div>
+                <div className="text-base text-white/90">협력 고객사</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
-                <div className="text-3xl font-bold mb-2">8,500+</div>
-                <div className="text-white/80">검사 건수</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center shadow-xl hover:bg-white/20 transition-all duration-300">
+                <div className="text-4xl md:text-5xl font-bold mb-3">8,500+</div>
+                <div className="text-base text-white/90">검사 건수</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
-                <div className="text-3xl font-bold mb-2">95%</div>
-                <div className="text-white/80">고객 만족도</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center shadow-xl hover:bg-white/20 transition-all duration-300">
+                <div className="text-4xl md:text-5xl font-bold mb-3">95%</div>
+                <div className="text-base text-white/90">고객 만족도</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
-                <div className="text-3xl font-bold mb-2">19년</div>
-                <div className="text-white/80">신뢰의 경험</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center shadow-xl hover:bg-white/20 transition-all duration-300">
+                <div className="text-4xl md:text-5xl font-bold mb-3">19년</div>
+                <div className="text-base text-white/90">신뢰의 경험</div>
               </div>
             </motion.div>
           </div>
@@ -459,17 +497,19 @@ const Home = () => {
       </section>
 
       {/* Process Section */}
-      <section className="section bg-neutral-50 dark:bg-neutral-900">
+      <section className="section bg-white dark:bg-gray-700">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="heading-lg mb-4">검사 진행 과정</h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-neutral-900 dark:text-white">
+              검사 진행 과정
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto leading-relaxed">
               체계적인 4단계 프로세스로 정확하고 신속한 검사 서비스를 제공합니다
             </p>
           </motion.div>
@@ -481,12 +521,14 @@ const Home = () => {
                 title: "문의 및 상담",
                 description: "전문 상담원이 검사 항목과 일정을 안내해드립니다",
                 icon: <MessageCircle className="w-8 h-8" />,
+                color: "bg-[#0069FF]",
               },
               {
                 step: "02",
                 title: "시료 접수",
                 description: "직접 방문 또는 택배로 시료를 접수받습니다",
                 icon: <Package className="w-8 h-8" />,
+                color: "bg-cyan-500",
               },
               {
                 step: "03",
@@ -494,6 +536,7 @@ const Home = () => {
                 description:
                   "KOLAS 인증 장비와 표준절차로 정확한 검사를 실시합니다",
                 icon: <Search className="w-8 h-8" />,
+                color: "bg-purple-500",
               },
               {
                 step: "04",
@@ -501,6 +544,7 @@ const Home = () => {
                 description:
                   "검사 완료 후 공식 성적서와 해석 자료를 제공합니다",
                 icon: <FileText className="w-8 h-8" />,
+                color: "bg-green-500",
               },
             ].map((process, index) => (
               <motion.div
@@ -511,18 +555,18 @@ const Home = () => {
                 transition={{ delay: index * 0.1, duration: 0.6 }}
                 className="text-center relative"
               >
-                <div className="bg-primary-100 dark:bg-primary-900/30 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 relative">
-                  <div className="text-primary-600 dark:text-primary-400">
+                <div className="relative mb-6">
+                  <div className={`${process.color} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto text-white shadow-lg`}>
                     {process.icon}
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 rounded-full flex items-center justify-center text-sm font-bold shadow-md">
                     {process.step}
                   </div>
                 </div>
-                <h3 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">
+                <h3 className="text-xl md:text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
                   {process.title}
                 </h3>
-                <p className="text-neutral-600 dark:text-neutral-400">
+                <p className="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
                   {process.description}
                 </p>
                 {index < 3 && (
@@ -535,16 +579,18 @@ const Home = () => {
       </section>
 
       {/* Quick Actions Section */}
-      <section className="section bg-white dark:bg-neutral-800">
+      <section className="section bg-gray-50 dark:bg-gray-700">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="heading-lg mb-4">빠른 서비스</h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-neutral-900 dark:text-white">
+              빠른 서비스
+            </h2>
+            <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto leading-relaxed">
               원하시는 서비스를 바로 이용하세요
             </p>
           </motion.div>
@@ -555,25 +601,29 @@ const Home = () => {
                 title: "공지사항",
                 description: "최신 소식을 확인하세요",
                 path: "/board/notices",
-                icon: <FileText />,
+                icon: <FileText className="w-8 h-8" />,
+                color: "bg-[#0069FF]",
               },
               {
                 title: "견적 요청",
                 description: "검사 견적을 문의하세요",
                 path: "/quote-request",
-                icon: <TrendingUp />,
+                icon: <TrendingUp className="w-8 h-8" />,
+                color: "bg-cyan-500",
               },
               {
                 title: "서비스 소개",
                 description: "검사 서비스를 확인하세요",
                 path: "/industrial-health",
-                icon: <CheckCircle />,
+                icon: <CheckCircle className="w-8 h-8" />,
+                color: "bg-purple-500",
               },
               {
                 title: "질문답변",
                 description: "궁금한 사항을 문의하세요",
                 path: "/board/qna",
-                icon: <Users />,
+                icon: <Users className="w-8 h-8" />,
+                color: "bg-green-500",
               },
             ].map((action, index) => (
               <motion.div
@@ -584,14 +634,14 @@ const Home = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <Link to={action.path}>
-                  <Card hover className="p-6 text-center">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 rounded-2xl mb-4">
+                  <Card hover className="p-8 text-center h-full flex flex-col items-center shadow-md hover:shadow-xl bg-white dark:bg-gray-500 border border-gray-200 dark:border-gray-500 hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300">
+                    <div className={`${action.color} w-16 h-16 rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg`}>
                       {action.icon}
                     </div>
-                    <h3 className="text-lg font-bold mb-2 text-neutral-900 dark:text-white">
+                    <h3 className="text-xl font-bold mb-3 text-neutral-900 dark:text-white">
                       {action.title}
                     </h3>
-                    <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                    <p className="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
                       {action.description}
                     </p>
                   </Card>
@@ -603,7 +653,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="section bg-gradient-to-r from-primary-600 to-secondary-600 text-white">
+      <section className="section bg-primary-600 dark:bg-primary-700 text-white">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -611,26 +661,27 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
               전문적인 환경안전 서비스가 필요하신가요?
             </h2>
-            <p className="text-lg text-white/90 mb-8">
+            <p className="text-base md:text-lg text-white/90 mb-10 leading-relaxed">
               한국환경안전연구소의 전문가가 최적의 솔루션을 제공해드립니다
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/quote-request" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto bg-white text-primary-600 hover:bg-neutral-100"
+                  className="w-full sm:w-auto bg-white text-[#0069FF] hover:bg-neutral-100 shadow-xl hover:shadow-2xl transition-all duration-300 font-bold"
                 >
                   무료 견적 받기
+                  <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
               <Link to="/about/greeting" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary-600"
+                  className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-[#0069FF] dark:hover:bg-neutral-100 transition-all duration-300 font-bold"
                 >
                   회사 소개 보기
                 </Button>

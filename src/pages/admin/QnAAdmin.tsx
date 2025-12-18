@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { getQnAs, deleteQna, toggleAnswered } from "../../services/qnaService";
+import { formatFirebaseTimestamp } from "../../utils/dateUtils";
 import type { QnA } from "../../types";
 
 const QnAAdmin = () => {
@@ -34,7 +35,8 @@ const QnAAdmin = () => {
 
       setQnas(filteredData);
     } catch (error) {
-      console.error("Error fetching QnAs:", error);
+      console.error("QnA 조회 실패:", error);
+      alert("QnA 목록을 불러오는데 실패했습니다.");
     } finally {
       setLoading(false);
     }
@@ -50,9 +52,10 @@ const QnAAdmin = () => {
   const handleToggleAnswered = async (qnaId: string, hasAnswer: boolean) => {
     try {
       await toggleAnswered(qnaId, !hasAnswer);
-      fetchQnAs(); // 목록 새로고침
+      // 목록 새로고침
+      await fetchQnAs();
     } catch (error) {
-      console.error("Error toggling answered status:", error);
+      console.error("답변 상태 변경 실패:", error);
       alert("답변 상태 변경에 실패했습니다.");
     }
   };
@@ -64,100 +67,50 @@ const QnAAdmin = () => {
 
     try {
       await deleteQna(qnaId);
-      fetchQnAs(); // 목록 새로고침
+      setQnas((prev) => prev.filter((qna) => qna.id !== qnaId));
       alert("삭제되었습니다.");
     } catch (error) {
-      console.error("Error deleting QnA:", error);
+      console.error("QnA 삭제 실패:", error);
       alert("삭제에 실패했습니다.");
     }
   };
 
-  const formatDate = (
-    timestamp: { seconds: number; nanoseconds: number } | null
-  ) => {
-    if (!timestamp) return "";
-    return new Date(timestamp.seconds * 1000).toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
-
   if (!user || !isAdmin) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-red-900 to-slate-900 flex items-center justify-center p-4">
-        <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-pink-600/10 to-red-600/10"></div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="relative z-10 bg-white/10 backdrop-blur-md p-10 rounded-3xl shadow-2xl text-center max-w-md mx-auto border border-white/20"
-        >
-          <motion.div
-            animate={{
-              scale: [1, 1.1, 1],
-              rotate: [0, 5, -5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-            }}
-            className="w-24 h-24 bg-red-500/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-red-500/30"
-          >
-            <MessageSquare className="w-12 h-12 text-red-400" />
-          </motion.div>
-          <h1 className="text-3xl font-bold text-white mb-4">
+      <div className="flex items-center justify-center py-12">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-red-400 mb-4">
             접근 권한이 없습니다
-          </h1>
-          <p className="text-gray-300 mb-8 leading-relaxed">
+          </h2>
+          <p className="text-gray-300 mb-6">
             관리자만 접근할 수 있는 페이지입니다.
           </p>
           <button
             onClick={() => window.history.back()}
-            className="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl shadow-lg shadow-red-500/30 hover:shadow-red-500/50 transition-all duration-200"
+            className="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all"
           >
             이전 페이지로 돌아가기
           </button>
-        </motion.div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* 애니메이션 배경 */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-pink-600/10 animate-gradient"></div>
-
-      {/* 파티클 효과 */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{
-            y: [0, -100, 0],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
-        ></motion.div>
-      </div>
-
+    <div className="space-y-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative z-10 max-w-7xl mx-auto p-6 space-y-8"
+        className="space-y-6"
       >
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold text-white mb-1">
               QnA 관리
-            </h1>
-            <p className="text-gray-300 mt-1">
+            </h2>
+            <p className="text-gray-300">
               고객 문의사항을 관리하고 답변할 수 있습니다.
             </p>
           </div>
@@ -186,20 +139,12 @@ const QnAAdmin = () => {
         </div>
 
         {/* 통계 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-md rounded-2xl p-6 border border-blue-400/30 shadow-xl"
-          >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
             <div className="flex items-center gap-4">
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 10 }}
-                className="w-14 h-14 bg-blue-500/30 rounded-xl flex items-center justify-center shadow-lg"
-              >
+              <div className="w-14 h-14 bg-blue-500/30 rounded-xl flex items-center justify-center">
                 <MessageSquare className="w-7 h-7 text-blue-300" />
-              </motion.div>
+              </div>
               <div>
                 <div className="text-3xl font-bold text-white">
                   {qnas.length}
@@ -207,21 +152,13 @@ const QnAAdmin = () => {
                 <div className="text-sm text-gray-300">전체 문의</div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="bg-gradient-to-br from-orange-500/20 to-orange-600/20 backdrop-blur-md rounded-2xl p-6 border border-orange-400/30 shadow-xl"
-          >
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
             <div className="flex items-center gap-4">
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 10 }}
-                className="w-14 h-14 bg-orange-500/30 rounded-xl flex items-center justify-center shadow-lg"
-              >
+              <div className="w-14 h-14 bg-orange-500/30 rounded-xl flex items-center justify-center">
                 <Clock className="w-7 h-7 text-orange-300" />
-              </motion.div>
+              </div>
               <div>
                 <div className="text-3xl font-bold text-white">
                   {qnas.filter((q) => !q.answeredAt).length}
@@ -229,21 +166,13 @@ const QnAAdmin = () => {
                 <div className="text-sm text-gray-300">미답변</div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-gradient-to-br from-green-500/20 to-green-600/20 backdrop-blur-md rounded-2xl p-6 border border-green-400/30 shadow-xl"
-          >
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
             <div className="flex items-center gap-4">
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 10 }}
-                className="w-14 h-14 bg-green-500/30 rounded-xl flex items-center justify-center shadow-lg"
-              >
+              <div className="w-14 h-14 bg-green-500/30 rounded-xl flex items-center justify-center">
                 <CheckCircle className="w-7 h-7 text-green-300" />
-              </motion.div>
+              </div>
               <div>
                 <div className="text-3xl font-bold text-white">
                   {qnas.filter((q) => q.answeredAt).length}
@@ -251,7 +180,7 @@ const QnAAdmin = () => {
                 <div className="text-sm text-gray-300">답변완료</div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* QnA 목록 */}
@@ -365,11 +294,11 @@ const QnAAdmin = () => {
                         <div className="flex items-center gap-1 text-sm text-gray-300">
                           <Calendar className="w-4 h-4" />
                           {qna.createdAt instanceof Date
-                            ? formatDate({
+                            ? formatFirebaseTimestamp({
                                 seconds: qna.createdAt.getTime() / 1000,
                                 nanoseconds: 0,
                               })
-                            : formatDate(
+                            : formatFirebaseTimestamp(
                                 qna.createdAt as {
                                   seconds: number;
                                   nanoseconds: number;
@@ -378,15 +307,16 @@ const QnAAdmin = () => {
                         </div>
                       </td>
                       <td className="py-4 px-6 text-center">
-                        <div className="flex items-center justify-center gap-1">
+                        <div className="flex items-center justify-center gap-2">
                           <button
                             onClick={() =>
                               window.open(`/board/qna/${qna.id}`, "_blank")
                             }
-                            className="p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-all duration-200"
-                            title="상세보기"
+                            className="px-3 py-1.5 text-sm bg-blue-500/20 text-blue-300 hover:bg-blue-500/30 rounded-lg transition-all duration-200 flex items-center gap-1"
+                            title="답변하기"
                           >
-                            <Eye className="w-4 h-4" />
+                            <MessageSquare className="w-4 h-4" />
+                            답변
                           </button>
                           <button
                             onClick={() => handleDeleteQnA(qna.id)}

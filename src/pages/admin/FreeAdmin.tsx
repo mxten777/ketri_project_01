@@ -3,38 +3,48 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Edit, Trash2, Eye, Heart } from "lucide-react";
 import { getFreePosts, deleteFreePost } from "../../services/freeService";
+import { useAuth } from "../../contexts/AuthContext";
 import type { FreePost } from "../../types";
 
 const FreeAdmin = () => {
   const navigate = useNavigate();
+  const { userData } = useAuth();
   const [posts, setPosts] = useState<FreePost[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // 관리자 권한 확인 및 데이터 로드
   useEffect(() => {
+    if (userData?.role !== "admin") {
+      navigate("/");
+      return;
+    }
     fetchPosts();
-  }, []);
+  }, [userData, navigate]);
 
   const fetchPosts = async () => {
     try {
       setLoading(true);
+      console.log("FreeAdmin: Fetching posts...");
       const data = await getFreePosts();
+      console.log("FreeAdmin: Received posts:", data);
       setPosts(data.slice(0, 50)); // 최근 50개만
-    } catch (error) {
+    } catch (error: any) {
       console.error("게시글 조회 실패:", error);
+      alert(`게시글을 불러오는데 실패했습니다.\n${error?.message || error}`);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("정말 삭제하시겠습니까?")) return;
+    if (!window.confirm("정말 삭제하시겠습니까?")) return;
 
     try {
       await deleteFreePost(id);
+      setPosts((prev) => prev.filter((post) => post.id !== id));
       alert("삭제되었습니다.");
-      fetchPosts();
     } catch (error) {
-      console.error("삭제 실패:", error);
+      console.error("게시글 삭제 실패:", error);
       alert("삭제에 실패했습니다.");
     }
   };
@@ -66,25 +76,24 @@ const FreeAdmin = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center py-12">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden"
-      >
-        <div className="p-6 border-b border-white/10 bg-gradient-to-r from-blue-500/10 to-purple-500/10">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-white mb-2">
-                💬 자유게시판 관리
-              </h1>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 overflow-hidden"
+    >
+      <div className="p-6 border-b border-white/10 bg-gradient-to-r from-blue-500/10 to-purple-500/10">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-white mb-2">
+              💬 자유게시판 관리
+            </h2>
               <p className="text-gray-300">
                 총 {posts.length}개의 게시글이 등록되어 있습니다
               </p>
@@ -171,7 +180,6 @@ const FreeAdmin = () => {
           )}
         </div>
       </motion.div>
-    </div>
   );
 };
 

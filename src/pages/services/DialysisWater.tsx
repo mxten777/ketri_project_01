@@ -1,7 +1,7 @@
 const DialysisWater = () => {
   return (
     <div className="min-h-screen">
-      <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white py-16 lg:py-24">
+      <div className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             혈액투석용수 검사
@@ -14,9 +14,36 @@ const DialysisWater = () => {
       </div>
 
       <div className="section container-custom">
-        <div className="card p-8">
-          <h2 className="heading-md mb-6">투석용수 검사 서비스</h2>
-          <div className="prose dark:prose-invert max-w-none">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar */}
+          <aside className="lg:col-span-1">
+            <div className="card p-6 sticky top-32">
+              <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
+              <nav className="space-y-2">
+                {[
+                  { label: "서비스 개요", id: "overview" },
+                  { label: "투석용수 중요성", id: "importance" },
+                  { label: "검사 항목", id: "items" },
+                  { label: "검사 주기", id: "schedule" },
+                  { label: "검사 절차", id: "process" },
+                ].map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            <div className="card p-8">
+              <h2 className="heading-md mb-6" id="overview">투석용수 검사 서비스</h2>
+              <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 혈액투석용수 전문 검사기관으로 2006년부터
               전국 200여 개 투석센터의 용수검사를 수행해왔습니다. 대한신장학회
@@ -26,7 +53,7 @@ const DialysisWater = () => {
             </p>
 
             <h3 className="text-2xl font-bold mt-8 mb-4">투석용수 중요성</h3>
-            <div className="bg-purple-50 dark:bg-purple-900/20 border-l-4 border-purple-500 p-6 mb-8">
+            <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6 mb-8">
               <p className="text-neutral-700 dark:text-neutral-300 mb-3">
                 혈액투석 환자는 일주일에 3회, 회당 약 120L 이상의 투석용수에
                 노출됩니다. 연간 약 18,000L 이상의 물이 환자 혈액과 직접
@@ -45,7 +72,7 @@ const DialysisWater = () => {
             <div className="overflow-x-auto mb-8">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="bg-purple-600 text-white">
+                  <tr className="bg-primary-600 text-white">
                     <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       구분
                     </th>
@@ -170,8 +197,8 @@ const DialysisWater = () => {
 
             <h3 className="text-2xl font-bold mt-8 mb-4">검사 종류</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl">
-                <h4 className="font-bold text-lg mb-3 text-purple-600 dark:text-purple-400">
+              <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
+                <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-primary-400">
                   화학물질 검사
                 </h4>
                 <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
@@ -184,8 +211,8 @@ const DialysisWater = () => {
                   검사주기: 연 1회 이상
                 </p>
               </div>
-              <div className="p-6 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl">
-                <h4 className="font-bold text-lg mb-3 text-pink-600 dark:text-pink-400">
+              <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+                <h4 className="font-bold text-lg mb-3 text-gray-600 dark:text-gray-400">
                   미생물 검사
                 </h4>
                 <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
@@ -204,7 +231,7 @@ const DialysisWater = () => {
             <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 mb-6">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     1
                   </div>
                   <p className="font-bold mb-1">검사 신청</p>
@@ -213,7 +240,7 @@ const DialysisWater = () => {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     2
                   </div>
                   <p className="font-bold mb-1">시료 채취</p>
@@ -222,7 +249,7 @@ const DialysisWater = () => {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     3
                   </div>
                   <p className="font-bold mb-1">정밀 분석</p>
@@ -231,7 +258,7 @@ const DialysisWater = () => {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     4
                   </div>
                   <p className="font-bold mb-1">성적서 발급</p>
@@ -243,8 +270,8 @@ const DialysisWater = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-6">
-                <h4 className="font-bold text-lg mb-2 text-red-900 dark:text-red-300">
+              <div className="bg-gray-100 dark:bg-gray-800 border-l-4 border-gray-500 p-6">
+                <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-gray-300">
                   ⚠️ 오염 발생 시 조치사항
                 </h4>
                 <ul className="space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
@@ -254,8 +281,8 @@ const DialysisWater = () => {
                   <li>• 재검사 후 적합 판정 시 사용 재개</li>
                 </ul>
               </div>
-              <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-6">
-                <h4 className="font-bold text-lg mb-2 text-blue-900 dark:text-blue-300">
+              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6">
+                <h4 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
                   ✅ 관리 포인트
                 </h4>
                 <ul className="space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
@@ -298,6 +325,8 @@ const DialysisWater = () => {
                     염소/클로라민 정밀 분석
                   </p>
                 </div>
+              </div>
+            </div>
               </div>
             </div>
           </div>

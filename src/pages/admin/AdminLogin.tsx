@@ -32,10 +32,10 @@ const AdminLogin = () => {
     setMounted(true);
   }, []);
 
-  // 관리자가 아닌 사용자가 접근 시 리다이렉트
+  // 이미 로그인한 관리자는 대시보드로 리다이렉트
   useEffect(() => {
-    if (userData && userData.role !== "admin") {
-      navigate("/");
+    if (userData && userData.role === "admin") {
+      navigate("/admin/dashboard", { replace: true });
     }
   }, [userData, navigate]);
 
@@ -46,9 +46,7 @@ const AdminLogin = () => {
 
     try {
       await login(email, password);
-
-      // 관리자 대시보드로 리다이렉트
-      navigate("/admin/dashboard", { replace: true });
+      // userData가 업데이트되면 useEffect에서 자동으로 리다이렉트됨
     } catch (err) {
       console.error("Admin login error:", err);
 

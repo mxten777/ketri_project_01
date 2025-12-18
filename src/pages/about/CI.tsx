@@ -32,7 +32,7 @@ const CI = () => {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24">
+      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -253,7 +253,7 @@ const CI = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-8"
+          className="bg-primary-50 dark:bg-primary-900/20 rounded-2xl p-8"
         >
           <h2 className="text-2xl font-bold text-center mb-8">
             CI 사용 가이드라인

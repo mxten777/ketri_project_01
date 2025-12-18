@@ -5,8 +5,7 @@
 @layer base {
   :root {
     --color-primary: 0 105 255;
-    --color-secondary: 14 165 233;
-    --color-accent: 249 115 22;
+    --color-error: 239 68 68;
   }
 
   * {
@@ -36,8 +35,8 @@
   }
 
   .btn-secondary {
-    @apply bg-secondary-500 text-white hover:bg-secondary-600;
-    @apply focus:ring-secondary-500 shadow-md hover:shadow-lg;
+    @apply bg-primary-500 text-white hover:bg-primary-600;
+    @apply focus:ring-primary-500 shadow-md hover:shadow-lg;
   }
 
   .btn-outline {
@@ -87,7 +86,7 @@
   /* Heading Styles */
   .heading-display {
     @apply text-4xl md:text-5xl lg:text-6xl font-bold;
-    @apply bg-gradient-to-r from-primary-600 to-secondary-600;
+    @apply bg-primary-600;
     @apply bg-clip-text text-transparent;
   }
 
@@ -119,7 +118,7 @@
   }
 
   .badge-secondary {
-    @apply bg-secondary-100 text-secondary-800 dark:bg-secondary-900 dark:text-secondary-200;
+    @apply bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200;
   }
 
   .badge-success {
@@ -138,7 +137,7 @@
 @layer utilities {
   /* Text Gradient */
   .text-gradient {
-    @apply bg-gradient-to-r from-primary-600 to-secondary-600;
+    @apply bg-primary-600;
     @apply bg-clip-text text-transparent;
   }
 
@@ -205,6 +204,16 @@
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   @apply bg-primary-400 dark:bg-primary-500;
+}
+
+/* Hide scrollbar */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Selection */

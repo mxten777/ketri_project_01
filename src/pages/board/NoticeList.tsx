@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import { Pin, Eye, Calendar, User } from "lucide-react";
 import { getNotices } from "../../services/noticeService";
 import type { Notice } from "../../types";
-import Card from "../../components/common/Card";
 
 const NoticeList = () => {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchNotices();
@@ -17,28 +17,75 @@ const NoticeList = () => {
   const fetchNotices = async () => {
     try {
       setLoading(true);
+      setError(null);
+      console.log("NoticeList: Fetching notices...");
       const data = await getNotices(20);
+      console.log("NoticeList: Received data:", data);
       setNotices(data);
     } catch (error) {
-      console.error("Error loading notices:", error);
+      console.error("NoticeList: Error loading notices:", error);
+      const errorMessage = error instanceof Error ? error.message : "공지사항을 불러오는데 실패했습니다.";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
+  const formatDate = (timestamp: unknown) => {
+    try {
+      let date: Date;
+      
+      // Firebase Timestamp 객체
+      if (timestamp?.toDate) {
+        date = timestamp.toDate();
+      } 
+      // seconds 속성이 있는 경우
+      else if (timestamp?.seconds) {
+        date = new Date(timestamp.seconds * 1000);
+      }
+      // 문자열인 경우
+      else if (typeof timestamp === 'string') {
+        date = new Date(timestamp);
+      }
+      // Date 객체인 경우
+      else if (timestamp instanceof Date) {
+        date = timestamp;
+      }
+      else {
+        return '날짜 없음';
+      }
+      
+      return date.toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+    } catch (error) {
+      console.error("Date formatting error:", error);
+      return '날짜 오류';
+    }
   };
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md">
+          <p className="text-red-800 mb-4">⚠️ {error}</p>
+          <button
+            onClick={fetchNotices}
+            className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700"
+          >
+            다시 시도
+          </button>
+        </div>
       </div>
     );
   }
@@ -130,7 +177,7 @@ const NoticeList = () => {
                             </span>
                             <span className="flex items-center gap-1">
                               <Calendar className="w-3 h-3" />
-                              {formatDate(notice.createdAt.toString())}
+                              {formatDate(notice.createdAt)}
                             </span>
                           </div>
                           <div className="flex items-center gap-1 text-xs text-neutral-400">

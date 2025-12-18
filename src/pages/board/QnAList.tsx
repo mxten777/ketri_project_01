@@ -145,10 +145,10 @@ const QnAList = () => {
               >
                 <Button
                   onClick={() => navigate("/board/qna/new")}
-                  className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/30 shadow-premium"
+                  className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all px-6 py-3"
                 >
-                  <Plus className="w-4 h-4 mr-2" />
-                  질문하기
+                  <Plus className="w-5 h-5 mr-2" />
+                  질문 등록하기
                 </Button>
               </motion.div>
             </motion.div>

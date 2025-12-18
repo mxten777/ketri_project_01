@@ -14,6 +14,13 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
+// Firebase 설정 확인
+console.log("Firebase Config:", {
+  projectId: firebaseConfig.projectId,
+  hasApiKey: !!firebaseConfig.apiKey,
+  hasAuthDomain: !!firebaseConfig.authDomain,
+});
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 

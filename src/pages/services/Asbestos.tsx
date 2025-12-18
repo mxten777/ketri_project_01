@@ -1,7 +1,7 @@
 const Asbestos = () => {
   return (
     <div className="min-h-screen">
-      <div className="bg-gradient-to-br from-orange-600 to-red-600 text-white py-16 lg:py-24">
+      <div className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             석면조사 및 분석
@@ -14,9 +14,36 @@ const Asbestos = () => {
       </div>
 
       <div className="section container-custom">
-        <div className="card p-8">
-          <h2 className="heading-md mb-6">석면조사·분석 서비스</h2>
-          <div className="prose dark:prose-invert max-w-none">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar */}
+          <aside className="lg:col-span-1">
+            <div className="card p-6 sticky top-32">
+              <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
+              <nav className="space-y-2">
+                {[
+                  { label: "서비스 개요", id: "overview" },
+                  { label: "주요 서비스", id: "services" },
+                  { label: "석면조사 대상", id: "targets" },
+                  { label: "조사 절차", id: "process" },
+                  { label: "분석 방법", id: "methods" },
+                ].map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            <div className="card p-8">
+              <h2 className="heading-md mb-6" id="overview">석면조사·분석 서비스</h2>
+              <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 환경부 지정 석면조사기관(등록번호:
               2017-AB-001)으로 2006년부터 1,200여 건의 석면조사 및 3,000여 건의
@@ -25,8 +52,8 @@ const Asbestos = () => {
               안전관리 서비스를 제공합니다.
             </p>
 
-            <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-6 mb-8">
-              <h3 className="font-bold text-lg mb-2 text-red-900 dark:text-red-300">
+            <div className="bg-gray-100 dark:bg-gray-800 border-l-4 border-gray-500 p-6 mb-8">
+              <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-gray-300">
                 ⚠️ 석면이란?
               </h3>
               <p className="text-neutral-700 dark:text-neutral-300 mb-3">
@@ -39,7 +66,7 @@ const Asbestos = () => {
 
             <h3 className="text-2xl font-bold mt-8 mb-4">주요 서비스</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="p-6 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-xl">
+              <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
                 <div className="text-4xl mb-3">🏢</div>
                 <h4 className="font-bold text-lg mb-2">건축물 석면조사</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
@@ -49,7 +76,7 @@ const Asbestos = () => {
                   <li>• 석면 함유자재 위치 및 상태 평가</li>
                 </ul>
               </div>
-              <div className="p-6 bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 rounded-xl">
+              <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
                 <div className="text-4xl mb-3">🔬</div>
                 <h4 className="font-bold text-lg mb-2">석면 정성·정량분석</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
@@ -59,7 +86,7 @@ const Asbestos = () => {
                   <li>• 분석성적서 발급 (공식 인정기관)</li>
                 </ul>
               </div>
-              <div className="p-6 bg-gradient-to-br from-pink-50 to-orange-50 dark:from-pink-900/20 dark:to-orange-900/20 rounded-xl">
+              <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
                 <div className="text-4xl mb-3">🌬️</div>
                 <h4 className="font-bold text-lg mb-2">
                   공기 중 석면농도 측정
@@ -71,7 +98,7 @@ const Asbestos = () => {
                   <li>• 위상차현미경(PCM), 전자현미경(TEM) 분석</li>
                 </ul>
               </div>
-              <div className="p-6 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-xl">
+              <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
                 <div className="text-4xl mb-3">📋</div>
                 <h4 className="font-bold text-lg mb-2">위해성평가 및 컨설팅</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
@@ -87,7 +114,7 @@ const Asbestos = () => {
             <div className="overflow-x-auto mb-8">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="bg-orange-600 text-white">
+                  <tr className="bg-primary-600 text-white">
                     <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       대상
                     </th>
@@ -153,7 +180,7 @@ const Asbestos = () => {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <div className="border border-neutral-300 dark:border-neutral-600 rounded-lg p-4">
-                <h4 className="font-bold mb-3 text-orange-600 dark:text-orange-400">
+                <h4 className="font-bold mb-3 text-primary-600 dark:text-primary-400">
                   외장재
                 </h4>
                 <ul className="text-sm space-y-1 text-neutral-600 dark:text-neutral-400">
@@ -164,7 +191,7 @@ const Asbestos = () => {
                 </ul>
               </div>
               <div className="border border-neutral-300 dark:border-neutral-600 rounded-lg p-4">
-                <h4 className="font-bold mb-3 text-red-600 dark:text-red-400">
+                <h4 className="font-bold mb-3 text-gray-600 dark:text-gray-400">
                   내장재
                 </h4>
                 <ul className="text-sm space-y-1 text-neutral-600 dark:text-neutral-400">
@@ -175,7 +202,7 @@ const Asbestos = () => {
                 </ul>
               </div>
               <div className="border border-neutral-300 dark:border-neutral-600 rounded-lg p-4">
-                <h4 className="font-bold mb-3 text-pink-600 dark:text-pink-400">
+                <h4 className="font-bold mb-3 text-gray-600 dark:text-gray-400">
                   설비재
                 </h4>
                 <ul className="text-sm space-y-1 text-neutral-600 dark:text-neutral-400">
@@ -191,7 +218,7 @@ const Asbestos = () => {
             <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 mb-6">
               <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     1
                   </div>
                   <p className="font-bold mb-1">현장조사</p>
@@ -203,7 +230,7 @@ const Asbestos = () => {
                   →
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     2
                   </div>
                   <p className="font-bold mb-1">시료채취</p>
@@ -215,7 +242,7 @@ const Asbestos = () => {
                   →
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     3
                   </div>
                   <p className="font-bold mb-1">실험실 분석</p>
@@ -227,7 +254,7 @@ const Asbestos = () => {
                   →
                 </div>
                 <div className="text-center md:col-start-3">
-                  <div className="w-16 h-16 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     4
                   </div>
                   <p className="font-bold mb-1">결과보고서</p>
@@ -239,7 +266,7 @@ const Asbestos = () => {
                   →
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     5
                   </div>
                   <p className="font-bold mb-1">관리계획 수립</p>
@@ -252,8 +279,8 @@ const Asbestos = () => {
 
             <h3 className="text-2xl font-bold mt-8 mb-4">분석 방법</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="border-2 border-orange-500 rounded-lg p-6">
-                <h4 className="font-bold text-lg mb-3 text-orange-600 dark:text-orange-400">
+              <div className="border-2 border-primary-500 rounded-lg p-6">
+                <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-primary-400">
                   PLM (편광현미경)
                 </h4>
                 <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
@@ -265,8 +292,8 @@ const Asbestos = () => {
                   <li>• 분석시간: 1~2일</li>
                 </ul>
               </div>
-              <div className="border-2 border-red-500 rounded-lg p-6">
-                <h4 className="font-bold text-lg mb-3 text-red-600 dark:text-red-400">
+              <div className="border-2 border-gray-500 rounded-lg p-6">
+                <h4 className="font-bold text-lg mb-3 text-gray-600 dark:text-gray-400">
                   XRD (X선회절분석)
                 </h4>
                 <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
@@ -278,8 +305,8 @@ const Asbestos = () => {
                   <li>• 분석시간: 3~5일</li>
                 </ul>
               </div>
-              <div className="border-2 border-pink-500 rounded-lg p-6">
-                <h4 className="font-bold text-lg mb-3 text-pink-600 dark:text-pink-400">
+              <div className="border-2 border-gray-500 rounded-lg p-6">
+                <h4 className="font-bold text-lg mb-3 text-gray-600 dark:text-gray-400">
                   TEM (투과전자현미경)
                 </h4>
                 <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
@@ -293,8 +320,8 @@ const Asbestos = () => {
               </div>
             </div>
 
-            <div className="bg-orange-50 dark:bg-orange-900/20 border-l-4 border-orange-500 p-6 mb-8">
-              <h3 className="font-bold text-lg mb-2 text-orange-900 dark:text-orange-300">
+            <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6 mb-8">
+              <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
                 ✅ 석면조사 결과의 활용
               </h3>
               <ul className="space-y-1 text-neutral-700 dark:text-neutral-300">
@@ -338,6 +365,8 @@ const Asbestos = () => {
                     초고배율 석면섬유 분석
                   </p>
                 </div>
+              </div>
+            </div>
               </div>
             </div>
           </div>

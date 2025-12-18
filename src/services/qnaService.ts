@@ -21,13 +21,17 @@ const QNA_COLLECTION = "qna";
 // QnA 목록 조회
 export const getQnAList = async (): Promise<QnA[]> => {
   try {
+    console.log("Fetching QnA from Firestore...");
+    
+    // 인덱스 없이 작동: createdAt만으로 정렬 후 메모리에서 isPinned 처리
     const q = query(
       collection(db, QNA_COLLECTION),
-      orderBy("isPinned", "desc"),
       orderBy("createdAt", "desc")
     );
 
     const querySnapshot = await getDocs(q);
+    console.log(`Found ${querySnapshot.docs.length} QnA items`);
+    
     const qnaList: QnA[] = [];
 
     querySnapshot.forEach((doc) => {
@@ -52,7 +56,13 @@ export const getQnAList = async (): Promise<QnA[]> => {
       });
     });
 
-    return qnaList;
+    // 메모리에서 정렬: isPinned 우선, 그 다음 createdAt
+    return qnaList.sort((a, b) => {
+      if (a.isPinned !== b.isPinned) {
+        return a.isPinned ? -1 : 1;
+      }
+      return b.createdAt.getTime() - a.createdAt.getTime();
+    });
   } catch (error) {
     console.error("Error getting QnA list:", error);
     throw new Error("QnA 목록을 불러오는데 실패했습니다.");
@@ -160,7 +170,7 @@ export const deleteQnA = async (id: string): Promise<void> => {
 export const addAnswer = async (
   qnaId: string,
   answerContent: string,
-  adminId: string,
+  _adminId: string, // 현재는 사용하지 않지만 호환성을 위해 유지
   adminName: string
 ): Promise<void> => {
   try {

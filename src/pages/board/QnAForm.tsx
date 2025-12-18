@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Save, Lock, Globe, AlertCircle } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
-import { createQnA, updateQnA } from "../../services/qnaService";
+import { createQnA, updateQnA, getQnAById } from "../../services/qnaService";
 import { QnAFormData } from "../../types";
 import Button from "../../components/common/Button";
 import Card from "../../components/common/Card";
@@ -30,7 +30,7 @@ const QnAForm: React.FC = () => {
 
       try {
         setLoading(true);
-        const qnaData = await qnaService.getQnAById(id);
+        const qnaData = await getQnAById(id);
 
         if (!qnaData) {
           alert("게시글을 찾을 수 없습니다.");
@@ -118,11 +118,12 @@ const QnAForm: React.FC = () => {
         navigate(`/board/qna/${id}`);
       } else {
         // 새 작성
-        const newQnAId = await createQnA({
-          ...formData,
-          authorId: user.uid,
-          authorName: userData?.displayName || user.email || "익명",
-        });
+        const newQnAId = await createQnA(
+          formData,
+          user.uid,
+          userData?.displayName || user.displayName || "익명",
+          user.email || ""
+        );
         alert("질문이 등록되었습니다.");
         navigate(`/board/qna/${newQnAId}`);
       }

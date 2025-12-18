@@ -111,9 +111,9 @@ const History = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
+    <div className="min-h-screen bg-white dark:bg-gray-700">
       {/* Hero Section - Premium Design */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 text-white py-20 lg:py-32">
+      <section className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 text-white py-20 lg:py-32">
         {/* Decorative Elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -194,7 +194,7 @@ const History = () => {
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
             className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-200 dark:border-neutral-700"
           >
-            <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <div className="w-14 h-14 bg-primary-500 dark:bg-primary-600 rounded-xl flex items-center justify-center mx-auto mb-4">
               <Building className="w-7 h-7 text-white" />
             </div>
             <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1 text-center">
@@ -265,7 +265,7 @@ const History = () => {
           {/* Vertical Timeline */}
           <div className="max-w-4xl mx-auto relative">
             {/* Central Line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary-500 via-secondary-500 to-primary-500 transform -translate-x-1/2 hidden lg:block"></div>
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-primary-500 dark:bg-primary-600 transform -translate-x-1/2 hidden lg:block"></div>
 
             <div className="space-y-12">
               {historyData.map((item, index) => (
@@ -301,7 +301,7 @@ const History = () => {
                         </div>
 
                         {/* Center Year Badge */}
-                        <div className="absolute left-1/2 transform -translate-x-1/2 w-24 h-24 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-white dark:border-neutral-900">
+                        <div className="absolute left-1/2 transform -translate-x-1/2 w-24 h-24 bg-primary-600 dark:bg-primary-700 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-white dark:border-neutral-900">
                           <span className="text-white font-bold text-lg">
                             {item.year}
                           </span>
@@ -319,7 +319,7 @@ const History = () => {
                         <div></div>
 
                         {/* Center Year Badge */}
-                        <div className="absolute left-1/2 transform -translate-x-1/2 w-24 h-24 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-white dark:border-neutral-900">
+                        <div className="absolute left-1/2 transform -translate-x-1/2 w-24 h-24 bg-primary-600 dark:bg-primary-700 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-white dark:border-neutral-900">
                           <span className="text-white font-bold text-lg">
                             {item.year}
                           </span>
@@ -353,7 +353,7 @@ const History = () => {
                   {/* Mobile Layout */}
                   <div className="lg:hidden flex gap-4">
                     {/* Year Badge */}
-                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-xl shadow-lg flex flex-col items-center justify-center">
+                    <div className="flex-shrink-0 w-16 h-16 bg-primary-600 dark:bg-primary-700 rounded-xl shadow-lg flex flex-col items-center justify-center">
                       <span className="text-white font-bold text-sm">
                         {item.year}
                       </span>
@@ -393,7 +393,7 @@ const History = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl"
+          className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl"
         >
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">

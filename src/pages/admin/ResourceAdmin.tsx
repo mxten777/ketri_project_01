@@ -4,7 +4,6 @@ import {
   FileText,
   Download,
   Eye,
-  User,
   Calendar,
   Filter,
   Trash2,
@@ -16,22 +15,16 @@ import {
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { getResources, deleteResource } from "../../services/resourceService";
+import { formatFirebaseTimestamp } from "../../utils/dateUtils";
 import type { Resource } from "../../types";
 
 const ResourceAdmin = () => {
-  const { user, userData } = useAuth();
+  const { userData } = useAuth();
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<
     "all" | "manual" | "form" | "report" | "certificate" | "other"
   >("all");
-
-  useEffect(() => {
-    if (!userData || userData.role !== "admin") {
-      return;
-    }
-    fetchResources();
-  }, [userData, filter]);
 
   const fetchResources = async () => {
     try {
@@ -39,11 +32,20 @@ const ResourceAdmin = () => {
       const data = await getResources(filter === "all" ? undefined : filter);
       setResources(data);
     } catch (error) {
-      console.error("Error fetching resources:", error);
+      console.error("자료실 조회 실패:", error);
+      alert("자료를 불러오는데 실패했습니다.");
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!userData || userData.role !== "admin") {
+      return;
+    }
+    fetchResources();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData, filter]);
 
   const handleDeleteResource = async (resourceId: string) => {
     if (!window.confirm("정말 삭제하시겠습니까?")) {
@@ -51,27 +53,16 @@ const ResourceAdmin = () => {
     }
 
     try {
-      await deleteResource(resourceId);
-      fetchResources(); // 목록 새로고침
+      await deleteResource(resourceId, "" /* filePath not needed */);
+      setResources((prev) => prev.filter((res) => res.id !== resourceId));
       alert("삭제되었습니다.");
     } catch (error) {
-      console.error("Error deleting resource:", error);
+      console.error("자료 삭제 실패:", error);
       alert("삭제에 실패했습니다.");
     }
   };
 
-  const formatDate = (
-    timestamp: { seconds: number; nanoseconds: number } | null
-  ) => {
-    if (!timestamp) return "";
-    return new Date(timestamp.seconds * 1000).toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
-
-  const formatFileSize = (bytes: number) => {
+  const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;
     const sizes = ["Bytes", "KB", "MB", "GB"];
@@ -106,38 +97,36 @@ const ResourceAdmin = () => {
 
   if (!userData || userData.role !== "admin") {
     return (
-      <div className="container-custom py-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">
-            접근 권한이 없습니다
-          </h1>
-          <p className="text-neutral-600 dark:text-neutral-400">
-            관리자만 접근할 수 있는 페이지입니다.
-          </p>
-        </div>
+      <div className="text-center py-12">
+        <h2 className="text-2xl font-bold text-red-400 mb-4">
+          접근 권한이 없습니다
+        </h2>
+        <p className="text-gray-300">
+          관리자만 접근할 수 있는 페이지입니다.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="container-custom py-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold mb-2">자료실 관리</h1>
-            <p className="text-neutral-600 dark:text-neutral-400">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="space-y-8"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-white mb-2">자료실 관리</h2>
+            <p className="text-gray-300">
               업로드된 자료를 관리하고 새로운 자료를 추가할 수 있습니다.
             </p>
           </div>
 
           <Link
-            to="/board/resources/new"
-            className="btn btn-primary flex items-center gap-2"
+            to="/admin/resources/create"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all flex items-center gap-2"
           >
             <Plus className="w-5 h-5" />
             자료 업로드
@@ -158,7 +147,7 @@ const ResourceAdmin = () => {
             ].map((cat) => (
               <button
                 key={cat.value}
-                onClick={() => setFilter(cat.value as any)}
+                onClick={() => setFilter(cat.value as typeof filter)}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                   filter === cat.value
                     ? "bg-primary-600 text-white"
@@ -172,11 +161,11 @@ const ResourceAdmin = () => {
         </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-soft">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center">
-                <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
+              <FileText className="w-6 h-6 text-blue-300" />
               </div>
               <div>
                 <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
@@ -335,7 +324,7 @@ const ResourceAdmin = () => {
                       <td className="py-4 px-6">
                         <div className="flex items-center gap-1 text-sm text-neutral-600 dark:text-neutral-400">
                           <Calendar className="w-4 h-4" />
-                          {formatDate(resource.createdAt)}
+                          {formatFirebaseTimestamp(resource.createdAt)}
                         </div>
                       </td>
                       <td className="py-4 px-6 text-center">
@@ -364,7 +353,6 @@ const ResourceAdmin = () => {
           </div>
         )}
       </motion.div>
-    </div>
   );
 };
 

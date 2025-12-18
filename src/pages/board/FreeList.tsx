@@ -7,16 +7,13 @@ import {
   MessageSquare,
   Heart,
   Eye,
-  ChevronRight,
   Pin,
 } from "lucide-react";
 import Button from "../../components/common/Button";
-import { useAuth } from "../../contexts/AuthContext";
 import { getFreePosts } from "../../services/freeService";
 import type { FreePost } from "../../types";
 
 const FreeList = () => {
-  const { user } = useAuth();
   const navigate = useNavigate();
   const [posts, setPosts] = useState<FreePost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -62,7 +59,7 @@ const FreeList = () => {
     return cat ? cat.label : category;
   };
 
-  const formatDate = (timestamp: any): string => {
+  const formatDate = (timestamp: unknown): string => {
     if (!timestamp) return "";
     try {
       const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
@@ -105,10 +102,10 @@ const FreeList = () => {
               >
                 <Button
                   onClick={() => navigate("/board/free/new")}
-                  className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/30 shadow-premium"
+                  className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all px-6 py-3"
                 >
-                  <Plus className="w-4 h-4 mr-2" />
-                  글쓰기
+                  <Plus className="w-5 h-5 mr-2" />
+                  게시글 등록하기
                 </Button>
               </motion.div>
             </motion.div>

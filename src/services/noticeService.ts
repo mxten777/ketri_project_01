@@ -18,43 +18,72 @@ import type { Notice } from "../types";
 
 const COLLECTION_NAME = "notices";
 
-// 공�??�항 목록 조회
+// 공지사항 목록 조회
 export const getNotices = async (
   limitCount: number = 10
 ): Promise<Notice[]> => {
   try {
+    console.log("Fetching notices from Firestore...");
+    
+    // 인덱스 없이 작동: createdAt만으로 정렬 후 메모리에서 isPinned 처리
     const q = query(
       collection(db, COLLECTION_NAME),
-      orderBy("isPinned", "desc"),
       orderBy("createdAt", "desc"),
-      limit(limitCount)
+      limit(limitCount * 2) // 고정글 필터링을 위해 더 많이 가져옴
     );
 
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        noticeId: doc.id,
-        title: data.title || "",
-        content: data.content || "",
-        excerpt: data.excerpt || "",
-        author: data.author || { uid: "", name: "" },
-        category: data.category || "general",
-        isPinned: data.isPinned || false,
-        isImportant: data.isImportant || false,
-        views: data.views || 0,
-        viewCount: data.viewCount || 0,
-        status: data.status || "published",
-        attachments: data.attachments || [],
-        tags: data.tags || [],
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt,
-      } as Notice;
-    });
-  } catch (error) {
+    console.log(`Found ${querySnapshot.docs.length} notices`);
+    
+    // 메모리에서 정렬: isPinned 우선, 그 다음 createdAt
+    const notices = querySnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          noticeId: doc.id,
+          title: data.title || "",
+          content: data.content || "",
+          excerpt: data.excerpt || "",
+          author: data.author || { uid: "", name: "" },
+          category: data.category || "general",
+          isPinned: data.isPinned || false,
+          isImportant: data.isImportant || false,
+          views: data.views || 0,
+          viewCount: data.viewCount || 0,
+          status: data.status || "published",
+          attachments: data.attachments || [],
+          tags: data.tags || [],
+          createdAt: data.createdAt,
+          updatedAt: data.updatedAt,
+        } as Notice;
+      })
+      .sort((a, b) => {
+        // isPinned 먼저 비교
+        if (a.isPinned !== b.isPinned) {
+          return a.isPinned ? -1 : 1;
+        }
+        // 같으면 createdAt으로 비교 (Timestamp와 Date 모두 지원)
+        const aTime = a.createdAt?.seconds ? a.createdAt.seconds * 1000 : (a.createdAt?.getTime?.() || 0);
+        const bTime = b.createdAt?.seconds ? b.createdAt.seconds * 1000 : (b.createdAt?.getTime?.() || 0);
+        return bTime - aTime;
+      })
+      .slice(0, limitCount); // 원하는 개수만 반환
+
+    return notices;
+  } catch (error: any) {
     console.error("Error fetching notices:", error);
-    throw error;
+    
+    // Firebase 에러 메시지를 더 명확하게
+    if (error?.code === "permission-denied") {
+      throw new Error("데이터베이스 접근 권한이 없습니다. Firestore 규칙을 확인해주세요.");
+    } else if (error?.code === "unavailable") {
+      throw new Error("데이터베이스 연결에 실패했습니다. 네트워크를 확인해주세요.");
+    } else if (error?.code === "failed-precondition") {
+      throw new Error("데이터베이스 인덱스가 필요합니다. Firebase Console을 확인해주세요.");
+    }
+    
+    throw new Error(error?.message || "공지사항을 불러오는데 실패했습니다.");
   }
 };
 

@@ -4,32 +4,35 @@ import { motion } from "framer-motion";
 import { Plus, Edit, Trash2, Eye, Pin } from "lucide-react";
 import { getNotices, deleteNotice } from "../../services/noticeService";
 import { useAuth } from "../../contexts/AuthContext";
+import { formatDateOnly } from "../../utils/dateUtils";
 import type { Notice } from "../../types";
 import Button from "../../components/common/Button";
 
 const NoticeAdmin = () => {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>("");
   const { userData } = useAuth();
   const navigate = useNavigate();
 
+  // 관리자 권한 확인 및 데이터 로드
   useEffect(() => {
+    if (userData?.role !== "admin") {
+      navigate("/");
+      return;
+    }
     fetchNotices();
-  }, []);
-
-  // 관리자 권한 확인
-  if (userData?.role !== "admin") {
-    navigate("/");
-    return null;
-  }
+  }, [userData, navigate]);
 
   const fetchNotices = async () => {
     try {
       setLoading(true);
+      setError("");
       const data = await getNotices(50);
       setNotices(data);
-    } catch (error) {
-      console.error("Error loading notices:", error);
+    } catch (error: any) {
+      console.error("공지사항 조회 실패:", error);
+      setError(error?.message || "공지사항을 불러오는데 실패했습니다.");
     } finally {
       setLoading(false);
     }
@@ -42,58 +45,65 @@ const NoticeAdmin = () => {
 
     try {
       await deleteNotice(id);
-      setNotices(notices.filter((notice) => notice.id !== id));
+      setNotices((prev) => prev.filter((notice) => notice.id !== id));
       alert("삭제되었습니다.");
     } catch (error) {
-      console.error("Error deleting notice:", error);
+      console.error("공지사항 삭제 실패:", error);
       alert("삭제에 실패했습니다.");
     }
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("ko-KR");
-  };
-
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex items-center justify-center py-12">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 overflow-hidden"
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center py-12">
+        <div className="text-red-400 text-lg mb-4">⚠️ {error}</div>
+        <button
+          onClick={fetchNotices}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors"
         >
-          {/* Header */}
-          <div className="p-6 border-b border-white/10 bg-gradient-to-r from-blue-500/10 to-purple-500/10">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold text-white mb-2">
-                  📢 회사소식 관리
-                </h1>
-                <p className="text-gray-300">
-                  총 {notices.length}개의 소식이 등록되어 있습니다
-                </p>
-              </div>
-              <Button
-                onClick={() => navigate("/admin/notice/create")}
-                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-              >
-                <Plus className="w-5 h-5 mr-2" />
-                새 소식 작성
-              </Button>
-            </div>
-          </div>
+          다시 시도
+        </button>
+      </div>
+    );
+  }
 
-          {/* Grid Cards */}
-          <div className="p-6">
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 overflow-hidden"
+    >
+      {/* Header */}
+      <div className="p-6 border-b border-white/10 bg-gradient-to-r from-blue-500/10 to-purple-500/10">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-white mb-2">
+              📢 회사소식 관리
+            </h2>
+            <p className="text-gray-300">
+              총 {notices.length}개의 소식이 등록되어 있습니다
+            </p>
+          </div>
+          <Button
+            onClick={() => navigate("/admin/notice/create")}
+            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+          >
+            <Plus className="w-5 h-5 mr-2" />
+            새 소식 작성
+          </Button>
+        </div>
+      </div>
+
+      {/* Grid Cards */}
+      <div className="p-6">
             {notices.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-gray-400">등록된 소식이 없습니다.</p>
@@ -139,7 +149,7 @@ const NoticeAdmin = () => {
                           <Eye className="w-4 h-4" />
                           {notice.views || 0}
                         </span>
-                        <span>{formatDate(notice.createdAt.toString())}</span>
+                        <span>{formatDateOnly(notice.createdAt.toString())}</span>
                       </div>
 
                       {/* 액션 버튼 */}
@@ -166,8 +176,6 @@ const NoticeAdmin = () => {
             )}
           </div>
         </motion.div>
-      </div>
-    </div>
   );
 };
 

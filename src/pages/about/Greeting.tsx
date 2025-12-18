@@ -82,7 +82,7 @@ const Greeting = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
       {/* Hero Section - Premium Design */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 text-white py-20 lg:py-32">
+      <section className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 text-white py-20 lg:py-32">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -90,7 +90,7 @@ const Greeting = () => {
             alt="한국환경안전연구소 전경"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-600/70 via-primary-700/65 to-secondary-600/70"></div>
+          <div className="absolute inset-0 bg-primary-600/75 dark:bg-primary-700/75"></div>
         </div>
 
         {/* Decorative Elements */}
@@ -156,7 +156,7 @@ const Greeting = () => {
           >
             <div className="bg-white dark:bg-neutral-800 rounded-3xl shadow-2xl overflow-hidden lg:sticky lg:top-24">
               {/* Decorative Header */}
-              <div className="h-24 sm:h-32 bg-gradient-to-br from-primary-500 via-primary-600 to-secondary-600 relative">
+              <div className="h-24 sm:h-32 bg-primary-600 dark:bg-primary-700 relative">
                 <div className="absolute inset-0 opacity-20">
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white rounded-full blur-2xl"></div>
                 </div>
@@ -165,7 +165,7 @@ const Greeting = () => {
               {/* Profile Content */}
               <div className="px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8 -mt-12 sm:-mt-16 relative z-10">
                 {/* CEO Image */}
-                <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-4 sm:mb-6 rounded-2xl bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900 dark:to-secondary-900 flex items-center justify-center shadow-xl ring-4 ring-white dark:ring-neutral-800">
+                <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-4 sm:mb-6 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center shadow-xl ring-4 ring-white dark:ring-neutral-800">
                   <User className="w-12 h-12 sm:w-14 sm:h-14 text-primary-600 dark:text-primary-400" />
                 </div>
 
@@ -194,7 +194,7 @@ const Greeting = () => {
                     </div>
                   </div>
                   <div className="text-center p-3 sm:p-4 rounded-xl bg-neutral-50 dark:bg-neutral-700/50">
-                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-secondary-600 dark:text-secondary-400 mx-auto mb-2" />
+                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 dark:text-gray-400 mx-auto mb-2" />
                     <div className="text-xs sm:text-sm font-medium text-neutral-600 dark:text-neutral-400">
                       신뢰성
                     </div>
@@ -204,7 +204,7 @@ const Greeting = () => {
                 {/* Career Button */}
                 <button
                   onClick={() => setShowCareer(!showCareer)}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-xl text-sm sm:text-base font-semibold hover:from-primary-600 hover:to-secondary-600 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-primary-600 text-white rounded-xl text-sm sm:text-base font-semibold hover:bg-primary-700 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                 >
                   <Briefcase className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span>학력 및 경력 보기</span>
@@ -509,7 +509,7 @@ const Greeting = () => {
       </section>
 
       {/* Commitment Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-600 relative overflow-hidden">
+      <section className="py-20 lg:py-32 bg-primary-600 dark:bg-primary-700 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white rounded-full blur-3xl"></div>
