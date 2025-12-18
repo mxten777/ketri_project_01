@@ -46,7 +46,7 @@ const AsbestosRisk = () => {
                   <h4 className="font-bold mb-3">1. 물리적 상태 평가</h4>
                   <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
                     <li>• <strong>손상 정도:</strong> 석면 자재의 파손, 균열, 탈락 정도</li>
-                    <li>• <strong>결합력:</strong> 석면 섬유의 결합 상태 (분무재 > 보온재 > 시멘트판)</li>
+                    <li>• <strong>결합력:</strong> 석면 섬유의 결합 상태 (분무재 &gt; 보온재 &gt; 시멘트판)</li>
                     <li>• <strong>접근성:</strong> 사람의 접촉 가능성</li>
                   </ul>
                 </div>
@@ -61,7 +61,7 @@ const AsbestosRisk = () => {
                 <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-2 border-gray-500">
                   <h4 className="font-bold mb-3">3. 석면 종류 및 함량</h4>
                   <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
-                    <li>• <strong>석면 종류:</strong> 백석면 < 갈석면 < 청석면 (독성 순)</li>
+                    <li>• <strong>석면 종류:</strong> 백석면 &lt; 갈석면 &lt; 청석면 (독성 순)</li>
                     <li>• <strong>함량:</strong> 석면 함유율</li>
                     <li>• <strong>양:</strong> 석면 자재의 총량</li>
                   </ul>
