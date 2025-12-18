@@ -189,7 +189,7 @@ const Location = () => {
 
                 <div className="grid grid-cols-2 gap-3">
                   <a
-                    href="https://map.naver.com/v5/search/충북%20청주시%20서원구%20남이면%20양동3길%207-30"
+                    href="https://map.naver.com/p/search/한국환경안전연구소/place/1844628016?c=15.00,0,0,0,dh&placePath=%3Fentry%253Dbmp"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 py-2 px-4 bg-green-500 text-white rounded-lg text-sm hover:bg-green-600 transition-colors"
@@ -197,7 +197,7 @@ const Location = () => {
                     <span>네이버맵</span>
                   </a>
                   <a
-                    href="https://www.google.com/maps/search/충북+청주시+서원구+남이면+양동3길+7-30"
+                    href="https://www.google.com/maps/dir/?api=1&destination=충북+청주시+서원구+남이면+양동3길+7-30"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 py-2 px-4 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors"
