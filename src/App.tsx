@@ -21,6 +21,9 @@ const Asbestos = lazy(() => import("./pages/services/Asbestos"));
 // Industrial Health Sub-pages
 const WorkEnvironment = lazy(() => import("./pages/services/industrial-health/WorkEnvironment"));
 const RiskAssessment = lazy(() => import("./pages/services/industrial-health/RiskAssessment"));
+const Musculoskeletal = lazy(() => import("./pages/services/industrial-health/Musculoskeletal"));
+const ChemicalManagement = lazy(() => import("./pages/services/industrial-health/ChemicalManagement"));
+const Portfolio = lazy(() => import("./pages/services/industrial-health/Portfolio"));
 
 // Water Testing Sub-pages
 const WaterIntro = lazy(() => import("./pages/services/water-testing/WaterIntro"));
@@ -148,20 +151,23 @@ function App() {
             <Route path="industrial-health/*" element={<IndustrialHealth />} />
             <Route path="industrial-health/work-environment" element={<WorkEnvironment />} />
             <Route path="industrial-health/risk-assessment" element={<RiskAssessment />} />
+            <Route path="industrial-health/musculoskeletal" element={<Musculoskeletal />} />
+            <Route path="industrial-health/chemical-management" element={<ChemicalManagement />} />
+            <Route path="industrial-health/portfolio" element={<Portfolio />} />
 
             {/* Water Testing */}
             <Route path="water-testing/*" element={<WaterTesting />} />
-            <Route path="water-testing/intro" element={<WaterIntro />} />
+            <Route path="water-testing/introduction" element={<WaterIntro />} />
             <Route path="water-testing/scope" element={<WaterScope />} />
-            <Route path="water-testing/fee" element={<WaterFee />} />
-            <Route path="water-testing/process" element={<WaterProcess />} />
+            <Route path="water-testing/schedule" element={<WaterFee />} />
+            <Route path="water-testing/procedure" element={<WaterProcess />} />
 
             {/* Dialysis Water */}
             <Route path="dialysis-water/*" element={<DialysisWater />} />
-            <Route path="dialysis-water/intro" element={<DialysisIntro />} />
-            <Route path="dialysis-water/request" element={<DialysisRequest />} />
-            <Route path="dialysis-water/cycle" element={<DialysisCycle />} />
-            <Route path="dialysis-water/standard" element={<DialysisStandard />} />
+            <Route path="dialysis-water/introduction" element={<DialysisIntro />} />
+            <Route path="dialysis-water/procedure" element={<DialysisRequest />} />
+            <Route path="dialysis-water/schedule" element={<DialysisCycle />} />
+            <Route path="dialysis-water/standards" element={<DialysisStandard />} />
             <Route path="dialysis-water/sampling" element={<DialysisSampling />} />
 
             {/* Indoor Air Quality */}
@@ -169,9 +175,9 @@ function App() {
               path="indoor-air-quality/*"
               element={<IndoorAirQuality />}
             />
-            <Route path="indoor-air-quality/intro" element={<IndoorIntro />} />
+            <Route path="indoor-air-quality/introduction" element={<IndoorIntro />} />
             <Route path="indoor-air-quality/request" element={<IndoorRequest />} />
-            <Route path="indoor-air-quality/result" element={<IndoorResult />} />
+            <Route path="indoor-air-quality/report" element={<IndoorResult />} />
 
             {/* Asbestos */}
             <Route path="asbestos/*" element={<Asbestos />} />
@@ -179,8 +185,8 @@ function App() {
             <Route path="asbestos/concentration" element={<AsbestosConcentration />} />
             <Route path="asbestos/dispersion" element={<AsbestosDispersion />} />
             <Route path="asbestos/supervision" element={<AsbestosSupervision />} />
-            <Route path="asbestos/risk" element={<AsbestosRisk />} />
-            <Route path="asbestos/air" element={<AsbestosAir />} />
+            <Route path="asbestos/risk-assessment" element={<AsbestosRisk />} />
+            <Route path="asbestos/air-quality" element={<AsbestosAir />} />
 
             {/* Notice Board */}
             <Route path="board/notice" element={<NoticeList />} />
