@@ -36,3 +36,34 @@ firestore-debug.log
 # Vercel
 .vercel
 .env*.local
+
+# 백업 및 임시 파일 (이중 보관 방지)
+*_backup.*
+*_old.*
+*_bak.*
+*_optimized.*
+*_new.*
+*.backup
+*.bak
+*.tmp
+*.temp
+*_temp.*
+*_copy.*
+*_v[0-9].*
+*_[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9].*
+
+# macOS
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+
+# 빌드 분석
+stats.html
+bundle-report.html
+.cache

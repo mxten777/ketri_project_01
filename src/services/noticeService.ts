@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import type { Notice } from "../types";
+import { logDev, logError } from "../utils/logger";
 
 const COLLECTION_NAME = "notices";
 
@@ -23,7 +24,7 @@ export const getNotices = async (
   limitCount: number = 10
 ): Promise<Notice[]> => {
   try {
-    console.log("Fetching notices from Firestore...");
+    logDev("Fetching notices from Firestore...");
     
     // 인덱스 없이 작동: createdAt만으로 정렬 후 메모리에서 isPinned 처리
     const q = query(
@@ -33,7 +34,7 @@ export const getNotices = async (
     );
 
     const querySnapshot = await getDocs(q);
-    console.log(`Found ${querySnapshot.docs.length} notices`);
+    logDev(`Found ${querySnapshot.docs.length} notices`);
     
     // 메모리에서 정렬: isPinned 우선, 그 다음 createdAt
     const notices = querySnapshot.docs
@@ -72,7 +73,7 @@ export const getNotices = async (
 
     return notices;
   } catch (error: any) {
-    console.error("Error fetching notices:", error);
+    logError("Error fetching notices:", error);
     
     // Firebase 에러 메시지를 더 명확하게
     if (error?.code === "permission-denied") {
@@ -141,7 +142,7 @@ export const createNotice = async (
 
     return docRef.id;
   } catch (error) {
-    console.error("Error creating notice:", error);
+    logError("Error creating notice:", error);
     throw error;
   }
 };
@@ -169,7 +170,7 @@ export const deleteNotice = async (id: string): Promise<void> => {
     const docRef = doc(db, COLLECTION_NAME, id);
     await deleteDoc(docRef);
   } catch (error) {
-    console.error("Error deleting notice:", error);
+    logError("Error deleting notice:", error);
     throw error;
   }
 };

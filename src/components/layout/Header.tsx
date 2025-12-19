@@ -117,11 +117,28 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700 shadow-lg">
+      <header className="sticky top-0 z-50 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border-b border-neutral-200/80 dark:border-neutral-700/50 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          {/* 상단 유틸리티 바 (옵션) */}
+          <div className="hidden md:flex items-center justify-end h-10 border-b border-neutral-100 dark:border-neutral-800">
+            <div className="flex items-center space-x-4 text-xs text-neutral-500 dark:text-neutral-400">
+              <Link to="/about/location" className="hover:text-primary-600 transition-colors">
+                오시는 길
+              </Link>
+              <span className="text-neutral-300 dark:text-neutral-600">|</span>
+              <Link to="/board/qna" className="hover:text-primary-600 transition-colors">
+                자주 묻는 질문
+              </Link>
+              <span className="text-neutral-300 dark:text-neutral-600">|</span>
+              <a href="tel:043-237-7624" className="hover:text-primary-600 transition-colors">
+                📞 043-237-7624
+              </a>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between h-20">
             {/* 로고 */}
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center py-4 hover:opacity-80 transition-opacity">
               <img
                 src={
                   isDarkMode
@@ -129,12 +146,12 @@ const Header = () => {
                     : "/images/logo_horizontal.png"
                 }
                 alt="한국환경안전연구소"
-                className="h-12 md:h-16 w-auto object-contain"
+                className="h-14 w-auto object-contain"
               />
             </Link>
 
             {/* PC 메뉴 (lg 이상) */}
-            <nav className="hidden lg:flex items-center space-x-0.5">
+            <nav className="hidden lg:flex items-center space-x-1">
               {menuItems.map((menu) => (
                 <div
                   key={menu.label}
@@ -142,19 +159,19 @@ const Header = () => {
                   onMouseEnter={() => setOpenDropdown(menu.label)}
                   onMouseLeave={() => setOpenDropdown(null)}
                 >
-                  <button className="px-3 py-2 text-sm font-semibold text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl transition-colors flex items-center space-x-1 whitespace-nowrap">
+                  <button className="px-4 py-2 text-[15px] font-medium text-neutral-700 dark:text-neutral-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center space-x-1 whitespace-nowrap group">
                     <span>{menu.label}</span>
-                    <ChevronDown className="w-4 h-4" />
+                    <ChevronDown className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 transition-opacity" />
                   </button>
 
                   {/* 드롭다운 메뉴 */}
                   {openDropdown === menu.label && (
-                    <div className="absolute top-full left-0 mt-1 w-56 bg-white dark:bg-neutral-800 rounded-xl shadow-lg border border-neutral-200 dark:border-neutral-700 py-2 z-50">
+                    <div className="absolute top-full left-0 mt-2 w-60 bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl border border-neutral-100 dark:border-neutral-700/50 py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                       {menu.items.map((item) => (
                         <Link
                           key={item.path}
                           to={item.path}
-                          className="block px-4 py-2.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                          className="block px-5 py-2.5 text-[14px] font-normal text-neutral-600 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-primary-900/10 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-150 hover:pl-6"
                           onClick={() => setOpenDropdown(null)}
                         >
                           {item.label}
@@ -167,26 +184,26 @@ const Header = () => {
             </nav>
 
             {/* 우측 아이콘 메뉴 */}
-            <div className="flex items-center space-x-2 md:space-x-4">
+            <div className="flex items-center space-x-2 md:space-x-3">
               {/* 검색 버튼 */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="p-2 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                className="p-2.5 text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-xl transition-all duration-200"
                 aria-label="검색"
               >
-                <Search className="w-5 h-5 text-neutral-700 dark:text-neutral-300" />
+                <Search className="w-5 h-5" />
               </button>
 
               {/* 다크모드 토글 */}
               <button
                 onClick={toggleDarkMode}
-                className="p-2 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                className="p-2.5 text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-xl transition-all duration-200"
                 aria-label="다크모드 토글"
               >
                 {isDarkMode ? (
-                  <Sun className="w-5 h-5 text-neutral-700 dark:text-neutral-300" />
+                  <Sun className="w-5 h-5" />
                 ) : (
-                  <Moon className="w-5 h-5 text-neutral-700 dark:text-neutral-300" />
+                  <Moon className="w-5 h-5" />
                 )}
               </button>
 
@@ -197,33 +214,33 @@ const Header = () => {
                     await logout();
                     navigate("/");
                   }}
-                  className="hidden md:flex items-center space-x-2 px-4 py-2 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                  className="hidden md:flex items-center space-x-2 px-5 py-2.5 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-xl transition-all duration-200"
                 >
-                  <User className="w-5 h-5 text-neutral-700 dark:text-neutral-300" />
-                  <span className="text-base font-medium text-neutral-700 dark:text-neutral-300">
+                  <User className="w-5 h-5 text-neutral-600 dark:text-neutral-300" />
+                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
                     {userData?.displayName || "사용자"}
                   </span>
                 </button>
               ) : (
                 <button
                   onClick={() => navigate("/auth/login")}
-                  className="hidden md:flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-xl hover:from-primary-700 hover:to-secondary-700 transition-all shadow-md font-semibold"
+                  className="hidden md:flex items-center space-x-2 px-5 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-200 font-medium text-sm shadow-sm hover:shadow-md"
                 >
                   <LogIn className="w-4 h-4" />
-                  <span className="text-base">로그인</span>
+                  <span>로그인</span>
                 </button>
               )}
 
               {/* 햄버거 메뉴 (모바일만) */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                className="lg:hidden p-2.5 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-xl transition-colors"
                 aria-label="메뉴"
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-6 h-6 text-neutral-700 dark:text-neutral-300" />
+                  <X className="w-6 h-6" />
                 ) : (
-                  <Menu className="w-6 h-6 text-neutral-700 dark:text-neutral-300" />
+                  <Menu className="w-6 h-6" />
                 )}
               </button>
             </div>
@@ -233,19 +250,19 @@ const Header = () => {
 
       {/* 모바일 메뉴 */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-[72px] bg-white dark:bg-neutral-900 z-40 overflow-y-auto">
-          <div className="container mx-auto px-4 py-8">
+        <div className="fixed inset-0 top-[120px] bg-white/98 dark:bg-neutral-900/98 backdrop-blur-xl z-40 overflow-y-auto border-t border-neutral-100 dark:border-neutral-800">
+          <div className="container mx-auto px-4 py-6">
             <nav className="space-y-2">
               {menuItems.map((menu) => (
                 <div key={menu.label} className="space-y-1">
-                  <div className="px-4 py-2 text-sm font-bold text-primary-600 dark:text-primary-400">
+                  <div className="px-4 py-2.5 text-sm font-semibold text-primary-600 dark:text-primary-400">
                     {menu.label}
                   </div>
                   {menu.items.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}
-                      className="block pl-8 pr-4 py-2.5 text-base text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+                      className="block pl-8 pr-4 py-3 text-[15px] font-normal text-neutral-600 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-primary-900/10 hover:text-primary-600 dark:hover:text-primary-400 rounded-xl transition-all duration-150"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.label}
@@ -261,7 +278,7 @@ const Header = () => {
                     navigate("/auth/login");
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full mt-6 px-4 py-3 bg-[#0069FF] text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-center"
+                  className="w-full mt-6 px-4 py-3.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-200 font-medium text-center shadow-sm hover:shadow-md"
                 >
                   로그인
                 </button>
