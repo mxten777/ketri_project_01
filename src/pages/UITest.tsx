@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Container, Section, Card, CardHeader, CardTitle, CardContent, CardFooter, Input, Modal, ModalFooter } from "@/components/ui";
 import { Button } from "@/components/common";
 import { useTheme } from "@/contexts/ThemeContext";
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { ArrowRight as ArrowRightIcon } from "lucide-react";
 
 /**
  * UI Test Page - 새로운 컴포넌트 시스템 테스트
