@@ -10,6 +10,7 @@ import {
   CheckCircle,
   Clock,
 } from "lucide-react";
+import Button from "../../components/common/Button";
 import {
   getStatistics,
   getRecentUsers,

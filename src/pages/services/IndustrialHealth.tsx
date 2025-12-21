@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router-dom";
+import Button from "../../components/common/Button";
 
 const IndustrialHealth = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
       {/* Hero Section */}
       <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
@@ -79,11 +80,11 @@ const IndustrialHealth = () => {
                           체계적인 솔루션을 제공합니다.
                         </p>
 
-                        <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 mb-8">
+                        <div className="bg-neutral-100 dark:bg-neutral-800/50 rounded-xl p-6 mb-8">
                           <h3 className="text-xl font-bold text-red-600 dark:text-red-400 mb-3">
                             ⚠️ 중대재해처벌법 대응 필수 지원
                           </h3>
-                          <p className="text-neutral-700 dark:text-neutral-300 mb-3">
+                          <p className="text-neutral-700 dark:text-neutral-200 mb-3">
                             2022년 1월 27일 시행된 중대재해처벌법에 따라 5명
                             이상 사업장은 안전보건 관리체계 구축이
                             의무화되었습니다.

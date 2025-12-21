@@ -26,6 +26,8 @@ import {
 } from "../../services/quoteService";
 import type { QuoteRequest } from "../../types";
 
+import Button from "../../components/common/Button";
+
 const QuoteManagement = () => {
   const [quotes, setQuotes] = useState<QuoteRequest[]>([]);
   const [filteredQuotes, setFilteredQuotes] = useState<QuoteRequest[]>([]);

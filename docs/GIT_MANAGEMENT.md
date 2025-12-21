@@ -3,12 +3,14 @@
 ## 📋 기본 원칙
 
 ### ✅ 해야 할 것
+
 - **Git으로 모든 버전 관리**: 코드 변경 이력은 Git commit으로 추적
 - **의미 있는 커밋 메시지**: 무엇을, 왜 변경했는지 명확히 작성
 - **작은 단위로 커밋**: 하나의 기능/수정은 하나의 커밋
 - **브랜치 활용**: 새 기능은 별도 브랜치에서 개발
 
 ### ❌ 하지 말아야 할 것
+
 - **백업 파일 생성 금지**: `file_old.tsx`, `file_backup.tsx` 등
 - **주석으로 코드 보관 금지**: 삭제된 코드는 Git 히스토리에 있음
 - **버전 번호 파일명 금지**: `file_v1.tsx`, `file_20241219.tsx` 등
@@ -34,6 +36,7 @@
 ## 📁 프로젝트 구조 규칙
 
 ### 문서 위치
+
 ```
 프로젝트루트/
 ├── README.md              # 프로젝트 개요 (필수)
@@ -46,6 +49,7 @@
 ```
 
 ### ⚠️ 중복 방지
+
 - 루트에는 `README.md`만 유지
 - 나머지 모든 문서는 `docs/` 폴더에 통합
 - 같은 내용의 문서를 여러 곳에 두지 않기
@@ -53,6 +57,7 @@
 ## 🔄 일반적인 Git 워크플로우
 
 ### 1. 새 기능 개발
+
 ```bash
 # 최신 코드 받기
 git pull origin main
@@ -71,6 +76,7 @@ git push origin feature/new-feature-name
 ```
 
 ### 2. 버그 수정
+
 ```bash
 # 버그 수정 브랜치
 git checkout -b fix/bug-description
@@ -84,6 +90,7 @@ git push origin fix/bug-description
 ```
 
 ### 3. 이전 버전으로 되돌리기
+
 ```bash
 # 파일 단위 되돌리기
 git checkout HEAD~1 -- path/to/file.tsx
@@ -98,6 +105,7 @@ git reset --hard <commit-hash>
 ## 📝 커밋 메시지 컨벤션
 
 ### 형식
+
 ```
 <타입>: <제목>
 
@@ -107,6 +115,7 @@ git reset --hard <commit-hash>
 ```
 
 ### 타입
+
 - `feat`: 새로운 기능 추가
 - `fix`: 버그 수정
 - `docs`: 문서 수정
@@ -118,6 +127,7 @@ git reset --hard <commit-hash>
 - `design`: UI 디자인 변경
 
 ### 예시
+
 ```bash
 # 좋은 예
 git commit -m "feat: 사용자 알림 기능 추가"
@@ -136,6 +146,7 @@ git commit -m "aaa"
 ## 🌿 브랜치 전략
 
 ### 주요 브랜치
+
 - `main`: 프로덕션 배포 브랜치 (항상 안정적)
 - `develop`: 개발 통합 브랜치
 - `feature/*`: 새 기능 개발
@@ -143,6 +154,7 @@ git commit -m "aaa"
 - `hotfix/*`: 긴급 수정
 
 ### 브랜치 명명 규칙
+
 ```
 feature/user-notification    # 기능
 fix/notice-loading-error     # 버그
@@ -153,6 +165,7 @@ refactor/date-utils          # 리팩토링
 ## 🔍 코드 히스토리 확인
 
 ### 파일 변경 이력
+
 ```bash
 # 특정 파일의 변경 이력
 git log --follow path/to/file.tsx
@@ -165,6 +178,7 @@ git show <commit-hash>:path/to/file.tsx
 ```
 
 ### 삭제된 코드 찾기
+
 ```bash
 # 삭제된 파일 검색
 git log --all --full-history -- "**/deleted-file.tsx"
@@ -179,6 +193,7 @@ git checkout <commit-hash> -- path/to/file.tsx
 ## 🛠️ 유용한 Git 명령어
 
 ### 상태 확인
+
 ```bash
 # 현재 상태
 git status
@@ -191,6 +206,7 @@ git log --oneline --graph --all
 ```
 
 ### 실수 복구
+
 ```bash
 # 스테이징 취소
 git reset HEAD <file>
@@ -206,6 +222,7 @@ git reset --hard HEAD
 ```
 
 ### 브랜치 관리
+
 ```bash
 # 브랜치 목록
 git branch -a
@@ -223,16 +240,19 @@ git branch -m old-name new-name
 ## 📊 프로젝트 정리 체크리스트
 
 ### 매월 1일
+
 - [ ] 불필요한 브랜치 정리
 - [ ] 병합된 브랜치 삭제
 - [ ] docs 폴더 정리 및 업데이트
 
 ### 새 기능 추가 전
+
 - [ ] 최신 코드 pull 받기
 - [ ] 새 브랜치 생성
 - [ ] 기존 백업 파일 없는지 확인
 
 ### 코드 리뷰 전
+
 - [ ] 백업 파일 생성 안 했는지 확인
 - [ ] 주석 처리된 코드 삭제
 - [ ] console.log 제거
@@ -241,11 +261,13 @@ git branch -m old-name new-name
 ## 🎯 현재 프로젝트 상태 (2024-12-19)
 
 ### ✅ 완료된 정리
+
 - 레거시 파일 6개 삭제 (87KB)
 - 중복 문서 3개 제거
 - .gitignore 강화 (백업 파일 자동 제외)
 
 ### 📂 문서 구조
+
 ```
 docs/
 ├── GETTING_STARTED.md        # 시작 가이드
@@ -263,6 +285,7 @@ docs/
 ## 🚨 긴급 상황 대처
 
 ### 잘못된 커밋을 푸시한 경우
+
 ```bash
 # 마지막 커밋 취소 (로컬)
 git reset HEAD~1
@@ -272,6 +295,7 @@ git push -f origin branch-name
 ```
 
 ### 실수로 main에 직접 커밋한 경우
+
 ```bash
 # 새 브랜치 생성하여 커밋 옮기기
 git branch feature/temp-branch
@@ -280,6 +304,7 @@ git checkout feature/temp-branch
 ```
 
 ### 병합 충돌 해결
+
 ```bash
 # 충돌 파일 확인
 git status

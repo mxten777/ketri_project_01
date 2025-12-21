@@ -117,11 +117,11 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border-b border-neutral-200/80 dark:border-neutral-700/50 shadow-sm">
+      <header className="sticky top-0 z-50 bg-white dark:bg-neutral-900 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-700 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* 상단 유틸리티 바 (옵션) */}
           <div className="hidden md:flex items-center justify-end h-10 border-b border-neutral-100 dark:border-neutral-800">
-            <div className="flex items-center space-x-4 text-xs text-neutral-500 dark:text-neutral-400">
+            <div className="flex items-center space-x-4 text-xs text-neutral-500 dark:text-neutral-300">
               <Link to="/about/location" className="hover:text-primary-600 transition-colors">
                 오시는 길
               </Link>
@@ -159,24 +159,29 @@ const Header = () => {
                   onMouseEnter={() => setOpenDropdown(menu.label)}
                   onMouseLeave={() => setOpenDropdown(null)}
                 >
-                  <button className="px-4 py-2 text-[15px] font-medium text-neutral-700 dark:text-neutral-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center space-x-1 whitespace-nowrap group">
+                  <button className="px-4 py-2 text-[15px] font-medium text-neutral-800 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center space-x-1 whitespace-nowrap group">
                     <span>{menu.label}</span>
-                    <ChevronDown className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 transition-opacity" />
+                    <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 transition-opacity" />
                   </button>
 
-                  {/* 드롭다운 메뉴 */}
+                  {/* 드롭다운 메뉴 - 개선된 호버 영역 */}
                   {openDropdown === menu.label && (
-                    <div className="absolute top-full left-0 mt-2 w-60 bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl border border-neutral-100 dark:border-neutral-700/50 py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                      {menu.items.map((item) => (
-                        <Link
-                          key={item.path}
-                          to={item.path}
-                          className="block px-5 py-2.5 text-[14px] font-normal text-neutral-600 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-primary-900/10 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-150 hover:pl-6"
-                          onClick={() => setOpenDropdown(null)}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
+                    <div 
+                      className="absolute top-full left-0 pt-2"
+                      style={{ marginTop: '0px' }}
+                    >
+                      <div className="w-60 bg-white dark:bg-neutral-950 rounded-2xl shadow-2xl border border-neutral-100 dark:border-neutral-700 py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                        {menu.items.map((item) => (
+                          <Link
+                            key={item.path}
+                            to={item.path}
+                            className="block px-5 py-2.5 text-[14px] font-normal text-neutral-600 dark:text-neutral-100 hover:bg-primary-50 dark:hover:bg-primary-900/30 hover:text-primary-600 dark:hover:text-primary-300 transition-all duration-150 hover:pl-6"
+                            onClick={() => setOpenDropdown(null)}
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>

@@ -18,6 +18,8 @@ import { getResources, deleteResource } from "../../services/resourceService";
 import { formatFirebaseTimestamp } from "../../utils/dateUtils";
 import type { Resource } from "../../types";
 
+import Button from "../../components/common/Button";
+
 const ResourceAdmin = () => {
   const { userData } = useAuth();
   const [resources, setResources] = useState<Resource[]>([]);

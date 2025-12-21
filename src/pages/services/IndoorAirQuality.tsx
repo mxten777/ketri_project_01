@@ -1,3 +1,5 @@
+import Button from "../../components/common/Button";
+
 const IndoorAirQuality = () => {
   return (
     <div className="min-h-screen">
@@ -61,7 +63,7 @@ const IndoorAirQuality = () => {
                   <li>• 학원 (연면적 1,000㎡ 이상)</li>
                 </ul>
               </div>
-              <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+              <div className="p-6 bg-neutral-100 dark:bg-neutral-800/50 rounded-xl">
                 <div className="text-4xl mb-3">🏥</div>
                 <h4 className="font-bold text-lg mb-2">의료시설</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
@@ -71,7 +73,7 @@ const IndoorAirQuality = () => {
                   <li>• 노인요양시설</li>
                 </ul>
               </div>
-              <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+              <div className="p-6 bg-neutral-100 dark:bg-neutral-800/50 rounded-xl">
                 <div className="text-4xl mb-3">🏢</div>
                 <h4 className="font-bold text-lg mb-2">다중이용시설</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">

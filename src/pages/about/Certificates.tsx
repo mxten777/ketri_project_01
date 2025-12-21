@@ -10,6 +10,7 @@ import {
   Sparkles,
   BadgeCheck,
 } from "lucide-react";
+import Button from "../../components/common/Button";
 
 const Certificates = () => {
   const certificates = [

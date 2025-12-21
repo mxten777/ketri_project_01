@@ -8,6 +8,7 @@ import {
   TrendingUp,
   CheckCircle2,
 } from "lucide-react";
+import Button from "../../components/common/Button";
 
 const History = () => {
   const historyData = [
@@ -134,13 +135,13 @@ const History = () => {
               className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-white/20"
             >
               <TrendingUp className="w-5 h-5" />
-              <span className="text-sm font-medium">Our Journey</span>
+              <span className="label-md">Our Journey</span>
             </motion.div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+            <h1 className="text-display-lg mb-6">
               한국환경안전연구소의 역사
             </h1>
-            <p className="text-lg lg:text-xl opacity-90 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-body-lg opacity-90 max-w-3xl mx-auto">
               2006년부터 시작된 성장과 혁신의 19년
               <br className="hidden sm:inline" />
               신뢰와 전문성으로 함께 걸어온 길
@@ -181,10 +182,10 @@ const History = () => {
             <div className="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mx-auto mb-4">
               <Calendar className="w-7 h-7 text-white" />
             </div>
-            <div className="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-1 text-center">
+            <div className="text-display-sm text-primary-600 dark:text-primary-400 mb-1 text-center">
               19년
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400 text-center">
+            <div className="label-md text-neutral-600 dark:text-neutral-400 text-center">
               설립 년차
             </div>
           </motion.div>
@@ -197,10 +198,10 @@ const History = () => {
             <div className="w-14 h-14 bg-primary-500 dark:bg-primary-600 rounded-xl flex items-center justify-center mx-auto mb-4">
               <Building className="w-7 h-7 text-white" />
             </div>
-            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1 text-center">
+            <div className="text-display-sm text-primary-600 dark:text-primary-400 mb-1 text-center">
               5개
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400 text-center">
+            <div className="label-md text-neutral-600 dark:text-neutral-400 text-center">
               주요 사업영역
             </div>
           </motion.div>
@@ -210,13 +211,13 @@ const History = () => {
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
             className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-200 dark:border-neutral-700"
           >
-            <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <div className="w-14 h-14 bg-gradient-to-br from-success-500 to-success-600 rounded-xl flex items-center justify-center mx-auto mb-4">
               <Award className="w-7 h-7 text-white" />
             </div>
-            <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-1 text-center">
+            <div className="text-display-sm text-success-500 mb-1 text-center">
               10+
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400 text-center">
+            <div className="label-md text-neutral-600 dark:text-neutral-400 text-center">
               인증 및 지정
             </div>
           </motion.div>
@@ -226,13 +227,13 @@ const History = () => {
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
             className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-200 dark:border-neutral-700"
           >
-            <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <div className="w-14 h-14 bg-gradient-to-br from-warning-500 to-warning-600 rounded-xl flex items-center justify-center mx-auto mb-4">
               <Users className="w-7 h-7 text-white" />
             </div>
-            <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-1 text-center">
+            <div className="text-display-sm text-warning-500 mb-1 text-center">
               25+
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400 text-center">
+            <div className="label-md text-neutral-600 dark:text-neutral-400 text-center">
               전문 인력
             </div>
           </motion.div>
@@ -248,16 +249,16 @@ const History = () => {
               className="inline-flex items-center gap-2 bg-primary-100 dark:bg-primary-900/30 px-5 py-2 rounded-full mb-6"
             >
               <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-              <span className="text-sm font-semibold text-primary-600 dark:text-primary-400">
+              <span className="label-md text-primary-600 dark:text-primary-400">
                 Our Milestones
               </span>
             </motion.div>
 
-            <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
+            <h2 className="text-heading-xl text-neutral-900 dark:text-white mb-4">
               주요 성과 및 발전 과정
             </h2>
 
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+            <p className="text-body-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
               한국환경안전연구소의 주요 이정표와 성장의 역사
             </p>
           </div>
@@ -291,7 +292,7 @@ const History = () => {
                                   className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300"
                                 >
                                   <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                                  <span className="text-sm leading-relaxed">
+                                  <span className="text-body-sm">
                                     {event}
                                   </span>
                                 </li>
@@ -302,7 +303,7 @@ const History = () => {
 
                         {/* Center Year Badge */}
                         <div className="absolute left-1/2 transform -translate-x-1/2 w-24 h-24 bg-primary-600 dark:bg-primary-700 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-white dark:border-neutral-900">
-                          <span className="text-white font-bold text-lg">
+                          <span className="text-white font-bold text-body-lg">
                             {item.year}
                           </span>
                           <span className="text-white text-xs opacity-80">
@@ -338,7 +339,7 @@ const History = () => {
                                   className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300"
                                 >
                                   <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                                  <span className="text-sm leading-relaxed">
+                                  <span className="text-body-sm">
                                     {event}
                                   </span>
                                 </li>
@@ -354,7 +355,7 @@ const History = () => {
                   <div className="lg:hidden flex gap-4">
                     {/* Year Badge */}
                     <div className="flex-shrink-0 w-16 h-16 bg-primary-600 dark:bg-primary-700 rounded-xl shadow-lg flex flex-col items-center justify-center">
-                      <span className="text-white font-bold text-sm">
+                      <span className="text-white font-bold label-md">
                         {item.year}
                       </span>
                       <span className="text-white text-xs opacity-80">
@@ -372,7 +373,7 @@ const History = () => {
                               className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300"
                             >
                               <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                              <span className="text-sm leading-relaxed">
+                              <span className="text-body-sm">
                                 {event}
                               </span>
                             </li>

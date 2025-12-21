@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Pin, Eye, Calendar, User } from "lucide-react";
 import { getNotices } from "../../services/noticeService";
 import type { Notice } from "../../types";
+import Button from "../../components/common/Button";
 
 const NoticeList = () => {
   const [notices, setNotices] = useState<Notice[]>([]);

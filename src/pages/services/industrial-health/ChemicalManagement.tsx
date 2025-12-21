@@ -1,6 +1,8 @@
+import Button from "../../../components/common/Button";
+
 const ChemicalManagement = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
       {/* Hero Section */}
       <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
@@ -41,8 +43,8 @@ const ChemicalManagement = () => {
                   </ul>
                 </div>
 
-                <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl">
-                  <h4 className="font-bold text-lg mb-3 text-gray-700 dark:text-gray-300">
+                <div className="bg-neutral-100 dark:bg-neutral-800/50 p-6 rounded-xl">
+                  <h4 className="font-bold text-lg mb-3 text-neutral-900 dark:text-neutral-100">
                     MSDS(물질안전보건자료) 관리
                   </h4>
                   <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
@@ -53,8 +55,8 @@ const ChemicalManagement = () => {
                   </ul>
                 </div>
 
-                <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl">
-                  <h4 className="font-bold text-lg mb-3 text-gray-700 dark:text-gray-300">
+                <div className="bg-neutral-100 dark:bg-neutral-800/50 p-6 rounded-xl">
+                  <h4 className="font-bold text-lg mb-3 text-neutral-900 dark:text-neutral-100">
                     작업환경관리
                   </h4>
                   <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">

@@ -1,3 +1,5 @@
+import Button from "../../../components/common/Button";
+
 const DialysisSampling = () => {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Users, MessageSquare, FileText, TrendingUp } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { getDashboardStats } from "../../services/statsService";
+import Button from "../../components/common/Button";
 
 const AdminDashboard: React.FC = () => {
   const { user, userData } = useAuth();

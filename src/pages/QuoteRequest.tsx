@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { createQuote } from "../services/quoteService";
 import { useAuth } from "../contexts/AuthContext";
+import Button from "../components/common/Button";
 
 const serviceOptions = [
   { value: "industrial-health", label: "산업보건 컨설팅", icon: Building2 },

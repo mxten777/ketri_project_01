@@ -10,24 +10,24 @@ export const logger = {
       console.log(...args);
     }
   },
-  
+
   warn: (...args: any[]) => {
     if (isDevelopment) {
       console.warn(...args);
     }
   },
-  
+
   error: (...args: any[]) => {
     // 에러는 프로덕션에서도 기록 (모니터링 필요)
     console.error(...args);
   },
-  
+
   debug: (...args: any[]) => {
     if (isDevelopment) {
       console.debug(...args);
     }
   },
-  
+
   info: (...args: any[]) => {
     if (isDevelopment) {
       console.info(...args);

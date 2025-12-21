@@ -13,6 +13,7 @@ import {
   FileText,
   Download,
 } from "lucide-react";
+import Button from "../../components/common/Button";
 
 const Equipment = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -622,10 +623,10 @@ const Equipment = () => {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h1 className="text-display-lg mb-6">
               주요장비현황
             </h1>
-            <p className="text-lg lg:text-xl opacity-90 max-w-2xl mx-auto">
+            <p className="text-body-lg opacity-90 max-w-2xl mx-auto">
               정확하고 신뢰할 수 있는 분석을 위한 첨단 장비 현황
             </p>
           </motion.div>

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Palette, Eye, Heart, Target, Lightbulb, Shield } from "lucide-react";
+import Button from "../../components/common/Button";
 
 const CI = () => {
   const colors = [
@@ -40,8 +41,8 @@ const CI = () => {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">CI 소개</h1>
-            <p className="text-lg lg:text-xl opacity-90 max-w-2xl mx-auto">
+            <h1 className="text-display-lg mb-6">CI 소개</h1>
+            <p className="text-body-lg opacity-90 max-w-2xl mx-auto">
               한국환경안전연구소의 브랜드 아이덴티티와 디자인 철학
             </p>
           </motion.div>
@@ -57,14 +58,14 @@ const CI = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center mb-16"
         >
-          <h2 className="heading-lg mb-8">브랜드 로고</h2>
+          <h2 className="text-heading-lg mb-8">브랜드 로고</h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Logo Display */}
             <div className="space-y-8">
               {/* Light Mode Logo */}
               <div className="bg-white rounded-2xl p-8 shadow-soft">
-                <h3 className="text-lg font-bold mb-4 text-neutral-800">
+                <h3 className="text-body-lg font-bold mb-4 text-neutral-800">
                   라이트 모드
                 </h3>
                 <div className="bg-neutral-50 rounded-xl p-8 flex items-center justify-center">
@@ -78,7 +79,7 @@ const CI = () => {
 
               {/* Dark Mode Logo */}
               <div className="bg-neutral-800 rounded-2xl p-8 shadow-soft">
-                <h3 className="text-lg font-bold mb-4 text-white">다크 모드</h3>
+                <h3 className="text-body-lg font-bold mb-4 text-white">다크 모드</h3>
                 <div className="bg-neutral-700 rounded-xl p-8 flex items-center justify-center">
                   <img
                     src="/images/logo_horizontal_trans.png"
@@ -91,9 +92,9 @@ const CI = () => {
 
             {/* Logo Meaning */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold mb-6">로고의 의미</h3>
+              <h3 className="text-heading-md mb-6">로고의 의미</h3>
               <div className="prose dark:prose-invert max-w-none">
-                <p className="text-lg mb-6">
+                <p className="text-body-lg mb-6">
                   한국환경안전연구소의 로고는 <strong>환경보호</strong>와{" "}
                   <strong>안전</strong>이라는 핵심 가치를 시각적으로 표현합니다.
                 </p>

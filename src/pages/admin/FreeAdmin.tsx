@@ -6,6 +6,8 @@ import { getFreePosts, deleteFreePost } from "../../services/freeService";
 import { useAuth } from "../../contexts/AuthContext";
 import type { FreePost } from "../../types";
 
+import Button from "../../components/common/Button";
+
 const FreeAdmin = () => {
   const navigate = useNavigate();
   const { userData } = useAuth();

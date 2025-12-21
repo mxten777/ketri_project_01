@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 /**
  * 데이터 페칭을 위한 공통 Hook
@@ -19,13 +19,13 @@ export function useFetch<T>(
         setLoading(true);
         setError(null);
         const result = await fetchFn();
-        
+
         if (!cancelled) {
           setData(result);
         }
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof Error ? err : new Error('Unknown error'));
+          setError(err instanceof Error ? err : new Error("Unknown error"));
         }
       } finally {
         if (!cancelled) {
@@ -48,9 +48,7 @@ export function useFetch<T>(
 /**
  * 비동기 작업을 위한 공통 Hook
  */
-export function useAsync<T>(
-  asyncFunction: (...args: any[]) => Promise<T>
-) {
+export function useAsync<T>(asyncFunction: (...args: any[]) => Promise<T>) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -61,7 +59,7 @@ export function useAsync<T>(
       const result = await asyncFunction(...args);
       return result;
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Unknown error'));
+      setError(err instanceof Error ? err : new Error("Unknown error"));
       return null;
     } finally {
       setLoading(false);
@@ -102,7 +100,7 @@ export function useLocalStorage<T>(
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.error('LocalStorage read error:', error);
+      console.error("LocalStorage read error:", error);
       return initialValue;
     }
   });
@@ -112,7 +110,7 @@ export function useLocalStorage<T>(
       setStoredValue(value);
       window.localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
-      console.error('LocalStorage write error:', error);
+      console.error("LocalStorage write error:", error);
     }
   };
 
@@ -132,9 +130,9 @@ export function useMediaQuery(query: string): boolean {
     }
 
     const listener = () => setMatches(media.matches);
-    media.addEventListener('change', listener);
+    media.addEventListener("change", listener);
 
-    return () => media.removeEventListener('change', listener);
+    return () => media.removeEventListener("change", listener);
   }, [matches, query]);
 
   return matches;
@@ -144,7 +142,7 @@ export function useMediaQuery(query: string): boolean {
  * 모바일 여부를 확인하는 Hook
  */
 export function useIsMobile(): boolean {
-  return useMediaQuery('(max-width: 768px)');
+  return useMediaQuery("(max-width: 768px)");
 }
 
 /**
@@ -158,10 +156,10 @@ export function useScrollPosition() {
       setScrollPosition(window.pageYOffset);
     };
 
-    window.addEventListener('scroll', updatePosition);
+    window.addEventListener("scroll", updatePosition);
     updatePosition();
 
-    return () => window.removeEventListener('scroll', updatePosition);
+    return () => window.removeEventListener("scroll", updatePosition);
   }, []);
 
   return scrollPosition;

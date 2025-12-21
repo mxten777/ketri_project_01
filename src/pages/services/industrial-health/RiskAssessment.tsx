@@ -1,6 +1,8 @@
+import Button from "../../../components/common/Button";
+
 const RiskAssessment = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
       {/* Hero Section */}
       <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
@@ -30,15 +32,15 @@ const RiskAssessment = () => {
                     일련의 과정입니다.
                   </p>
 
-                  <div className="bg-gray-100 dark:bg-gray-800 border-l-4 border-gray-500 p-6 mb-8">
-                    <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-gray-300">
+                  <div className="bg-primary-50 dark:bg-primary-900/40 border-l-4 border-primary-500 dark:border-primary-400 p-6 mb-8 dark:shadow-xl">
+                    <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-50">
                       ⚠️ 중대재해처벌법 (2022.01.27 시행)
                     </h3>
-                    <p className="text-neutral-700 dark:text-neutral-300 mb-2">
+                    <p className="text-neutral-700 dark:text-neutral-100 mb-2 font-medium">
                       상시근로자 5인 이상 사업장은 위험성평가를 실시하고
                       안전보건관리체계를 구축해야 합니다.
                     </p>
-                    <ul className="space-y-1 text-neutral-700 dark:text-neutral-300 text-sm">
+                    <ul className="space-y-1 text-neutral-700 dark:text-neutral-100 text-sm font-medium">
                       <li>• 사업주 및 경영책임자 처벌 대상</li>
                       <li>• 1년 이상의 징역 또는 10억원 이하의 벌금</li>
                     </ul>

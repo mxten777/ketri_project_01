@@ -61,6 +61,6 @@ export default defineConfig({
   },
   // esbuild 최적화 설정
   esbuild: {
-    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
+    drop: process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
   },
 });

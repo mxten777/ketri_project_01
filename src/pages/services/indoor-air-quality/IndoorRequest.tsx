@@ -1,6 +1,8 @@
+import Button from "../../../components/common/Button";
+
 const IndoorRequest = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
       {/* Hero Section */}
       <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
@@ -65,7 +67,7 @@ const IndoorRequest = () => {
                             <li>• 오염원 주변 고려</li>
                           </ul>
                         </div>
-                        <div className="bg-white dark:bg-neutral-700 p-4 rounded-lg border border-neutral-300 dark:border-neutral-600">
+                        <div className="bg-white dark:bg-neutral-800/50 p-4 rounded-lg border border-neutral-300 dark:border-neutral-600">
                           <h4 className="font-semibold text-sm mb-2">측정 시간</h4>
                           <p className="text-sm text-neutral-600 dark:text-neutral-400">
                             시설 운영 중 측정<br />
@@ -107,8 +109,8 @@ const IndoorRequest = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                        <h4 className="font-semibold text-sm mb-2 text-gray-900 dark:text-gray-300">소요 시간</h4>
+                      <div className="bg-neutral-100 dark:bg-neutral-800/50 p-4 rounded-lg">
+                        <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-neutral-100">소요 시간</h4>
                         <p className="text-sm text-neutral-600 dark:text-neutral-400">
                           측정 지점당 약 30분~1시간<br />
                           (시설 규모에 따라 반나절~1일 소요)
@@ -160,9 +162,9 @@ const IndoorRequest = () => {
                   </div>
                 </div>
 
-                <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-l-4 border-gray-500">
+                <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-l-4 border-primary-500">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gray-600 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
+                    <div className="w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                       5
                     </div>
                     <div className="flex-1">
@@ -183,9 +185,9 @@ const IndoorRequest = () => {
                   </div>
                 </div>
 
-                <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-l-4 border-gray-500">
+                <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-l-4 border-primary-500">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gray-600 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
+                    <div className="w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                       6
                     </div>
                     <div className="flex-1">
@@ -193,8 +195,8 @@ const IndoorRequest = () => {
                       <p className="text-neutral-600 dark:text-neutral-400 mb-3">
                         부적합 판정 시 개선 방안을 제시하고 재측정을 지원합니다.
                       </p>
-                      <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                        <h4 className="font-semibold text-sm mb-2 text-gray-900 dark:text-gray-300">부적합 시 조치사항</h4>
+                      <div className="bg-neutral-100 dark:bg-neutral-800/50 p-4 rounded-lg">
+                        <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-neutral-100">부적합 시 조치사항</h4>
                         <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
                           <li>• 오염원 파악 및 제거 방법 안내</li>
                           <li>• 환기시스템 개선 방안 제시</li>
@@ -240,11 +242,11 @@ const IndoorRequest = () => {
                 </table>
               </div>
 
-              <div className="bg-gray-100 dark:bg-gray-800 border-l-4 border-gray-500 p-6 mb-8">
-                <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-gray-300">
+              <div className="bg-neutral-100 dark:bg-neutral-800/50 border-l-4 border-primary-500 p-6 mb-8">
+                <h3 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">
                   💡 측정 비용 안내
                 </h3>
-                <ul className="space-y-1 text-neutral-700 dark:text-neutral-300 text-sm">
+                <ul className="space-y-1 text-neutral-700 dark:text-neutral-200 text-sm">
                   <li>• 시설 규모와 측정 지점 수에 따라 비용이 달라질 수 있습니다</li>
                   <li>• 정기 측정 계약 시 할인 혜택 제공</li>
                   <li>• 다수 시설 동시 의뢰 시 할인 가능</li>
@@ -258,7 +260,7 @@ const IndoorRequest = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-semibold mb-2">전화 문의</h4>
-                    <p className="text-neutral-700 dark:text-neutral-300 mb-1">
+                    <p className="text-neutral-700 dark:text-neutral-200 mb-1">
                       Tel: 02-1234-5678
                     </p>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
@@ -267,7 +269,7 @@ const IndoorRequest = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2">온라인 문의</h4>
-                    <p className="text-neutral-700 dark:text-neutral-300 mb-1">
+                    <p className="text-neutral-700 dark:text-neutral-200 mb-1">
                       Email: indoor@ketri.co.kr
                     </p>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">

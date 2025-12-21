@@ -1,6 +1,8 @@
+import Button from "../../../components/common/Button";
+
 const IndoorIntro = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
       {/* Hero Section */}
       <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
@@ -24,15 +26,15 @@ const IndoorIntro = () => {
                 국민 건강 보호와 쾌적한 실내환경 조성을 위해 과학적이고 체계적인 측정 서비스를 제공합니다.
               </p>
 
-              <div className="bg-gray-100 dark:bg-gray-800 border-l-4 border-gray-500 p-6 mb-8">
-                <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-gray-300">
+              <div className="bg-neutral-100 dark:bg-neutral-800/50 border-l-4 border-primary-500 p-6 mb-8">
+                <h3 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">
                   ⚠️ 실내공기질 관리의 중요성
                 </h3>
-                <p className="text-neutral-700 dark:text-neutral-300 mb-2">
+                <p className="text-neutral-700 dark:text-neutral-200 mb-2">
                   현대인은 하루의 80~90%를 실내에서 생활합니다. 
                   부적절한 환기와 각종 오염물질로 인해 실내공기질이 실외보다 2~5배 나쁠 수 있습니다.
                 </p>
-                <ul className="space-y-1 text-neutral-700 dark:text-neutral-300 text-sm">
+                <ul className="space-y-1 text-neutral-700 dark:text-neutral-200 text-sm">
                   <li>• 실내공기 오염으로 인한 건강 피해 예방</li>
                   <li>• 법정 의무 대상 시설은 정기 측정 필수</li>
                   <li>• 기준 초과 시 과태료 부과 (최대 300만원)</li>
@@ -162,10 +164,10 @@ const IndoorIntro = () => {
                 <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
                   ✅ 전문 컨설팅 서비스
                 </h3>
-                <p className="text-neutral-700 dark:text-neutral-300 mb-2">
+                <p className="text-neutral-700 dark:text-neutral-200 mb-2">
                   측정 결과 기준 초과 시 개선 방안을 제시하고 재측정까지 체계적으로 지원합니다.
                 </p>
-                <ul className="space-y-1 text-neutral-700 dark:text-neutral-300 text-sm">
+                <ul className="space-y-1 text-neutral-700 dark:text-neutral-200 text-sm">
                   <li>• 환기시스템 개선 방안 제시</li>
                   <li>• 오염원 파악 및 제거 방법 안내</li>
                   <li>• 실내공기질 개선 컨설팅</li>

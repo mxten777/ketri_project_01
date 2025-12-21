@@ -1,6 +1,8 @@
+import Button from "../../../components/common/Button";
+
 const IndoorResult = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
       {/* Hero Section */}
       <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
@@ -108,14 +110,14 @@ const IndoorResult = () => {
                     </table>
                   </div>
 
-                  <div className="bg-gray-100 dark:bg-gray-800 border-l-4 border-gray-500 p-6 mb-8">
-                    <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-gray-300">
+                  <div className="bg-neutral-100 dark:bg-neutral-800/50 border-l-4 border-primary-500 p-6 mb-8">
+                    <h3 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">
                       ⚠️ 법적 의무사항
                     </h3>
-                    <p className="text-neutral-700 dark:text-neutral-300 text-sm mb-2">
+                    <p className="text-neutral-700 dark:text-neutral-200 text-sm mb-2">
                       다중이용시설은 측정 결과를 이용자가 잘 볼 수 있는 장소에 게시해야 합니다.
                     </p>
-                    <ul className="space-y-1 text-neutral-700 dark:text-neutral-300 text-sm">
+                    <ul className="space-y-1 text-neutral-700 dark:text-neutral-200 text-sm">
                       <li>• 게시 기한: 측정 후 30일 이내</li>
                       <li>• 게시 위치: 주출입구 또는 게시판</li>
                       <li>• 게시 내용: 측정 결과 요약본</li>

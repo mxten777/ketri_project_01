@@ -1,3 +1,5 @@
+import Button from "../../components/common/Button";
+
 const DialysisWater = () => {
   return (
     <div className="min-h-screen">

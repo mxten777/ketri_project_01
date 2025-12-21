@@ -13,6 +13,7 @@ import {
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/common/Button";
+import { Section, Container } from "../components/common";
 
 const MyPage = () => {
   const {
@@ -142,37 +143,37 @@ const MyPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-800 py-12">
-      <div className="container-custom max-w-4xl">
+    <Section spacing="xl" variant="default">
+      <Container size="lg">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">
+          <div className="mb-12 text-center">
+            <h1 className="text-heading-xl text-neutral-900 dark:text-white mb-4">
               마이페이지
             </h1>
-            <p className="text-neutral-600 dark:text-neutral-400">
+            <p className="text-body-lg text-neutral-600 dark:text-neutral-400">
               계정 정보를 관리하고 설정을 변경할 수 있습니다
             </p>
           </div>
 
           {/* User Info Card */}
-          <div className="card p-6 mb-6">
-            <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center">
-                <User className="w-8 h-8 text-white" />
+          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-card p-8 mb-8">
+            <div className="flex items-center space-x-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg">
+                <User className="w-10 h-10 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
+                <h2 className="text-heading-md text-neutral-900 dark:text-white mb-2">
                   {userData?.displayName || "사용자"}
                 </h2>
-                <p className="text-neutral-600 dark:text-neutral-400">
+                <p className="text-body-md text-neutral-600 dark:text-neutral-400 mb-1">
                   {currentUser?.email}
                 </p>
-                <p className="text-sm text-neutral-500 dark:text-neutral-500">
+                <p className="text-label-md text-primary-600 dark:text-primary-400 font-semibold">
                   {userData?.role === "admin" ? "관리자" : "일반 회원"}
                 </p>
               </div>
@@ -180,7 +181,7 @@ const MyPage = () => {
           </div>
 
           {/* Tabs */}
-          <div className="card mb-6">
+          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-card mb-8">
             <div className="border-b border-neutral-200 dark:border-neutral-700">
               <nav className="flex space-x-8 px-6" aria-label="Tabs">
                 <button
@@ -257,7 +258,7 @@ const MyPage = () => {
                         id="displayName"
                         value={displayName}
                         onChange={(e) => setDisplayName(e.target.value)}
-                        className="w-full pl-11 pr-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full pl-11 pr-4 py-3 text-body-md border-2 border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
                         placeholder="이름을 입력하세요"
                         required
                       />
@@ -439,8 +440,8 @@ const MyPage = () => {
             </Button>
           </div>
         </motion.div>
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 };
 

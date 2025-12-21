@@ -15,6 +15,8 @@ import { getQnAs, deleteQna, toggleAnswered } from "../../services/qnaService";
 import { formatFirebaseTimestamp } from "../../utils/dateUtils";
 import type { QnA } from "../../types";
 
+import Button from "../../components/common/Button";
+
 const QnAAdmin = () => {
   const { user, userData, isAdmin } = useAuth();
   const [qnas, setQnas] = useState<QnA[]>([]);

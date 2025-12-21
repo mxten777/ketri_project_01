@@ -25,7 +25,7 @@ export const getNotices = async (
 ): Promise<Notice[]> => {
   try {
     logDev("Fetching notices from Firestore...");
-    
+
     // 인덱스 없이 작동: createdAt만으로 정렬 후 메모리에서 isPinned 처리
     const q = query(
       collection(db, COLLECTION_NAME),
@@ -35,7 +35,7 @@ export const getNotices = async (
 
     const querySnapshot = await getDocs(q);
     logDev(`Found ${querySnapshot.docs.length} notices`);
-    
+
     // 메모리에서 정렬: isPinned 우선, 그 다음 createdAt
     const notices = querySnapshot.docs
       .map((doc) => {
@@ -65,8 +65,12 @@ export const getNotices = async (
           return a.isPinned ? -1 : 1;
         }
         // 같으면 createdAt으로 비교 (Timestamp와 Date 모두 지원)
-        const aTime = a.createdAt?.seconds ? a.createdAt.seconds * 1000 : (a.createdAt?.getTime?.() || 0);
-        const bTime = b.createdAt?.seconds ? b.createdAt.seconds * 1000 : (b.createdAt?.getTime?.() || 0);
+        const aTime = a.createdAt?.seconds
+          ? a.createdAt.seconds * 1000
+          : a.createdAt?.getTime?.() || 0;
+        const bTime = b.createdAt?.seconds
+          ? b.createdAt.seconds * 1000
+          : b.createdAt?.getTime?.() || 0;
         return bTime - aTime;
       })
       .slice(0, limitCount); // 원하는 개수만 반환
@@ -74,16 +78,22 @@ export const getNotices = async (
     return notices;
   } catch (error: any) {
     logError("Error fetching notices:", error);
-    
+
     // Firebase 에러 메시지를 더 명확하게
     if (error?.code === "permission-denied") {
-      throw new Error("데이터베이스 접근 권한이 없습니다. Firestore 규칙을 확인해주세요.");
+      throw new Error(
+        "데이터베이스 접근 권한이 없습니다. Firestore 규칙을 확인해주세요."
+      );
     } else if (error?.code === "unavailable") {
-      throw new Error("데이터베이스 연결에 실패했습니다. 네트워크를 확인해주세요.");
+      throw new Error(
+        "데이터베이스 연결에 실패했습니다. 네트워크를 확인해주세요."
+      );
     } else if (error?.code === "failed-precondition") {
-      throw new Error("데이터베이스 인덱스가 필요합니다. Firebase Console을 확인해주세요.");
+      throw new Error(
+        "데이터베이스 인덱스가 필요합니다. Firebase Console을 확인해주세요."
+      );
     }
-    
+
     throw new Error(error?.message || "공지사항을 불러오는데 실패했습니다.");
   }
 };

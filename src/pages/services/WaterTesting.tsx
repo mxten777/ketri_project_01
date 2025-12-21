@@ -1,3 +1,5 @@
+import Button from "../../components/common/Button";
+
 const WaterTesting = () => {
   return (
     <div className="min-h-screen">
@@ -63,7 +65,7 @@ const WaterTesting = () => {
                   <li>• 집단급식소</li>
                 </ul>
               </div>
-              <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+              <div className="p-6 bg-neutral-100 dark:bg-neutral-800/50 rounded-xl">
                 <div className="text-4xl mb-3">💧</div>
                 <h4 className="font-bold text-lg mb-2">소규모 급수시설</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
@@ -73,7 +75,7 @@ const WaterTesting = () => {
                   <li>• 지하수</li>
                 </ul>
               </div>
-              <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+              <div className="p-6 bg-neutral-100 dark:bg-neutral-800/50 rounded-xl">
                 <div className="text-4xl mb-3">🏭</div>
                 <h4 className="font-bold text-lg mb-2">수처리시설</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">

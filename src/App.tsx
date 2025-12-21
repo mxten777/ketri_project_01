@@ -85,6 +85,10 @@ const Certificates = lazy(() => import("./pages/about/Certificates"));
 const Equipment = lazy(() => import("./pages/about/Equipment"));
 const Location = lazy(() => import("./pages/about/Location"));
 
+// Theme System Demo
+const ThemeSystemDemo = lazy(() => import("./pages/ThemeSystemDemo"));
+const UITest = lazy(() => import("./pages/UITest"));
+
 // Loading component
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-screen">
@@ -146,6 +150,10 @@ function App() {
                 <Routes>
             {/* Home */}
             <Route path="/" element={<Home />} />
+            
+            {/* Theme System Demo */}
+            <Route path="/theme-demo" element={<ThemeSystemDemo />} />
+            <Route path="/ui-test" element={<UITest />} />
 
             {/* Industrial Health */}
             <Route path="industrial-health/*" element={<IndustrialHealth />} />
