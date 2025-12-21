@@ -1,11 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import Button from "../../components/common/Button";
 
 const IndustrialHealth = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
+      <section className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">
@@ -31,15 +30,7 @@ const IndustrialHealth = () => {
                 <nav className="space-y-2">
                   {[
                     {
-                      label: "작업환경측정",
-                      path: "/industrial-health/work-environment",
-                    },
-                    {
-                      label: "위험성평가",
-                      path: "/industrial-health/risk-assessment",
-                    },
-                    {
-                      label: "근골격계유해요인조사",
+                      label: "근골격계 유해요인조사",
                       path: "/industrial-health/musculoskeletal",
                     },
                     {
@@ -49,6 +40,10 @@ const IndustrialHealth = () => {
                     {
                       label: "산업보건컨설팅 실적",
                       path: "/industrial-health/portfolio",
+                    },
+                    {
+                      label: "업무소개",
+                      path: "/industrial-health/introduction",
                     },
                   ].map((item) => (
                     <a
@@ -80,11 +75,11 @@ const IndustrialHealth = () => {
                           체계적인 솔루션을 제공합니다.
                         </p>
 
-                        <div className="bg-neutral-100 dark:bg-neutral-800/50 rounded-xl p-6 mb-8">
+                        <div className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 rounded-xl p-6 mb-8">
                           <h3 className="text-xl font-bold text-red-600 dark:text-red-400 mb-3">
                             ⚠️ 중대재해처벌법 대응 필수 지원
                           </h3>
-                          <p className="text-neutral-700 dark:text-neutral-200 mb-3">
+                          <p className="text-neutral-700 dark:text-neutral-300 mb-3">
                             2022년 1월 27일 시행된 중대재해처벌법에 따라 5명
                             이상 사업장은 안전보건 관리체계 구축이
                             의무화되었습니다.
@@ -115,7 +110,7 @@ const IndustrialHealth = () => {
                               가이드라인
                             </p>
                           </div>
-                          <div className="border-l-4 border-primary-500 pl-4 py-2">
+                          <div className="border-l-4 border-secondary-500 pl-4 py-2">
                             <h4 className="font-bold text-lg mb-2">
                               화학물질 노출평가 및 관리 (CRA)
                             </h4>
@@ -131,7 +126,7 @@ const IndustrialHealth = () => {
                               관리방안 수립
                             </p>
                           </div>
-                          <div className="border-l-4 border-gray-500 pl-4 py-2">
+                          <div className="border-l-4 border-accent-500 pl-4 py-2">
                             <h4 className="font-bold text-lg mb-2">
                               작업환경측정 (고용노동부 지정기관)
                             </h4>
@@ -230,7 +225,7 @@ const IndustrialHealth = () => {
                           ].map((feature) => (
                             <div
                               key={feature.title}
-                              className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-100 dark:border-primary-900/30 hover:shadow-lg transition-shadow"
+                              className="p-6 bg-gradient-to-br from-primary-50 to-white dark:from-primary-900/20 dark:to-neutral-800 rounded-lg border border-primary-100 dark:border-primary-900/30 hover:shadow-lg transition-shadow"
                             >
                               <h4 className="font-bold text-primary-600 dark:text-primary-400 mb-2 text-lg">
                                 {feature.title}
@@ -496,7 +491,7 @@ const IndustrialHealth = () => {
                           주요 서비스
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                          <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
+                          <div className="p-6 bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-xl">
                             <div className="text-3xl mb-3">🧪</div>
                             <h4 className="font-bold text-lg mb-2">
                               MSDS 작성 및 관리
@@ -506,7 +501,7 @@ const IndustrialHealth = () => {
                               및 라벨링 기준 적용
                             </p>
                           </div>
-                          <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+                          <div className="p-6 bg-gradient-to-br from-secondary-50 to-accent-50 dark:from-secondary-900/20 dark:to-accent-900/20 rounded-xl">
                             <div className="text-3xl mb-3">📊</div>
                             <h4 className="font-bold text-lg mb-2">
                               작업환경측정
@@ -516,14 +511,14 @@ const IndustrialHealth = () => {
                               및 분석
                             </p>
                           </div>
-                          <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+                          <div className="p-6 bg-gradient-to-br from-accent-50 to-primary-50 dark:from-accent-900/20 dark:to-primary-900/20 rounded-xl">
                             <div className="text-3xl mb-3">🔍</div>
                             <h4 className="font-bold text-lg mb-2">노출평가</h4>
                             <p className="text-sm text-neutral-600 dark:text-neutral-400">
                               개인시료채취를 통한 근로자 화학물질 노출 수준 평가
                             </p>
                           </div>
-                          <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
+                          <div className="p-6 bg-gradient-to-br from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-xl">
                             <div className="text-3xl mb-3">🏭</div>
                             <h4 className="font-bold text-lg mb-2">
                               국소배기장치 성능평가
@@ -601,7 +596,7 @@ const IndustrialHealth = () => {
                             </ul>
                           </div>
                           <div className="border border-neutral-300 dark:border-neutral-600 rounded-lg p-4">
-                            <h4 className="font-bold mb-3 text-primary-600 dark:text-primary-400">
+                            <h4 className="font-bold mb-3 text-secondary-600 dark:text-secondary-400">
                               중금속
                             </h4>
                             <ul className="text-sm space-y-1 text-neutral-600 dark:text-neutral-400">
@@ -612,7 +607,7 @@ const IndustrialHealth = () => {
                             </ul>
                           </div>
                           <div className="border border-neutral-300 dark:border-neutral-600 rounded-lg p-4">
-                            <h4 className="font-bold mb-3 text-gray-600 dark:text-gray-400">
+                            <h4 className="font-bold mb-3 text-accent-600 dark:text-accent-400">
                               분진 및 기타
                             </h4>
                             <ul className="text-sm space-y-1 text-neutral-600 dark:text-neutral-400">

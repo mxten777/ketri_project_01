@@ -4,7 +4,7 @@ const WaterIntro = () => {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
+      <section className="bg-gradient-to-br from-cyan-600 to-blue-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">업무 소개</h1>
@@ -28,9 +28,9 @@ const WaterIntro = () => {
 
               <h3 className="text-xl font-bold mt-8 mb-4">검사 항목</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl">
+                <div className="bg-primary-50 dark:bg-primary-900/30 p-6 rounded-xl border border-primary-100 dark:border-primary-800">
                   <h4 className="font-bold text-lg mb-3 text-primary-700 dark:text-primary-300">미생물</h4>
-                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
+                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-200 text-sm">
                     <li>• 일반세균</li>
                     <li>• 총대장균군</li>
                     <li>• 대장균 또는 분원성대장균군</li>
@@ -48,9 +48,9 @@ const WaterIntro = () => {
                     <li>• 보론, 브롬산염</li>
                   </ul>
                 </div>
-                <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl">
+                <div className="bg-primary-50 dark:bg-primary-900/30 p-6 rounded-xl border border-primary-100 dark:border-primary-800">
                   <h4 className="font-bold text-lg mb-3 text-primary-700 dark:text-primary-300">건강상 유해영향 유기물질</h4>
-                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
+                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-200 text-sm">
                     <li>• 페놀, 다이아지논, 파라티온</li>
                     <li>• 페니트로티온, 카바릴</li>
                     <li>• 1,1,1-트리클로로에탄</li>

@@ -3,7 +3,7 @@ import Button from "../../components/common/Button";
 const Asbestos = () => {
   return (
     <div className="min-h-screen">
-      <div className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
+      <div className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             석면조사 및 분석

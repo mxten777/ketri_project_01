@@ -4,7 +4,7 @@ const DialysisSampling = () => {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
+      <section className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">

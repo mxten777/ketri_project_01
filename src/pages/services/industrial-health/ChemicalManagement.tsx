@@ -1,213 +1,151 @@
-import Button from "../../../components/common/Button";
+import { Container, Section } from "../../../components/common";
+import { FlaskConical, BookOpen, Shield, AlertCircle } from "lucide-react";
 
 const ChemicalManagement = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
-      {/* Hero Section */}
-      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
-        <div className="container-custom">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-              화학물질관리
-            </h1>
-            <p className="text-lg text-white/90">
-              산업안전보건법 및 화학물질관리법에 따른 화학물질 취급시설의 체계적인 관리로 안전한 작업환경을 조성합니다
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Content */}
-      <section className="section">
-        <div className="container-custom">
-          <div className="card p-8">
-            <div className="prose dark:prose-invert max-w-none">
-              <h2 className="text-2xl font-bold mb-6">화학물질관리란?</h2>
-              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
-                산업현장에서 사용되는 화학물질로 인한 건강장해 및 화재·폭발 등의 사고를 예방하기 위하여 
-                화학물질의 유해성·위험성을 파악하고 적절한 관리방안을 마련하는 종합적인 안전보건관리 활동입니다.
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
+      <Section className="py-16">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            {/* 헤더 */}
+            <div className="text-center mb-12">
+              <h1 className="text-4xl font-bold text-neutral-900 dark:text-white mb-4">
+                화학물질관리
+              </h1>
+              <p className="text-lg text-neutral-600 dark:text-neutral-300">
+                사업장 화학물질의 체계적이고 안전한 관리
               </p>
+            </div>
 
-              <h3 className="text-xl font-bold mt-8 mb-4">주요 서비스</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl">
-                  <h4 className="font-bold text-lg mb-3 text-primary-700 dark:text-primary-300">
-                    화학물질 위험성평가
-                  </h4>
-                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
-                    <li>• 취급 화학물질 목록 작성</li>
-                    <li>• 유해성·위험성 분류</li>
-                    <li>• 노출 시나리오 작성</li>
-                    <li>• 위험성 추정 및 결정</li>
-                    <li>• 위험성 감소대책 수립</li>
-                  </ul>
-                </div>
-
-                <div className="bg-neutral-100 dark:bg-neutral-800/50 p-6 rounded-xl">
-                  <h4 className="font-bold text-lg mb-3 text-neutral-900 dark:text-neutral-100">
-                    MSDS(물질안전보건자료) 관리
-                  </h4>
-                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
-                    <li>• MSDS 작성 및 제공</li>
-                    <li>• MSDS 게시 및 교육자료 제작</li>
-                    <li>• 화학물질 취급근로자 교육</li>
-                    <li>• 경고표시 및 그림문자 부착</li>
-                  </ul>
-                </div>
-
-                <div className="bg-neutral-100 dark:bg-neutral-800/50 p-6 rounded-xl">
-                  <h4 className="font-bold text-lg mb-3 text-neutral-900 dark:text-neutral-100">
-                    작업환경관리
-                  </h4>
-                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
-                    <li>• 국소배기장치 설치 및 성능검사</li>
-                    <li>• 작업환경측정 실시</li>
-                    <li>• 개인보호구 지급 및 착용관리</li>
-                    <li>• 특수건강진단 실시</li>
-                  </ul>
-                </div>
-
-                <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl">
-                  <h4 className="font-bold text-lg mb-3 text-primary-700 dark:text-primary-300">
-                    화학물질 취급시설 관리
-                  </h4>
-                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
-                    <li>• 보관시설 적정성 검토</li>
-                    <li>• 환기시설 설계 및 개선</li>
-                    <li>• 누출감지 및 경보설비 점검</li>
-                    <li>• 비상대응 매뉴얼 작성</li>
-                  </ul>
-                </div>
-              </div>
-
-              <h3 className="text-xl font-bold mt-8 mb-4">화학물질 관리 대상</h3>
-              <div className="bg-orange-50 dark:bg-orange-900/20 border-l-4 border-orange-500 p-6 mb-8 rounded-xl">
-                <h4 className="font-semibold mb-3">관리대상 유해물질 (산업안전보건법)</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <p className="font-semibold mb-2 text-sm">유기화합물</p>
-                    <ul className="space-y-1 text-neutral-600 dark:text-neutral-400 text-sm">
-                      <li>• 톨루엔, 크실렌, 노말헥산</li>
-                      <li>• 메틸에틸케톤, 아세톤</li>
-                      <li>• 벤젠, 스티렌, DMF 등</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="font-semibold mb-2 text-sm">금속류</p>
-                    <ul className="space-y-1 text-neutral-600 dark:text-neutral-400 text-sm">
-                      <li>• 납, 수은, 크롬</li>
-                      <li>• 카드뮴, 망간, 니켈</li>
-                      <li>• 알루미늄 분진 등</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="font-semibold mb-2 text-sm">산 및 알칼리류</p>
-                    <ul className="space-y-1 text-neutral-600 dark:text-neutral-400 text-sm">
-                      <li>• 황산, 질산, 염산</li>
-                      <li>• 수산화나트륨, 암모니아</li>
-                      <li>• 인산 등</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="font-semibold mb-2 text-sm">가스류</p>
-                    <ul className="space-y-1 text-neutral-600 dark:text-neutral-400 text-sm">
-                      <li>• 일산화탄소, 황화수소</li>
-                      <li>• 염소, 포스겐</li>
-                      <li>• 암모니아, 이산화황 등</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <h3 className="text-xl font-bold mt-8 mb-4">화학물질관리 절차</h3>
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start space-x-4 bg-neutral-50 dark:bg-neutral-800 p-4 rounded-xl">
-                  <div className="flex-shrink-0 w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold">1</div>
-                  <div>
-                    <h4 className="font-bold mb-2">화학물질 목록 작성 및 유해성 확인</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">사업장에서 사용하는 모든 화학물질의 MSDS 확보 및 분류</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4 bg-neutral-50 dark:bg-neutral-800 p-4 rounded-xl">
-                  <div className="flex-shrink-0 w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
-                  <div>
-                    <h4 className="font-bold mb-2">노출평가 실시</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">작업환경측정을 통한 근로자 노출수준 파악</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4 bg-neutral-50 dark:bg-neutral-800 p-4 rounded-xl">
-                  <div className="flex-shrink-0 w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
-                  <div>
-                    <h4 className="font-bold mb-2">위험성 결정 및 관리방안 수립</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">위험도에 따른 우선순위 설정 및 개선대책 마련</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4 bg-neutral-50 dark:bg-neutral-800 p-4 rounded-xl">
-                  <div className="flex-shrink-0 w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold">4</div>
-                  <div>
-                    <h4 className="font-bold mb-2">개선조치 시행 및 효과 확인</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">공학적 대책 시행 후 재측정을 통한 효과 검증</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4 bg-neutral-50 dark:bg-neutral-800 p-4 rounded-xl">
-                  <div className="flex-shrink-0 w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold">5</div>
-                  <div>
-                    <h4 className="font-bold mb-2">근로자 교육 및 지속적 모니터링</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">정기적인 교육 실시 및 관리상태 점검</p>
-                  </div>
-                </div>
-              </div>
-
-              <h3 className="text-xl font-bold mt-8 mb-4">법적 의무사항</h3>
-              <div className="overflow-x-auto mb-8">
-                <table className="w-full border-collapse">
-                  <thead>
-                    <tr className="bg-primary-600 text-white">
-                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-left">구분</th>
-                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-left">내용</th>
-                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-left">주기</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="bg-white dark:bg-neutral-800">
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">작업환경측정</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">유해인자 노출수준 측정</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">6개월 1회 이상</td>
-                    </tr>
-                    <tr className="bg-neutral-50 dark:bg-neutral-700">
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">특수건강진단</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">화학물질 취급자 건강진단</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">6개월~2년 1회</td>
-                    </tr>
-                    <tr className="bg-white dark:bg-neutral-800">
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">MSDS 게시</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">물질안전보건자료 비치·게시</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">상시</td>
-                    </tr>
-                    <tr className="bg-neutral-50 dark:bg-neutral-700">
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">근로자 교육</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">화학물질 취급 안전교육</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">신규·변경 시</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="bg-secondary-50 dark:bg-secondary-900/20 border-l-4 border-secondary-500 p-6 rounded-xl">
-                <h4 className="font-bold text-lg mb-3 flex items-center">
-                  <span className="text-2xl mr-2">⚗️</span>
-                  전문적이고 체계적인 화학물질관리
-                </h4>
-                <p className="text-neutral-700 dark:text-neutral-300">
-                  한국환경안전연구소는 20년 이상의 현장 경험을 바탕으로 사업장의 특성에 맞는 
-                  맞춤형 화학물질관리 솔루션을 제공합니다. 법적 의무사항 준수는 물론, 
-                  실질적인 위험 감소를 위한 실행 가능한 개선방안을 제시합니다.
+            {/* 개요 */}
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl shadow-lg border border-neutral-200 dark:border-neutral-800 p-8 mb-8">
+              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4 flex items-center">
+                <FlaskConical className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
+                화학물질관리란?
+              </h2>
+              <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
+                산업안전보건법에 따라 사업장에서 사용하는 화학물질로 인한 근로자의 건강장해를 예방하고, 
+                안전한 작업환경을 조성하기 위한 종합적인 관리 시스템입니다.
+              </p>
+              <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+                <p className="text-sm text-blue-900 dark:text-blue-100">
+                  화학물질의 유해성·위험성 파악부터 노출평가, 관리방안 수립까지 체계적으로 지원합니다.
                 </p>
               </div>
             </div>
+
+            {/* 관리 대상 */}
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl shadow-lg border border-neutral-200 dark:border-neutral-800 p-8 mb-8">
+              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center">
+                <AlertCircle className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
+                관리 대상 화학물질
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="p-4 bg-red-50 dark:bg-red-900/30 rounded-xl border border-red-200 dark:border-red-800">
+                  <h3 className="font-semibold text-red-900 dark:text-red-100 mb-2">금지물질</h3>
+                  <p className="text-sm text-red-700 dark:text-red-200">제조·사용이 금지된 12종의 화학물질</p>
+                </div>
+                <div className="p-4 bg-orange-50 dark:bg-orange-900/30 rounded-xl border border-orange-200 dark:border-orange-800">
+                  <h3 className="font-semibold text-orange-900 dark:text-orange-100 mb-2">허가물질</h3>
+                  <p className="text-sm text-orange-700 dark:text-orange-200">노동부 장관의 허가를 받아야 하는 11종</p>
+                </div>
+                <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-xl border border-yellow-200 dark:border-yellow-800">
+                  <h3 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">관리대상 유해물질</h3>
+                  <p className="text-sm text-yellow-700 dark:text-yellow-200">특별한 관리가 필요한 165종</p>
+                </div>
+                <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-xl border border-green-200 dark:border-green-800">
+                  <h3 className="font-semibold text-green-900 dark:text-green-100 mb-2">작업환경측정 대상</h3>
+                  <p className="text-sm text-green-700 dark:text-green-200">정기적 측정이 필요한 물질</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 서비스 내용 */}
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl shadow-lg border border-neutral-200 dark:border-neutral-800 p-8 mb-8">
+              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center">
+                <Shield className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
+                서비스 내용
+              </h2>
+              <div className="space-y-4">
+                {[
+                  {
+                    title: "화학물질 인벤토리 구축",
+                    desc: "사업장에서 사용하는 모든 화학물질의 목록 작성 및 관리",
+                    items: ["화학물질 조사 및 목록 작성", "MSDS 수집 및 관리", "화학물질 데이터베이스 구축"]
+                  },
+                  {
+                    title: "유해성·위험성 평가",
+                    desc: "화학물질의 유해·위험성 파악 및 평가",
+                    items: ["유해성·위험성 조사", "노출 시나리오 작성", "위험성 평가 실시"]
+                  },
+                  {
+                    title: "노출평가 및 측정",
+                    desc: "작업자의 화학물질 노출 수준 평가",
+                    items: ["개인 노출 측정", "작업환경측정", "생물학적 모니터링"]
+                  },
+                  {
+                    title: "관리방안 수립",
+                    desc: "효과적인 화학물질 관리 시스템 구축",
+                    items: ["공학적 관리방안", "관리적 관리방안", "개인보호구 선정"]
+                  }
+                ].map((service, index) => (
+                  <div key={index} className="p-5 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
+                    <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">{service.title}</h3>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-200 mb-3">{service.desc}</p>
+                    <ul className="space-y-1">
+                      {service.items.map((item, i) => (
+                        <li key={i} className="text-sm text-neutral-700 dark:text-neutral-300 flex items-center space-x-2">
+                          <span className="text-primary-600 dark:text-primary-400">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 법적 의무사항 */}
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl shadow-lg border border-neutral-200 dark:border-neutral-800 p-8 mb-8">
+              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center">
+                <BookOpen className="w-6 h-6 mr-3 text-primary-600 dark:text-primary-400" />
+                법적 의무사항
+              </h2>
+              <ul className="space-y-3">
+                {[
+                  "물질안전보건자료(MSDS) 작성·비치 및 교육",
+                  "화학물질 취급 근로자에 대한 특수건강진단 실시",
+                  "관리대상 유해물질 취급 시 국소배기장치 설치",
+                  "작업환경측정 실시 (6개월에 1회 이상)",
+                  "화학물질 취급·저장 시설의 안전기준 준수",
+                  "화학물질 관리자 지정 및 교육",
+                  "화학물질 누출·유출 시 비상조치계획 수립"
+                ].map((item, index) => (
+                  <li key={index} className="flex items-start space-x-3 p-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700">
+                    <div className="flex-shrink-0 w-6 h-6 bg-primary-100 dark:bg-primary-800 text-primary-600 dark:text-primary-200 rounded-full flex items-center justify-center text-sm font-bold">
+                      ✓
+                    </div>
+                    <span className="text-neutral-700 dark:text-neutral-100">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* 문의 */}
+            <div className="mt-8 text-center">
+              <p className="text-neutral-600 dark:text-neutral-300 mb-4">
+                화학물질관리에 대한 자세한 문의는 아래로 연락주세요.
+              </p>
+              <a
+                href="tel:043-237-7624"
+                className="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white rounded-xl transition-colors font-medium"
+              >
+                📞 043-237-7624
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
     </div>
   );
 };

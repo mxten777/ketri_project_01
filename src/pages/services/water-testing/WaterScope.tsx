@@ -4,7 +4,7 @@ const WaterScope = () => {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
+      <section className="bg-gradient-to-br from-cyan-600 to-blue-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">검사 대상 및 범위</h1>

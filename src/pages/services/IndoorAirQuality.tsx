@@ -1,9 +1,7 @@
-import Button from "../../components/common/Button";
-
 const IndoorAirQuality = () => {
   return (
     <div className="min-h-screen">
-      <div className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
+      <div className="bg-gradient-to-br from-green-600 to-emerald-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             실내공기질 측정 및 개선
@@ -16,34 +14,9 @@ const IndoorAirQuality = () => {
       </div>
 
       <div className="section container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar */}
-          <aside className="lg:col-span-1">
-            <div className="card p-6 sticky top-32">
-              <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
-              <nav className="space-y-2">
-                {[
-                  { label: "업무 소개", path: "/indoor-air-quality/introduction" },
-                  { label: "실내공기질 측정 검의 요청", path: "/indoor-air-quality/request" },
-                  { label: "실내공기질 성적서 조회", path: "/indoor-air-quality/report" },
-                ].map((item) => (
-                  <a
-                    key={item.path}
-                    href={item.path}
-                    className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
-          </aside>
-
-          {/* Main Content */}
-          <div className="lg:col-span-3">
-            <div className="card p-8">
-              <h2 className="heading-md mb-6" id="overview">실내공기질 측정 서비스</h2>
-              <div className="prose dark:prose-invert max-w-none">
+        <div className="card p-8">
+          <h2 className="heading-md mb-6">실내공기질 측정 서비스</h2>
+          <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 환경부 지정 실내공기질 측정대행업체(등록번호:
               2017-001)로 2006년부터 500여 개 시설의 실내공기질 측정을
@@ -53,7 +26,7 @@ const IndoorAirQuality = () => {
 
             <h3 className="text-2xl font-bold mt-8 mb-4">측정 대상 시설</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
+              <div className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl">
                 <div className="text-4xl mb-3">🏫</div>
                 <h4 className="font-bold text-lg mb-2">교육시설</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
@@ -63,7 +36,7 @@ const IndoorAirQuality = () => {
                   <li>• 학원 (연면적 1,000㎡ 이상)</li>
                 </ul>
               </div>
-              <div className="p-6 bg-neutral-100 dark:bg-neutral-800/50 rounded-xl">
+              <div className="p-6 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl">
                 <div className="text-4xl mb-3">🏥</div>
                 <h4 className="font-bold text-lg mb-2">의료시설</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
@@ -73,7 +46,7 @@ const IndoorAirQuality = () => {
                   <li>• 노인요양시설</li>
                 </ul>
               </div>
-              <div className="p-6 bg-neutral-100 dark:bg-neutral-800/50 rounded-xl">
+              <div className="p-6 bg-gradient-to-br from-teal-50 to-green-50 dark:from-teal-900/20 dark:to-green-900/20 rounded-xl">
                 <div className="text-4xl mb-3">🏢</div>
                 <h4 className="font-bold text-lg mb-2">다중이용시설</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
@@ -91,7 +64,7 @@ const IndoorAirQuality = () => {
             <div className="overflow-x-auto mb-8">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="bg-primary-600 text-white">
+                  <tr className="bg-green-600 text-white">
                     <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       오염물질
                     </th>
@@ -225,8 +198,8 @@ const IndoorAirQuality = () => {
 
             <h3 className="text-2xl font-bold mt-8 mb-4">측정 주기</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="border-2 border-primary-500 rounded-lg p-6">
-                <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-primary-400">
+              <div className="border-2 border-green-500 rounded-lg p-6">
+                <h4 className="font-bold text-lg mb-3 text-green-600 dark:text-green-400">
                   신축 건물
                 </h4>
                 <ul className="space-y-2 text-neutral-600 dark:text-neutral-400">
@@ -241,8 +214,8 @@ const IndoorAirQuality = () => {
                   </li>
                 </ul>
               </div>
-              <div className="border-2 border-primary-500 rounded-lg p-6">
-                <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-primary-400">
+              <div className="border-2 border-emerald-500 rounded-lg p-6">
+                <h4 className="font-bold text-lg mb-3 text-emerald-600 dark:text-emerald-400">
                   기존 건물
                 </h4>
                 <ul className="space-y-2 text-neutral-600 dark:text-neutral-400">
@@ -263,7 +236,7 @@ const IndoorAirQuality = () => {
             <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 mb-6">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex-1 text-center">
-                  <div className="w-20 h-20 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-2">
+                  <div className="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-2">
                     1
                   </div>
                   <h4 className="font-bold mb-1">측정 계획 수립</h4>
@@ -275,7 +248,7 @@ const IndoorAirQuality = () => {
                   →
                 </div>
                 <div className="flex-1 text-center">
-                  <div className="w-20 h-20 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-2">
+                  <div className="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-2">
                     2
                   </div>
                   <h4 className="font-bold mb-1">현장 측정</h4>
@@ -287,7 +260,7 @@ const IndoorAirQuality = () => {
                   →
                 </div>
                 <div className="flex-1 text-center">
-                  <div className="w-20 h-20 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-2">
+                  <div className="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-2">
                     3
                   </div>
                   <h4 className="font-bold mb-1">시료 분석</h4>
@@ -299,7 +272,7 @@ const IndoorAirQuality = () => {
                   →
                 </div>
                 <div className="flex-1 text-center">
-                  <div className="w-20 h-20 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-2">
+                  <div className="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-2">
                     4
                   </div>
                   <h4 className="font-bold mb-1">결과 보고</h4>
@@ -312,7 +285,7 @@ const IndoorAirQuality = () => {
 
             <h3 className="text-2xl font-bold mt-8 mb-4">공기질 개선 방안</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
+              <div className="p-6 bg-green-50 dark:bg-green-900/20 rounded-xl">
                 <h4 className="font-bold text-lg mb-3">🌬️ 환기 개선</h4>
                 <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
                   <li>• 기계환기장치 설치 및 관리</li>
@@ -321,7 +294,7 @@ const IndoorAirQuality = () => {
                   <li>• 외부공기 도입량 증대</li>
                 </ul>
               </div>
-              <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+              <div className="p-6 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
                 <h4 className="font-bold text-lg mb-3">🧹 오염원 관리</h4>
                 <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
                   <li>• 저방출 자재 사용 (친환경 마크)</li>
@@ -332,8 +305,8 @@ const IndoorAirQuality = () => {
               </div>
             </div>
 
-            <div className="bg-gray-100 dark:bg-gray-800 border-l-4 border-gray-500 p-6 mb-8">
-              <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-gray-300">
+            <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-6 mb-8">
+              <h3 className="font-bold text-lg mb-2 text-red-900 dark:text-red-300">
                 ⚠️ 기준 초과 시 조치사항
               </h3>
               <ul className="space-y-1 text-neutral-700 dark:text-neutral-300">
@@ -373,8 +346,6 @@ const IndoorAirQuality = () => {
                     TVOC 성분 분석
                   </p>
                 </div>
-              </div>
-            </div>
               </div>
             </div>
           </div>

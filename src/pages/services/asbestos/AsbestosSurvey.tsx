@@ -3,7 +3,7 @@ import Button from "../../../components/common/Button";
 const AsbestosSurvey = () => {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
-      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
+      <section className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">석면 조사 분석</h1>

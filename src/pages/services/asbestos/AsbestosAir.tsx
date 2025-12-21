@@ -131,33 +131,33 @@ const AsbestosAir = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 bg-white dark:bg-neutral-800 p-4 rounded-lg border-l-4 border-gray-500">
-                  <div className="w-8 h-8 bg-gray-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">4</div>
+                <div className="flex items-start gap-3 bg-white dark:bg-neutral-900 p-4 rounded-lg border-l-4 border-gray-500 dark:border-gray-400">
+                  <div className="w-8 h-8 bg-gray-600 dark:bg-gray-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">4</div>
                   <div>
-                    <h4 className="font-semibold">결과 통보</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <h4 className="font-semibold text-neutral-900 dark:text-white">결과 통보</h4>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-300">
                       측정 결과서 발급, 기준 초과 시 개선 방안 제시
                     </p>
                   </div>
                 </div>
               </div>
 
-              <h3 className="text-xl font-bold mb-4">기준 초과 시 조치</h3>
+              <h3 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">기준 초과 시 조치</h3>
               <div className="space-y-3 mb-8">
-                <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2">1단계: 원인 파악</h4>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                <div className="bg-gray-100 dark:bg-neutral-800 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2 text-neutral-900 dark:text-white">1단계: 원인 파악</h4>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">
                     석면 자재 손상 여부 확인, 환기 상태 점검
                   </p>
                 </div>
-                <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2">2단계: 긴급 조치</h4>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                <div className="bg-gray-100 dark:bg-neutral-800 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2 text-neutral-900 dark:text-white">2단계: 긴급 조치</h4>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">
                     해당 구역 사용 제한, 환기 강화, 손상 부위 응급 처치
                   </p>
                 </div>
-                <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2">3단계: 개선 조치</h4>
+                <div className="bg-gray-100 dark:bg-neutral-800 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2 text-neutral-900 dark:text-white">3단계: 개선 조치</h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">
                     석면 제거, 밀봉, 피복 등 적절한 조치 실시
                   </p>

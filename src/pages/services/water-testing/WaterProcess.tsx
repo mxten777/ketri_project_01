@@ -4,7 +4,7 @@ const WaterProcess = () => {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
+      <section className="bg-gradient-to-br from-cyan-600 to-blue-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">검사 신청 절차</h1>
@@ -139,35 +139,35 @@ const WaterProcess = () => {
                   </div>
                 </div>
 
-                <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-l-4 border-gray-500">
+                <div className="bg-white dark:bg-neutral-900 p-6 rounded-xl border-l-4 border-gray-500 dark:border-gray-400">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gray-600 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
+                    <div className="w-12 h-12 bg-gray-600 dark:bg-gray-500 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                       5
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-bold text-lg mb-2">결과 통보</h3>
-                      <p className="text-neutral-600 dark:text-neutral-400 mb-3">
+                      <h3 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">결과 통보</h3>
+                      <p className="text-neutral-600 dark:text-neutral-300 mb-3">
                         시험성적서를 발급하고 결과를 안내해 드립니다.
                       </p>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg text-center">
+                        <div className="bg-primary-50 dark:bg-primary-900/30 p-4 rounded-lg text-center border border-primary-100 dark:border-primary-800">
                           <div className="text-2xl mb-2">📧</div>
-                          <h4 className="font-semibold text-sm mb-1">이메일</h4>
-                          <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                          <h4 className="font-semibold text-sm mb-1 text-neutral-900 dark:text-white">이메일</h4>
+                          <p className="text-xs text-neutral-600 dark:text-neutral-300">
                             PDF 파일 전송
                           </p>
                         </div>
-                        <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg text-center">
+                        <div className="bg-primary-50 dark:bg-primary-900/30 p-4 rounded-lg text-center border border-primary-100 dark:border-primary-800">
                           <div className="text-2xl mb-2">📠</div>
-                          <h4 className="font-semibold text-sm mb-1">팩스</h4>
-                          <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                          <h4 className="font-semibold text-sm mb-1 text-neutral-900 dark:text-white">팩스</h4>
+                          <p className="text-xs text-neutral-600 dark:text-neutral-300">
                             즉시 전송
                           </p>
                         </div>
-                        <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg text-center">
+                        <div className="bg-primary-50 dark:bg-primary-900/30 p-4 rounded-lg text-center border border-primary-100 dark:border-primary-800">
                           <div className="text-2xl mb-2">📮</div>
-                          <h4 className="font-semibold text-sm mb-1">우편</h4>
-                          <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                          <h4 className="font-semibold text-sm mb-1 text-neutral-900 dark:text-white">우편</h4>
+                          <p className="text-xs text-neutral-600 dark:text-neutral-300">
                             원본 발송
                           </p>
                         </div>

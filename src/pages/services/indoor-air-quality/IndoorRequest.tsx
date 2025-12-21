@@ -2,9 +2,9 @@ import Button from "../../../components/common/Button";
 
 const IndoorRequest = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
+    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
+      <section className="bg-gradient-to-br from-green-600 to-emerald-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">측정 요청</h1>
@@ -33,9 +33,9 @@ const IndoorRequest = () => {
                       <p className="text-neutral-600 dark:text-neutral-400 mb-3">
                         전화, 팩스, 이메일 또는 온라인으로 측정을 신청합니다.
                       </p>
-                      <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
-                        <h4 className="font-semibold text-sm mb-2">필요 정보</h4>
-                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                        <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-white">필요 정보</h4>
+                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-200">
                           <li>• 시설명 및 주소</li>
                           <li>• 시설 유형 (지하역사, 도서관, 대형점포 등)</li>
                           <li>• 측정 면적 (㎡)</li>
@@ -59,17 +59,17 @@ const IndoorRequest = () => {
                         시설 규모와 특성에 따라 측정 지점과 방법을 결정합니다.
                       </p>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
-                          <h4 className="font-semibold text-sm mb-2">측정 지점 선정</h4>
-                          <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                          <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-white">측정 지점 선정</h4>
+                          <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-200">
                             <li>• 1,000㎡당 1개소 이상</li>
                             <li>• 주요 이용 구역 포함</li>
                             <li>• 오염원 주변 고려</li>
                           </ul>
                         </div>
-                        <div className="bg-white dark:bg-neutral-800/50 p-4 rounded-lg border border-neutral-300 dark:border-neutral-600">
-                          <h4 className="font-semibold text-sm mb-2">측정 시간</h4>
-                          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        <div className="bg-emerald-50 dark:bg-emerald-900/30 p-4 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                          <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-white">측정 시간</h4>
+                          <p className="text-sm text-neutral-600 dark:text-neutral-200">
                             시설 운영 중 측정<br />
                             (이용자가 가장 많은 시간대)
                           </p>
@@ -89,19 +89,19 @@ const IndoorRequest = () => {
                       <p className="text-neutral-600 dark:text-neutral-400 mb-3">
                         전문 측정요원이 현장을 방문하여 측정을 실시합니다.
                       </p>
-                      <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg mb-3">
-                        <h4 className="font-semibold text-sm mb-2">측정 방법</h4>
+                      <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg mb-3 border border-green-200 dark:border-green-800">
+                        <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-white">측정 방법</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <p className="font-semibold text-xs mb-1">실시간 측정 항목</p>
-                            <ul className="space-y-1 text-xs text-neutral-600 dark:text-neutral-400">
+                            <p className="font-semibold text-xs mb-1 text-neutral-900 dark:text-white">실시간 측정 항목</p>
+                            <ul className="space-y-1 text-xs text-neutral-600 dark:text-neutral-200">
                               <li>• CO₂, CO, PM-10</li>
                               <li>• 온도, 습도</li>
                             </ul>
                           </div>
                           <div>
-                            <p className="font-semibold text-xs mb-1">시료 채취 항목</p>
-                            <ul className="space-y-1 text-xs text-neutral-600 dark:text-neutral-400">
+                            <p className="font-semibold text-xs mb-1 text-neutral-900 dark:text-white">시료 채취 항목</p>
+                            <ul className="space-y-1 text-xs text-neutral-600 dark:text-neutral-200">
                               <li>• 폼알데하이드 (HCHO)</li>
                               <li>• 총부유세균</li>
                               <li>• VOCs (선택)</li>
@@ -109,9 +109,9 @@ const IndoorRequest = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-neutral-100 dark:bg-neutral-800/50 p-4 rounded-lg">
-                        <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-neutral-100">소요 시간</h4>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      <div className="bg-emerald-50 dark:bg-emerald-900/30 p-4 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                        <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-white">소요 시간</h4>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-200">
                           측정 지점당 약 30분~1시간<br />
                           (시설 규모에 따라 반나절~1일 소요)
                         </p>
@@ -172,9 +172,9 @@ const IndoorRequest = () => {
                       <p className="text-neutral-600 dark:text-neutral-400 mb-3">
                         측정 결과서를 발급하고 결과를 안내해 드립니다.
                       </p>
-                      <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
-                        <h4 className="font-semibold text-sm mb-2">측정 결과서 포함 내용</h4>
-                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                        <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-white">측정 결과서 포함 내용</h4>
+                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-200">
                           <li>• 측정 지점별 상세 결과</li>
                           <li>• 법적 기준 대비 적합/부적합 판정</li>
                           <li>• 측정 당시 환경 조건 (온도, 습도 등)</li>
@@ -195,9 +195,9 @@ const IndoorRequest = () => {
                       <p className="text-neutral-600 dark:text-neutral-400 mb-3">
                         부적합 판정 시 개선 방안을 제시하고 재측정을 지원합니다.
                       </p>
-                      <div className="bg-neutral-100 dark:bg-neutral-800/50 p-4 rounded-lg">
-                        <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-neutral-100">부적합 시 조치사항</h4>
-                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      <div className="bg-emerald-50 dark:bg-emerald-900/30 p-4 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                        <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-white">부적합 시 조치사항</h4>
+                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-200">
                           <li>• 오염원 파악 및 제거 방법 안내</li>
                           <li>• 환기시스템 개선 방안 제시</li>
                           <li>• 개선 후 재측정 실시</li>
@@ -213,7 +213,7 @@ const IndoorRequest = () => {
               <div className="overflow-x-auto mb-8">
                 <table className="w-full border-collapse">
                   <thead>
-                    <tr className="bg-primary-600 text-white">
+                    <tr className="bg-green-600 text-white">
                       <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">측정 항목</th>
                       <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">측정 방법</th>
                       <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">비용 (지점당)</th>
@@ -242,37 +242,37 @@ const IndoorRequest = () => {
                 </table>
               </div>
 
-              <div className="bg-neutral-100 dark:bg-neutral-800/50 border-l-4 border-primary-500 p-6 mb-8">
-                <h3 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">
+              <div className="bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-6 mb-8">
+                <h3 className="font-bold text-lg mb-2 text-amber-900 dark:text-amber-300">
                   💡 측정 비용 안내
                 </h3>
-                <ul className="space-y-1 text-neutral-700 dark:text-neutral-200 text-sm">
+                <ul className="space-y-1 text-neutral-700 dark:text-neutral-300 text-sm">
                   <li>• 시설 규모와 측정 지점 수에 따라 비용이 달라질 수 있습니다</li>
                   <li>• 정기 측정 계약 시 할인 혜택 제공</li>
                   <li>• 다수 시설 동시 의뢰 시 할인 가능</li>
                 </ul>
               </div>
 
-              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6">
-                <h3 className="font-bold text-lg mb-3 text-primary-900 dark:text-primary-300">
+              <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-6">
+                <h3 className="font-bold text-lg mb-3 text-green-900 dark:text-green-300">
                   📞 측정 신청 및 문의
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <h4 className="font-semibold mb-2">전화 문의</h4>
-                    <p className="text-neutral-700 dark:text-neutral-200 mb-1">
+                    <h4 className="font-semibold mb-2 text-neutral-900 dark:text-white">전화 문의</h4>
+                    <p className="text-neutral-700 dark:text-neutral-300 mb-1">
                       Tel: 02-1234-5678
                     </p>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-300">
                       평일 09:00~18:00
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-2">온라인 문의</h4>
-                    <p className="text-neutral-700 dark:text-neutral-200 mb-1">
+                    <h4 className="font-semibold mb-2 text-neutral-900 dark:text-white">온라인 문의</h4>
+                    <p className="text-neutral-700 dark:text-neutral-300 mb-1">
                       Email: indoor@ketri.co.kr
                     </p>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-300">
                       24시간 접수 가능
                     </p>
                   </div>

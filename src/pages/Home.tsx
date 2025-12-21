@@ -21,7 +21,6 @@ import {
 } from "lucide-react";
 import Button from "../components/common/Button";
 import Card from "../components/common/Card";
-import { Container, Section } from "../components/common";
 import { getNotices } from "../services/noticeService";
 import type { Notice } from "../types";
 import { logError } from "../utils/logger";
@@ -29,6 +28,8 @@ import { logError } from "../utils/logger";
 const Home = () => {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loadingNotices, setLoadingNotices] = useState(true);
+// 이 컴포넌트에 기본 버튼 예제 추가
+// 공지 목록을 카드 형태로 렌더링하는 JSX 예제 만들어줘
 
   useEffect(() => {
     fetchLatestNotices();
@@ -179,7 +180,7 @@ const Home = () => {
               산업보건 · 먹는물 · 석면 · 실내공기질 분야의 KOLAS 공인 전문기관
             </motion.p>
 
-            {/* CTA 버튼 - Figma Button 적용 */}
+            {/* CTA 버튼 */}
             <motion.div
               className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
               initial={{ opacity: 0, y: 20 }}
@@ -187,14 +188,14 @@ const Home = () => {
               transition={{ delay: 0.5, duration: 0.6 }}
             >
               <Link to="/quote-request">
-                <Button variant="secondary" size="lg" className="min-w-[200px]">
+                <button className="px-10 py-4 bg-white text-primary-600 rounded-full font-semibold text-lg hover:bg-blue-50 hover:shadow-2xl transform hover:scale-105 transition-all duration-300 min-w-[200px]">
                   무료 견적 문의
-                </Button>
+                </button>
               </Link>
               <Link to="/industrial-health">
-                <Button variant="outline" size="lg" className="min-w-[200px] border-white text-white hover:bg-white hover:text-primary-600">
+                <button className="px-10 py-4 bg-white/10 backdrop-blur-sm border-2 border-white text-white rounded-full font-semibold text-lg hover:bg-white hover:text-primary-600 transform hover:scale-105 transition-all duration-300 min-w-[200px]">
                   서비스 안내
-                </Button>
+                </button>
               </Link>
             </motion.div>
 
@@ -244,8 +245,8 @@ const Home = () => {
       </section>
 
       {/* Services Section - 6개 카드 레이아웃 */}
-      <Section spacing="xl" variant="default">
-        <Container size="xl">
+      <section className="py-20 bg-white dark:bg-neutral-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -256,7 +257,7 @@ const Home = () => {
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-neutral-900 dark:text-white">
               주요 서비스
             </h2>
-            <p className="text-xl text-neutral-600 dark:text-neutral-200 max-w-3xl mx-auto">
+            <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
               한국환경안전연구소가 제공하는
               <br className="hidden sm:block" />
               전문적이고 신뢰할 수 있는 서비스입니다
@@ -295,7 +296,7 @@ const Home = () => {
                     </h3>
 
                     {/* 설명 */}
-                    <p className="relative z-10 text-neutral-600 dark:text-neutral-200 leading-relaxed mb-6">
+                    <p className="relative z-10 text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
                       {service.description}
                     </p>
 
@@ -312,12 +313,12 @@ const Home = () => {
               </motion.div>
             ))}
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* Why Choose Us Section - 간결하게 3개로 */}
-      <Section spacing="xl" variant="secondary">
-        <Container size="xl">
+      <section className="py-20 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -328,7 +329,7 @@ const Home = () => {
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-neutral-900 dark:text-white">
               KESRI를 선택하는 이유
             </h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-200 max-w-2xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
               19년간의 전문성과 체계적인 품질관리로 고객의 신뢰를 얻고 있습니다
             </p>
           </motion.div>
@@ -347,7 +348,7 @@ const Home = () => {
               <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
                 KOLAS 공인인증
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-200 leading-relaxed">
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 국가공인시험기관으로서 국제적으로 인정받는 품질관리 시스템 운영
               </p>
             </motion.div>
@@ -365,7 +366,7 @@ const Home = () => {
               <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
                 신속한 검사
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-200 leading-relaxed">
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 체계적인 프로세스와 최신 장비로 평균 3-5일 내 정확한 결과 제공
               </p>
             </motion.div>
@@ -383,13 +384,13 @@ const Home = () => {
               <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
                 전문가 컨설팅
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-200 leading-relaxed">
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 검사 결과 해석부터 개선방안 제시까지 맞춤형 컨설팅 서비스
               </p>
             </motion.div>
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* Notices Section - 간결하게 */}
       <section className="py-20 bg-gray-50 dark:bg-neutral-800">
@@ -403,7 +404,7 @@ const Home = () => {
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-neutral-900 dark:text-white">
               최신 공지사항
             </h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-200">
+            <p className="text-lg text-neutral-600 dark:text-neutral-400">
               새로운 소식과 중요한 공지사항을 확인하세요
             </p>
           </motion.div>
@@ -414,7 +415,7 @@ const Home = () => {
             </div>
           ) : notices.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-neutral-500 dark:text-neutral-200">
+              <p className="text-neutral-500 dark:text-neutral-400">
                 등록된 공지사항이 없습니다.
               </p>
             </div>
@@ -443,7 +444,7 @@ const Home = () => {
                               중요
                             </span>
                           )}
-                          <span className="text-sm text-neutral-500 dark:text-neutral-200">
+                          <span className="text-sm text-neutral-500 dark:text-neutral-400">
                             {formatDate(notice.createdAt)}
                           </span>
                         </div>
@@ -451,7 +452,7 @@ const Home = () => {
                       <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-4 line-clamp-2">
                         {notice.title}
                       </h3>
-                      <p className="text-neutral-600 dark:text-neutral-200 text-sm mt-auto flex items-center hover:text-primary-600 transition-colors">
+                      <p className="text-neutral-600 dark:text-neutral-400 text-sm mt-auto flex items-center hover:text-primary-600 transition-colors">
                         자세히 보기
                         <ArrowRight className="ml-1 w-4 h-4" />
                       </p>
@@ -494,7 +495,7 @@ const Home = () => {
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-neutral-900 dark:text-white">
               검사 진행 과정
             </h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-200">
+            <p className="text-lg text-neutral-600 dark:text-neutral-400">
               체계적인 4단계 프로세스로 정확하고 신속한 서비스 제공
             </p>
           </motion.div>
@@ -536,36 +537,26 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="text-center relative group"
+                className="text-center relative"
               >
                 <div className="relative mb-6">
-                  {/* Main Icon */}
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className={`${process.color} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto text-white shadow-lg group-hover:shadow-2xl transition-shadow duration-300`}
+                  <div
+                    className={`${process.color} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto text-white shadow-lg`}
                   >
                     {process.icon}
-                  </motion.div>
-                  
-                  {/* Step Number Badge - 개선된 디자인 */}
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    transition={{ delay: index * 0.1 + 0.3, type: "spring", stiffness: 200 }}
-                    className="absolute -top-3 -right-3 w-12 h-12 bg-gradient-to-br from-primary-500 via-primary-600 to-blue-600 rounded-full flex items-center justify-center shadow-xl border-4 border-white dark:border-neutral-900 group-hover:scale-110 transition-transform duration-300"
-                  >
-                    <span className="text-white font-bold text-lg">{process.step}</span>
-                  </motion.div>
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 rounded-full flex items-center justify-center text-sm font-bold shadow-md">
+                    {process.step}
+                  </div>
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-neutral-900 dark:text-white">
                   {process.title}
                 </h3>
-                <p className="text-neutral-600 dark:text-neutral-200">
+                <p className="text-neutral-600 dark:text-neutral-400">
                   {process.description}
                 </p>
                 {index < 3 && (
-                  <div className="hidden lg:block absolute top-10 -right-4 w-8 h-0.5 bg-gradient-to-r from-neutral-300 to-transparent dark:from-neutral-600 dark:to-transparent"></div>
+                  <div className="hidden lg:block absolute top-10 -right-4 w-8 h-0.5 bg-neutral-300 dark:bg-neutral-600"></div>
                 )}
               </motion.div>
             ))}
@@ -573,7 +564,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section - Figma Button 적용 */}
+      {/* CTA Section - 간결하게 */}
       <section className="py-20 bg-gradient-to-br from-primary-600 to-blue-700 dark:from-primary-700 dark:to-blue-900 text-white">
         <div className="container-custom">
           <motion.div
@@ -589,13 +580,21 @@ const Home = () => {
               한국환경안전연구소의 전문가가 최적의 솔루션을 제공해드립니다
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/quote-request">
-                <Button variant="secondary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
+              <Link to="/quote-request" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-white text-primary-600 hover:bg-neutral-100 shadow-xl hover:shadow-2xl transition-all duration-300 font-bold"
+                >
                   무료 견적 받기
+                  <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
-              <Link to="/about/greeting">
-                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary-600">
+              <Link to="/about/greeting" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary-600 transition-all duration-300 font-bold"
+                >
                   회사 소개 보기
                 </Button>
               </Link>

@@ -4,7 +4,7 @@ const DialysisRequest = () => {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
+      <section className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">검사 의뢰 절차</h1>
@@ -174,19 +174,19 @@ const DialysisRequest = () => {
                   </div>
                 </div>
 
-                <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-l-4 border-gray-500">
+                <div className="bg-white dark:bg-neutral-900 p-6 rounded-xl border-l-4 border-gray-500 dark:border-gray-400">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gray-600 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
+                    <div className="w-12 h-12 bg-gray-600 dark:bg-gray-500 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                       6
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-bold text-lg mb-2">결과 통보</h3>
-                      <p className="text-neutral-600 dark:text-neutral-400 mb-3">
+                      <h3 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">결과 통보</h3>
+                      <p className="text-neutral-600 dark:text-neutral-300 mb-3">
                         시험성적서를 발급하고 결과를 안내해 드립니다.
                       </p>
-                      <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
-                        <h4 className="font-semibold text-sm mb-2">시험성적서 포함 내용</h4>
-                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      <div className="bg-primary-50 dark:bg-primary-900/30 p-4 rounded-lg border border-primary-100 dark:border-primary-800">
+                        <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-white">시험성적서 포함 내용</h4>
+                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-200">
                           <li>• 각 항목별 측정값 및 기준치</li>
                           <li>• 적합/부적합 판정</li>
                           <li>• 부적합 시 초과 항목 및 배수 표시</li>
