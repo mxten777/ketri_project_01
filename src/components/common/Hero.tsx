@@ -55,6 +55,9 @@ const Hero = ({
     split: "grid lg:grid-cols-2 gap-12 items-center",
   };
 
+  // 모바일 반응형: 타이틀 폰트 크기/줄바꿈/패딩 조정
+  // Tailwind: text-4xl md:text-6xl lg:text-7xl 등으로 조정
+
   // Dev-only: inject a small on-screen hero debug panel when ?heroDebug is present
   useEffect(() => {
     try {
@@ -73,55 +76,57 @@ const Hero = ({
           } catch (e) {}
         }
         return document.querySelector('h1') as HTMLElement | null;
-      };
-
-      const el = findHeroTitle();
-      if (!el) return;
-
-      function toRgbNums(css: string) {
-        const m = css.match(/rgba?\(([^)]+)\)/);
-        if (!m) return null;
-        return m[1].split(',').map(s => parseFloat(s.trim()));
-      }
-      function relativeLuminance([r, g, b]: number[]) {
-        const srgb = [r, g, b].map(v => v / 255).map(v => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
-        return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
-      }
-      function contrastRatio(l1: number, l2: number) { return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05); }
-
-      const cs = getComputedStyle(el);
-      let fg = cs.color;
-      let bg = cs.backgroundColor;
-      let node: HTMLElement | null = el;
-      while (node && (bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent')) {
-        node = node.parentElement;
-        if (!node) break;
-        bg = getComputedStyle(node).backgroundColor;
-      }
-      const fgRgb = toRgbNums(fg) || [255, 255, 255];
-      const bgRgb = toRgbNums(bg) || [0, 0, 0];
-      const lFg = relativeLuminance(fgRgb);
-      const lBg = relativeLuminance(bgRgb);
-      const ratio = contrastRatio(lFg, lBg);
-
-      el.dataset.__hero_debug_original_outline = el.style.outline || '';
-      el.dataset.__hero_debug_original_boxshadow = el.style.boxShadow || '';
-      el.style.outline = '3px solid rgba(255,255,255,0.04)';
-      el.style.boxShadow = '0 8px 40px rgba(0,0,0,0.6), inset 0 2px 0 rgba(255,255,255,0.02)';
-      el.style.position = el.style.position || 'relative';
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-      const id = 'hero-debug-overlay';
-      let panel = document.getElementById(id) as HTMLDivElement | null;
-      if (panel) panel.remove();
-      panel = document.createElement('div');
-      panel.id = id;
-      panel.style.position = 'fixed';
-      panel.style.right = '12px';
-      panel.style.top = '12px';
-      panel.style.zIndex = '2147483647';
-      panel.style.background = 'linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.6))';
-      panel.style.color = '#fff';
+      return (
+        <section
+          className={
+            "relative w-full min-h-[380px] sm:min-h-[420px] md:min-h-[600px] flex flex-col justify-center bg-gradient-to-b from-primary-700/90 to-blue-800/80 " +
+            variants[variant] +
+            " " +
+            className
+          }
+          style={backgroundImage ? { backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}
+        >
+          <div className="relative z-10 px-2 sm:px-4 md:px-8 py-12 sm:py-16 md:py-24 max-w-3xl mx-auto w-full">
+            <h1
+              className="hero-title-scrim font-extrabold text-white text-lg xs:text-xl sm:text-2xl md:text-4xl lg:text-5xl leading-snug xs:leading-tight md:leading-[1.5] mb-6 break-words text-balance max-w-[90vw] sm:max-w-xl mx-auto"
+              data-debug="hero-title"
+              style={{
+                textShadow: '0 2px 16px rgba(0,0,0,0.18)',
+                wordBreak: 'break-word',
+                overflowWrap: 'break-word',
+                hyphens: 'auto',
+              }}
+            >
+              {title}
+            </h1>
+            {subtitle && (
+              <div className="text-base xs:text-lg md:text-2xl font-semibold text-white/90 mb-4">
+                {subtitle}
+              </div>
+            )}
+            {description && (
+              <div className="text-sm xs:text-base md:text-lg text-white/80 mb-8">
+                {description}
+              </div>
+            )}
+            {(primaryAction || secondaryAction) && (
+              <div className="flex flex-col sm:flex-row gap-4 mt-6">
+                {primaryAction && (
+                  <Button onClick={primaryAction.onClick} size="lg" className="font-bold">
+                    {primaryAction.icon && <span className="mr-2">{primaryAction.icon}</span>}
+                    {primaryAction.label}
+                  </Button>
+                )}
+                {secondaryAction && (
+                  <Button onClick={secondaryAction.onClick} variant="outline" size="lg">
+                    {secondaryAction.label}
+                  </Button>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+      );
       panel.style.padding = '10px 12px';
       panel.style.borderRadius = '8px';
       panel.style.fontSize = '13px';

@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Menu,
@@ -7,7 +8,50 @@ import {
   Sun,
   ChevronDown,
 } from "lucide-react";
-import { MENU_ITEMS } from "../../constants/menu";
+import { MENU_ITEMS, MenuGroup } from "../../constants/menu";
+
+// AccordionMenuGroup 컴포넌트: 반드시 파일 상단에 선언
+interface AccordionMenuGroupProps {
+  menu: MenuGroup;
+  isLast: boolean;
+  onCloseMenu: () => void;
+}
+function AccordionMenuGroup({ menu, isLast, onCloseMenu }: AccordionMenuGroupProps) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mb-1">
+      <button
+        className="w-full flex items-center justify-between px-4 py-3 text-base font-bold text-primary-700 dark:text-primary-400 bg-transparent hover:bg-primary-50 dark:hover:bg-primary-900/10 rounded-lg transition-all"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls={`menu-group-${menu.label}`}
+        type="button"
+      >
+        <span>{menu.label}</span>
+        <ChevronDown className={`w-5 h-5 ml-2 transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      <div
+        id={`menu-group-${menu.label}`}
+        className={`overflow-hidden transition-all duration-300 ${open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} bg-transparent`}
+      >
+        <ul className="pl-4 pr-2 py-1 space-y-1">
+          {menu.items.map((item) => (
+            <li key={item.path}>
+              <Link
+                to={item.path}
+                className="block px-4 py-2 text-[15px] font-normal text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 rounded transition-all duration-150 active:scale-[0.98]"
+                onClick={onCloseMenu}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {!isLast && <div className="h-px bg-neutral-200 dark:bg-neutral-800 my-2 mx-4" />}
+    </div>
+  );
+}
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -154,7 +198,12 @@ const Header = () => {
 
               {/* 햄버거 메뉴 (모바일만) */}
               <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setIsMobileMenuOpen((v) => !v);
+                }}
+                type="button"
                 className="lg:hidden p-2.5 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-xl transition-colors"
                 aria-label="메뉴"
               >
@@ -171,35 +220,38 @@ const Header = () => {
 
       {/* 모바일 메뉴 */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[120px] md:top-[130px] bottom-0 bg-white dark:bg-neutral-950 z-40 overflow-y-auto border-t border-neutral-200 dark:border-neutral-800 animate-in fade-in slide-in-from-top-4 duration-300">
-          <div className="container mx-auto px-4 py-6 max-w-2xl">
-            <nav className="space-y-4">
-              {MENU_ITEMS.map((menu, index) => (
-                <div key={menu.label} className="space-y-1">
-                  <div className="px-4 py-2.5 text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wide">
-                    {menu.label}
-                  </div>
-                  <div className="space-y-0.5">
-                    {menu.items.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className="block pl-8 pr-4 py-3 text-[15px] font-normal text-neutral-700 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 rounded-xl transition-all duration-150 active:scale-[0.98]"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                  {index < menuItems.length - 1 && (
-                    <div className="h-px bg-neutral-200 dark:bg-neutral-800 my-3" />
-                  )}
-                </div>
-              ))}
-            </nav>
+        <div className="lg:hidden fixed inset-0 z-[9999] bg-white dark:bg-neutral-950 flex flex-col animate-in fade-in slide-in-from-top-4 duration-300">
+          {/* 상단 닫기 버튼 */}
+          <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-200 dark:border-neutral-800">
+            <span className="text-lg font-bold text-primary-700 dark:text-primary-400">메뉴</span>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsMobileMenuOpen(false);
+              }}
+              className="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800"
+              aria-label="메뉴 닫기"
+              type="button"
+            >
+              <X className="w-7 h-7 text-neutral-700 dark:text-neutral-200" />
+            </button>
           </div>
+          {/* 메뉴 그룹(Accordion) */}
+          <nav className="flex-1 overflow-y-auto px-2 py-4">
+            {MENU_ITEMS.map((menu, idx) => (
+              <AccordionMenuGroup
+                key={menu.label}
+                menu={menu}
+                isLast={idx === MENU_ITEMS.length - 1}
+                onCloseMenu={() => setIsMobileMenuOpen(false)}
+              />
+            ))}
+          </nav>
         </div>
       )}
+
+
     </>
   );
 };

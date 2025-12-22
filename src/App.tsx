@@ -39,6 +39,8 @@ const Location = lazy(() => import("./pages/about/Location"));
 // Theme System Demo
 const ThemeSystemDemo = lazy(() => import("./pages/ThemeSystemDemo"));
 const UITest = lazy(() => import("./pages/UITest"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Privacy = lazy(() => import("./pages/Privacy"));
 
 // Loading component
 const PageLoader = () => (
@@ -142,6 +144,10 @@ function App() {
             <Route path="about/certificates" element={<Certificates />} />
             <Route path="about/equipment" element={<Equipment />} />
             <Route path="about/location" element={<Location />} />
+
+            {/* Legal */}
+            <Route path="terms" element={<Terms />} />
+            <Route path="privacy" element={<Privacy />} />
 
 
 
