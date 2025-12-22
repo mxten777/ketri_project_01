@@ -208,15 +208,15 @@
      ======================================== */
   
   .dark {
-    /* Dark mode tokens — increased contrast for readability */
-    --color-bg-primary: #0f1112; /* page bg */
-    --color-bg-secondary: #16181a; /* section bg */
-    --color-bg-tertiary: #232527; /* card bg fallback */
-    --color-text-primary: #f8fafc; /* main text (very light) */
-    --color-text-secondary: #c5d3db; /* body text (muted but readable) - increased contrast */
-    --color-text-tertiary: #8c98a0; /* tertiary text */
-    --color-border: #2b2f33; /* subtle border */
-    --color-border-hover: #3b4045;
+    /* Dark mode tokens - enhanced readability */
+    --color-bg-primary: #1f1f23; /* page bg - brighter */
+    --color-bg-secondary: #2d2d32; /* section bg - more contrast */
+    --color-bg-tertiary: #44444d; /* card bg - clearly visible */
+    --color-text-primary: #ffffff; /* main text - pure white */
+    --color-text-secondary: #e4e4e7; /* body text - very readable */
+    --color-text-tertiary: #b4b4b8; /* tertiary text - lighter */
+    --color-border: #44444d; /* clear border */
+    --color-border-hover: #5a5a65;
   }
 
   /* ========================================
