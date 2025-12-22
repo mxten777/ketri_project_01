@@ -306,6 +306,23 @@
     text-decoration: underline !important;
   }
 
+  /* Hero title scrim - full opacity on dark, light translucent on light */
+  .hero-title-scrim {
+    background: rgba(255,255,255,0.94);
+    color: var(--color-text-primary);
+    display: inline-block;
+    padding: 0.6rem 1.5rem 1rem 1.5rem;
+    border-radius: 8px;
+    line-height: 1.6;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .dark .hero-title-scrim {
+    background: rgba(0,0,0,0.92) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.6) !important;
+  }
+
   /* Finance Theme */
   [data-theme="finance"] {
     --color-brand-50: #eff6ff;

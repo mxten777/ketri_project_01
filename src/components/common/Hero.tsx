@@ -263,27 +263,23 @@ const Hero = ({
             )}
 
             {/* Title - high contrast for dark mode */}
-              <h1
+            <h1
               className={`font-bold mb-6 ${
                 backgroundImage ? "text-white" : "text-neutral-900 dark:text-neutral-100"
               } text-display-sm lg:text-display-md leading-[1.8]`} 
             >
               <span
-                        data-debug="hero-title"
-                        className="inline-block px-6 rounded-lg text-white"
-                        style={{
-                          background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 48%, var(--scrim-70) 48%, var(--scrim-70) 100%)',
-                          position: 'relative',
-                          zIndex: 10,
-                          color: 'var(--color-text-primary)',
-                          padding: '0.6rem 1.5rem 1rem 1.5rem',
-                          borderRadius: '8px',
-                          textShadow: '0 2px 8px rgba(0,0,0,0.6)',
-                          lineHeight: '1.8'
-                        }}
-                      >
-                        {title}
-                      </span>
+                data-debug="hero-title"
+                className="hero-title-scrim"
+                style={{
+                  position: 'relative',
+                  zIndex: 10,
+                  textShadow: '0 2px 8px rgba(0,0,0,0.6)',
+                  lineHeight: '1.8'
+                }}
+              >
+                {title}
+              </span>
             </h1>
 
             {/* Description */}
