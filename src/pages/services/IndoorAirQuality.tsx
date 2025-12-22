@@ -1,4 +1,24 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 const IndoorAirQuality = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        const header = document.querySelector("header");
+        const headerHeight = header && header instanceof HTMLElement ? header.offsetHeight : 96;
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      }, 50);
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen">
       <div className="bg-gradient-to-br from-green-600 to-emerald-600 text-white py-16 lg:py-24">

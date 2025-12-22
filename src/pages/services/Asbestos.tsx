@@ -1,6 +1,25 @@
 import Button from "../../components/common/Button";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Asbestos = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        const header = document.querySelector("header");
+        const headerHeight = header && header instanceof HTMLElement ? header.offsetHeight : 96;
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      }, 50);
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen">
       <div className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white py-16 lg:py-24">
@@ -68,10 +87,10 @@ const Asbestos = () => {
             </div>
 
             <h3 className="text-2xl font-bold mt-8 mb-4">주요 서비스</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
                 <div className="text-4xl mb-3">🏢</div>
-                <h4 className="font-bold text-lg mb-2">건축물 석면조사</h4>
+                <h4 id="survey-building" className="font-bold text-lg mb-2">건축물 석면조사</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
                   <li>• 철거·해체 전 석면 함유 여부 조사</li>
                   <li>• 리모델링 전 석면조사</li>
@@ -81,7 +100,7 @@ const Asbestos = () => {
               </div>
               <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
                 <div className="text-4xl mb-3">🔬</div>
-                <h4 className="font-bold text-lg mb-2">석면 정성·정량분석</h4>
+                <h4 id="analysis" className="font-bold text-lg mb-2">석면 정성·정량분석</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
                   <li>• 건축자재 석면 함유 여부 분석 (PLM)</li>
                   <li>• 석면 함유량 정량분석 (XRD, TEM)</li>
@@ -91,7 +110,8 @@ const Asbestos = () => {
               </div>
               <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
                 <div className="text-4xl mb-3">🌬️</div>
-                <h4 className="font-bold text-lg mb-2">
+                <span id="air-quality" />
+                <h4 id="concentration" className="font-bold text-lg mb-2">
                   공기 중 석면농도 측정
                 </h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
@@ -103,7 +123,7 @@ const Asbestos = () => {
               </div>
               <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
                 <div className="text-4xl mb-3">📋</div>
-                <h4 className="font-bold text-lg mb-2">위해성평가 및 컨설팅</h4>
+                <h4 id="risk-assessment" className="font-bold text-lg mb-2">위해성평가 및 컨설팅</h4>
                 <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
                   <li>• 석면 함유 건축물 위해성평가</li>
                   <li>• 석면관리계획 수립</li>
@@ -217,7 +237,7 @@ const Asbestos = () => {
               </div>
             </div>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">석면조사 프로세스</h3>
+            <h3 id="supervision" className="text-2xl font-bold mt-8 mb-4">석면조사 프로세스</h3>
             <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 mb-6">
               <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div className="text-center">
@@ -321,6 +341,14 @@ const Asbestos = () => {
                   <li>• 분석시간: 7~10일</li>
                 </ul>
               </div>
+            </div>
+
+            {/* 석면 비산정도 측정 섹션 (앵커) */}
+            <div className="mt-8 mb-8">
+              <h3 id="dispersion" className="text-2xl font-bold mb-4">석면 비산정도 측정</h3>
+              <p className="text-neutral-600 dark:text-neutral-400">
+                작업 중 발생하는 석면 비산 정도를 평가하기 위한 측정 및 분석을 수행합니다. 작업 전·중·후의 공기 시료를 채취하여 비산 특성 및 제어 필요성을 판단합니다.
+              </p>
             </div>
 
             <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6 mb-8">
