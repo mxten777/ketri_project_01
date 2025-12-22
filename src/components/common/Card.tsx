@@ -27,13 +27,16 @@ const Card = ({
   className = "",
   onClick,
 }: CardProps) => {
-  const baseStyles = "rounded-lg transition-all duration-200";
+  const baseStyles = "rounded-lg transition-all duration-200 text-neutral-900 dark:text-neutral-100";
 
   const variants = {
-    default: "bg-white border border-neutral-200",
-    elevated: "bg-white shadow-card hover:shadow-md",
-    outlined: "bg-transparent border-2 border-neutral-300",
-    filled: "bg-neutral-50 border border-neutral-200",
+    default: "bg-white border border-neutral-200 dark:bg-neutral-900 dark:border-neutral-800",
+    elevated:
+      "bg-white shadow-card hover:shadow-md dark:bg-neutral-900 dark:shadow-none dark:hover:shadow-lg",
+    outlined:
+      "bg-transparent border-2 border-neutral-300 dark:border-neutral-700 dark:bg-transparent",
+    filled:
+      "bg-neutral-50 border border-neutral-200 dark:bg-neutral-900/60 dark:border-neutral-800",
   };
 
   const paddings = {

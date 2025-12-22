@@ -54,14 +54,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
               <Link to="/admin/notice" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
                 공지사항 관리
               </Link>
-              <Link to="/admin/qna" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
-                질문답변 관리
-              </Link>
-              <Link to="/admin/free" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
-                자유게시판 관리
-              </Link>
-              <Link to="/admin/resources" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
-                자료실 관리
+              <Link to="/admin/nara-purchase" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
+                나라장터 관리
               </Link>
             </nav>
           </div>

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import Layout from "./components/layout/Layout";
 import AdminLayout from "./components/admin/AdminLayout";
@@ -17,63 +17,14 @@ const IndoorAirQuality = lazy(
   () => import("./pages/services/IndoorAirQuality")
 );
 const Asbestos = lazy(() => import("./pages/services/Asbestos"));
-
-// Industrial Health Sub-pages
-const WorkEnvironment = lazy(() => import("./pages/services/industrial-health/WorkEnvironment"));
-const RiskAssessment = lazy(() => import("./pages/services/industrial-health/RiskAssessment"));
-const Musculoskeletal = lazy(() => import("./pages/services/industrial-health/Musculoskeletal"));
-const ChemicalManagement = lazy(() => import("./pages/services/industrial-health/ChemicalManagement"));
-const Portfolio = lazy(() => import("./pages/services/industrial-health/Portfolio"));
-
-// Water Testing Sub-pages
-const WaterIntro = lazy(() => import("./pages/services/water-testing/WaterIntro"));
-const WaterScope = lazy(() => import("./pages/services/water-testing/WaterScope"));
-const WaterFee = lazy(() => import("./pages/services/water-testing/WaterFee"));
-const WaterProcess = lazy(() => import("./pages/services/water-testing/WaterProcess"));
-
-// Dialysis Water Sub-pages
-const DialysisIntro = lazy(() => import("./pages/services/dialysis-water/DialysisIntro"));
-const DialysisRequest = lazy(() => import("./pages/services/dialysis-water/DialysisRequest"));
-const DialysisCycle = lazy(() => import("./pages/services/dialysis-water/DialysisCycle"));
-const DialysisStandard = lazy(() => import("./pages/services/dialysis-water/DialysisStandard"));
-const DialysisSampling = lazy(() => import("./pages/services/dialysis-water/DialysisSampling"));
-
-// Indoor Air Quality Sub-pages
-const IndoorIntro = lazy(() => import("./pages/services/indoor-air-quality/IndoorIntro"));
-const IndoorRequest = lazy(() => import("./pages/services/indoor-air-quality/IndoorRequest"));
-const IndoorResult = lazy(() => import("./pages/services/indoor-air-quality/IndoorResult"));
-
-// Asbestos Sub-pages
-const AsbestosSurvey = lazy(() => import("./pages/services/asbestos/AsbestosSurvey"));
-const AsbestosConcentration = lazy(() => import("./pages/services/asbestos/AsbestosConcentration"));
-const AsbestosDispersion = lazy(() => import("./pages/services/asbestos/AsbestosDispersion"));
-const AsbestosSupervision = lazy(() => import("./pages/services/asbestos/AsbestosSupervision"));
-const AsbestosRisk = lazy(() => import("./pages/services/asbestos/AsbestosRisk"));
-const AsbestosAir = lazy(() => import("./pages/services/asbestos/AsbestosAir"));
 const Board = lazy(() => import("./pages/board/Board"));
 const NoticeList = lazy(() => import("./pages/board/NoticeList"));
 const NoticeDetail = lazy(() => import("./pages/board/NoticeDetail"));
 const NoticeForm = lazy(() => import("./pages/board/NoticeForm"));
-const QnAList = lazy(() => import("./pages/board/QnAList"));
-const QnADetail = lazy(() => import("./pages/board/QnADetail"));
-const QnAForm = lazy(() => import("./pages/board/QnAForm"));
-const FreeList = lazy(() => import("./pages/board/FreeList"));
-const FreeDetail = lazy(() => import("./pages/board/FreeDetail"));
-const FreeForm = lazy(() => import("./pages/board/FreeForm"));
-const ResourceList = lazy(() => import("./pages/board/ResourceList"));
-const ResourceForm = lazy(() => import("./pages/board/ResourceForm"));
-const ResourceEdit = lazy(() => import("./pages/board/ResourceEdit"));
-const QuoteRequest = lazy(() => import("./pages/QuoteRequest"));
-const Login = lazy(() => import("./pages/auth/Login"));
-const Register = lazy(() => import("./pages/auth/Register"));
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
-const MyPage = lazy(() => import("./pages/MyPage"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
-const UserManagement = lazy(() => import("./pages/admin/UserManagement"));
 const NoticeAdmin = lazy(() => import("./pages/admin/NoticeAdmin"));
-const QnAAdmin = lazy(() => import("./pages/admin/QnAAdmin"));
-const FreeAdmin = lazy(() => import("./pages/admin/FreeAdmin"));
-const ResourceAdmin = lazy(() => import("./pages/admin/ResourceAdmin"));
+const NaraPurchase = lazy(() => import("./pages/admin/NaraPurchase"));
 const ContentManagement = lazy(() => import("./pages/admin/ContentManagement"));
 
 // About Pages (연구소 소개)
@@ -122,18 +73,10 @@ function App() {
                   <Routes>
                     <Route path="/" element={<AdminDashboard />} />
                     <Route path="/dashboard" element={<AdminDashboard />} />
-                    <Route path="/users" element={<UserManagement />} />
                     <Route path="/notice" element={<NoticeAdmin />} />
                     <Route path="/notice/create" element={<NoticeForm />} />
                     <Route path="/notice/edit/:id" element={<NoticeForm />} />
-                    <Route path="/qna" element={<QnAAdmin />} />
-                    <Route path="/qna/edit/:id" element={<QnAForm />} />
-                    <Route path="/free" element={<FreeAdmin />} />
-                    <Route path="/free/edit/:id" element={<FreeForm />} />
-                    <Route path="/resources" element={<ResourceAdmin />} />
-                    <Route path="/resources/create" element={<ResourceForm />} />
-                    <Route path="/resources/edit/:id" element={<ResourceEdit />} />
-                    <Route path="/content" element={<ContentManagement />} />
+                    <Route path="/nara-purchase" element={<NaraPurchase />} />
                   </Routes>
                 </Suspense>
               </AdminLayout>
@@ -155,46 +98,17 @@ function App() {
             <Route path="/theme-demo" element={<ThemeSystemDemo />} />
             <Route path="/ui-test" element={<UITest />} />
 
-            {/* Industrial Health */}
-            <Route path="industrial-health/*" element={<IndustrialHealth />} />
-            <Route path="industrial-health/work-environment" element={<WorkEnvironment />} />
-            <Route path="industrial-health/risk-assessment" element={<RiskAssessment />} />
-            <Route path="industrial-health/musculoskeletal" element={<Musculoskeletal />} />
-            <Route path="industrial-health/chemical-management" element={<ChemicalManagement />} />
-            <Route path="industrial-health/portfolio" element={<Portfolio />} />
-
-            {/* Water Testing */}
-            <Route path="water-testing/*" element={<WaterTesting />} />
-            <Route path="water-testing/introduction" element={<WaterIntro />} />
-            <Route path="water-testing/scope" element={<WaterScope />} />
-            <Route path="water-testing/schedule" element={<WaterFee />} />
-            <Route path="water-testing/procedure" element={<WaterProcess />} />
-
-            {/* Dialysis Water */}
-            <Route path="dialysis-water/*" element={<DialysisWater />} />
-            <Route path="dialysis-water/introduction" element={<DialysisIntro />} />
-            <Route path="dialysis-water/procedure" element={<DialysisRequest />} />
-            <Route path="dialysis-water/schedule" element={<DialysisCycle />} />
-            <Route path="dialysis-water/standards" element={<DialysisStandard />} />
-            <Route path="dialysis-water/sampling" element={<DialysisSampling />} />
-
-            {/* Indoor Air Quality */}
-            <Route
-              path="indoor-air-quality/*"
-              element={<IndoorAirQuality />}
-            />
-            <Route path="indoor-air-quality/introduction" element={<IndoorIntro />} />
-            <Route path="indoor-air-quality/request" element={<IndoorRequest />} />
-            <Route path="indoor-air-quality/report" element={<IndoorResult />} />
-
-            {/* Asbestos */}
-            <Route path="asbestos/*" element={<Asbestos />} />
-            <Route path="asbestos/survey" element={<AsbestosSurvey />} />
-            <Route path="asbestos/concentration" element={<AsbestosConcentration />} />
-            <Route path="asbestos/dispersion" element={<AsbestosDispersion />} />
-            <Route path="asbestos/supervision" element={<AsbestosSupervision />} />
-            <Route path="asbestos/risk-assessment" element={<AsbestosRisk />} />
-            <Route path="asbestos/air-quality" element={<AsbestosAir />} />
+            {/* Service Pages */}
+            <Route path="industrial-health" element={<IndustrialHealth />} />
+            <Route path="industrial-health/*" element={<Navigate to="/industrial-health" replace />} />
+            <Route path="water-testing" element={<WaterTesting />} />
+            <Route path="water-testing/*" element={<Navigate to="/water-testing" replace />} />
+            <Route path="dialysis-water" element={<DialysisWater />} />
+            <Route path="dialysis-water/*" element={<Navigate to="/dialysis-water" replace />} />
+            <Route path="indoor-air-quality" element={<IndoorAirQuality />} />
+            <Route path="indoor-air-quality/*" element={<Navigate to="/indoor-air-quality" replace />} />
+            <Route path="asbestos" element={<Asbestos />} />
+            <Route path="asbestos/*" element={<Navigate to="/asbestos" replace />} />
 
             {/* Notice Board */}
             <Route path="board/notice" element={<NoticeList />} />
@@ -216,75 +130,9 @@ function App() {
               }
             />
 
-            {/* QnA Board */}
-            <Route path="board/qna" element={<QnAList />} />
-            <Route path="board/qna/:id" element={<QnADetail />} />
-            <Route
-              path="board/qna/new"
-              element={
-                <ProtectedRoute>
-                  <QnAForm />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="board/qna/edit/:id"
-              element={
-                <ProtectedRoute>
-                  <QnAForm />
-                </ProtectedRoute>
-              }
-            />
 
-            {/* Free Board */}
-            <Route path="board/free" element={<FreeList />} />
-            <Route path="board/free/:id" element={<FreeDetail />} />
-            <Route
-              path="board/free/new"
-              element={
-                <ProtectedRoute>
-                  <FreeForm />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="board/free/edit/:id"
-              element={
-                <ProtectedRoute>
-                  <FreeForm />
-                </ProtectedRoute>
-              }
-            />
 
-            {/* Resource Library */}
-            <Route path="board/resources" element={<ResourceList />} />
-            <Route
-              path="board/resources/upload"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <ResourceForm />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="board/resources/edit/:id"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <ResourceEdit />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="board/resources/new"
-              element={
-                <ProtectedRoute requireAdmin>
-                  <ResourceForm />
-                </ProtectedRoute>
-              }
-            />
 
-            {/* Quote Request - Public */}
-            <Route path="quote-request" element={<QuoteRequest />} />
 
             {/* About Pages - 연구소 소개 */}
             <Route path="about/greeting" element={<Greeting />} />
@@ -295,21 +143,7 @@ function App() {
             <Route path="about/equipment" element={<Equipment />} />
             <Route path="about/location" element={<Location />} />
 
-            {/* Auth */}
-            <Route path="auth/login" element={<Login />} />
-            <Route path="auth/register" element={<Register />} />
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
 
-            {/* My Page - Protected */}
-            <Route
-              path="my-page/*"
-              element={
-                <ProtectedRoute>
-                  <MyPage />
-                </ProtectedRoute>
-              }
-            />
 
             {/* 404 Not Found */}
             <Route

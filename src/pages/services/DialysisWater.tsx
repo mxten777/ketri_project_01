@@ -329,6 +329,146 @@ const DialysisWater = () => {
                 </div>
               </div>
             </div>
+
+            {/* FAQ 섹션 */}
+            <div className="bg-gradient-to-r from-primary-50 to-blue-50 dark:from-primary-900/20 dark:to-blue-900/20 rounded-xl p-8 mb-8 mt-8">
+              <h3 className="text-2xl font-bold mb-6 text-primary-600 dark:text-primary-400">
+                💬 자주 묻는 질문 (FAQ)
+              </h3>
+              <div className="space-y-4">
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 혈액투석용수 검사는 얼마나 자주 해야 하나요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 화학적 오염물질(중금속 등)은 월 1회, 세균 검사(내독소, 일반세균)는 매주 1회 실시해야 합니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 내독소 검사는 왜 중요한가요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 내독소는 세균의 외막 성분으로, 극소량으로도 발열 반응을 일으킵니다. 투석액에 혼입되면 심각한 합병증을 유발할 수 있습니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 검사 비용은 얼마인가요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 화학적 검사(월 1회) 약 60~80만원, 세균 검사(주 1회) 회당 약 15~20만원입니다. 패키지 계약 시 할인 가능합니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 부적합 판정이 나오면 어떻게 하나요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 즉시 투석을 중단하고 수처리시스템 점검, 필터 교체, 배관 소독 등을 실시한 후 재검사를 통해 적합 판정을 받아야 합니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 비용 안내 */}
+            <div className="bg-white dark:bg-neutral-800 border-2 border-primary-200 dark:border-primary-800 rounded-xl p-8 mb-8">
+              <h3 className="text-2xl font-bold mb-6 flex items-center">
+                <span className="text-3xl mr-3">💰</span>
+                검사 비용 안내
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="bg-primary-600 text-white">
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">검사 구분</th>
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">검사 주기</th>
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">예상 비용</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="bg-white dark:bg-neutral-900">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">화학적 검사 (중금속 등)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">월 1회</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">60만원 ~ 80만원</td>
+                    </tr>
+                    <tr className="bg-neutral-50 dark:bg-neutral-800">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">세균 검사 (일반세균)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">주 1회</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">회당 15만원 ~ 20만원</td>
+                    </tr>
+                    <tr className="bg-white dark:bg-neutral-900">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">내독소 검사 (LAL test)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">주 1회</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">회당 10만원 ~ 15만원</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
+                ※ 연간 계약 시 할인 가능. 긴급 검사는 추가 비용 발생.
+              </p>
+            </div>
+
+            {/* 신청서 다운로드 */}
+            <div className="bg-gradient-to-r from-blue-50 to-primary-50 dark:from-blue-900/20 dark:to-primary-900/20 rounded-xl p-8 mb-8">
+              <h3 className="text-2xl font-bold mb-4 flex items-center">
+                <span className="text-3xl mr-3">📥</span>
+                신청서 다운로드
+              </h3>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+                혈액투석용수 검사 의뢰서를 다운로드하여 작성 후 제출해주세요.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a
+                  href="/documents/dialysis-water-application.pdf"
+                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-primary-800"
+                >
+                  <span className="font-bold">투석용수 검사 의뢰서</span>
+                  <span className="text-2xl">📄</span>
+                </a>
+                <a
+                  href="/documents/dialysis-water-management-guide.pdf"
+                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-primary-800"
+                >
+                  <span className="font-bold">수질관리 가이드</span>
+                  <span className="text-2xl">📋</span>
+                </a>
+              </div>
+            </div>
+
+            {/* 고객 후기 */}
+            <div className="bg-white dark:bg-neutral-900 rounded-xl p-8 border border-neutral-200 dark:border-neutral-700">
+              <h3 className="text-2xl font-bold mb-6 flex items-center">
+                <span className="text-3xl mr-3">⭐</span>
+                고객 후기
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
+                  <div className="flex items-center mb-3">
+                    <div className="text-yellow-500 text-xl">★★★★★</div>
+                    <span className="ml-2 text-sm text-neutral-500">서울 강남구 ○○병원</span>
+                  </div>
+                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
+                    "5년째 정기 검사를 의뢰하고 있습니다. 신속한 결과 보고와 전문적인 컨설팅으로 
+                    수질관리에 큰 도움이 됩니다."
+                  </p>
+                  <p className="text-xs text-neutral-500">- 김○○ 투석실 수간호사</p>
+                </div>
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
+                  <div className="flex items-center mb-3">
+                    <div className="text-yellow-500 text-xl">★★★★★</div>
+                    <span className="ml-2 text-sm text-neutral-500">충북 청주시 ○○의원</span>
+                  </div>
+                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
+                    "내독소 검사 결과가 부적합으로 나왔을 때, 원인 분석과 대책을 상세히 안내해주셔서 
+                    빠르게 개선할 수 있었습니다."
+                  </p>
+                  <p className="text-xs text-neutral-500">- 이○○ 원장</p>
+                </div>
+              </div>
+            </div>
+
               </div>
             </div>
           </div>

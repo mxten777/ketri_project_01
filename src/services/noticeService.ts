@@ -55,8 +55,8 @@ export const getNotices = async (
           status: data.status || "published",
           attachments: data.attachments || [],
           tags: data.tags || [],
-          createdAt: data.createdAt,
-          updatedAt: data.updatedAt,
+          createdAt: data.createdAt?.toDate?.() || new Date(),
+          updatedAt: data.updatedAt?.toDate?.() || new Date(),
         } as Notice;
       })
       .sort((a, b) => {

@@ -208,14 +208,15 @@
      ======================================== */
   
   .dark {
-    --color-bg-primary: #171717;
-    --color-bg-secondary: #262626;
-    --color-bg-tertiary: #404040;
-    --color-text-primary: #fafafa;
-    --color-text-secondary: #e5e5e5;
-    --color-text-tertiary: #a3a3a3;
-    --color-border: #404040;
-    --color-border-hover: #525252;
+    /* Dark mode tokens — increased contrast for readability */
+    --color-bg-primary: #0f1112; /* page bg */
+    --color-bg-secondary: #16181a; /* section bg */
+    --color-bg-tertiary: #232527; /* card bg fallback */
+    --color-text-primary: #f8fafc; /* main text (very light) */
+    --color-text-secondary: #c5d3db; /* body text (muted but readable) - increased contrast */
+    --color-text-tertiary: #8c98a0; /* tertiary text */
+    --color-border: #2b2f33; /* subtle border */
+    --color-border-hover: #3b4045;
   }
 
   /* ========================================

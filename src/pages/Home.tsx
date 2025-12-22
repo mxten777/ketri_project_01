@@ -2,34 +2,29 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
-  Building2,
-  Droplets,
-  FlaskConical,
-  Wind,
-  Shield,
-  FileText,
-  ArrowRight,
   CheckCircle,
   TrendingUp,
   Users,
   Award,
   ChevronRight,
   Clock,
+  ArrowRight,
   MessageCircle,
   Package,
   Search,
+  FileText,
 } from "lucide-react";
 import Button from "../components/common/Button";
 import Card from "../components/common/Card";
 import { getNotices } from "../services/noticeService";
 import type { Notice } from "../types";
 import { logError } from "../utils/logger";
+import { formatDate } from "../utils/dateUtils";
+import { SERVICES, COMPANY_STATS } from "../constants/menu";
 
 const Home = () => {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loadingNotices, setLoadingNotices] = useState(true);
-// 이 컴포넌트에 기본 버튼 예제 추가
-// 공지 목록을 카드 형태로 렌더링하는 JSX 예제 만들어줘
 
   useEffect(() => {
     fetchLatestNotices();
@@ -37,7 +32,7 @@ const Home = () => {
 
   const fetchLatestNotices = async () => {
     try {
-      const data = await getNotices(5); // 최신 5개만 가져오기
+      const data = await getNotices(5);
       setNotices(data);
     } catch (error) {
       logError("Failed to load notices:", error);
@@ -46,88 +41,14 @@ const Home = () => {
     }
   };
 
-  const formatDate = (timestamp: any) => {
-    try {
-      let date: Date;
-      if (timestamp?.toDate) {
-        date = timestamp.toDate();
-      } else if (timestamp?.seconds) {
-        date = new Date(timestamp.seconds * 1000);
-      } else if (typeof timestamp === "string") {
-        date = new Date(timestamp);
-      } else if (timestamp instanceof Date) {
-        date = timestamp;
-      } else {
-        return "날짜 없음";
-      }
-      return date.toLocaleDateString("ko-KR", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      });
-    } catch (error) {
-      return "날짜 없음";
-    }
-  };
-
-  // 주요 서비스 데이터
-  const services = [
-    {
-      icon: <Building2 className="w-8 h-8" />,
-      title: "산업보건컨설팅",
-      description:
-        "작업환경측정, 근골격계질환 예방, 화학물질 위해성 평가 등 산업보건 전문 서비스",
-      path: "/industrial-health",
-      color: "from-blue-500 to-cyan-500",
-    },
-    {
-      icon: <Droplets className="w-8 h-8" />,
-      title: "먹는물 검사",
-      description:
-        "KOLAS 인증으로 수돗물·지하수·정수기 등 59개 항목 수질검사 서비스",
-      path: "/water-testing",
-      color: "from-cyan-500 to-blue-500",
-    },
-    {
-      icon: <FlaskConical className="w-8 h-8" />,
-      title: "혈액특성용수",
-      description:
-        "투석용수 21개 항목, 전처리용수 15개 항목 검사로 환자 안전 도모",
-      path: "/dialysis-water",
-      color: "from-purple-500 to-pink-500",
-    },
-    {
-      icon: <Wind className="w-8 h-8" />,
-      title: "실내공기질 측정",
-      description:
-        "PM10, PM2.5, CO₂, 라돈 등 다중이용시설 9개 항목 실내공기질 측정",
-      path: "/indoor-air-quality",
-      color: "from-green-500 to-emerald-500",
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: "석면조사·분석",
-      description:
-        "환경부 지정 석면조사기관으로 정성·정량분석 및 위해성 평가 서비스",
-      path: "/asbestos",
-      color: "from-orange-500 to-red-500",
-    },
-    {
-      icon: <FileText className="w-8 h-8" />,
-      title: "게시판/자료실",
-      description: "공지사항, 자료실, 질문답변 등 다양한 정보 제공",
-      path: "/board",
-      color: "from-indigo-500 to-purple-500",
-    },
-  ];
-
-  // 통계 데이터
-  const stats = [
-    { icon: <CheckCircle />, value: "19년", label: "신뢰의 경험" },
-    { icon: <Users />, value: "650+", label: "협력 고객사" },
-    { icon: <Award />, value: "11+", label: "보유 인증" },
-    { icon: <TrendingUp />, value: "KOLAS", label: "공인 인증기관" },
-  ];
+  // 통계 데이터에 아이콘 추가
+  const stats = COMPANY_STATS.map((stat, index) => {
+    const icons = [CheckCircle, Users, Award, TrendingUp];
+    return {
+      ...stat,
+      icon: icons[index],
+    };
+  });
 
   return (
     <div className="overflow-hidden">
@@ -182,20 +103,30 @@ const Home = () => {
 
             {/* CTA 버튼 */}
             <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+              className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
             >
-              <Link to="/quote-request">
-                <button className="px-10 py-4 bg-white text-primary-600 rounded-full font-semibold text-lg hover:bg-blue-50 hover:shadow-2xl transform hover:scale-105 transition-all duration-300 min-w-[200px]">
-                  무료 견적 문의
-                </button>
-              </Link>
-              <Link to="/industrial-health">
-                <button className="px-10 py-4 bg-white/10 backdrop-blur-sm border-2 border-white text-white rounded-full font-semibold text-lg hover:bg-white hover:text-primary-600 transform hover:scale-105 transition-all duration-300 min-w-[200px]">
-                  서비스 안내
-                </button>
+              <a href="tel:043-237-7624" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto min-w-[280px]"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  전화 상담: 043-237-7624
+                </Button>
+              </a>
+              <Link to="/about/greeting" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="w-full sm:w-auto min-w-[280px]"
+                >
+                  회사 소개 보기
+                </Button>
               </Link>
             </motion.div>
 
@@ -206,7 +137,9 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
             >
-              {stats.map((stat, index) => (
+              {stats.map((stat, index) => {
+                const IconComponent = stat.icon;
+                return (
                 <motion.div
                   key={index}
                   className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300"
@@ -219,7 +152,8 @@ const Home = () => {
                   </div>
                   <div className="text-sm text-white/80">{stat.label}</div>
                 </motion.div>
-              ))}
+              );
+              })}
             </motion.div>
           </motion.div>
         </div>
@@ -264,9 +198,12 @@ const Home = () => {
             </p>
           </motion.div>
 
-          {/* 6개 서비스 카드 그리드 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {services.map((service, index) => (
+          {/* 5개 서비스 카드 그리드 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+            style={{gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'}}>
+            {SERVICES.map((service, index) => {
+              const IconComponent = service.icon;
+              return (
               <motion.div
                 key={service.path}
                 initial={{ opacity: 0, y: 30 }}
@@ -286,7 +223,7 @@ const Home = () => {
                       <div
                         className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
                       >
-                        {service.icon}
+                        <IconComponent className="w-8 h-8" />
                       </div>
                     </div>
 
@@ -311,7 +248,8 @@ const Home = () => {
                   </div>
                 </Link>
               </motion.div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </section>
@@ -545,7 +483,7 @@ const Home = () => {
                   >
                     {process.icon}
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 rounded-full flex items-center justify-center text-sm font-bold shadow-md">
+                  <div className="absolute -top-3 -right-3 w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 text-white rounded-full flex items-center justify-center text-lg font-black shadow-xl border-4 border-white dark:border-neutral-900">
                     {process.step}
                   </div>
                 </div>
@@ -561,45 +499,6 @@ const Home = () => {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section - 간결하게 */}
-      <section className="py-20 bg-gradient-to-br from-primary-600 to-blue-700 dark:from-primary-700 dark:to-blue-900 text-white">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              전문적인 환경안전 서비스가 필요하신가요?
-            </h2>
-            <p className="text-lg text-white/90 mb-10">
-              한국환경안전연구소의 전문가가 최적의 솔루션을 제공해드립니다
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/quote-request" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  className="w-full sm:w-auto bg-white text-primary-600 hover:bg-neutral-100 shadow-xl hover:shadow-2xl transition-all duration-300 font-bold"
-                >
-                  무료 견적 받기
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-              <Link to="/about/greeting" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary-600 transition-all duration-300 font-bold"
-                >
-                  회사 소개 보기
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
         </div>
       </section>
     </div>

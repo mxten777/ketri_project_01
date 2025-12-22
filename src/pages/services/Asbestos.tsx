@@ -370,6 +370,149 @@ const Asbestos = () => {
                 </div>
               </div>
             </div>
+
+            {/* FAQ 섹션 */}
+            <div className="bg-gradient-to-r from-primary-50 to-orange-50 dark:from-primary-900/20 dark:to-orange-900/20 rounded-xl p-8 mb-8 mt-8">
+              <h3 className="text-2xl font-bold mb-6 text-primary-600 dark:text-primary-400">
+                💬 자주 묻는 질문 (FAQ)
+              </h3>
+              <div className="space-y-4">
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 석면 조사는 언제 해야 하나요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 2009년 이전 건축물의 철거·해체 전, 리모델링 전, 그리고 석면 함유 의심 시 반드시 조사해야 합니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 조사 비용은 얼마인가요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 건축물 면적과 시료 수에 따라 다릅니다. 일반 주택(3~5개 시료) 약 50~80만원, 
+                    중대형 건물(10개 이상) 100~200만원입니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 석면이 검출되면 어떻게 하나요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 석면해체·제거 전문업체를 통해 안전하게 제거해야 합니다. 
+                    비산 방지 조치 없이 임의 해체 시 과태료가 부과됩니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 조사 기간은 얼마나 걸리나요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 현장 조사 1일, 시료 분석 3~5일로 총 5~7일 정도 소요됩니다. 
+                    긴급 조사도 가능합니다(추가 비용).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 비용 안내 */}
+            <div className="bg-white dark:bg-neutral-800 border-2 border-primary-200 dark:border-primary-800 rounded-xl p-8 mb-8">
+              <h3 className="text-2xl font-bold mb-6 flex items-center">
+                <span className="text-3xl mr-3">💰</span>
+                조사 비용 안내
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="bg-primary-600 text-white">
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">건물 규모</th>
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">시료 수</th>
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">예상 비용</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="bg-white dark:bg-neutral-900">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">소형 (주택, 상가)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">3~5개</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">50만원 ~ 80만원</td>
+                    </tr>
+                    <tr className="bg-neutral-50 dark:bg-neutral-800">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">중형 (빌라, 소규모 건물)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">5~10개</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">80만원 ~ 120만원</td>
+                    </tr>
+                    <tr className="bg-white dark:bg-neutral-900">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">대형 (공장, 대형 건물)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">10개 이상</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">100만원 ~ 200만원+</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
+                ※ 건물 구조 복잡도와 접근성에 따라 비용 변동 가능.
+              </p>
+            </div>
+
+            {/* 신청서 다운로드 */}
+            <div className="bg-gradient-to-r from-orange-50 to-primary-50 dark:from-orange-900/20 dark:to-primary-900/20 rounded-xl p-8 mb-8">
+              <h3 className="text-2xl font-bold mb-4 flex items-center">
+                <span className="text-3xl mr-3">📥</span>
+                신청서 다운로드
+              </h3>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+                석면 조사 의뢰서를 다운로드하여 작성 후 제출해주세요.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a
+                  href="/documents/asbestos-survey-application.pdf"
+                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-primary-800"
+                >
+                  <span className="font-bold">석면 조사 의뢰서</span>
+                  <span className="text-2xl">📄</span>
+                </a>
+                <a
+                  href="/documents/asbestos-removal-guide.pdf"
+                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-primary-800"
+                >
+                  <span className="font-bold">석면 해체 안내서</span>
+                  <span className="text-2xl">📋</span>
+                </a>
+              </div>
+            </div>
+
+            {/* 고객 후기 */}
+            <div className="bg-white dark:bg-neutral-900 rounded-xl p-8 border border-neutral-200 dark:border-neutral-700">
+              <h3 className="text-2xl font-bold mb-6 flex items-center">
+                <span className="text-3xl mr-3">⭐</span>
+                고객 후기
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
+                  <div className="flex items-center mb-3">
+                    <div className="text-yellow-500 text-xl">★★★★★</div>
+                    <span className="ml-2 text-sm text-neutral-500">서울 송파구 재건축 조합</span>
+                  </div>
+                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
+                    "대규모 철거 전 조사였는데, 체계적인 시료 채취와 정확한 분석으로 
+                    안전하게 공사를 진행할 수 있었습니다."
+                  </p>
+                  <p className="text-xs text-neutral-500">- 김○○ 조합장</p>
+                </div>
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
+                  <div className="flex items-center mb-3">
+                    <div className="text-yellow-500 text-xl">★★★★★</div>
+                    <span className="ml-2 text-sm text-neutral-500">충북 청주시 ○○공장</span>
+                  </div>
+                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
+                    "공장 리모델링 전 의뢰했습니다. 신속한 조사와 해체 계획 수립으로 
+                    일정 차질 없이 진행할 수 있었습니다."
+                  </p>
+                  <p className="text-xs text-neutral-500">- 이○○ 공장장</p>
+                </div>
+              </div>
+            </div>
+
               </div>
             </div>
           </div>

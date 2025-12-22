@@ -9,3 +9,5 @@ export { default as ProtectedRoute } from "./ProtectedRoute";
 export { default as ScrollToTop } from "./ScrollToTop";
 export { default as SearchModal } from "./SearchModal";
 export { default as ServiceNavigation } from "./ServiceNavigation";
+export { default as ServiceCard } from "./ServiceCard";
+export { default as StatCard } from "./StatCard";
