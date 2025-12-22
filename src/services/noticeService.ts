@@ -33,7 +33,13 @@ export const getNotices = async (
       limit(limitCount * 2) // 고정글 필터링을 위해 더 많이 가져옴
     );
 
-    const querySnapshot = await getDocs(q);
+    // Guard: avoid hanging indefinitely if Firestore doesn't respond
+    const timeoutMs = 8000;
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error("Firestore request timed out")), timeoutMs)
+    );
+
+    const querySnapshot = await Promise.race([getDocs(q), timeoutPromise]);
     logDev(`Found ${querySnapshot.docs.length} notices`);
 
     // 메모리에서 정렬: isPinned 우선, 그 다음 createdAt
