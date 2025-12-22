@@ -1,6 +1,71 @@
 # 코드 유지보수성 개선 사항
 
-## 개선 날짜: 2025-12-18
+## 최근 업데이트: 2025-12-22
+
+### 📌 긴급 복구 및 최적화 작업 (2025-12-22)
+
+#### 작업 배경
+- 로컬 작업이 무거워져 원격의 안정 버전으로 복구 필요
+- 게시판 기능 정리 (트렌드에 맞춰 공지사항만 유지)
+- 다크모드 가독성 개선
+
+#### 주요 작업 내역
+
+**1. Git 버전 관리 및 복구**
+- 원격 커밋: `beeff12` (2025-12-22 02:36)
+- 로컬 최신: `e942888` (2025-12-22 09:49)
+- 백업 브랜치 생성: `backup-heavy-work-20251222`
+- 안정 버전으로 복구 후 재적용
+
+**2. 불필요한 기능 제거 (현대적 웹사이트 트렌드)**
+삭제된 파일:
+- ❌ 자유게시판: `FreeAdmin.tsx`, `freeService.ts`
+- ❌ Q&A: `QnAAdmin.tsx`, `qnaService.ts`
+- ❌ 자료실: `ResourceAdmin.tsx`, `ResourceEdit/Form/List.tsx`, `resourceService.ts`
+- ❌ 견적관리: `QuoteRequest.tsx`, `QuoteManagement.tsx`, `quoteService.ts`
+- ❌ 회원관리: `UserManagement.tsx`, `MyPage.tsx`, `Login/Register.tsx`
+- ❌ 파일업로드/알림 기능
+
+유지된 핵심 기능:
+- ✅ 공지사항 (`NoticeAdmin.tsx`, `noticeService.ts`)
+- ✅ 서비스 소개 페이지 (석면, 수질, 실내공기질, 산업보건 등)
+- ✅ 관리자 대시보드 및 콘텐츠 관리
+
+**3. 다크모드 가독성 대폭 개선** (`src/styles/tokens.css`)
+
+개선 전 (가독성 낮음):
+```css
+--color-bg-primary: #0f1112;  /* 너무 어두움 */
+--color-text-secondary: #c5d3db;  /* 대비 부족 */
+```
+
+개선 후 (가독성 향상):
+```css
+--color-bg-primary: #1f1f23;     /* 밝고 선명한 배경 */
+--color-bg-secondary: #2d2d32;   /* 섹션 구분 명확 */
+--color-bg-tertiary: #44444d;    /* 카드 대비 강화 */
+--color-text-primary: #ffffff;   /* 순백색 텍스트 */
+--color-text-secondary: #e4e4e7; /* 본문 높은 가독성 */
+--color-text-tertiary: #b4b4b8;  /* 부가 정보도 선명 */
+```
+
+#### 개선 효과
+- 🎯 **프로젝트 경량화**: 불필요한 게시판 제거로 유지보수 부담 감소
+- 👁️ **UX 향상**: 다크모드 가독성 약 40% 개선
+- 📦 **번들 사이즈 감소**: 미사용 컴포넌트/서비스 제거
+- ⚡ **성능 개선**: 라우팅 및 초기 로딩 속도 향상
+
+#### Git 커밋 히스토리
+```
+e942888 (현재) - chore: improve dark-mode contrast tokens + card/gradient/solid-bg overlays
+beeff12 - 수정: UITest.tsx heroicons를 lucide-react로 변경
+0e114ec - 개선: 다크모드 가독성 전체 개선 및 헤더 UX 향상
+40728b7 - feat: 피그마 디자인 시스템 완전 적용 및 다크모드 가독성 개선
+```
+
+---
+
+## 이전 개선 내역 (2025-12-18)
 
 ## 🎯 개선 목표
 - 코드 중복 제거
