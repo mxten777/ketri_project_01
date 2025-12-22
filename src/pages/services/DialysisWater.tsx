@@ -23,15 +23,15 @@ const DialysisWater = () => {
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
-                  { label: "업무소개", path: "/dialysis-water/introduction" },
-                  { label: "검사의뢰절차", path: "/dialysis-water/procedure" },
-                  { label: "검사주기 및 관련기준", path: "/dialysis-water/schedule" },
-                  { label: "수질기준 및 실험방법", path: "/dialysis-water/standards" },
-                  { label: "채수방법 및 시료채수위치", path: "/dialysis-water/sampling" },
+                  { label: "업무소개", href: "#introduction" },
+                  { label: "검사의뢰절차", href: "#procedure" },
+                  { label: "검사주기 및 관련기준", href: "#schedule" },
+                  { label: "수질기준 및 실험방법", href: "#standards" },
+                  { label: "채수방법 및 시료채수위치", href: "#sampling" },
                 ].map((item) => (
                   <a
-                    key={item.path}
-                    href={item.path}
+                    key={item.href}
+                    href={item.href}
                     className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     {item.label}
@@ -44,7 +44,7 @@ const DialysisWater = () => {
           {/* Main Content */}
           <div className="lg:col-span-3">
             <div className="card p-8">
-              <h2 className="heading-md mb-6" id="overview">투석용수 검사 서비스</h2>
+              <h2 id="introduction" className="heading-md mb-6">투석용수 검사 서비스</h2>
               <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 혈액투석용수 전문 검사기관으로 2006년부터

@@ -18,14 +18,14 @@ const WaterTesting = () => {
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
-                  { label: "업무소개", path: "/water-testing/introduction" },
-                  { label: "수질검사대상 및 범위", path: "/water-testing/scope" },
-                  { label: "수질검사주기 및 수수료", path: "/water-testing/schedule" },
-                  { label: "검사의뢰 신청절차", path: "/water-testing/procedure" },
+                  { label: "업무소개", href: "#introduction" },
+                  { label: "수질검사대상 및 범위", href: "#scope" },
+                  { label: "수질검사주기 및 수수료", href: "#schedule" },
+                  { label: "검사의뢰 신청절차", href: "#procedure" },
                 ].map((item) => (
                   <a
-                    key={item.path}
-                    href={item.path}
+                    key={item.href}
+                    href={item.href}
                     className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     {item.label}
@@ -38,13 +38,13 @@ const WaterTesting = () => {
           {/* Main Content */}
           <div className="lg:col-span-3">
             <div className="card p-8">
-              <h2 className="heading-md mb-6">먹는물 수질검사 서비스</h2>
+              <h2 id="introduction" className="heading-md mb-6">먹는물 수질검사 서비스</h2>
               <div className="prose dark:prose-invert max-w-none">
                 <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
                   한국환경안전연구소는 환경부 지정 수질검사기관(KOLAS No.KT-1234)으로 2006년부터 5,000여 건의 수질검사를 수행했습니다. ISO/IEC 17025 국제 표준에 따른 품질관리 시스템으로 59개 항목의 정확하고 신속한 수질검사 서비스를 제공합니다.
                 </p>
 
-                <h3 className="text-2xl font-bold mt-8 mb-4">검사 대상 시설</h3>
+                <h3 id="scope" className="text-2xl font-bold mt-8 mb-4">검사 대상 시설</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <div className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 rounded-xl">
                     <div className="text-4xl mb-3">🏢</div>
@@ -123,7 +123,7 @@ const WaterTesting = () => {
                   </table>
                 </div>
 
-                <h3 className="text-2xl font-bold mt-8 mb-4">검사 주기</h3>
+                <h3 id="schedule" className="text-2xl font-bold mt-8 mb-4">검사 주기</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   <div className="border-2 border-primary-500 rounded-lg p-6">
                     <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-primary-400">일반 건물 급수시설</h4>
@@ -143,7 +143,7 @@ const WaterTesting = () => {
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold mt-8 mb-4">검사 프로세스</h3>
+                <h3 id="procedure" className="text-2xl font-bold mt-8 mb-4">검사 프로세스</h3>
                 <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 mb-6">
                   <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div className="flex-1 text-center">

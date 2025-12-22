@@ -21,13 +21,13 @@ const IndoorAirQuality = () => {
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
-                  { label: "업무 소개", path: "/indoor-air-quality/introduction" },
-                  { label: "실내공기질 측정 검의 요청", path: "/indoor-air-quality/request" },
-                  { label: "실내공기질 성적서 조회", path: "/indoor-air-quality/report" },
+                  { label: "업무 소개", href: "#introduction" },
+                  { label: "측정 대상시설", href: "#facilities" },
+                  { label: "측정 항목 및 기준", href: "#standards" },
                 ].map((item) => (
                   <a
-                    key={item.path}
-                    href={item.path}
+                    key={item.href}
+                    href={item.href}
                     className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     {item.label}
@@ -40,7 +40,7 @@ const IndoorAirQuality = () => {
           {/* Main Content */}
           <div className="lg:col-span-3">
             <div className="card p-8">
-              <h2 className="heading-md mb-6">실내공기질 측정 서비스</h2>
+              <h2 id="introduction" className="heading-md mb-6">실내공기질 측정 서비스</h2>
               <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 환경부 지정 실내공기질 측정대행업체(등록번호:
