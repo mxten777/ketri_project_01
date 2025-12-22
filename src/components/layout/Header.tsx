@@ -115,11 +115,11 @@ const Header = () => {
                   {/* 드롭다운 메뉴 */}
                   {openDropdown === menu.label && (
                     <div 
-                      className="absolute top-full left-0 w-64 z-50 pt-0"
+                      className="absolute top-[calc(100%-6px)] left-0 w-64 z-60 pt-0"
                       onMouseEnter={() => handleMouseEnter(menu.label)}
                       onMouseLeave={handleMouseLeave}
                     >
-                      <div className="bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-100 dark:border-neutral-700 py-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-100 dark:border-neutral-700 py-3 animate-in fade-in duration-200">
                         {menu.items.map((item) => (
                           <Link
                             key={item.path}

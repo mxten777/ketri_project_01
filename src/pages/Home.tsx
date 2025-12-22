@@ -55,13 +55,13 @@ const Home = () => {
       {/* Hero Section - 간결하고 임팩트 있게 */}
       <section className="relative min-h-[85vh] flex items-center justify-center bg-gradient-to-br from-primary-600 via-primary-700 to-blue-800 dark:from-primary-700 dark:via-primary-800 dark:to-blue-900 overflow-hidden">
         {/* 배경 패턴 */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.2),transparent_50%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.15),transparent_50%)]"></div>
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.06),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.04),transparent_50%)]"></div>
         </div>
 
         {/* 메인 컨텐츠 */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-60 py-20">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ const Home = () => {
             className="text-center text-white max-w-5xl mx-auto"
           >
             {/* 메인 타이틀 */}
-            <motion.h1
+              <motion.h1
               className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -77,7 +77,15 @@ const Home = () => {
             >
               신뢰할 수 있는
               <br />
-              <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+              <span
+                className="inline-block px-4 py-2 rounded-md text-white"
+                style={{
+                  background: 'var(--scrim-60)',
+                  position: 'relative',
+                  zIndex: 60,
+                  color: '#ffffff'
+                }}
+              >
                 환경안전 전문기관
               </span>
             </motion.h1>

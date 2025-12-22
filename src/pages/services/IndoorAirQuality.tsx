@@ -37,7 +37,7 @@ const IndoorAirQuality = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <aside className="lg:col-span-1">
-            <div className="card p-6 sticky top-32">
+            <div className="card p-6 sticky top-32 card-tokenized">
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
@@ -59,7 +59,7 @@ const IndoorAirQuality = () => {
 
           {/* Main Content */}
           <div className="lg:col-span-3">
-            <div className="card p-8">
+            <div className="card p-8 card-tokenized">
               <h2 id="introduction" className="heading-md mb-6">실내공기질 측정 서비스</h2>
               <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
@@ -69,7 +69,7 @@ const IndoorAirQuality = () => {
               개선방안 제시, 후속 관리까지 포괄적인 서비스를 제공합니다.
             </p>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">측정 대상 시설</h3>
+            <h3 id="facilities" className="text-2xl font-bold mt-8 mb-4">측정 대상 시설</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl">
                 <div className="text-4xl mb-3">🏫</div>
@@ -103,7 +103,7 @@ const IndoorAirQuality = () => {
               </div>
             </div>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">
+            <h3 id="standards" className="text-2xl font-bold mt-8 mb-4">
               측정 항목 및 유지기준
             </h3>
             <div className="overflow-x-auto mb-8">

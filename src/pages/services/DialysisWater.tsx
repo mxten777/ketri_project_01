@@ -1,6 +1,25 @@
 import Button from "../../components/common/Button";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const DialysisWater = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        const header = document.querySelector("header");
+        const headerHeight = header && header instanceof HTMLElement ? header.offsetHeight : 96;
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      }, 50);
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen">
       <div className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white py-16 lg:py-24">
@@ -19,7 +38,7 @@ const DialysisWater = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <aside className="lg:col-span-1">
-            <div className="card p-6 sticky top-32">
+            <div className="card p-6 sticky top-32 card-tokenized">
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
@@ -43,7 +62,7 @@ const DialysisWater = () => {
 
           {/* Main Content */}
           <div className="lg:col-span-3">
-            <div className="card p-8">
+            <div className="card p-8 card-tokenized">
               <h2 id="introduction" className="heading-md mb-6">투석용수 검사 서비스</h2>
               <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
@@ -70,7 +89,7 @@ const DialysisWater = () => {
               </ul>
             </div>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">검사 항목 및 기준</h3>
+            <h3 id="standards" className="text-2xl font-bold mt-8 mb-4">검사 항목 및 기준</h3>
             <div className="overflow-x-auto mb-8">
               <table className="w-full border-collapse">
                 <thead>
@@ -198,6 +217,7 @@ const DialysisWater = () => {
             </div>
 
             <h3 className="text-2xl font-bold mt-8 mb-4">검사 종류</h3>
+            <h3 id="schedule" className="text-2xl font-bold mt-8 mb-4">검사 주기</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
                 <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-primary-400">
@@ -229,10 +249,10 @@ const DialysisWater = () => {
               </div>
             </div>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">검사 프로세스</h3>
+            <h3 id="procedure" className="text-2xl font-bold mt-8 mb-4">검사 프로세스</h3>
             <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 mb-6">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="text-center">
+                <div id="sampling" className="text-center">
                   <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     1
                   </div>

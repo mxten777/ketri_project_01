@@ -38,7 +38,7 @@ const Asbestos = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <aside className="lg:col-span-1">
-            <div className="card p-6 sticky top-32">
+            <div className="card p-6 sticky top-32 card-tokenized">
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
@@ -63,7 +63,7 @@ const Asbestos = () => {
 
           {/* Main Content */}
           <div className="lg:col-span-3">
-            <div className="card p-8">
+            <div className="card p-8 card-tokenized">
               <h2 id="survey" className="heading-md mb-6">석면조사·분석 서비스</h2>
               <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">

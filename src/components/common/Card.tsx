@@ -52,7 +52,12 @@ const Card = ({
 
   return (
     <motion.div
-      className={`${baseStyles} ${variants[variant]} ${paddings[padding]} ${hoverStyles} ${className}`}
+      className={`card-tokenized ${baseStyles} ${variants[variant]} ${paddings[padding]} ${hoverStyles} ${className}`}
+      style={{
+        background: 'var(--color-bg-secondary)',
+        color: 'var(--color-text-primary)',
+        borderColor: 'var(--color-border)'
+      }}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

@@ -21,7 +21,7 @@ const IndoorResult = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2">
-              <div className="card p-8">
+              <div className="card p-8 card-tokenized">
                 <div className="prose dark:prose-invert max-w-none">
                   <h2 className="text-2xl font-bold mb-6">온라인 성적서 조회</h2>
                   
@@ -151,7 +151,7 @@ const IndoorResult = () => {
 
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              <div className="card p-6 sticky top-32">
+              <div className="card p-6 sticky top-32 card-tokenized">
                 <h3 className="text-xl font-bold mb-4">성적서 조회</h3>
                 
                 <form className="space-y-4">

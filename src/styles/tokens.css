@@ -44,6 +44,12 @@
     --color-info-500: #3b82f6;
     --color-info-600: #2563eb;
 
+    /* Scrim / Overlay tokens */
+    --scrim-30: rgba(0,0,0,0.30);
+    --scrim-50: rgba(0,0,0,0.50);
+    --scrim-60: rgba(0,0,0,0.60);
+    --scrim-70: rgba(0,0,0,0.70);
+
     /* Semantic Colors (Context-based) */
     --color-bg-primary: #ffffff;
     --color-bg-secondary: #fafafa;
@@ -217,6 +223,11 @@
     --color-text-tertiary: #b4b4b8; /* tertiary text - lighter */
     --color-border: #44444d; /* clear border */
     --color-border-hover: #5a5a65;
+    /* Dark scrim variants (if needed) */
+    --scrim-30: rgba(0,0,0,0.32);
+    --scrim-50: rgba(0,0,0,0.55);
+    --scrim-60: rgba(0,0,0,0.65);
+    --scrim-70: rgba(0,0,0,0.78);
   }
 
   /* ========================================
@@ -235,6 +246,64 @@
     --color-brand-700: #047857;
     --color-brand-800: #065f46;
     --color-brand-900: #064e3b;
+  }
+
+  /* Global card token styles to ensure readable text in dark mode */
+  .card-tokenized h1,
+  .card-tokenized h2,
+  .card-tokenized h3,
+  .card-tokenized h4,
+  .card-tokenized .card-title {
+    color: var(--color-text-primary) !important;
+  }
+
+  .card-tokenized p,
+  .card-tokenized li,
+  .card-tokenized span,
+  .card-tokenized .card-body {
+    color: var(--color-text-secondary) !important;
+    opacity: 1 !important;
+  }
+
+  .card-tokenized img,
+  .card-tokenized svg,
+  .card-tokenized .icon {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  /* Stronger card surface and text overrides for improved readability */
+  .card-tokenized {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), var(--color-bg-secondary)) !important;
+    border-color: rgba(255,255,255,0.03) !important;
+    box-shadow: var(--shadow-md) !important;
+    padding: var(--spacing-6) !important;
+  }
+
+  /* Dark-specific tweak: slightly brighter card surface to lift content */
+  .dark .card-tokenized {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), var(--color-bg-secondary)) !important;
+  }
+
+  .card-tokenized .card-title,
+  .card-tokenized h1,
+  .card-tokenized h2,
+  .card-tokenized h3 {
+    color: var(--color-brand-500) !important;
+    font-weight: var(--font-weight-bold) !important;
+  }
+
+  .card-tokenized p,
+  .card-tokenized li,
+  .card-tokenized .card-body,
+  .card-tokenized .card-copy {
+    color: var(--color-text-secondary) !important;
+    opacity: 1 !important;
+  }
+
+  .card-tokenized a {
+    color: var(--color-text-primary) !important;
+    text-decoration: underline !important;
   }
 
   /* Finance Theme */

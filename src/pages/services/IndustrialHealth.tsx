@@ -1,4 +1,26 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 const IndustrialHealth = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // If there's a hash in the URL, scroll to the element with offset for header
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      // allow layout to settle
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        const header = document.querySelector("header");
+        const headerHeight = header && header instanceof HTMLElement ? header.offsetHeight : 96;
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 16; // extra padding
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      }, 50);
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen">
       <div className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24">
@@ -17,7 +39,7 @@ const IndustrialHealth = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <aside className="lg:col-span-1">
-            <div className="card p-6 sticky top-32">
+            <div className="card p-6 sticky top-32 card-tokenized">
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
@@ -41,7 +63,7 @@ const IndustrialHealth = () => {
 
           {/* Main Content */}
           <div className="lg:col-span-3">
-            <div className="card p-8">
+            <div className="card p-8 card-tokenized">
               <h2 className="heading-md mb-6">산업보건컨설팅 서비스</h2>
               <div className="prose dark:prose-invert max-w-none">
                 <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
