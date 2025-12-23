@@ -175,7 +175,7 @@ const Header = () => {
                       </button>
 
                       {openDropdown === menu.label && (
-                        <>
+                        <div>
                           {/* invisible bridge to prevent cursor gap between button and dropdown */}
                           <div
                             className="absolute left-0 top-[calc(100%-16px)] w-full h-4 z-[89]"
@@ -226,7 +226,8 @@ const Header = () => {
                             </div>
                           </div>
                         </div>
-                      </>
+                      </div>
+                      
                       )}
                     </div>
                   );
