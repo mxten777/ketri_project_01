@@ -200,11 +200,15 @@ const Header = () => {
                               {menu.items.map((item) => {
                                 const itemActive =
                                   location.pathname === item.path ||
-                                  location.pathname.startsWith(item.path + "/");
+                                  location.pathname.startsWith(item.path.split('#')[0] + "/");
+                                const hasHash = item.path.includes('#');
+                                const Component = hasHash ? 'a' : Link;
+                                const linkProps = hasHash ? { href: item.path } : { to: item.path };
+                                
                                 return (
-                                  <Link
+                                  <Component
                                     key={item.path}
-                                    to={item.path}
+                                    {...linkProps}
                                     className={[
                                       "group block px-5 py-3 text-[14px] rounded-xl mx-2",
                                       "transition-all duration-150",
@@ -220,7 +224,7 @@ const Header = () => {
                                       </span>
                                       <span className="text-[12px] text-neutral-400 dark:text-neutral-500">›</span>
                                     </div>
-                                  </Link>
+                                  </Component>
                                 );
                               })}
                             </div>
