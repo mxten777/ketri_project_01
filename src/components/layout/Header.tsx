@@ -184,7 +184,6 @@ const Header = () => {
                           <div
                             className="absolute left-0 top-[calc(100%-12px)] w-72 z-[90]"
                             onMouseEnter={() => handleMouseEnter(menu.label)}
-                            onMouseLeave={handleMouseLeave}
                             style={{ pointerEvents: 'auto' }}
                           >
                           <div className="rounded-2xl border border-neutral-200/80 dark:border-neutral-700/90 bg-white dark:bg-neutral-900 backdrop-blur-md shadow-[0_18px_50px_rgba(15,23,42,0.18)] dark:shadow-[0_22px_60px_rgba(0,0,0,0.55)] overflow-hidden">
@@ -215,6 +214,7 @@ const Header = () => {
                                     key={item.path}
                                     href={item.path}
                                     className={commonClasses}
+                                    onClick={() => setOpenDropdown(null)}
                                   >
                                     <div className="flex items-center justify-between">
                                       <span className="group-hover:translate-x-[2px] transition-transform">
@@ -228,6 +228,7 @@ const Header = () => {
                                     key={item.path}
                                     to={item.path}
                                     className={commonClasses}
+                                    onClick={() => setOpenDropdown(null)}
                                   >
                                     <div className="flex items-center justify-between">
                                       <span className="group-hover:translate-x-[2px] transition-transform">
