@@ -202,20 +202,19 @@ const Header = () => {
                                   location.pathname === item.path ||
                                   location.pathname.startsWith(item.path.split('#')[0] + "/");
                                 const hasHash = item.path.includes('#');
-                                const Component = hasHash ? 'a' : Link;
-                                const linkProps = hasHash ? { href: item.path } : { to: item.path };
+                                const commonClasses = [
+                                  "group block px-5 py-3 text-[14px] rounded-xl mx-2",
+                                  "transition-all duration-150",
+                                  itemActive
+                                    ? "bg-primary-50 dark:bg-primary-900/15 text-primary-700 dark:text-primary-200"
+                                    : "text-neutral-700 dark:text-neutral-100 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 hover:text-primary-700 dark:hover:text-primary-200",
+                                ].join(" ");
                                 
-                                return (
-                                  <Component
+                                return hasHash ? (
+                                  <a
                                     key={item.path}
-                                    {...linkProps}
-                                    className={[
-                                      "group block px-5 py-3 text-[14px] rounded-xl mx-2",
-                                      "transition-all duration-150",
-                                      itemActive
-                                        ? "bg-primary-50 dark:bg-primary-900/15 text-primary-700 dark:text-primary-200"
-                                          : "text-neutral-700 dark:text-neutral-100 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 hover:text-primary-700 dark:hover:text-primary-200",
-                                    ].join(" ")}
+                                    href={item.path}
+                                    className={commonClasses}
                                     onClick={() => setTimeout(() => setOpenDropdown(null), 150)}
                                   >
                                     <div className="flex items-center justify-between">
@@ -224,7 +223,21 @@ const Header = () => {
                                       </span>
                                       <span className="text-[12px] text-neutral-400 dark:text-neutral-500">›</span>
                                     </div>
-                                  </Component>
+                                  </a>
+                                ) : (
+                                  <Link
+                                    key={item.path}
+                                    to={item.path}
+                                    className={commonClasses}
+                                    onClick={() => setTimeout(() => setOpenDropdown(null), 150)}
+                                  >
+                                    <div className="flex items-center justify-between">
+                                      <span className="group-hover:translate-x-[2px] transition-transform">
+                                        {item.label}
+                                      </span>
+                                      <span className="text-[12px] text-neutral-400 dark:text-neutral-500">›</span>
+                                    </div>
+                                  </Link>
                                 );
                               })}
                             </div>
