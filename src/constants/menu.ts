@@ -30,6 +30,7 @@ export interface ServiceItem {
 export const MENU_ITEMS: MenuGroup[] = [
   {
     label: "연구소 소개",
+    mainPath: "/about/greeting",
     items: [
       { label: "인사말", path: "/about/greeting" },
       { label: "연혁", path: "/about/history" },
