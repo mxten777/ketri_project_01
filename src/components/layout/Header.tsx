@@ -210,16 +210,11 @@ const Header = () => {
                                     : "text-neutral-700 dark:text-neutral-100 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 hover:text-primary-700 dark:hover:text-primary-200",
                                 ].join(" ");
                                 
-                                const handleClick = () => {
-                                  setOpenDropdown(null);
-                                };
-                                
                                 return hasHash ? (
                                   <a
                                     key={item.path}
                                     href={item.path}
                                     className={commonClasses}
-                                    onClick={handleClick}
                                   >
                                     <div className="flex items-center justify-between">
                                       <span className="group-hover:translate-x-[2px] transition-transform">
@@ -233,7 +228,6 @@ const Header = () => {
                                     key={item.path}
                                     to={item.path}
                                     className={commonClasses}
-                                    onClick={handleClick}
                                   >
                                     <div className="flex items-center justify-between">
                                       <span className="group-hover:translate-x-[2px] transition-transform">
