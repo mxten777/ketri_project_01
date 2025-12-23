@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
 import { MENU_ITEMS, MenuGroup } from "../../constants/menu";
@@ -58,6 +58,8 @@ const Header = () => {
   const location = useLocation();
 
   const ctx = useContext(HeaderContext);
+
+  const menuRefs = useRef<Record<string, HTMLElement | null>>({});
 
   // local fallbacks when HeaderContext is not provided
   const [isMobileMenuOpenLocal, setIsMobileMenuOpenLocal] = useState(false);
@@ -148,6 +150,7 @@ const Header = () => {
                     <div
                       key={menu.label}
                       className="relative"
+                      ref={(el) => (menuRefs.current[menu.label] = el)}
                       onMouseEnter={() => handleMouseEnter(menu.label)}
                       onMouseLeave={handleMouseLeave}
                     >
@@ -206,6 +209,7 @@ const Header = () => {
                         isOpen={openDropdown === menu.label}
                         location={location}
                         onMouseEnter={handleMouseEnter}
+                        anchorEl={menuRefs.current[menu.label]}
                       />
                     </div>
                   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { MenuGroup } from "../../constants/menu";
@@ -8,24 +8,79 @@ interface Props {
   isOpen: boolean;
   location: any;
   onMouseEnter: (label: string) => void;
+  anchorEl?: HTMLElement | null;
 }
 
-export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter }: Props) {
+export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter, anchorEl }: Props) {
   if (!isOpen) return null;
 
   if (typeof document === "undefined") return null;
+  const [rect, setRect] = useState<DOMRect | null>(null);
+
+  useLayoutEffect(() => {
+    if (!anchorEl) return setRect(null);
+
+    const update = () => {
+      try {
+        const r = anchorEl.getBoundingClientRect();
+        setRect(r);
+      } catch (e) {
+        setRect(null);
+      }
+    };
+
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update, true);
+    const ro = new ResizeObserver(update);
+    ro.observe(anchorEl);
+
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update, true);
+      ro.disconnect();
+    };
+  }, [anchorEl]);
 
   const node = (
     <div>
       <div
-        className="absolute left-0 top-[calc(100%-24px)] w-full h-8 z-[89] pointer-events-auto"
         onMouseEnter={() => onMouseEnter(menu.label)}
+        style={
+          rect
+            ? {
+                position: "fixed",
+                left: 0,
+                top: Math.max(0, rect.top + rect.height - 24) + "px",
+                width: "100%",
+                height: 32,
+                zIndex: 89,
+                pointerEvents: "auto",
+              }
+            : { display: "none" }
+        }
       />
 
       <div
-        className="absolute left-0 top-[calc(100%-12px)] w-72 z-[90]"
         onMouseEnter={() => onMouseEnter(menu.label)}
-        style={{ pointerEvents: "auto" }}
+        style={
+          rect
+            ? (() => {
+                const menuWidth = 288; // w-72
+                const offset = 8; // keep some margin from right edge
+                const left = Math.min(Math.max(8, rect.left), window.innerWidth - menuWidth - offset);
+                return {
+                  position: "fixed",
+                  left: left + "px",
+                  top: Math.max(0, rect.top + rect.height - 12) + "px",
+                  width: menuWidth,
+                  zIndex: 90,
+                  pointerEvents: "auto",
+                };
+              })()
+            : { display: "none" }
+        }
+        className="w-72"
       >
         <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-[0_12px_32px_rgba(0,0,0,0.14)] dark:shadow-[0_18px_50px_rgba(0,0,0,0.55)] overflow-hidden">
           <div className="px-4 py-3 border-b border-neutral-200 dark:border-neutral-800">
