@@ -71,11 +71,11 @@ export const getNotices = async (
           return a.isPinned ? -1 : 1;
         }
         // 같으면 createdAt으로 비교 (Timestamp와 Date 모두 지원)
-        const aTime = a.createdAt?.seconds
-          ? a.createdAt.seconds * 1000
+        const aTime = (a.createdAt as any)?.seconds
+          ? (a.createdAt as any).seconds * 1000
           : a.createdAt?.getTime?.() || 0;
-        const bTime = b.createdAt?.seconds
-          ? b.createdAt.seconds * 1000
+        const bTime = (b.createdAt as any)?.seconds
+          ? (b.createdAt as any).seconds * 1000
           : b.createdAt?.getTime?.() || 0;
         return bTime - aTime;
       })

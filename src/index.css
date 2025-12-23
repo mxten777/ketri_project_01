@@ -1,333 +1,390 @@
-@import './styles/tokens.css';
+@import "./styles/tokens.css";
+
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* =========================================================
+   SINGLE SOURCE INDEX.CSS (REPLACE ALL)
+   - 토큰 기반(기존 tokens.css 유지)
+   - semantic-* RGB 변수 제공 (tailwind에서 rgb(var(--semantic-*) / <alpha>) 사용 가능)
+   - 헤더: 연구소 톤 “은은한 프리미엄”(hairline + dual shadow + brand line + underline indicator)
+   - 다크모드 가독성: 과한 전역 강제 X (필요 최소)
+   ========================================================= */
+
 @layer base {
   :root {
-    --color-primary: 0 105 255;
-    --color-error: 239 68 68;
+    /* ---------- Semantic RGB (Tailwind friendly) ---------- */
+    /* light */
+    --semantic-background: 255 255 255;
+    --semantic-surface: 250 250 250;
+    --semantic-foreground: 23 23 23;
+    --semantic-muted: 82 82 82;
+    --semantic-border: 229 229 229;
+
+    /* brand */
+    --brand-rgb: 0 105 255; /* 연구소 느낌의 절제된 블루 */
+    --ink-rgb: 15 23 42;    /* 딥 네이비(고급 연구소 톤) */
+
+    /* header */
+    --header-height: 72px; /* 살짝 여유가 프리미엄 느낌 */
+  }
+
+  /* dark */
+  .dark {
+    --semantic-background: 16 16 18;
+    --semantic-surface: 28 28 32;
+    --semantic-foreground: 244 244 245;
+    --semantic-muted: 161 161 170;
+    --semantic-border: 63 63 70;
   }
 
   * {
     @apply border-neutral-200 dark:border-neutral-700;
   }
 
-  body {
-    @apply bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50;
-    @apply font-sans antialiased;
-  }
-
   html {
     scroll-behavior: smooth;
   }
+
+  body {
+    background: rgb(var(--semantic-background));
+    color: rgb(var(--semantic-foreground));
+    @apply font-sans antialiased;
+  }
 }
 
+/* =========================================================
+   COMPONENTS (기본 유틸/컴포넌트)
+   ========================================================= */
 @layer components {
-  /* Button Styles */
   .btn {
-    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    @apply inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200;
     @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
 
   .btn-primary {
-    @apply bg-primary-500 text-white hover:bg-primary-600;
-    @apply focus:ring-primary-500 shadow-md hover:shadow-lg;
-  }
-
-  .btn-secondary {
-    @apply bg-primary-500 text-white hover:bg-primary-600;
+    @apply bg-primary-600 text-white hover:bg-primary-700;
     @apply focus:ring-primary-500 shadow-md hover:shadow-lg;
   }
 
   .btn-outline {
-    @apply border-2 border-primary-500 text-primary-500;
-    @apply hover:bg-primary-500 hover:text-white;
+    @apply border bg-transparent;
+    border-color: rgb(var(--semantic-border));
+    color: rgb(var(--semantic-foreground));
+    @apply hover:bg-black/5 dark:hover:bg-white/5;
     @apply focus:ring-primary-500;
   }
 
-  .btn-ghost {
-    @apply text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100;
-    @apply dark:text-neutral-400 dark:hover:text-neutral-100 dark:hover:bg-neutral-800;
-  }
-
-  /* Card Styles */
   .card {
-    @apply bg-white rounded-2xl shadow-sm;
-    @apply border border-neutral-100;
-    /* dark mode card background controlled via explicit selector below */
-    /* Ensure card content remains legible in dark mode */
-    --card-heading-color: var(--color-brand-500);
-    --card-body-color: var(--color-text-secondary);
-    @apply transition-all duration-300;
+    background: rgb(var(--semantic-surface));
+    border: 1px solid rgb(var(--semantic-border));
+    @apply rounded-2xl shadow-sm transition-all duration-300;
   }
-
-  /* stronger dark-mode card background and border for contrast */
-  .dark .card {
-    background-color: var(--color-bg-tertiary) !important;
-    border-color: var(--color-border) !important;
-  }
-
-  /* Improve contrast for card content (headings + body) */
-  .card h1,
-  .card h2,
-  .card h3,
-  .card h4,
-  .card .heading-md,
-  .card .heading-lg {
-    color: var(--card-heading-color) !important;
-  }
-
-  .card p,
-  .card li,
-  .card span,
-  .card a,
-  .card .text-sm,
-  .card .text-base {
-    color: var(--card-body-color) !important;
-    opacity: 1 !important;
-  }
-  
 
   .card-hover {
     @apply hover:shadow-lg hover:-translate-y-1;
   }
 
-  /* Input Styles */
   .input {
-    @apply w-full px-4 py-3 rounded-lg border border-neutral-300;
+    @apply w-full px-4 py-3 rounded-lg border transition-all duration-200;
+    border-color: rgb(var(--semantic-border));
+    background: rgb(var(--semantic-surface));
+    color: rgb(var(--semantic-foreground));
     @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
-    @apply dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-100;
-    @apply transition-all duration-200;
   }
 
-  .input-error {
-    @apply border-red-500 focus:ring-red-500;
-  }
-
-  /* Container */
   .container-custom {
-    @apply max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8;
-  }
-
-  /* Section */
-  .section {
-    @apply py-16 lg:py-24;
-  }
-
-  /* Heading Styles */
-  .heading-display {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
-    @apply bg-primary-600;
-    @apply bg-clip-text text-transparent;
-  }
-
-  .heading-xl {
-    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-neutral-50;
-  }
-
-  .heading-lg {
-    @apply text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-neutral-50;
-  }
-
-  .heading-md {
-    @apply text-xl md:text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-neutral-50;
-  }
-
-  /* Link Styles */
-  .link {
-    @apply text-primary-500 hover:text-primary-600 transition-colors duration-200;
-    @apply hover:underline;
-  }
-
-  /* Badge */
-  .badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
-  }
-
-  .badge-primary {
-    @apply bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200;
-  }
-
-  .badge-secondary {
-    @apply bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200;
-  }
-
-  .badge-success {
-    @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
-  }
-
-  .badge-warning {
-    @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200;
-  }
-
-  .badge-danger {
-    @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200;
+    @apply max-w-7xl mx-auto px-4;
   }
 }
 
-@layer utilities {
-  /* Text Gradient */
-  .text-gradient {
-    @apply bg-primary-600;
-    @apply bg-clip-text text-transparent;
-  }
+/* =========================================================
+   ✅ PREMIUM RESEARCH HEADER (ONE SHOT)
+   - “은은하지만 프리미엄급” 연구소 헤더
+   - header 태그에 직접 적용(셀렉터 미스 방지)
+   ========================================================= */
 
-  /* Glass Effect */
-  .glass {
-    @apply bg-white/70 dark:bg-neutral-900/70 backdrop-blur-lg;
-    @apply border border-white/20 dark:border-neutral-700/20;
-  }
+/* 헤더 베이스 */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
 
-  /* Scrollbar */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+  min-height: var(--header-height);
+  display: block;
 
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
 
-  /* Animation delays */
-  .animation-delay-200 {
-    animation-delay: 0.2s;
-  }
-
-  .animation-delay-400 {
-    animation-delay: 0.4s;
-  }
-
-  .animation-delay-600 {
-    animation-delay: 0.6s;
-  }
-
-  /* High contrast overrides for review cards (targeted) */
-  .high-contrast-review .review-card {
-    /* ensure card background stays dark but readable */
-    background-color: rgba(30,30,30,0.7) !important;
-    border-radius: 0.75rem;
-  }
-
-  .high-contrast-review .review-card p,
-  .high-contrast-review .review-card li,
-  .high-contrast-review .review-card span,
-  .high-contrast-review .review-card a,
-  .high-contrast-review .review-card .text-xs {
-    color: var(--color-text-primary) !important;
-    opacity: 1 !important;
-  }
-
-  .high-contrast-review .review-card .text-yellow-500 {
-    color: #fbbf24 !important;
-  }
-
-  /* Dim bright gradients in dark mode to improve text contrast */
-  .dark [class*="bg-gradient-to-"] {
-    filter: brightness(0.5) saturate(0.9) !important;
-    position: relative;
-  }
-
-  /* For elements that use gradient backgrounds directly (cards/sections),
-     ensure text remains high contrast */
-  .dark [class*="bg-gradient-to-"] p,
-  .dark [class*="bg-gradient-to-"] li,
-  .dark [class*="bg-gradient-to-"] span,
-  .dark [class*="bg-gradient-to-"] a {
-    color: var(--color-text-primary) !important;
-    opacity: 1 !important;
-    text-shadow: 0 1px 0 rgba(0,0,0,0.35);
-  }
-
-  /* If a pale gradient still causes low contrast, provide a subtle dark overlay
-     by using an inset box-shadow on the gradient container to increase legibility. */
-  .dark [class*="bg-gradient-to-"]::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.18);
-    border-radius: inherit;
-  }
-
-  /* Darken very pale solid backgrounds like bg-*-50 to improve readability */
-  .dark [class*="bg-"][class*="-50"] {
-    box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.28) !important;
-    color: var(--color-text-primary) !important;
-  }
-
-  .dark [class*="bg-"][class*="-50"] p,
-  .dark [class*="bg-"][class*="-50"] li,
-  .dark [class*="bg-"][class*="-50"] span,
-  .dark [class*="bg-"][class*="-50"] a {
-    color: var(--color-text-secondary) !important;
-    opacity: 1 !important;
-  }
+  /* hairline + dual shadow */
+  border-bottom: 1px solid rgba(var(--ink-rgb), 0.08) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.70) inset,
+    0 12px 30px rgba(var(--ink-rgb), 0.08) !important;
 }
 
-/* Custom Scrollbar for main content */
+/* 헤더 하단 얇은 브랜드 라인 */
+header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0) 0%,
+    rgba(var(--brand-rgb), 0.55) 20%,
+    rgba(var(--brand-rgb), 0.12) 55%,
+    rgba(0,0,0,0) 100%
+  );
+  pointer-events: none;
+}
+
+/* TopBar(오시는 길/전화/이메일) — 조용하게 */
+header .topbar,
+header [data-topbar="true"],
+header > div:first-child {
+  font-size: 12px !important;
+  letter-spacing: -0.01em;
+  color: rgba(var(--ink-rgb), 0.55) !important;
+  border-bottom: 1px solid rgba(var(--ink-rgb), 0.06) !important;
+}
+
+/* 네비 높이/정렬(로고+메뉴 라인) */
+header nav,
+header [role="navigation"] {
+  min-height: 64px;
+}
+
+/* 메뉴 링크(underline indicator) */
+header nav a,
+header [role="navigation"] a {
+  position: relative !important;
+  color: rgba(var(--ink-rgb), 0.78) !important;
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  text-decoration: none !important;
+  transition: color 160ms ease, background-color 160ms ease, transform 160ms ease !important;
+}
+
+/* hover: 은은하게 */
+header nav a:hover,
+header [role="navigation"] a:hover {
+  color: rgba(var(--ink-rgb), 0.95) !important;
+  background: rgba(var(--ink-rgb), 0.04) !important;
+  transform: translateY(-0.5px);
+}
+
+/* underline indicator */
+header nav a::after,
+header [role="navigation"] a::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 6px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(var(--brand-rgb), 0.0);
+  transform: scaleX(0.35);
+  transform-origin: center;
+  opacity: 0;
+  transition: background 160ms ease, transform 160ms ease, opacity 160ms ease;
+}
+
+header nav a:hover::after,
+header [role="navigation"] a:hover::after {
+  background: rgba(var(--brand-rgb), 0.70);
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* 아이콘(달/햄버거 등) 또렷하게 */
+header button,
+header svg {
+  color: rgba(var(--ink-rgb), 0.72) !important;
+  opacity: 0.95 !important;
+}
+header button:hover,
+header button:hover svg {
+  color: rgba(var(--ink-rgb), 0.92) !important;
+}
+
+/* 포커스(접근성) */
+header a:focus-visible,
+header button:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(var(--brand-rgb), 0.22) !important;
+  border-radius: 12px !important;
+}
+
+/* 다크모드 헤더 */
+.dark header {
+  background: rgba(10, 10, 12, 0.76) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.05) inset,
+    0 18px 44px rgba(0,0,0,0.45) !important;
+}
+.dark header::after {
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0) 0%,
+    rgba(var(--brand-rgb), 0.60) 22%,
+    rgba(var(--brand-rgb), 0.14) 55%,
+    rgba(0,0,0,0) 100%
+  );
+}
+.dark header nav a,
+.dark header [role="navigation"] a {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+.dark header nav a:hover,
+.dark header [role="navigation"] a:hover {
+  color: rgba(255, 255, 255, 0.96) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+.dark header nav a:hover::after,
+.dark header [role="navigation"] a:hover::after {
+  background: rgba(var(--brand-rgb), 0.85);
+}
+
+/* =========================================================
+   SCROLLBAR / SELECTION (가벼운 정리)
+   ========================================================= */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  @apply bg-neutral-100 dark:bg-neutral-800;
+  background: rgb(var(--semantic-background));
 }
-
 ::-webkit-scrollbar-thumb {
-  @apply bg-neutral-300 dark:bg-neutral-600 rounded-full;
+  background: rgb(var(--semantic-border));
+  border-radius: 9999px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-neutral-400 dark:bg-neutral-500;
+  background: rgb(var(--semantic-muted));
 }
 
-/* Custom Scrollbar for small containers */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  @apply bg-neutral-100 dark:bg-neutral-800 rounded-full;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-primary-300 dark:bg-primary-600 rounded-full;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary-400 dark:bg-primary-500;
-}
-
-/* Hide scrollbar */
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Selection */
 ::selection {
-  @apply bg-primary-500 text-white;
+  background: rgba(var(--brand-rgb), 0.18);
+  color: rgb(var(--semantic-foreground));
 }
 
-/* Focus visible */
-*:focus-visible {
-  @apply outline-none ring-2 ring-primary-500 ring-offset-2;
-}
-
-/* Print styles */
 @media print {
   body {
-    @apply text-black bg-white;
+    color: #000;
+    background: #fff;
   }
-
   .no-print {
     display: none !important;
   }
+}
+
+@layer utilities {
+  /* 🔒 FORCE HEADER PREMIUM (wins last) */
+  header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50 !important;
+
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(10px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(160%) !important;
+
+    border-bottom: 1px solid rgba(15, 23, 42, 0.10) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.70) inset,
+      0 12px 30px rgba(15,23,42,0.10) !important;
+  }
+
+  header::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: -1px !important;
+    height: 2px !important;
+    background: linear-gradient(
+      90deg,
+      rgba(0,105,255,0) 0%,
+      rgba(0,105,255,0.55) 20%,
+      rgba(0,105,255,0.14) 55%,
+      rgba(0,105,255,0) 100%
+    ) !important;
+    pointer-events: none !important;
+  }
+
+  header nav a,
+  header [role="navigation"] a {
+    position: relative !important;
+    color: rgba(15,23,42,0.78) !important;
+    padding: 10px 14px !important;
+    border-radius: 12px !important;
+    text-decoration: none !important;
+  }
+
+  header nav a:hover,
+  header [role="navigation"] a:hover {
+    color: rgba(15,23,42,0.95) !important;
+    background: rgba(15,23,42,0.04) !important;
+  }
+
+  header nav a::after,
+  header [role="navigation"] a::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 14px !important;
+    right: 14px !important;
+    bottom: 6px !important;
+    height: 2px !important;
+    border-radius: 999px !important;
+    background: rgba(0,105,255,0.70) !important;
+    transform: scaleX(0) !important;
+    transition: transform 180ms ease !important;
+  }
+
+  header nav a:hover::after,
+  header [role="navigation"] a:hover::after {
+    transform: scaleX(1) !important;
+  }
+
+  .dark header {
+    background: rgba(10,10,12,0.76) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.12) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.05) inset,
+      0 18px 44px rgba(0,0,0,0.45) !important;
+  }
+
+  .dark header nav a,
+  .dark header [role="navigation"] a {
+    color: rgba(255,255,255,0.84) !important;
+  }
+
+  .dark header nav a:hover,
+  .dark header [role="navigation"] a:hover {
+    color: rgba(255,255,255,0.96) !important;
+    background: rgba(255,255,255,0.06) !important;
+  }
+}
+
+/* ✅ Global Title Boost (Demo-safe) */
+main h1 {
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+main h2 {
+  font-size: clamp(24px, 2.6vw, 40px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }

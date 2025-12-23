@@ -35,7 +35,10 @@
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "preview": "vite preview --port 3005",
     "clean": "rm -rf dist node_modules/.vite",
-    "analyze": "npm run build && npx vite-bundle-analyzer dist"
+    "analyze": "npm run build && npx vite-bundle-analyzer dist",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
