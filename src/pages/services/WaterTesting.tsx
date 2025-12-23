@@ -207,7 +207,7 @@ const WaterTesting = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">전화 문의</p>
-                      <p className="font-bold text-lg">043.237.7624~5</p>
+                      <p className="font-bold text-lg">043.237.7824~5</p>
                     </div>
                     <div>
                       <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">팩스</p>

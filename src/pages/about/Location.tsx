@@ -200,10 +200,10 @@ const Location = () => {
                     전화번호
                   </h3>
                   <a
-                    href="tel:043-237-7624"
+                    href="tel:043-237-7824"
                     className="text-neutral-700 dark:text-neutral-300 hover:text-primary-600 transition-colors block"
                   >
-                    대표: 043-237-7624~5
+                    대표: 043-237-7824~5
                   </a>
                   <p className="text-neutral-600 dark:text-neutral-400 mt-1">
                     팩스: 043-237-7826
@@ -442,7 +442,7 @@ const Location = () => {
                   연락처
                 </h3>
                 <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                  043-237-7624~5
+                  043-237-7824~5
                   <br />
                   평일 08:00-18:00
                 </p>

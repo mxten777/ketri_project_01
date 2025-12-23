@@ -371,7 +371,7 @@ Copyright © 2024 한국환경안전연구소 (KESRI). All rights reserved.
 
 - **Website**: https://kesri.re.kr
 - **Email**: info@kesri.re.kr
-- **Phone**: 043.237.7624~5
+- **Phone**: 043.237.7824~5
 
 ## 🎯 개발 진행 현황
 

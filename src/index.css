@@ -110,7 +110,7 @@
 header {
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 9999;
 
   min-height: var(--header-height);
   display: block;
@@ -291,7 +291,7 @@ header button:focus-visible {
   header {
     position: sticky !important;
     top: 0 !important;
-    z-index: 50 !important;
+    z-index: 9999 !important;
 
     background: rgba(255, 255, 255, 0.92) !important;
     backdrop-filter: blur(10px) saturate(160%) !important;
@@ -372,6 +372,78 @@ header button:focus-visible {
     color: rgba(255,255,255,0.96) !important;
     background: rgba(255,255,255,0.06) !important;
   }
+}
+
+/* FOOTER (Figma-aligned scoped styles)
+   - Scoped rules (no !important) to mirror Figma tokens
+   - Scoped to `.site-footer` to avoid overriding other footer elements
+*/
+.site-footer {
+  background: rgb(var(--semantic-surface));
+  color: rgb(var(--semantic-foreground));
+}
+
+.site-footer .bg-gradient-to-r.from-primary-600 {
+  /* keep CTA gradient strong on large screens */
+}
+
+/* Footer link color – light/dark 모두 가독성 확보 */
+.site-footer a {
+  color: rgb(23, 23, 23); /* 라이트 모드: 진한 글자 (neutral-900) */
+  text-decoration: none;
+}
+
+.dark .site-footer a {
+  color: rgb(244, 244, 245); /* 다크 모드: 밝은 글자 */
+}
+
+.site-footer a:hover {
+  color: rgb(var(--color-brand-700)); /* 라이트 hover */
+}
+
+.dark .site-footer a:hover {
+  color: rgb(var(--color-brand-200)); /* 다크 hover */
+}
+
+/* CTA button helpers when JS inline styles used */
+.site-footer a[style] {
+  text-decoration: none;
+}
+
+/* -------------------------
+   DEBUG: Hover visualizer
+   Enable by adding class to <html>: `document.documentElement.classList.add('debug-hover')`
+   Disable: `document.documentElement.classList.remove('debug-hover')`
+   This is intentionally scoped to avoid permanent visual changes.
+   ------------------------- */
+html.debug-hover *:hover {
+  outline: 2px solid rgba(255, 0, 0, 0.85);
+  background: rgba(255, 0, 0, 0.03);
+  position: relative;
+}
+
+html.debug-hover footer *:hover {
+  outline-color: rgba(0, 200, 120, 0.95);
+  background: rgba(0, 200, 120, 0.04);
+}
+
+html.debug-hover *:hover::after {
+  content: attr(class);
+  position: absolute;
+  left: 0;
+  top: -1.6rem;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  z-index: 99999;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+html.debug-hover *:hover::before {
+  content: attr(data-debug) "";
 }
 
 /* ✅ Global Title Boost (Demo-safe) */

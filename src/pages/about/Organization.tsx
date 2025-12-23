@@ -364,7 +364,7 @@ const Organization = () => {
             <div>
               <h4 className="font-bold mb-2">전화</h4>
               <p className="text-neutral-600 dark:text-neutral-300 text-sm">
-                043.237.7624~5
+                043.237.7824~5
               </p>
             </div>
             <div>

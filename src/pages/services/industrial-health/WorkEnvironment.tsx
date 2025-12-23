@@ -110,12 +110,12 @@ const WorkEnvironment = () => {
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 작업환경측정에 대한 자세한 문의는 아래로 연락주세요.
               </p>
-              <a
-                href="tel:043-237-7624"
-                className="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white rounded-xl transition-colors font-medium"
-              >
-                📞 043-237-7624
-              </a>
+                <a
+                  href="tel:043-237-7824"
+                  className="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white rounded-xl transition-colors font-medium"
+                >
+                  📞 043-237-7824
+                </a>
             </div>
           </div>
         </Container>

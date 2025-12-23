@@ -565,7 +565,7 @@ const Certificates = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-xl mx-auto">
               <a
-                href="tel:043-237-7624"
+                href="tel:043-237-7824"
                 className="bg-white/10 backdrop-blur-sm hover:bg-white/20 px-4 sm:px-6 py-3 sm:py-4 rounded-xl transition-all duration-300 border border-white/20 group"
               >
                 <div className="flex items-center justify-center gap-2 sm:gap-3">
@@ -575,7 +575,7 @@ const Certificates = () => {
                   <div className="text-left">
                     <div className="text-xs text-white/70 mb-1">전화</div>
                     <div className="text-sm sm:text-base font-bold">
-                      043-237-7624~5
+                      043-237-7824~5
                     </div>
                   </div>
                 </div>

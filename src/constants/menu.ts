@@ -150,8 +150,8 @@ export const COMPANY_STATS = [
 
 // 연락처 정보
 export const CONTACT_INFO = {
-  phone: "043-237-7624",
-  phoneRange: "043.237.7624~5",
+  phone: "043-237-7824",
+  phoneRange: "043.237.7824~5",
   fax: "043.237.7626",
   email: "kesri@kesri.co.kr",
   address: "충청북도 청주시 흥덕구 오송읍 오송생명2로 96 (충북바이오메디컬플라자)",

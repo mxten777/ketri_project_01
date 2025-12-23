@@ -137,10 +137,10 @@ const ChemicalManagement = () => {
                 화학물질관리에 대한 자세한 문의는 아래로 연락주세요.
               </p>
               <a
-                href="tel:043-237-7624"
+                href="tel:043-237-7824"
                 className="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white rounded-xl transition-colors font-medium"
               >
-                📞 043-237-7624
+                📞 043-237-7824
               </a>
             </div>
           </div>

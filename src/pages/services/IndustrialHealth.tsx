@@ -182,7 +182,7 @@ const IndustrialHealth = () => {
                   <div className="flex flex-wrap gap-4">
                     <div className="flex items-center space-x-2">
                       <span className="font-bold">전화:</span>
-                      <span className="text-primary-600 dark:text-primary-400">043.237.7624~5</span>
+                      <span className="text-primary-600 dark:text-primary-400">043.237.7824~5</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <span className="font-bold">팩스:</span>
