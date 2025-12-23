@@ -73,7 +73,7 @@ const Header = () => {
   const handleMouseLeave = () => {
     const timeout = setTimeout(() => {
       setOpenDropdown(null);
-    }, 220);
+    }, 800);
     setCloseTimeout(timeout);
   };
 
@@ -97,7 +97,9 @@ const Header = () => {
     <>
       {/* ✅ fixed + full width */}
       <header className="fixed top-0 left-0 right-0 z-50">
-        <div className="relative bg-white/10 dark:bg-neutral-950/30 backdrop-blur-md supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-neutral-950/60">
+        <div
+          className={`relative ${openDropdown ? 'bg-white dark:bg-neutral-900' : 'bg-white/10 dark:bg-neutral-950/30'} backdrop-blur-md supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-neutral-950/60`}
+        >
           {/* 헤어라인 제거: 히어로와 겹칠 때 보이는 미세 선 제거 */}
           <div className="absolute inset-0 pointer-events-none shadow-[0_12px_30px_rgba(15,23,42,0.08)] dark:shadow-[0_18px_44px_rgba(0,0,0,0.45)]" />
 
@@ -155,7 +157,7 @@ const Header = () => {
                         className={[
                           "relative px-4 py-2 rounded-xl text-[15px] font-medium whitespace-nowrap flex items-center gap-1",
                           "transition-all duration-200",
-                          "text-neutral-700 dark:text-neutral-100 hover:text-primary-700 dark:hover:text-primary-200",
+                          "text-neutral-700 dark:text-white hover:text-primary-700 dark:hover:text-primary-200",
                           "hover:bg-neutral-50 dark:hover:bg-white/5",
                           active ? "text-primary-700 dark:text-primary-200 bg-primary-50/60 dark:bg-primary-900/10" : "",
                         ].join(" ")}
@@ -173,13 +175,20 @@ const Header = () => {
                       </button>
 
                       {openDropdown === menu.label && (
-                        <div
-                          className="absolute left-0 top-[calc(100%+8px)] w-72 z-[60]"
-                          onMouseEnter={() => handleMouseEnter(menu.label)}
-                          onMouseLeave={handleMouseLeave}
-                        >
-                          <div className="rounded-2xl border border-neutral-200/70 dark:border-neutral-700/70 bg-white/95 dark:bg-neutral-900/90 backdrop-blur-md shadow-[0_18px_50px_rgba(15,23,42,0.18)] dark:shadow-[0_22px_60px_rgba(0,0,0,0.55)] overflow-hidden">
-                            <div className="px-4 py-3 border-b border-neutral-100 dark:border-neutral-800">
+                        <>
+                          {/* invisible bridge to prevent cursor gap between button and dropdown */}
+                          <div
+                            className="absolute left-0 top-[calc(100%-16px)] w-full h-4 z-[89]"
+                            onMouseEnter={() => handleMouseEnter(menu.label)}
+                          />
+                          <div
+                            className="absolute left-0 top-[calc(100%-4px)] w-72 z-[90]"
+                            onMouseEnter={() => handleMouseEnter(menu.label)}
+                            onMouseLeave={handleMouseLeave}
+                            style={{ pointerEvents: 'auto' }}
+                          >
+                          <div className="rounded-2xl border border-neutral-200/80 dark:border-neutral-700/90 bg-white dark:bg-neutral-900 backdrop-blur-md shadow-[0_18px_50px_rgba(15,23,42,0.18)] dark:shadow-[0_22px_60px_rgba(0,0,0,0.55)] overflow-hidden">
+                            <div className="px-4 py-3 border-b border-neutral-100 dark:border-neutral-700/80">
                               <div className="text-[13px] font-semibold text-neutral-700 dark:text-neutral-200">
                                 {menu.label}
                               </div>
@@ -201,7 +210,7 @@ const Header = () => {
                                       "transition-all duration-150",
                                       itemActive
                                         ? "bg-primary-50 dark:bg-primary-900/15 text-primary-700 dark:text-primary-200"
-                                        : "text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/5 hover:text-primary-700 dark:hover:text-primary-200",
+                                          : "text-neutral-700 dark:text-neutral-100 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 hover:text-primary-700 dark:hover:text-primary-200",
                                     ].join(" ")}
                                     onClick={() => setOpenDropdown(null)}
                                   >
@@ -217,6 +226,7 @@ const Header = () => {
                             </div>
                           </div>
                         </div>
+                      </>
                       )}
                     </div>
                   );
