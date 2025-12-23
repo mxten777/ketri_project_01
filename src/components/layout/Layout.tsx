@@ -7,7 +7,7 @@ export default function Layout() {
   const [headerHeight, setHeaderHeight] = useState<number>(0);
 
   useEffect(() => {
-    const header = document.querySelector("header") as HTMLElement | null;
+    const header = document.querySelector("#site-header") as HTMLElement | null;
     if (!header) return;
 
     const update = () => {
