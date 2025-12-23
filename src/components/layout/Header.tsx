@@ -73,7 +73,7 @@ const Header = () => {
   const handleMouseLeave = () => {
     const timeout = setTimeout(() => {
       setOpenDropdown(null);
-    }, 800);
+    }, 1000);
     setCloseTimeout(timeout);
   };
 
@@ -178,11 +178,11 @@ const Header = () => {
                         <div>
                           {/* invisible bridge to prevent cursor gap between button and dropdown */}
                           <div
-                            className="absolute left-0 top-[calc(100%-16px)] w-full h-4 z-[89]"
+                            className="absolute left-0 top-[calc(100%-24px)] w-full h-8 z-[89] pointer-events-auto"
                             onMouseEnter={() => handleMouseEnter(menu.label)}
                           />
                           <div
-                            className="absolute left-0 top-[calc(100%-4px)] w-72 z-[90]"
+                            className="absolute left-0 top-[calc(100%-12px)] w-72 z-[90]"
                             onMouseEnter={() => handleMouseEnter(menu.label)}
                             onMouseLeave={handleMouseLeave}
                             style={{ pointerEvents: 'auto' }}
@@ -212,7 +212,7 @@ const Header = () => {
                                         ? "bg-primary-50 dark:bg-primary-900/15 text-primary-700 dark:text-primary-200"
                                           : "text-neutral-700 dark:text-neutral-100 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 hover:text-primary-700 dark:hover:text-primary-200",
                                     ].join(" ")}
-                                    onClick={() => setOpenDropdown(null)}
+                                    onClick={() => setTimeout(() => setOpenDropdown(null), 150)}
                                   >
                                     <div className="flex items-center justify-between">
                                       <span className="group-hover:translate-x-[2px] transition-transform">
