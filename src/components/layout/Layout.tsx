@@ -1,23 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 
 export default function Layout() {
-  const [headerHeight, setHeaderHeight] = useState<number>(0);
-
   useEffect(() => {
     const header = document.querySelector("#site-header") as HTMLElement | null;
     if (!header) return;
 
+    // set initial value synchronously so CSS var is available immediately
+    try {
+      const initialH = Math.round(header.getBoundingClientRect().height);
+      document.documentElement.style.setProperty("--header-height", `${initialH}px`);
+    } catch (e) {
+      /* ignore */
+    }
+
     const update = () => {
-      const h = header.offsetHeight;
-      setHeaderHeight(h);
-      try {
-        document.documentElement.style.setProperty("--header-height", `${h}px`);
-      } catch (e) {
-        /* ignore */
-      }
+      // measure after paint for accuracy (captures transforms/scale)
+      requestAnimationFrame(() => {
+        const rect = header.getBoundingClientRect();
+        const h = Math.round(rect.height);
+        try {
+          document.documentElement.style.setProperty("--header-height", `${h}px`);
+        } catch (e) {
+          /* ignore */
+        }
+      });
     };
 
     update();
@@ -32,10 +41,28 @@ export default function Layout() {
     };
   }, []);
 
+  useEffect(() => {
+    // ensure we attempt a measurement once the page has fully loaded
+    const onLoad = () => {
+      const header = document.querySelector("#site-header") as HTMLElement | null;
+      if (!header) return;
+      const rect = header.getBoundingClientRect();
+      const h = Math.round(rect.height);
+      try {
+        document.documentElement.style.setProperty("--header-height", `${h}px`);
+      } catch (e) {
+        /* ignore */
+      }
+    };
+
+    window.addEventListener("load", onLoad);
+    return () => window.removeEventListener("load", onLoad);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-neutral-950">
       <Header />
-      <main className="flex-1" style={{ paddingTop: headerHeight ? `${headerHeight}px` : undefined }}>
+      <main className="flex-1" style={{ paddingTop: `var(--header-height, 0px)` }}>
         <Outlet />
       </main>
       <Footer />

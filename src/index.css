@@ -383,9 +383,7 @@ header button:focus-visible {
   color: rgb(var(--semantic-foreground));
 }
 
-.site-footer .bg-gradient-to-r.from-primary-600 {
-  /* keep CTA gradient strong on large screens */
-}
+/* removed empty rule for CTA gradient to avoid empty ruleset lint */
 
 /* Footer link color – light/dark 모두 가독성 확보 */
 .site-footer a {

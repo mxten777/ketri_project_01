@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
 import { MENU_ITEMS, MenuGroup } from "../../constants/menu";
+import HeaderMegaMenu from "./HeaderMegaMenu";
+import HeaderGlobal from "./HeaderGlobal";
+import { HeaderContext } from "./HeaderContext";
 
 interface AccordionMenuGroupProps {
   menu: MenuGroup;
@@ -54,12 +57,13 @@ function AccordionMenuGroup({ menu, isLast, onCloseMenu }: AccordionMenuGroupPro
 const Header = () => {
   const location = useLocation();
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const ctx = useContext(HeaderContext);
 
+  // local fallbacks when HeaderContext is not provided
+  const [isMobileMenuOpenLocal, setIsMobileMenuOpenLocal] = useState(false);
+  const [openDropdownLocal, setOpenDropdownLocal] = useState<string | null>(null);
   const [closeTimeout, setCloseTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
-
-  const [isDarkMode, setIsDarkMode] = useState(() => {
+  const [isDarkModeLocal, setIsDarkModeLocal] = useState(() => {
     if (typeof window !== "undefined") {
       return (
         localStorage.getItem("darkMode") === "true" ||
@@ -68,6 +72,15 @@ const Header = () => {
     }
     return false;
   });
+
+  const isMobileMenuOpen = ctx?.isMobileMenuOpen ?? isMobileMenuOpenLocal;
+  const setIsMobileMenuOpen = ctx?.setIsMobileMenuOpen ?? setIsMobileMenuOpenLocal;
+
+  const openDropdown = ctx?.openDropdown ?? openDropdownLocal;
+  const setOpenDropdown = ctx?.setOpenDropdown ?? setOpenDropdownLocal;
+
+  const isDarkMode = ctx?.isDarkMode ?? isDarkModeLocal;
+  const setIsDarkMode = ctx?.setIsDarkMode ?? setIsDarkModeLocal;
 
   const handleMouseEnter = (menuLabel: string) => {
     if (closeTimeout) {
@@ -85,6 +98,8 @@ const Header = () => {
   };
 
   const toggleDarkMode = () => {
+    if (ctx?.toggleDarkMode) return ctx.toggleDarkMode();
+
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
 
@@ -114,30 +129,7 @@ const Header = () => {
           <div className="absolute inset-0 pointer-events-none shadow-[0_12px_30px_rgba(15,23,42,0.08)] dark:shadow-[0_18px_44px_rgba(0,0,0,0.45)]" />
 
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="hidden md:flex items-center justify-end h-10">
-              <div className="flex items-center gap-4 text-xs text-neutral-600 dark:text-neutral-300">
-                <Link
-                  to="/about/location"
-                  className="hover:text-primary-700 dark:hover:text-primary-200 transition-colors"
-                >
-                  오시는 길
-                </Link>
-                <span className="text-neutral-300 dark:text-neutral-700">|</span>
-                <a
-                  href="tel:043-237-7824"
-                  className="hover:text-primary-700 dark:hover:text-primary-200 transition-colors"
-                >
-                  📞 043-237-7824
-                </a>
-                <span className="text-neutral-300 dark:text-neutral-700">|</span>
-                <a
-                  href="mailto:contact@ketri.re.kr"
-                  className="hover:text-primary-700 dark:hover:text-primary-200 transition-colors"
-                >
-                  이메일 문의
-                </a>
-              </div>
-            </div>
+            <HeaderGlobal />
 
             <div className="flex items-center justify-between h-[84px]">
               <Link to="/" className="flex items-center py-3 hover:opacity-90 transition-opacity">
@@ -209,79 +201,12 @@ const Header = () => {
                         </button>
                       )}
 
-                      {openDropdown === menu.label && (
-                        <div>
-                          <div
-                            className="absolute left-0 top-[calc(100%-24px)] w-full h-8 z-[89] pointer-events-auto"
-                            onMouseEnter={() => handleMouseEnter(menu.label)}
-                          />
-
-                          <div
-                            className="absolute left-0 top-[calc(100%-12px)] w-72 z-[90]"
-                            onMouseEnter={() => handleMouseEnter(menu.label)}
-                            style={{ pointerEvents: "auto" }}
-                          >
-                            <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-[0_12px_32px_rgba(0,0,0,0.14)] dark:shadow-[0_18px_50px_rgba(0,0,0,0.55)] overflow-hidden">
-                              <div className="px-4 py-3 border-b border-neutral-200 dark:border-neutral-800">
-                                <div className="text-[13px] font-semibold text-neutral-900 dark:text-neutral-100">
-                                  {menu.label}
-                                </div>
-                                <div className="text-[12px] text-neutral-600 dark:text-neutral-400">
-                                  관련 메뉴
-                                </div>
-                              </div>
-
-                              <div className="py-2 divide-y divide-neutral-100 dark:divide-neutral-800">
-                                {menu.items.map((item) => {
-                                  const itemActive =
-                                    location.pathname === item.path ||
-                                    location.pathname.startsWith(item.path.split("#")[0] + "/");
-                                  const hasHash = item.path.includes("#");
-
-                                  const commonClasses = [
-                                    "group block px-5 py-3 text-[14px]",
-                                    "transition-colors duration-150",
-                                    "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400/60",
-                                    itemActive
-                                      ? "bg-primary-50 text-primary-800 dark:bg-primary-900/20 dark:text-primary-200"
-                                      : "text-neutral-900 hover:bg-neutral-50 hover:text-primary-800 dark:text-neutral-100 dark:hover:bg-neutral-900 dark:hover:text-primary-200",
-                                  ].join(" ");
-
-                                  const content = (
-                                    <div className="flex items-center justify-between">
-                                      <span className="group-hover:translate-x-[2px] transition-transform">
-                                        {item.label}
-                                      </span>
-                                      <span className="text-[12px] text-neutral-400 dark:text-neutral-600">
-                                        ›
-                                      </span>
-                                    </div>
-                                  );
-
-                                  return hasHash ? (
-                                    <a key={item.path} href={item.path} className={commonClasses}>
-                                      {content}
-                                    </a>
-                                  ) : (
-                                    <Link key={item.path} to={item.path} className={commonClasses}>
-                                      {content}
-                                    </Link>
-                                  );
-                                })}
-
-                                {menu.mainPath && (
-                                  <Link
-                                    to={menu.mainPath}
-                                    className="block px-5 py-3 text-[14px] font-medium text-primary-800 hover:bg-neutral-50 dark:text-primary-200 dark:hover:bg-neutral-900 transition-colors"
-                                  >
-                                    {menu.label} 전체보기 →
-                                  </Link>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
+                      <HeaderMegaMenu
+                        menu={menu}
+                        isOpen={openDropdown === menu.label}
+                        location={location}
+                        onMouseEnter={handleMouseEnter}
+                      />
                     </div>
                   );
                 })}
