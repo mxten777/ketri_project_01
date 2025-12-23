@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { MenuGroup } from "../../constants/menu";
 
@@ -12,8 +13,10 @@ interface Props {
 export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter }: Props) {
   if (!isOpen) return null;
 
-  return (
-    <div style={{ zIndex: 99999, pointerEvents: "auto" }}>
+  if (typeof document === "undefined") return null;
+
+  const node = (
+    <div>
       <div
         className="absolute left-0 top-[calc(100%-24px)] w-full h-8 z-[89] pointer-events-auto"
         onMouseEnter={() => onMouseEnter(menu.label)}
@@ -76,4 +79,6 @@ export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter }:
       </div>
     </div>
   );
+
+  return createPortal(node, document.body);
 }
