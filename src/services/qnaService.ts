@@ -186,7 +186,8 @@ export const deleteQnA = async (id: string): Promise<void> => {
 export const addAnswer = async (
   qnaId: string,
   answerContent: string,
-  answeredBy: string
+  answeredByIdOrName: string,
+  answeredByName?: string
 ): Promise<void> => {
   try {
     logDev(`Adding answer to Q&A ${qnaId}...`);
@@ -194,7 +195,7 @@ export const addAnswer = async (
 
     await updateDoc(docRef, {
       answerContent: answerContent,
-      answeredBy: answeredBy,
+      answeredBy: answeredByName || answeredByIdOrName,
       answeredAt: Timestamp.now(),
       status: "answered",
       updatedAt: Timestamp.now(),

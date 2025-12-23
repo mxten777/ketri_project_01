@@ -9,11 +9,9 @@ interface Props {
   isMobileMenuOpen: boolean;
   setIsMobileMenuOpen: (v: boolean) => void;
   menuRefs: React.MutableRefObject<Record<string, HTMLElement | null>>;
-  openDropdown: string | null;
   handleMouseEnter: (label: string) => void;
   handleMouseLeave: () => void;
   isMenuActive: (menu: MenuGroup) => boolean;
-  location: any;
 }
 
 export default function HeaderHero({
@@ -22,11 +20,9 @@ export default function HeaderHero({
   isMobileMenuOpen,
   setIsMobileMenuOpen,
   menuRefs,
-  openDropdown,
   handleMouseEnter,
   handleMouseLeave,
   isMenuActive,
-  location,
 }: Props) {
   return (
     <div className="flex items-center justify-between h-[84px]">

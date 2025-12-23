@@ -32,7 +32,7 @@ const NoticeList = () => {
     }
   };
 
-  const formatDate = (timestamp: unknown) => {
+  const formatDate = (timestamp: any) => {
     try {
       let date: Date;
       

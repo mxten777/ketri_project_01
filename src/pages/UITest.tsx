@@ -7,8 +7,7 @@ import { ArrowRight as ArrowRightIcon } from "lucide-react";
 /**
  * UI Test Page - 새로운 컴포넌트 시스템 테스트
  */
-import Button from "../components/common/Button";
-
+ 
 const UITest = () => {
   const { theme, setTheme, isDark, toggleDark } = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);

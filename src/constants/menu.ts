@@ -10,12 +10,16 @@ import {
 export interface MenuItem {
   label: string;
   path: string;
+  /** Optional one-line description shown in the mega menu */
+  description?: string;
 }
 
 export interface MenuGroup {
   label: string;
   items: MenuItem[];
   mainPath?: string;
+  /** Optional one-line description for the group (left column in mega menu) */
+  description?: string;
 }
 
 export interface ServiceItem {
@@ -31,73 +35,80 @@ export const MENU_ITEMS: MenuGroup[] = [
   {
     label: "연구소 소개",
     mainPath: "/about/greeting",
+    description: "연구소의 미션·연혁·조직 및 주요 장비 안내",
     items: [
-      { label: "인사말", path: "/about/greeting" },
-      { label: "연혁", path: "/about/history" },
-      { label: "조직도", path: "/about/organization" },
-      { label: "CI소개", path: "/about/ci" },
-      { label: "인증서", path: "/about/certificates" },
-      { label: "주요장비현황", path: "/about/equipment" },
-      { label: "오시는길", path: "/about/location" },
+      { label: "인사말", path: "/about/greeting", description: "연구소장 인사말과 비전" },
+      { label: "연혁", path: "/about/history", description: "주요 연혁과 성장 이력" },
+      { label: "조직도", path: "/about/organization", description: "조직 구성 및 연락처" },
+      { label: "CI소개", path: "/about/ci", description: "브랜드 가이드와 CI 안내" },
+      { label: "인증서", path: "/about/certificates", description: "보유 인증서 및 신뢰성" },
+      { label: "주요장비현황", path: "/about/equipment", description: "핵심 장비 및 성능 개요" },
+      { label: "오시는길", path: "/about/location", description: "연구소 위치 및 교통 안내" },
     ],
   },
   {
     label: "산업보건컨설팅",
     mainPath: "/services/industrial-health",
+    description: "현장 중심의 산업보건 전문 컨설팅 및 검사 서비스",
     items: [
-      { label: "작업환경측정", path: "/services/industrial-health#work-environment" },
-      { label: "위험성평가", path: "/services/industrial-health#risk-assessment" },
-      { label: "근골격계유해요인조사", path: "/services/industrial-health#musculoskeletal" },
-      { label: "화학물질관리", path: "/services/industrial-health#chemical-management" },
-      { label: "서비스 프로세스", path: "/services/industrial-health#service-process" },
+      { label: "작업환경측정", path: "/services/industrial-health#work-environment", description: "작업장 유해인자 측정" },
+      { label: "위험성평가", path: "/services/industrial-health#risk-assessment", description: "리스크 식별 및 개선안" },
+      { label: "근골격계유해요인조사", path: "/services/industrial-health#musculoskeletal", description: "인체공학적 평가" },
+      { label: "화학물질관리", path: "/services/industrial-health#chemical-management", description: "유해물질 관리 및 SDS" },
+      { label: "서비스 프로세스", path: "/services/industrial-health#service-process", description: "절차 및 의뢰 흐름" },
     ],
   },
   {
     label: "먹는물 검사",
     mainPath: "/services/water-testing",
+    description: "수질검사 서비스 개요 및 검사 항목 안내",
     items: [
-      { label: "업무소개", path: "/services/water-testing#introduction" },
-      { label: "수질검사대상 및 범위", path: "/services/water-testing#scope" },
-      { label: "수질검사주기 및 수수료", path: "/services/water-testing#schedule" },
-      { label: "검사의뢰 신청절차", path: "/services/water-testing#procedure" },
+      { label: "업무소개", path: "/services/water-testing#introduction", description: "수질 검사 전반 개요" },
+      { label: "수질검사대상 및 범위", path: "/services/water-testing#scope", description: "검사 대상과 항목 범위" },
+      { label: "수질검사주기 및 수수료", path: "/services/water-testing#schedule", description: "검사 주기 및 비용 안내" },
+      { label: "검사의뢰 신청절차", path: "/services/water-testing#procedure", description: "의뢰 방법 및 제출 서류" },
     ],
   },
   {
     label: "혈액투석용수",
     mainPath: "/services/dialysis-water",
+    description: "안전한 투석환경을 위한 투석용수 검사 안내",
     items: [
-      { label: "업무소개", path: "/services/dialysis-water#introduction" },
-      { label: "검사의뢰절차", path: "/services/dialysis-water#procedure" },
-      { label: "검사주기 및 관련기준", path: "/services/dialysis-water#schedule" },
-      { label: "수질기준 및 실험방법", path: "/services/dialysis-water#standards" },
-      { label: "채수방법 및 시료채수위치", path: "/services/dialysis-water#sampling" },
+      { label: "업무소개", path: "/services/dialysis-water#introduction", description: "투석용수 검사 항목 안내" },
+      { label: "검사의뢰절차", path: "/services/dialysis-water#procedure", description: "의뢰 및 샘플링 절차" },
+      { label: "검사주기 및 관련기준", path: "/services/dialysis-water#schedule", description: "주기 및 규격 기준" },
+      { label: "수질기준 및 실험방법", path: "/services/dialysis-water#standards", description: "측정 방법 및 기준" },
+      { label: "채수방법 및 시료채수위치", path: "/services/dialysis-water#sampling", description: "채수 요령 및 위치" },
     ],
   },
   {
     label: "실내공기질측정",
     mainPath: "/services/indoor-air-quality",
+    description: "실내공기질 관련 측정 항목 및 기준 안내",
     items: [
-      { label: "업무 소개", path: "/services/indoor-air-quality#introduction" },
-      { label: "측정 대상시설", path: "/services/indoor-air-quality#facilities" },
-      { label: "측정 항목 및 기준", path: "/services/indoor-air-quality#standards" },
+      { label: "업무 소개", path: "/services/indoor-air-quality#introduction", description: "실내공기질 측정 개요" },
+      { label: "측정 대상시설", path: "/services/indoor-air-quality#facilities", description: "대상 및 적용 범위" },
+      { label: "측정 항목 및 기준", path: "/services/indoor-air-quality#standards", description: "측정 항목과 평가 기준" },
     ],
   },
   {
     label: "석면조사분석",
     mainPath: "/services/asbestos",
+    description: "석면 관련 조사·분석 및 위해성 평가 서비스",
     items: [
-      { label: "석면조사분석", path: "/services/asbestos#survey" },
-      { label: "석면농도측정", path: "/services/asbestos#concentration" },
-      { label: "석면비산정도측정", path: "/services/asbestos#dispersion" },
-      { label: "석면해체제거감리", path: "/services/asbestos#supervision" },
-      { label: "석면건축물 위해성평가", path: "/services/asbestos#risk-assessment" },
-      { label: "석면건축물 공기질측정", path: "/services/asbestos#air-quality" },
+      { label: "석면조사분석", path: "/services/asbestos#survey", description: "정성·정량 분석 서비스" },
+      { label: "석면농도측정", path: "/services/asbestos#concentration", description: "농도 측정 절차" },
+      { label: "석면비산정도측정", path: "/services/asbestos#dispersion", description: "비산도 측정 방법" },
+      { label: "석면해체제거감리", path: "/services/asbestos#supervision", description: "해체 감리 및 감독" },
+      { label: "석면건축물 위해성평가", path: "/services/asbestos#risk-assessment", description: "건물 위해성 평가" },
+      { label: "석면건축물 공기질측정", path: "/services/asbestos#air-quality", description: "공기질 모니터링" },
     ],
   },
   {
     label: "정보센터",
+    description: "공지사항 및 자료실을 통해 최신 정보를 제공",
     items: [
-      { label: "공지사항", path: "/board/notice" },
+      { label: "공지사항", path: "/board/notice", description: "중요 공지 및 안내" },
     ],
   },
 ];

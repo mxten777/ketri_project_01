@@ -41,6 +41,12 @@ const FreeForm = () => {
 
     try {
       const post = await getFreePost(id);
+      if (!post) {
+        alert("게시글을 불러오는데 실패했습니다.");
+        navigate("/board/free");
+        return;
+      }
+
       if (post.authorId !== user?.uid && userData?.role !== "admin") {
         alert("수정 권한이 없습니다.");
         navigate("/board/free");

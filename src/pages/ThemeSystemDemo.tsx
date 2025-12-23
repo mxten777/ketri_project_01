@@ -8,7 +8,7 @@ import { Button } from "@/components/common";
  * Theme System Demo Page
  * 업종별 테마 적용 및 UI 컴포넌트 시연
  */
-import Button from "../components/common/Button";
+
 
 const ThemeSystemDemo = () => {
   const { theme, setTheme, isDark, toggleDark } = useTheme();

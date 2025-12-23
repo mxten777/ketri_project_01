@@ -15,7 +15,7 @@ import {
 import Button from "../../components/common/Button";
 import Card from "../../components/common/Card";
 import { useAuth } from "../../contexts/AuthContext";
-import { getQnAList } from "../../services/qnaService";
+import { getQnAs } from "../../services/qnaService";
 import type { QnA } from "../../types";
 
 const QnAList = () => {
@@ -44,7 +44,7 @@ const QnAList = () => {
   const fetchQnAList = async () => {
     try {
       setLoading(true);
-      const data = await getQnAList();
+      const data = await getQnAs();
       setQnAList(data);
     } catch (error) {
       console.error("QnA 목록 조회 실패:", error);

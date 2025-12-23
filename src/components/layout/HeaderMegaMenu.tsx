@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { MenuGroup } from "../../constants/menu";
@@ -12,9 +12,13 @@ interface Props {
 }
 
 export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter, anchorEl }: Props) {
-  if (!isOpen) return null;
-
   if (typeof document === "undefined") return null;
+
+  // Debug helpers removed.
+
+  // runtime logging removed
+
+  if (!isOpen) return null;
   const [rect, setRect] = useState<DOMRect | null>(null);
 
   useLayoutEffect(() => {
@@ -30,6 +34,7 @@ export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter, a
     };
 
     update();
+    // removed mount log
     window.addEventListener("resize", update);
     window.addEventListener("scroll", update, true);
     const ro = new ResizeObserver(update);
@@ -53,7 +58,7 @@ export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter, a
                 left: 0,
                 top: Math.max(0, rect.top + rect.height - 24) + "px",
                 width: "100%",
-                height: 32,
+                height: 24,
                 zIndex: 89,
                 pointerEvents: "auto",
               }
@@ -66,13 +71,13 @@ export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter, a
         style={
           rect
             ? (() => {
-                const menuWidth = 288; // w-72
-                const offset = 8; // keep some margin from right edge
+                const menuWidth = Math.min(880, window.innerWidth - 32);
+                const offset = 8;
                 const left = Math.min(Math.max(8, rect.left), window.innerWidth - menuWidth - offset);
                 return {
                   position: "fixed",
                   left: left + "px",
-                  top: Math.max(0, rect.top + rect.height - 12) + "px",
+                  top: Math.max(0, rect.top + rect.height - 6) + "px",
                   width: menuWidth,
                   zIndex: 90,
                   pointerEvents: "auto",
@@ -80,55 +85,78 @@ export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter, a
               })()
             : { display: "none" }
         }
-        className="w-72"
+        className="w-full"
       >
-        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-[0_12px_32px_rgba(0,0,0,0.14)] dark:shadow-[0_18px_50px_rgba(0,0,0,0.55)] overflow-hidden">
-          <div className="px-4 py-3 border-b border-neutral-200 dark:border-neutral-800">
-            <div className="text-[13px] font-semibold text-neutral-900 dark:text-neutral-100">{menu.label}</div>
-            <div className="text-[12px] text-neutral-600 dark:text-neutral-400">관련 메뉴</div>
+        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-neutral-950/95 shadow-md overflow-hidden">
+          <div className="px-5 py-4 border-b border-neutral-200 dark:border-neutral-800">
+            <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">{menu.label}</div>
+            {menu.description && (
+              <div className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">{menu.description}</div>
+            )}
           </div>
 
-          <div className="py-2 divide-y divide-neutral-100 dark:divide-neutral-800">
-            {menu.items.map((item) => {
-              const itemActive =
-                location.pathname === item.path || location.pathname.startsWith(item.path.split("#")[0] + "/");
-              const hasHash = item.path.includes("#");
+          <div className="p-4">
+            <div className="grid grid-cols-[220px_1fr] gap-4">
+              {/* Left: Group intro / quick links placeholder */}
+              <div className="pr-2">
+                {menu.description && (
+                  <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100 mb-2">{menu.label}</div>
+                )}
+                {menu.description && (
+                  <div className="text-xs text-neutral-500 dark:text-neutral-400">{menu.description}</div>
+                )}
+              </div>
 
-              const commonClasses = [
-                "group block px-5 py-3 text-[14px]",
-                "transition-colors duration-150",
-                "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400/60",
-                itemActive
-                  ? "bg-primary-50 text-primary-800 dark:bg-primary-900/20 dark:text-primary-200"
-                  : "text-neutral-900 hover:bg-neutral-50 hover:text-primary-800 dark:text-neutral-100 dark:hover:bg-neutral-900 dark:hover:text-primary-200",
-              ].join(" ");
+              {/* Right: menu items as compact cards */}
+              <div>
+                <div className="grid grid-cols-2 gap-3">
+                  {menu.items.map((item) => {
+                    const itemActive =
+                      location.pathname === item.path || location.pathname.startsWith(item.path.split("#")[0] + "/");
+                    const hasHash = item.path.includes("#");
 
-              const content = (
-                <div className="flex items-center justify-between">
-                  <span className="group-hover:translate-x-[2px] transition-transform">{item.label}</span>
-                  <span className="text-[12px] text-neutral-400 dark:text-neutral-600">›</span>
+                    const itemClasses = [
+                      "relative group block p-3 rounded-lg",
+                      "transition-colors duration-150",
+                      itemActive
+                        ? "bg-primary-50 text-primary-800"
+                        : "bg-white/0 text-neutral-900 hover:bg-neutral-50",
+                    ].join(" ");
+
+                    return (
+                      <div key={item.path} className={itemClasses}>
+                        {/* Left indicator bar */}
+                        <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-[2px] bg-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+
+                        {hasHash ? (
+                          <a href={item.path} className="block">
+                            <div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
+                            {item.description && (
+                              <div className="text-xs text-neutral-500 mt-1">{item.description}</div>
+                            )}
+                          </a>
+                        ) : (
+                          <Link to={item.path} className="block">
+                            <div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
+                            {item.description && (
+                              <div className="text-xs text-neutral-500 mt-1">{item.description}</div>
+                            )}
+                          </Link>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-              );
 
-              return hasHash ? (
-                <a key={item.path} href={item.path} className={commonClasses}>
-                  {content}
-                </a>
-              ) : (
-                <Link key={item.path} to={item.path} className={commonClasses}>
-                  {content}
-                </Link>
-              );
-            })}
-
-            {menu.mainPath && (
-              <Link
-                to={menu.mainPath}
-                className="block px-5 py-3 text-[14px] font-medium text-primary-800 hover:bg-neutral-50 dark:text-primary-200 dark:hover:bg-neutral-900 transition-colors"
-              >
-                {menu.label} 전체보기 →
-              </Link>
-            )}
+                {menu.mainPath && (
+                  <div className="mt-3">
+                    <Link to={menu.mainPath} className="text-sm font-medium text-primary-800 hover:underline">
+                      {menu.label} 전체보기 →
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { Hero, Button, Card, Section, Container } from "@/components/common";
-import { ArrowRightIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowRight, CheckCircle } from "lucide-react";
 
 /**
  * Figma Design System 사용 예시 페이지
@@ -16,11 +16,11 @@ const DesignSystemExample = () => {
         subtitle="Design System"
         title="Figma 기준 디자인 시스템"
         description="React + TypeScript + TailwindCSS로 구현한 확장 가능한 디자인 시스템입니다. 8pt Grid 기반으로 모든 업종에서 재사용 가능합니다."
-        primaryAction={{
-          label: "시작하기",
-          onClick: () => console.log("Primary Action"),
-          icon: <ArrowRightIcon className="w-5 h-5" />,
-        }}
+            primaryAction={{
+              label: "시작하기",
+              onClick: () => console.log("Primary Action"),
+              icon: <ArrowRight className="w-5 h-5" />,
+            }}
         secondaryAction={{
           label: "문서 보기",
           onClick: () => console.log("Secondary Action"),
@@ -105,23 +105,23 @@ const DesignSystemExample = () => {
           <div>
             <h3 className="text-heading-md mb-6">Buttons with Icons</h3>
             <div className="flex flex-wrap gap-4">
-              <Button
-                size="lg"
-                icon={<ArrowRightIcon className="w-5 h-5" />}
-              >
-                시작하기
-              </Button>
+                <Button
+                  size="lg"
+                  icon={<ArrowRight className="w-5 h-5" />}
+                >
+                  시작하기
+                </Button>
               <Button
                 variant="secondary"
                 size="md"
-                icon={<CheckCircleIcon className="w-5 h-5" />}
+                  icon={<CheckCircle className="w-5 h-5" />}
               >
                 확인
               </Button>
               <Button
                 variant="outline"
                 size="md"
-                icon={<ArrowRightIcon className="w-5 h-5" />}
+                  icon={<ArrowRight className="w-5 h-5" />}
               >
                 자세히 보기
               </Button>

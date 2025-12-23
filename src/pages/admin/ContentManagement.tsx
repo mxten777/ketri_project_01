@@ -50,6 +50,7 @@ const ContentManagement: React.FC = () => {
   const [hasMore, setHasMore] = useState(true);
   const [selectedContentItem, setSelectedContentItem] =
     useState<ContentItem | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   // 데이터 로드
   useEffect(() => {
@@ -155,6 +156,11 @@ const ContentManagement: React.FC = () => {
     } catch (error) {
       console.error("Error deleting content:", error);
     }
+  };
+
+  const handleEditContent = (id: string, item: ContentItem) => {
+    setSelectedContentItem(item);
+    setShowCreateModal(true);
   };
 
   const getStatusColor = (status: string) => {
@@ -555,9 +561,7 @@ const ContentManagement: React.FC = () => {
                           <Button
                             size="sm"
                             variant="ghost"
-                            onClick={() =>
-                              handleEditContent(content.id, content)
-                            }
+                            onClick={() => handleEditContent(item.id!, item)}
                             className="p-1"
                           >
                             <Edit className="w-4 h-4" />

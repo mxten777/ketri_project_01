@@ -434,19 +434,19 @@ export const getMonthlyActivityStats = async (months: number = 6) => {
 
 // 대시보드 통계 조회
 export const getDashboardStats = async (): Promise<DashboardStats> => {
-  try {
-    // 기본값으로 초기화
-    const defaultStats = {
-      totalUsers: 0,
-      totalQnAs: 0,
-      totalResources: 0,
-      totalNotices: 0,
-      totalDownloads: 0,
-      activeUsers: 0,
-      recentRegistrations: 0,
-    };
+  const defaultStats: DashboardStats = {
+    totalUsers: 0,
+    totalQnAs: 0,
+    totalResources: 0,
+    totalNotices: 0,
+    totalDownloads: 0,
+    recentQnAs: 0,
+    recentResources: 0,
+    recentUsers: 0,
+    answerRate: 0,
+  };
 
-    try {
+  try {
       const [usersCount, qnaCount, resourcesCount, noticesCount] =
         await Promise.all([
           getCountFromServer(collection(db, "users")).catch(() => ({
@@ -480,22 +480,13 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
         totalResources: resourcesCount.data().count || 0,
         totalNotices: noticesCount.data().count || 0,
         totalDownloads,
-        activeUsers: usersCount.data().count || 0,
-        recentRegistrations: 0,
+        recentQnAs: 0,
+        recentResources: 0,
+        recentUsers: 0,
+        answerRate: 0,
       };
-    } catch {
-      return defaultStats;
-    }
   } catch (error) {
     console.error("Error fetching dashboard stats:", error);
-    return {
-      totalUsers: 0,
-      totalQnAs: 0,
-      totalResources: 0,
-      totalNotices: 0,
-      totalDownloads: 0,
-      activeUsers: 0,
-      recentRegistrations: 0,
-    };
+    return defaultStats;
   }
 };

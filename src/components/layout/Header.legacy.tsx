@@ -1,10 +1,10 @@
 import { useState, useContext, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
+import { X, ChevronDown } from "lucide-react";
 import { MENU_ITEMS, MenuGroup } from "../../constants/menu";
-import HeaderMegaMenu from "./HeaderMegaMenu";
 import HeaderGlobal from "./HeaderGlobal";
 import HeaderHero from "./HeaderHero";
+import HeaderMegaMenu from "./HeaderMegaMenu";
 import { HeaderContext } from "./HeaderContext";
 
 interface AccordionMenuGroupProps {
@@ -140,15 +140,25 @@ const Header = () => {
               isMobileMenuOpen={isMobileMenuOpen}
               setIsMobileMenuOpen={(v) => setIsMobileMenuOpen(v)}
               menuRefs={menuRefs}
-              openDropdown={openDropdown}
               handleMouseEnter={handleMouseEnter}
               handleMouseLeave={handleMouseLeave}
               isMenuActive={isMenuActive}
-              location={location}
             />
           </div>
         </div>
       </header>
+
+      {/* Render mega menus as portals so they escape stacking context */}
+      {MENU_ITEMS.map((menu) => (
+        <HeaderMegaMenu
+          key={menu.label}
+          menu={menu}
+          isOpen={openDropdown === menu.label}
+          location={location}
+          onMouseEnter={handleMouseEnter}
+          anchorEl={menuRefs.current[menu.label]}
+        />
+      ))}
 
       {isMobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-[9999] bg-white/95 dark:bg-neutral-950/92 backdrop-blur-md flex flex-col animate-in fade-in slide-in-from-top-4 duration-300">

@@ -59,7 +59,7 @@ const FreeList = () => {
     return cat ? cat.label : category;
   };
 
-  const formatDate = (timestamp: unknown): string => {
+  const formatDate = (timestamp: any): string => {
     if (!timestamp) return "";
     try {
       const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
