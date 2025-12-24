@@ -39,14 +39,7 @@ const Hero = ({
   variant = "default",
   className = "",
 }: HeroProps) => {
-  // DEBUG: expose quick render info for dev tools
-  try {
-    // safe-guard in non-browser environments
-    const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
-    console.debug('DEBUG: Hero render', { title, subtitle, backgroundImage: !!backgroundImage, variant, isDark });
-  } catch (e) {
-    /* noop */
-  }
+  // Dev: debug traces removed
 
   const variants = {
     default: "text-left",

@@ -170,7 +170,7 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

@@ -18,12 +18,12 @@ const DesignSystemExample = () => {
         description="React + TypeScript + TailwindCSS로 구현한 확장 가능한 디자인 시스템입니다. 8pt Grid 기반으로 모든 업종에서 재사용 가능합니다."
             primaryAction={{
               label: "시작하기",
-              onClick: () => console.log("Primary Action"),
+              onClick: () => {},
               icon: <ArrowRight className="w-5 h-5" />,
             }}
         secondaryAction={{
           label: "문서 보기",
-          onClick: () => console.log("Secondary Action"),
+          onClick: () => {},
         }}
         variant="centered"
       />

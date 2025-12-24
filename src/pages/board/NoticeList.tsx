@@ -18,12 +18,9 @@ const NoticeList = () => {
     try {
       setLoading(true);
       setError(null);
-      console.log("NoticeList: Fetching notices...");
       const data = await getNotices(20);
-      console.log("NoticeList: Received data:", data);
       setNotices(data);
     } catch (error) {
-      console.error("NoticeList: Error loading notices:", error);
       const errorMessage = error instanceof Error ? error.message : "공지사항을 불러오는데 실패했습니다.";
       setError(errorMessage);
     } finally {

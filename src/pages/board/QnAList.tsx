@@ -45,7 +45,7 @@ const QnAList = () => {
       const data = await getQnAs();
       setQnAList(data);
     } catch (error) {
-      console.error("QnA 목록 조회 실패:", error);
+      // error logging removed
     } finally {
       setLoading(false);
     }

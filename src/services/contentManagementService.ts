@@ -15,6 +15,7 @@ import {
   QueryDocumentSnapshot,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
+import { logError } from "../utils/logger";
 
 export interface ContentItem {
   id?: string;
@@ -159,7 +160,7 @@ class ContentManagementService {
         lastDocument: docs.length > pageSize ? docs[pageSize - 1] : null,
       };
     } catch (error) {
-      console.error("Error fetching content:", error);
+      logError("Error fetching content:", error);
       throw error;
     }
   }
@@ -184,7 +185,7 @@ class ContentManagementService {
 
       return null;
     } catch (error) {
-      console.error("Error fetching content by ID:", error);
+      logError("Error fetching content by ID:", error);
       throw error;
     }
   }
@@ -223,7 +224,7 @@ class ContentManagementService {
 
       return docRef.id;
     } catch (error) {
-      console.error("Error creating content:", error);
+      logError("Error creating content:", error);
       throw error;
     }
   }
@@ -254,7 +255,7 @@ class ContentManagementService {
         updates.author || "Unknown"
       );
     } catch (error) {
-      console.error("Error updating content:", error);
+      logError("Error updating content:", error);
       throw error;
     }
   }
@@ -272,7 +273,7 @@ class ContentManagementService {
         await this.addActivityLog("deleted", content.title, content.author);
       }
     } catch (error) {
-      console.error("Error deleting content:", error);
+      logError("Error deleting content:", error);
       throw error;
     }
   }
@@ -306,7 +307,7 @@ class ContentManagementService {
         "Admin"
       );
     } catch (error) {
-      console.error("Error updating content status:", error);
+      logError("Error updating content status:", error);
       throw error;
     }
   }
@@ -324,7 +325,7 @@ class ContentManagementService {
         });
       }
     } catch (error) {
-      console.error("Error incrementing view count:", error);
+      logError("Error incrementing view count:", error);
       throw error;
     }
   }
@@ -354,7 +355,7 @@ class ContentManagementService {
 
       return false;
     } catch (error) {
-      console.error("Error toggling like:", error);
+      logError("Error toggling like:", error);
       throw error;
     }
   }
@@ -413,7 +414,7 @@ class ContentManagementService {
         recentActivity,
       };
     } catch (error) {
-      console.error("Error fetching content statistics:", error);
+      logError("Error fetching content statistics:", error);
       throw error;
     }
   }
@@ -434,7 +435,7 @@ class ContentManagementService {
 
       return Array.from(categories).sort();
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      logError("Error fetching categories:", error);
       return [];
     }
   }
@@ -463,7 +464,7 @@ class ContentManagementService {
         .sort((a, b) => b.count - a.count)
         .slice(0, limit);
     } catch (error) {
-      console.error("Error fetching popular tags:", error);
+      logError("Error fetching popular tags:", error);
       return [];
     }
   }
@@ -483,7 +484,7 @@ class ContentManagementService {
         date: new Date().toISOString().split("T")[0],
       });
     } catch (error) {
-      console.error("Error adding activity log:", error);
+      logError("Error adding activity log:", error);
     }
   }
 

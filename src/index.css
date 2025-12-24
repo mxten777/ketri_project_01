@@ -108,11 +108,9 @@
 
 /* 헤더 베이스 */
 header {
-  position: sticky;
-  top: 0;
-  z-index: 9999;
+  /* position/top/z-index delegated to component Tailwind classes to avoid !important conflicts */
 
-  min-height: var(--header-height);
+  min-height: auto;
   display: block;
 
   background: rgba(255, 255, 255, 0.92) !important;
@@ -287,12 +285,8 @@ header button:focus-visible {
 }
 
 @layer utilities {
-  /* 🔒 FORCE HEADER PREMIUM (wins last) */
+  /* 🔒 HEADER VISUALS: keep visual tokens but delegate positioning to component classes */
   header {
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 9999 !important;
-
     background: rgba(255, 255, 255, 0.92) !important;
     backdrop-filter: blur(10px) saturate(160%) !important;
     -webkit-backdrop-filter: blur(10px) saturate(160%) !important;
@@ -408,41 +402,7 @@ header button:focus-visible {
   text-decoration: none;
 }
 
-/* -------------------------
-   DEBUG: Hover visualizer
-   Enable by adding class to <html>: `document.documentElement.classList.add('debug-hover')`
-   Disable: `document.documentElement.classList.remove('debug-hover')`
-   This is intentionally scoped to avoid permanent visual changes.
-   ------------------------- */
-html.debug-hover *:hover {
-  outline: 2px solid rgba(255, 0, 0, 0.85);
-  background: rgba(255, 0, 0, 0.03);
-  position: relative;
-}
-
-html.debug-hover footer *:hover {
-  outline-color: rgba(0, 200, 120, 0.95);
-  background: rgba(0, 200, 120, 0.04);
-}
-
-html.debug-hover *:hover::after {
-  content: attr(class);
-  position: absolute;
-  left: 0;
-  top: -1.6rem;
-  background: rgba(0,0,0,0.8);
-  color: #fff;
-  font-size: 11px;
-  padding: 2px 6px;
-  border-radius: 6px;
-  z-index: 99999;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-html.debug-hover *:hover::before {
-  content: attr(data-debug) "";
-}
+/* Debug hover visualizer removed for production readiness */
 
 /* ✅ Global Title Boost (Demo-safe) */
 main h1 {

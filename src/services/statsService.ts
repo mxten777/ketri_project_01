@@ -73,7 +73,6 @@ export const getStatistics = async () => {
       totalDownloads,
     };
   } catch (error) {
-    console.error("Error fetching statistics:", error);
     throw error;
   }
 };
@@ -90,7 +89,6 @@ export const getRecentUsers = async (limitCount: number = 10) => {
       ...doc.data(),
     })) as User[];
   } catch (error) {
-    console.error("Error fetching recent users:", error);
     throw error;
   }
 };
@@ -111,7 +109,6 @@ export const getRecentNotices = async (limitCount: number = 5) => {
       ...doc.data(),
     }));
   } catch (error) {
-    console.error("Error fetching recent notices:", error);
     throw error;
   }
 };
@@ -128,7 +125,6 @@ export const getRecentQnA = async (limitCount: number = 5) => {
       ...doc.data(),
     }));
   } catch (error) {
-    console.error("Error fetching recent QnA:", error);
     throw error;
   }
 };
@@ -209,7 +205,6 @@ export const getRecentActivities = async (
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice(0, limitCount);
   } catch (error) {
-    console.error("최근 활동 조회 실패:", error);
     return []; // 에러 시 빈 배열 반환
   }
 };
@@ -252,7 +247,6 @@ export const getMonthlyUserStats = async () => {
       count,
     }));
   } catch (error) {
-    console.error("Error fetching monthly user stats:", error);
     throw error;
   }
 };

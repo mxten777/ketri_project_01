@@ -7,6 +7,7 @@ import HeaderHero from "./HeaderHero";
 import HeaderMegaMenu from "./HeaderMegaMenu";
 import { HeaderContext } from "./HeaderContext";
 import { isAllowed } from "../../constants/menuFilter";
+import QuickJumpSearch from "../common/QuickJumpSearch";
 
 interface AccordionMenuGroupProps {
   menu: MenuGroup;
@@ -130,8 +131,8 @@ const Header = () => {
 
   return (
     <>
-      {/* ✅ fixed + full width */}
-      <header id="site-header" className="fixed top-0 left-0 right-0 z-50">
+      {/* ✅ sticky + full width (use CSS variable z-index) */}
+      <header id="site-header" className="sticky top-0 left-0 right-0 z-[var(--z-fixed)]">
         <div
           className={[
             "relative",
@@ -188,9 +189,11 @@ const Header = () => {
             </button>
           </div>
 
+          <QuickJumpSearch mobile />
+
           <nav className="flex-1 overflow-y-auto px-2 py-4">
             {MENU_ITEMS.map((menu, idx) => {
-              const filteredItems = menu.items.filter((it) => isAllowed(it.path)).slice(0, 5);
+              const filteredItems = menu.items.filter((it) => isAllowed(it.path));
               // skip empty groups entirely
               if (filteredItems.length === 0) return null;
               const group = { ...menu, items: filteredItems };

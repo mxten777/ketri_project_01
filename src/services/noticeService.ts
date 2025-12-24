@@ -140,7 +140,7 @@ export const getNoticeById = async (id: string): Promise<Notice | null> => {
 
     return null;
   } catch (error) {
-    console.error("Error fetching notice:", error);
+    logError("Error fetching notice:", error);
     throw error;
   }
 };
@@ -176,7 +176,7 @@ export const updateNotice = async (
       updatedAt: Timestamp.now().toDate().toISOString(),
     });
   } catch (error) {
-    console.error("Error updating notice:", error);
+    logError("Error updating notice:", error);
     throw error;
   }
 };
@@ -224,7 +224,7 @@ export const getPinnedNotices = async (): Promise<Notice[]> => {
       } as Notice;
     });
   } catch (error) {
-    console.error("Error fetching pinned notices:", error);
+    logError("Error fetching pinned notices:", error);
     throw error;
   }
 };

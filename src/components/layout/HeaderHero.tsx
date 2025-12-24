@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
+import QuickJumpSearch from "../common/QuickJumpSearch";
 import { MENU_ITEMS, MenuGroup } from "../../constants/menu";
 
 interface Props {
@@ -25,7 +26,7 @@ export default function HeaderHero({
   isMenuActive,
 }: Props) {
   return (
-    <div className="flex items-center justify-between h-[84px]">
+    <div className="flex items-center justify-between" style={{ height: "var(--header-height, 84px)" }}>
       <Link to="/" className="flex items-center py-3 hover:opacity-90 transition-opacity">
         <img
           src={isDarkMode ? "/images/logo_horizontal_trans.png" : "/images/logo_horizontal.png"}
@@ -104,6 +105,10 @@ export default function HeaderHero({
       </nav>
 
       <div className="flex items-center gap-2 md:gap-3">
+        <div className="hidden md:block">
+          <QuickJumpSearch />
+        </div>
+
         <button
           onClick={toggleDarkMode}
           className="p-2.5 rounded-xl text-neutral-700 dark:text-neutral-200 hover:text-primary-800 dark:hover:text-primary-200 hover:bg-neutral-50 dark:hover:bg-white/5 transition-all"
