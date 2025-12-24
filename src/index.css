@@ -52,6 +52,8 @@
     background: rgb(var(--semantic-background));
     color: rgb(var(--semantic-foreground));
     @apply font-sans antialiased;
+    /* stabilize text layout to reduce CLS when webfont swaps */
+    line-height: 1.4;
   }
 }
 

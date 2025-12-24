@@ -49,14 +49,19 @@
     />
     <meta property="twitter:image" content="/og-image.jpg" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <!-- Fonts: preload Pretendard stylesheet to reduce FOIT/CLS -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="stylesheet"
+      rel="preload"
       as="style"
-      crossorigin
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+      onload="this.rel='stylesheet'"
     />
+    <noscript>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    </noscript>
 
     <!-- Preload critical resources -->
     <link rel="preload" as="image" href="/hero-bg.jpg" />
