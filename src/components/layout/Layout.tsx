@@ -25,6 +25,11 @@ export default function Layout() {
     try {
       const initialH = Math.round(header.getBoundingClientRect().height);
       setHeaderHeight(initialH);
+      // lock header height once using inline style to avoid transient CLS,
+      // will release after fonts/layout stabilize
+      try {
+        header.style.height = `${initialH}px`;
+      } catch (e) {}
     } catch (e) {
       /* ignore */
     }
@@ -35,6 +40,29 @@ export default function Layout() {
       const h = Math.round(rect.height);
       setHeaderHeight(h);
     };
+
+    // release the inline lock once fonts are ready (or on window load fallback)
+    const releaseLock = () => {
+      try {
+        // make sure header exists
+        const h = Math.round(header.getBoundingClientRect().height);
+        // clear inline height to allow natural behavior
+        header.style.height = "";
+        // update css var with current measured height
+        setHeaderHeight(h);
+      } catch (e) {
+        /* ignore */
+      }
+    };
+
+    if (typeof document !== "undefined" && (document as any).fonts && (document as any).fonts.ready) {
+      (document as any).fonts.ready.then(releaseLock).catch(() => {
+        // fallback to load event
+        window.addEventListener("load", releaseLock, { once: true });
+      });
+    } else {
+      window.addEventListener("load", releaseLock, { once: true });
+    }
 
     update();
 
