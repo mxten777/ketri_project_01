@@ -1,33 +1,39 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useHasHero } from "../../hooks/useHasHero";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 
 export default function Layout() {
-  useEffect(() => {
+  // Use layout effect to measure header before paint. Guard against invalid measurements.
+  useLayoutEffect(() => {
     const header = document.querySelector("#site-header") as HTMLElement | null;
     if (!header) return;
 
-    // set initial value synchronously so CSS var is available immediately
+    const isValid = (v: number) => Number.isFinite(v) && v > 20 && v < 500;
+
+    const setHeaderHeight = (h: number) => {
+      if (!isValid(h)) return;
+      try {
+        document.documentElement.style.setProperty("--header-height", `${h}px`);
+      } catch (e) {
+        /* ignore */
+      }
+    };
+
+    // initial synchronous measurement (before paint)
     try {
       const initialH = Math.round(header.getBoundingClientRect().height);
-      document.documentElement.style.setProperty("--header-height", `${initialH}px`);
+      setHeaderHeight(initialH);
     } catch (e) {
       /* ignore */
     }
 
     const update = () => {
-      // measure after paint for accuracy (captures transforms/scale)
-      requestAnimationFrame(() => {
-        const rect = header.getBoundingClientRect();
-        const h = Math.round(rect.height);
-        try {
-          document.documentElement.style.setProperty("--header-height", `${h}px`);
-        } catch (e) {
-          /* ignore */
-        }
-      });
+      // measure and set only when value is reasonable
+      const rect = header.getBoundingClientRect();
+      const h = Math.round(rect.height);
+      setHeaderHeight(h);
     };
 
     update();
@@ -43,16 +49,18 @@ export default function Layout() {
   }, []);
 
   useEffect(() => {
-    // ensure we attempt a measurement once the page has fully loaded
+    // ensure we attempt a measurement once the page has fully loaded (guarded)
     const onLoad = () => {
       const header = document.querySelector("#site-header") as HTMLElement | null;
       if (!header) return;
       const rect = header.getBoundingClientRect();
       const h = Math.round(rect.height);
-      try {
-        document.documentElement.style.setProperty("--header-height", `${h}px`);
-      } catch (e) {
-        /* ignore */
+      if (Number.isFinite(h) && h > 20 && h < 500) {
+        try {
+          document.documentElement.style.setProperty("--header-height", `${h}px`);
+        } catch (e) {
+          /* ignore */
+        }
       }
     };
 
