@@ -82,7 +82,7 @@ const Greeting = () => {
   return (
     <main className="min-h-screen bg-gradient-to-b from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
       {/* Hero Section - Premium Design */}
-      <section data-has-hero className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 text-white py-20 lg:py-32">
+      <section data-has-hero className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 text-white py-20 lg:py-32 min-h-[360px]">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
