@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
 
 const IndustrialHealth = () => {
   const location = useLocation();
@@ -22,8 +24,8 @@ const IndustrialHealth = () => {
   }, [location]);
 
   return (
-    <div className="min-h-screen">
-      <div className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24">
+    <main className="min-h-screen">
+      <section data-has-hero className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             산업보건컨설팅
@@ -33,10 +35,11 @@ const IndustrialHealth = () => {
             사업장 안전보건관리체계 구축을 위한 전문 컨설팅 서비스를 제공합니다
           </p>
         </div>
-      </div>
+      </section>
 
-      <div className="section container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <Section spacing="none" className="pt-10 lg:pt-12">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="card p-6 sticky top-32 card-tokenized">
@@ -337,9 +340,10 @@ const IndustrialHealth = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+          </div>
+        </Container>
+      </Section>
+    </main>
   );
 };
 

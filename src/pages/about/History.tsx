@@ -111,9 +111,9 @@ const History = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-700">
+    <main className="min-h-screen bg-white dark:bg-gray-700">
       {/* Hero Section - Premium Design */}
-      <section className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 text-white py-20 lg:py-32">
+      <section data-has-hero className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 text-white py-20 lg:py-32">
         {/* Decorative Elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -166,7 +166,7 @@ const History = () => {
       </section>
 
       {/* Stats Section - Premium Cards */}
-      <section className="section container-custom -mt-16 lg:-mt-24 relative z-20">
+      <section className="pt-10 lg:pt-12 pb-12 lg:pb-16 container-custom relative z-20">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -444,7 +444,7 @@ const History = () => {
           </div>
         </motion.div>
       </section>
-    </div>
+    </main>
   );
 };
 

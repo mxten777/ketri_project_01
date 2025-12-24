@@ -10,7 +10,7 @@ import { ArrowRight, CheckCircle } from "lucide-react";
 
 const DesignSystemExample = () => {
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen">
       {/* 1. Hero Section 예시 */}
       <Hero
         subtitle="Design System"
@@ -29,7 +29,7 @@ const DesignSystemExample = () => {
       />
 
       {/* 2. Button 예시 Section */}
-      <Section spacing="xl">
+      <Section className="pt-10 lg:pt-12 pb-12 lg:pb-16" spacing="xl">
         <h2 className="text-display-sm font-bold text-center mb-4">
           Button Components
         </h2>
@@ -406,7 +406,7 @@ const DesignSystemExample = () => {
           </div>
         </div>
       </Section>
-    </div>
+    </main>
   );
 };
 

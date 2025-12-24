@@ -1,9 +1,9 @@
  
 const IndoorIntro = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <main className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-600 to-emerald-600 text-white py-16 lg:py-24">
+      <section data-has-hero className="bg-gradient-to-br from-green-600 to-emerald-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">업무 소개</h1>
@@ -176,7 +176,7 @@ const IndoorIntro = () => {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

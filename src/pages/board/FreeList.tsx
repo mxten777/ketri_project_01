@@ -80,7 +80,7 @@ const FreeList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
+    <main className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
       <div className="container mx-auto px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -88,7 +88,7 @@ const FreeList = () => {
           className="space-y-8"
         >
           {/* 헤더 */}
-          <div className="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-3xl p-8 text-white shadow-premium">
+          <div data-has-hero className="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-3xl p-8 text-white shadow-premium">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -107,7 +107,7 @@ const FreeList = () => {
                 transition={{ delay: 0.3 }}
               >
                 <Button
-                  onClick={() => navigate("/board/free/new")}
+                  onClick={() => {}}
                   className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all px-6 py-3"
                 >
                   <Plus className="w-5 h-5 mr-2" />
@@ -118,7 +118,8 @@ const FreeList = () => {
           </div>
 
           {/* 필터 및 검색 */}
-          <motion.div
+          <section className="pt-10 lg:pt-12 pb-12 lg:pb-16">
+            <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -184,7 +185,7 @@ const FreeList = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    onClick={() => navigate(`/board/free/${post.id}`)}
+                    onClick={() => {}}
                     className="group cursor-pointer"
                   >
                     <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-premium border border-white/20 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 h-full flex flex-col">
@@ -234,10 +235,11 @@ const FreeList = () => {
                 ))}
               </div>
             )}
-          </motion.div>
+            </motion.div>
+          </section>
         </motion.div>
       </div>
-    </div>
+    </main>
   );
 };
 

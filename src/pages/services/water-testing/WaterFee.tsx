@@ -1,9 +1,9 @@
  
 const WaterFee = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <main className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-cyan-600 to-blue-600 text-white py-16 lg:py-24">
+      <section data-has-hero className="bg-gradient-to-br from-cyan-600 to-blue-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">검사 주기 및 수수료</h1>
@@ -207,7 +207,7 @@ const WaterFee = () => {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

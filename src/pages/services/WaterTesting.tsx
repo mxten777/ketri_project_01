@@ -20,15 +20,15 @@ const WaterTesting = () => {
   }, [location]);
 
   return (
-    <div className="min-h-screen">
-      <div className="bg-gradient-to-br from-cyan-600 to-blue-600 text-white py-16 lg:py-24">
+    <main className="min-h-screen">
+      <section data-has-hero className="bg-gradient-to-br from-cyan-600 to-blue-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">먹는물 수질검사</h1>
           <p className="text-lg">
             환경부 지정 수질검사기관 (KOLAS 인증)으로 59개 항목 수질검사 서비스를 제공합니다. 먹는물관리법과 수돗물법에 따른 정확하고 신속한 분석으로 안전한 먹는물을 책임집니다.
           </p>
         </div>
-      </div>
+      </section>
 
       <div className="section container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -320,7 +320,7 @@ const WaterTesting = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -1,4 +1,4 @@
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { X, ChevronDown } from "lucide-react";
 import { MENU_ITEMS, MenuGroup } from "../../constants/menu";
@@ -6,6 +6,7 @@ import HeaderGlobal from "./HeaderGlobal";
 import HeaderHero from "./HeaderHero";
 import HeaderMegaMenu from "./HeaderMegaMenu";
 import { HeaderContext } from "./HeaderContext";
+import { isAllowed } from "../../constants/menuFilter";
 
 interface AccordionMenuGroupProps {
   menu: MenuGroup;
@@ -100,6 +101,15 @@ const Header = () => {
     setCloseTimeout(timeout);
   };
 
+  // Clear any pending close timeout on unmount to avoid side-effects
+  useEffect(() => {
+    return () => {
+      if (closeTimeout) {
+        clearTimeout(closeTimeout);
+      }
+    };
+  }, [closeTimeout]);
+
   const toggleDarkMode = () => {
     if (ctx?.toggleDarkMode) return ctx.toggleDarkMode();
 
@@ -149,16 +159,16 @@ const Header = () => {
       </header>
 
       {/* Render mega menus as portals so they escape stacking context */}
-      {MENU_ITEMS.map((menu) => (
-        <HeaderMegaMenu
-          key={menu.label}
-          menu={menu}
-          isOpen={openDropdown === menu.label}
-          location={location}
-          onMouseEnter={handleMouseEnter}
-          anchorEl={menuRefs.current[menu.label]}
-        />
-      ))}
+      {/* Single consolidated mega menu for stable hover behavior */}
+      <HeaderMegaMenu
+        menus={MENU_ITEMS}
+        activeGroup={openDropdown}
+        isOpen={!!openDropdown}
+        location={location}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        anchorEl={openDropdown ? menuRefs.current[openDropdown] : null}
+      />
 
       {isMobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-[9999] bg-white/95 dark:bg-neutral-950/92 backdrop-blur-md flex flex-col animate-in fade-in slide-in-from-top-4 duration-300">
@@ -179,14 +189,23 @@ const Header = () => {
           </div>
 
           <nav className="flex-1 overflow-y-auto px-2 py-4">
-            {MENU_ITEMS.map((menu, idx) => (
-              <AccordionMenuGroup
-                key={menu.label}
-                menu={menu}
-                isLast={idx === MENU_ITEMS.length - 1}
-                onCloseMenu={() => setIsMobileMenuOpen(false)}
-              />
-            ))}
+            {MENU_ITEMS.map((menu, idx) => {
+              const filteredItems = menu.items.filter((it) => isAllowed(it.path)).slice(0, 5);
+              // skip empty groups entirely
+              if (filteredItems.length === 0) return null;
+              const group = { ...menu, items: filteredItems };
+              // also hide mainPath if it's not allowed
+              if (group.mainPath && !isAllowed(group.mainPath)) delete group.mainPath;
+
+              return (
+                <AccordionMenuGroup
+                  key={menu.label}
+                  menu={group}
+                  isLast={idx === MENU_ITEMS.length - 1}
+                  onCloseMenu={() => setIsMobileMenuOpen(false)}
+                />
+              );
+            })}
           </nav>
 
           <div className="px-6 pb-6 pt-2 border-t border-neutral-200 dark:border-neutral-800">

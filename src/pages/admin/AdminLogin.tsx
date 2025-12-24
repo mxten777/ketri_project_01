@@ -29,7 +29,8 @@ const AdminLogin = () => {
 
   useEffect(() => {
     if (userData && userData.role === "admin") {
-      navigate("/admin/dashboard", { replace: true });
+      // Redirect to admin notice list after successful admin login
+      navigate("/admin/notice", { replace: true });
     }
   }, [userData, navigate]);
 

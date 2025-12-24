@@ -15,7 +15,7 @@ const UITest = () => {
   const [inputValue, setInputValue] = useState("");
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-secondary)]">
+    <main className="min-h-screen bg-[var(--color-bg-secondary)]">
       {/* Header with Theme Controls */}
       <Section spacing="sm" variant="default">
         <Container size="xl">
@@ -46,7 +46,7 @@ const UITest = () => {
       </Section>
 
       {/* Hero Section */}
-      <Section spacing="lg" variant="brand">
+      <Section spacing="lg" variant="brand" data-has-hero>
         <Container size="lg">
           <h2 className="text-display-sm font-bold mb-4">Hello World!</h2>
           <p className="text-body-lg text-[var(--color-text-secondary)] mb-6 max-w-2xl">
@@ -69,7 +69,7 @@ const UITest = () => {
       </Section>
 
       {/* Cards Grid */}
-      <Section spacing="lg">
+      <Section className="pt-10 lg:pt-12 pb-12 lg:pb-16" spacing="lg">
         <Container size="xl">
           <h3 className="text-heading-md font-bold mb-6">Card Components</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -202,7 +202,7 @@ const UITest = () => {
           </Button>
         </ModalFooter>
       </Modal>
-    </div>
+    </main>
   );
 };
 

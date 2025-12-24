@@ -21,8 +21,8 @@ const Asbestos = () => {
   }, [location]);
 
   return (
-    <div className="min-h-screen">
-      <div className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white py-16 lg:py-24">
+    <main className="min-h-screen">
+      <section data-has-hero className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             석면조사 및 분석
@@ -32,7 +32,7 @@ const Asbestos = () => {
             석면 안전관리 서비스
           </p>
         </div>
-      </div>
+      </section>
 
       <div className="section container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -546,7 +546,7 @@ const Asbestos = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

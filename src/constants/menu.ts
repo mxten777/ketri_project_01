@@ -20,6 +20,8 @@ export interface MenuGroup {
   mainPath?: string;
   /** Optional one-line description for the group (left column in mega menu) */
   description?: string;
+  /** Optional layout hint for mega-menu rendering: e.g. 'grid' */
+  layout?: string;
 }
 
 export interface ServiceItem {
@@ -35,21 +37,23 @@ export const MENU_ITEMS: MenuGroup[] = [
   {
     label: "연구소 소개",
     mainPath: "/about/greeting",
+    layout: "grid",
     description: "연구소의 미션·연혁·조직 및 주요 장비 안내",
     items: [
       { label: "인사말", path: "/about/greeting", description: "연구소장 인사말과 비전" },
       { label: "연혁", path: "/about/history", description: "주요 연혁과 성장 이력" },
       { label: "조직도", path: "/about/organization", description: "조직 구성 및 연락처" },
-      { label: "CI소개", path: "/about/ci", description: "브랜드 가이드와 CI 안내" },
+      { label: "주요장비", path: "/about/equipment", description: "보유 주요 장비 안내" },
+      { label: "CI 소개", path: "/about/ci", description: "브랜드 가이드와 CI 안내" },
       { label: "인증서", path: "/about/certificates", description: "보유 인증서 및 신뢰성" },
-      { label: "주요장비현황", path: "/about/equipment", description: "핵심 장비 및 성능 개요" },
-      { label: "오시는길", path: "/about/location", description: "연구소 위치 및 교통 안내" },
+      { label: "오시는길", path: "/about/location", description: "찾아오시는 방법 및 교통안내" },
     ],
   },
   {
     label: "산업보건컨설팅",
     mainPath: "/services/industrial-health",
     description: "현장 중심의 산업보건 전문 컨설팅 및 검사 서비스",
+    layout: "grid",
     items: [
       { label: "작업환경측정", path: "/services/industrial-health#work-environment", description: "작업장 유해인자 측정" },
       { label: "위험성평가", path: "/services/industrial-health#risk-assessment", description: "리스크 식별 및 개선안" },
@@ -62,6 +66,7 @@ export const MENU_ITEMS: MenuGroup[] = [
     label: "먹는물 검사",
     mainPath: "/services/water-testing",
     description: "수질검사 서비스 개요 및 검사 항목 안내",
+    layout: "grid",
     items: [
       { label: "업무소개", path: "/services/water-testing#introduction", description: "수질 검사 전반 개요" },
       { label: "수질검사대상 및 범위", path: "/services/water-testing#scope", description: "검사 대상과 항목 범위" },
@@ -73,6 +78,7 @@ export const MENU_ITEMS: MenuGroup[] = [
     label: "혈액투석용수",
     mainPath: "/services/dialysis-water",
     description: "안전한 투석환경을 위한 투석용수 검사 안내",
+    layout: "grid",
     items: [
       { label: "업무소개", path: "/services/dialysis-water#introduction", description: "투석용수 검사 항목 안내" },
       { label: "검사의뢰절차", path: "/services/dialysis-water#procedure", description: "의뢰 및 샘플링 절차" },
@@ -85,6 +91,7 @@ export const MENU_ITEMS: MenuGroup[] = [
     label: "실내공기질측정",
     mainPath: "/services/indoor-air-quality",
     description: "실내공기질 관련 측정 항목 및 기준 안내",
+    layout: "grid",
     items: [
       { label: "업무 소개", path: "/services/indoor-air-quality#introduction", description: "실내공기질 측정 개요" },
       { label: "측정 대상시설", path: "/services/indoor-air-quality#facilities", description: "대상 및 적용 범위" },
@@ -95,6 +102,7 @@ export const MENU_ITEMS: MenuGroup[] = [
     label: "석면조사분석",
     mainPath: "/services/asbestos",
     description: "석면 관련 조사·분석 및 위해성 평가 서비스",
+    layout: "grid",
     items: [
       { label: "석면조사분석", path: "/services/asbestos#survey", description: "정성·정량 분석 서비스" },
       { label: "석면농도측정", path: "/services/asbestos#concentration", description: "농도 측정 절차" },
@@ -107,6 +115,7 @@ export const MENU_ITEMS: MenuGroup[] = [
   {
     label: "정보센터",
     description: "공지사항 및 자료실을 통해 최신 정보를 제공",
+    layout: "grid",
     items: [
       { label: "공지사항", path: "/board/notice", description: "중요 공지 및 안내" },
     ],

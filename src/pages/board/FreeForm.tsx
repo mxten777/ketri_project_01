@@ -44,13 +44,13 @@ const FreeForm = () => {
       const post = await getFreePost(id);
       if (!post) {
         alert("게시글을 불러오는데 실패했습니다.");
-        navigate("/board/free");
+        navigate("/");
         return;
       }
 
       if (post.authorId !== user?.uid && userData?.role !== "admin") {
         alert("수정 권한이 없습니다.");
-        navigate("/board/free");
+        navigate("/");
         return;
       }
       setFormData({
@@ -61,7 +61,7 @@ const FreeForm = () => {
     } catch (error) {
       console.error("게시글 조회 실패:", error);
       alert("게시글을 불러오는데 실패했습니다.");
-      navigate("/board/free");
+      navigate("/");
     }
   };
 
@@ -85,7 +85,7 @@ const FreeForm = () => {
         // 수정
         await updateFreePost(id, formData);
         alert("게시글이 수정되었습니다.");
-        navigate(`/board/free/${id}`);
+        navigate(`/`);
       } else {
         // 작성
         const postId = await createFreePost({
@@ -98,7 +98,7 @@ const FreeForm = () => {
           comments: [],
         });
         alert("게시글이 작성되었습니다.");
-        navigate(`/board/free/${postId}`);
+        navigate(`/`);
       }
     } catch (error) {
       console.error("저장 실패:", error);
@@ -120,7 +120,7 @@ const FreeForm = () => {
           <div className="mb-8">
             <Button
               variant="ghost"
-              onClick={() => navigate("/board/free")}
+              onClick={() => navigate("/")}
               className="mb-4"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -198,7 +198,7 @@ const FreeForm = () => {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => navigate("/board/free")}
+                onClick={() => navigate("/")}
               >
                 취소
               </Button>

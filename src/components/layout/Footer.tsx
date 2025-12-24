@@ -180,21 +180,11 @@ const Footer = () => {
       </div>
 
       <div className="flex items-center gap-4 text-neutral-800 dark:text-neutral-400">
-        <Link to="/terms" className="hover:text-primary-800 dark:hover:text-primary-200 transition-colors">
-          이용약관
-        </Link>
+        <span className="text-neutral-800 dark:text-neutral-400 opacity-80">이용약관</span>
         <span className="text-neutral-400 dark:text-neutral-600">|</span>
-        <Link to="/privacy" className="hover:text-primary-800 dark:hover:text-primary-200 transition-colors">
-          개인정보처리방침
-        </Link>
+        <span className="text-neutral-800 dark:text-neutral-400 opacity-80">개인정보처리방침</span>
         <span className="text-neutral-400 dark:text-neutral-600">|</span>
-        <Link
-          to="/admin/login"
-          className="text-neutral-700 dark:text-neutral-500 hover:text-primary-800 dark:hover:text-primary-200 transition-colors"
-          title="관리자"
-        >
-          Admin
-        </Link>
+        <span className="text-neutral-700 dark:text-neutral-500 opacity-80" title="관리자">Admin</span>
       </div>
     </div>
   </Container>

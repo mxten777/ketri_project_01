@@ -92,9 +92,10 @@ const NoticeDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-800 py-12">
+    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-800">
       <div className="container-custom max-w-4xl">
-        <motion.div
+        <section className="pt-10 lg:pt-12 pb-12 lg:pb-16">
+          <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -210,9 +211,10 @@ const NoticeDetail = () => {
               목록으로
             </Button>
           </div>
-        </motion.div>
+          </motion.div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -121,8 +121,9 @@ const QnAList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
-      <div className="container mx-auto px-4 py-8">
+    <main className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
+      <section className="pt-10 lg:pt-12 pb-12 lg:pb-16">
+        <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -148,7 +149,7 @@ const QnAList = () => {
                 transition={{ delay: 0.3 }}
               >
                 <Button
-                  onClick={() => navigate("/board/qna/new")}
+                  onClick={() => {}}
                   className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all px-6 py-3"
                 >
                   <Plus className="w-5 h-5 mr-2" />
@@ -277,7 +278,7 @@ const QnAList = () => {
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.2, delay: index * 0.05 }}
                       whileHover={{ y: -8, scale: 1.02 }}
-                      onClick={() => navigate(`/board/qna/${qna.id}`)}
+                      onClick={() => {}}
                       className="cursor-pointer group"
                     >
                       <div className="bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl p-6 h-full shadow-premium border border-white/50 dark:border-neutral-700/50 hover:shadow-2xl hover:border-primary-300/50 dark:hover:border-primary-600/50 transition-all duration-300 flex flex-col">
@@ -354,7 +355,7 @@ const QnAList = () => {
               <p className="text-neutral-700 dark:text-neutral-300">
                 💡 질문을 등록하시려면{" "}
                 <button
-                  onClick={() => navigate("/auth/login")}
+                  onClick={() => navigate("/")}
                   className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
                 >
                   로그인
@@ -364,8 +365,9 @@ const QnAList = () => {
             </motion.div>
           )}
         </motion.div>
-      </div>
-    </div>
+        </div>
+      </section>
+    </main>
   );
 };
 

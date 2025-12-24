@@ -22,6 +22,13 @@ import Asbestos from "./pages/services/Asbestos";
 import NoticeList from "./pages/board/NoticeList";
 import NoticeDetail from "./pages/board/NoticeDetail";
 
+// Admin pages (for admin notice management)
+import AdminLogin from "./pages/admin/AdminLogin";
+import NoticeAdmin from "./pages/admin/NoticeAdmin";
+import NoticeForm from "./pages/board/NoticeForm";
+import AdminLayout from "./components/admin/AdminLayout";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+
 export default function App() {
   return (
     <Routes>
@@ -51,6 +58,39 @@ export default function App() {
         {/* 없는 경로는 홈으로 */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
+
+      {/* Admin routes (separate layout) */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route
+        path="/admin/notice"
+        element={
+          <ProtectedRoute requireAdmin>
+            <AdminLayout title="공지사항 관리">
+              <NoticeAdmin />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/notice/create"
+        element={
+          <ProtectedRoute requireAdmin>
+            <AdminLayout title="공지사항 작성">
+              <NoticeForm />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/notice/edit/:id"
+        element={
+          <ProtectedRoute requireAdmin>
+            <AdminLayout title="공지사항 수정">
+              <NoticeForm />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

@@ -84,7 +84,7 @@ const NoticeList = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
+    <main className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
       <div className="container mx-auto px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -92,7 +92,7 @@ const NoticeList = () => {
           transition={{ duration: 0.5 }}
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-3xl p-8 mb-8 text-white shadow-premium">
+          <div data-has-hero className="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-3xl p-8 mb-8 text-white shadow-premium">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -105,8 +105,9 @@ const NoticeList = () => {
             </motion.div>
           </div>
 
-          {/* Notice List - 그리드 카드 레이아웃 */}
-          <motion.div
+          {/* Notice List - 첫 Section 간격 적용 */}
+          <section className="pt-10 lg:pt-12 pb-12 lg:pb-16">
+            <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -184,10 +185,11 @@ const NoticeList = () => {
                 ))}
               </div>
             )}
-          </motion.div>
+            </motion.div>
+          </section>
         </motion.div>
       </div>
-    </div>
+    </main>
   );
 };
 

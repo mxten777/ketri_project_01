@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Palette, Eye, Heart, Target, Lightbulb, Shield } from "lucide-react";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
 
 const CI = () => {
   const colors = [
@@ -30,9 +32,9 @@ const CI = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <main className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
+      <section data-has-hero className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -49,7 +51,8 @@ const CI = () => {
       </section>
 
       {/* Main Content */}
-      <section className="section container-custom">
+      <Section spacing="none" className="pt-10 lg:pt-12">
+        <Container>
         {/* Logo Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -307,8 +310,9 @@ const CI = () => {
             </div>
           </div>
         </motion.div>
-      </section>
-    </div>
+        </Container>
+      </Section>
+    </main>
   );
 };
 

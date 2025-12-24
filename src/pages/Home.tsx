@@ -76,10 +76,11 @@ const Home = () => {
   const statCounts = [count0, count1, count2, count3];
 
   return (
-    <div className="overflow-visible">
+    <main className="overflow-visible">
       {/* Hero Section - 현대적이고 임팩트 있게 개선 */}
       {/* ✅ FIX: header 높이 제외 + 레이어 확정 + 상단 scrim */}
       <section
+        data-has-hero
         className="relative min-h-[85vh] flex items-center justify-center overflow-hidden"
         style={{
           minHeight: "calc(100vh - var(--header-height, 84px))",
@@ -603,7 +604,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

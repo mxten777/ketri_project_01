@@ -80,9 +80,9 @@ const Greeting = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
+    <main className="min-h-screen bg-gradient-to-b from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
       {/* Hero Section - Premium Design */}
-      <section className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 text-white py-20 lg:py-32">
+      <section data-has-hero className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 text-white py-20 lg:py-32">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -146,7 +146,7 @@ const Greeting = () => {
       </section>
 
       {/* Main Content - Premium Layout */}
-      <section className="section container-custom -mt-16 lg:-mt-24 relative z-20">
+      <section className="pt-10 lg:pt-12 pb-12 lg:pb-16 container-custom relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
           {/* CEO Profile Card - Premium Design */}
           <motion.div
@@ -387,7 +387,7 @@ const Greeting = () => {
       </section>
 
       {/* Core Values Section - Premium Cards */}
-      <section className="section container-custom">
+      <section className="section container-custom py-12 lg:py-16">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -510,7 +510,7 @@ const Greeting = () => {
       </section>
 
       {/* Commitment Section */}
-      <section className="py-20 lg:py-32 bg-primary-600 dark:bg-primary-700 relative overflow-hidden">
+      <section className="py-12 lg:py-16 bg-primary-600 dark:bg-primary-700 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white rounded-full blur-3xl"></div>
@@ -560,7 +560,7 @@ const Greeting = () => {
           </motion.div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

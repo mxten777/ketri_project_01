@@ -41,21 +41,15 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
       <header className="relative z-20 bg-slate-900/80 backdrop-blur-sm border-b border-slate-700/50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-6">
-            <Link to="/admin/dashboard" className="flex items-center space-x-2">
+            <Link to="/admin/notice" className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold">K</span>
               </div>
               <span className="text-white font-semibold text-lg">KESRI Admin</span>
             </Link>
             <nav className="hidden md:flex items-center space-x-4">
-              <Link to="/admin/dashboard" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
-                대시보드
-              </Link>
               <Link to="/admin/notice" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
                 공지사항 관리
-              </Link>
-              <Link to="/admin/nara-purchase" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
-                나라장터 관리
               </Link>
             </nav>
           </div>

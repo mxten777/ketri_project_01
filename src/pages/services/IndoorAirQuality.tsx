@@ -20,8 +20,8 @@ const IndoorAirQuality = () => {
   }, [location]);
 
   return (
-    <div className="min-h-screen">
-      <div className="bg-gradient-to-br from-green-600 to-emerald-600 text-white py-16 lg:py-24">
+    <main className="min-h-screen">
+      <section data-has-hero className="bg-gradient-to-br from-green-600 to-emerald-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             실내공기질 측정 및 개선
@@ -31,7 +31,7 @@ const IndoorAirQuality = () => {
             항목 측정 및 개선방안 제시
           </p>
         </div>
-      </div>
+      </section>
 
       <div className="section container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -539,7 +539,7 @@ const IndoorAirQuality = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -12,6 +12,8 @@ import {
   MapPinned,
   ParkingCircle,
 } from "lucide-react";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
  
 const Location = () => {
   const transportInfo = [
@@ -53,9 +55,9 @@ const Location = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-800">
+    <main className="min-h-screen bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-800">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary-600 via-primary-700 to-blue-800 dark:from-primary-700 dark:via-primary-800 dark:to-blue-900 text-white py-20 overflow-hidden">
+      <section data-has-hero className="relative bg-gradient-to-br from-primary-600 via-primary-700 to-blue-800 dark:from-primary-700 dark:via-primary-800 dark:to-blue-900 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(255,255,255,0.2),transparent_50%)]"></div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(255,255,255,0.15),transparent_50%)]"></div>
@@ -82,8 +84,8 @@ const Location = () => {
       </section>
 
       {/* Main Content */}
-      <section className="py-20">
-        <div className="container-custom">
+      <Section spacing="none" className="pt-10 lg:pt-12">
+        <Container>
           {/* Map Section - 큰 사이즈로 강조 */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -458,9 +460,9 @@ const Location = () => {
               </p>
             </div>
           </motion.div>
-        </div>
-      </section>
-    </div>
+        </Container>
+      </Section>
+    </main>
   );
 };
 

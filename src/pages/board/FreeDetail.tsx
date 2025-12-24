@@ -43,10 +43,10 @@ const FreeDetail = () => {
       const data = await getFreePost(id);
       setPost(data);
       await incrementFreePostViews(id);
-    } catch (error) {
+      } catch (error) {
       console.error("게시글 조회 실패:", error);
       alert("게시글을 불러오는데 실패했습니다.");
-      navigate("/board/free");
+      navigate("/");
     } finally {
       setLoading(false);
     }
@@ -56,11 +56,11 @@ const FreeDetail = () => {
     if (!id || !post) return;
     if (!confirm("정말 삭제하시겠습니까?")) return;
 
-    try {
-      await deleteFreePost(id);
-      alert("게시글이 삭제되었습니다.");
-      navigate("/board/free");
-    } catch (error) {
+      try {
+        await deleteFreePost(id);
+        alert("게시글이 삭제되었습니다.");
+        navigate("/");
+      } catch (error) {
       console.error("삭제 실패:", error);
       alert("삭제에 실패했습니다.");
     }
@@ -116,23 +116,24 @@ const FreeDetail = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
         <h1 className="text-2xl font-bold mb-4">게시글을 찾을 수 없습니다</h1>
-        <Button onClick={() => navigate("/board/free")}>목록으로</Button>
+        <Button onClick={() => navigate("/")}>목록으로</Button>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
-      <div className="container mx-auto px-4 py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto space-y-6"
-        >
+    <main className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
+      <div className="container mx-auto px-4">
+        <section className="pt-10 lg:pt-12 pb-12 lg:pb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-4xl mx-auto space-y-6"
+          >
           {/* 뒤로가기 */}
           <Button
             variant="ghost"
-            onClick={() => navigate("/board/free")}
+            onClick={() => navigate("/")}
             className="mb-4"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -140,7 +141,7 @@ const FreeDetail = () => {
           </Button>
 
           {/* 게시글 카드 */}
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-premium overflow-hidden">
+          <div data-has-hero className="bg-white dark:bg-neutral-800 rounded-2xl shadow-premium overflow-hidden">
             {/* 헤더 */}
             <div className="p-8 border-b border-neutral-200 dark:border-neutral-700">
               <div className="flex items-start justify-between mb-4">
@@ -166,10 +167,10 @@ const FreeDetail = () => {
                 {canEdit && (
                   <div className="flex gap-2">
                     <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => navigate(`/board/free/edit/${id}`)}
-                    >
+                          variant="outline"
+                          size="sm"
+                          onClick={() => navigate(`/`)}
+                        >
                       <Edit className="w-4 h-4 mr-2" />
                       수정
                     </Button>
@@ -222,15 +223,16 @@ const FreeDetail = () => {
           <div className="flex justify-center">
             <Button
               variant="outline"
-              onClick={() => navigate("/board/free")}
+              onClick={() => navigate("/")}
               className="px-8"
             >
               목록으로
             </Button>
           </div>
-        </motion.div>
+          </motion.div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 };
 

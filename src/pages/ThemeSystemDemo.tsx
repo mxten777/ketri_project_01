@@ -35,7 +35,7 @@ const ThemeSystemDemo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-secondary)]">
+    <main className="min-h-screen bg-[var(--color-bg-secondary)]">
       {/* Header */}
       <header className="bg-[var(--color-bg-primary)] border-b border-[var(--color-border)] sticky top-0 z-sticky">
         <Container size="xl">
@@ -54,7 +54,7 @@ const ThemeSystemDemo = () => {
       </header>
 
       {/* Hero Section */}
-      <Section spacing="xl" variant="brand">
+      <Section spacing="xl" variant="brand" data-has-hero>
         <div className="text-center">
           <h2 className="text-display-md font-bold mb-6">
             재사용 가능한 테마 시스템
@@ -73,7 +73,7 @@ const ThemeSystemDemo = () => {
       </Section>
 
       {/* Theme Selector */}
-      <Section spacing="lg">
+      <Section className="pt-10 lg:pt-12 pb-12 lg:pb-16" spacing="lg">
         <h3 className="text-heading-lg font-bold text-center mb-8">
           업종별 테마 선택
         </h3>
@@ -300,7 +300,7 @@ const ThemeSystemDemo = () => {
           <Button onClick={handleSubmit}>확인</Button>
         </ModalFooter>
       </Modal>
-    </div>
+    </main>
   );
 };
 

@@ -21,8 +21,8 @@ const DialysisWater = () => {
   }, [location]);
 
   return (
-    <div className="min-h-screen">
-      <div className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white py-16 lg:py-24">
+    <main className="min-h-screen">
+      <section data-has-hero className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             혈액투석용수 검사
@@ -32,7 +32,7 @@ const DialysisWater = () => {
             투석용수 36개 항목 전문 검사 서비스
           </p>
         </div>
-      </div>
+      </section>
 
       <div className="section container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -494,7 +494,7 @@ const DialysisWater = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -103,19 +103,17 @@ const AdminDashboard: React.FC = () => {
       <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
         <h2 className="text-xl font-bold text-white mb-4">공지사항 관리</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <a
-            href="/admin/notice"
-            className="p-5 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-xl hover:from-blue-500/30 hover:to-blue-600/30 transition-all border border-blue-400/30 flex flex-col items-center text-center gap-3"
+          <div
+            className="p-5 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-xl bg-opacity-20 transition-all border border-blue-400/30 flex flex-col items-center text-center gap-3"
           >
             <Bell className="w-10 h-10 text-blue-300" />
             <div>
               <div className="text-white font-bold text-lg whitespace-nowrap">공지사항 목록</div>
               <div className="text-gray-300 text-sm mt-1">전체 공지 확인</div>
             </div>
-          </a>
+          </div>
           <a
-            href="/admin/notice/create"
-            className="p-5 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-xl hover:from-green-500/30 hover:to-green-600/30 transition-all border border-green-400/30 flex flex-col items-center text-center gap-3"
+            className="p-5 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-xl bg-opacity-20 transition-all border border-green-400/30 flex flex-col items-center text-center gap-3"
           >
             <Plus className="w-10 h-10 text-green-300" />
             <div>

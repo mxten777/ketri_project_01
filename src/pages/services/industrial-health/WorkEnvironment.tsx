@@ -3,8 +3,8 @@ import { Building2, ClipboardCheck, FileText, Calendar } from "lucide-react";
 
 const WorkEnvironment = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
-      <Section className="py-16">
+    <main className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
+      <Section className="pt-10 lg:pt-12 pb-12 lg:pb-16">
         <Container>
           <div className="max-w-4xl mx-auto">
             {/* 헤더 */}
@@ -120,7 +120,7 @@ const WorkEnvironment = () => {
           </div>
         </Container>
       </Section>
-    </div>
+    </main>
   );
 };
 

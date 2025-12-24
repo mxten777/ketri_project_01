@@ -34,7 +34,7 @@ const QnADetail: React.FC = () => {
           userData?.role !== "admin"
         ) {
           alert("비밀글입니다. 작성자와 관리자만 볼 수 있습니다.");
-          navigate("/board/qna");
+          navigate("/");
           return;
         }
 
@@ -60,10 +60,10 @@ const QnADetail: React.FC = () => {
       return;
     }
 
-    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      if (window.confirm("정말로 삭제하시겠습니까?")) {
       try {
         await deleteQnA(qna.id);
-        navigate("/board/qna");
+        navigate("/");
       } catch (error) {
         console.error("삭제 실패:", error);
         alert("삭제에 실패했습니다.");
@@ -148,7 +148,7 @@ const QnADetail: React.FC = () => {
           <h2 className="text-xl font-semibold mb-4">
             게시글을 찾을 수 없습니다
           </h2>
-          <Link to="/board/qna" className="text-primary-600 hover:underline">
+          <Link to="/" className="text-primary-600 hover:underline">
             목록으로 돌아가기
           </Link>
         </div>
@@ -161,7 +161,7 @@ const QnADetail: React.FC = () => {
       {/* 상단 네비게이션 */}
       <div className="mb-6">
         <Link
-          to="/board/qna"
+          to="/"
           className="inline-flex items-center text-neutral-600 dark:text-neutral-400 hover:text-primary-600 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -213,7 +213,7 @@ const QnADetail: React.FC = () => {
             {(qna.authorId === user?.uid || userData?.role === "admin") && (
               <div className="flex items-center gap-2">
                 <Link
-                  to={`/board/qna/edit/${qna.id}`}
+                  to="/"
                   className="px-3 py-1 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600 border border-neutral-300 dark:border-neutral-600 rounded hover:border-primary-600 transition-colors"
                 >
                   수정

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useHasHero } from "../../hooks/useHasHero";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -59,10 +60,15 @@ export default function Layout() {
     return () => window.removeEventListener("load", onLoad);
   }, []);
 
+  const hasHero = useHasHero();
+
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-neutral-950">
       <Header />
-      <main className="flex-1" style={{ paddingTop: `var(--header-height, 0px)` }}>
+      <main
+        className="flex-1"
+        style={hasHero ? undefined : { paddingTop: `var(--header-height, 0px)` }}
+      >
         <Outlet />
       </main>
       <Footer />

@@ -1,9 +1,9 @@
  
 const DialysisRequest = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <main className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white py-16 lg:py-24">
+      <section data-has-hero className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">검사 의뢰 절차</h1>
@@ -15,7 +15,7 @@ const DialysisRequest = () => {
       </section>
 
       {/* Content */}
-      <section className="section">
+      <section className="pt-10 lg:pt-12 pb-12 lg:pb-16">
         <div className="container-custom">
           <div className="card p-8">
             <div className="prose dark:prose-invert max-w-none">
@@ -226,7 +226,7 @@ const DialysisRequest = () => {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

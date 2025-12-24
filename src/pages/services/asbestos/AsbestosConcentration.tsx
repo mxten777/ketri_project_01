@@ -1,8 +1,8 @@
  
 const AsbestosConcentration = () => {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
-      <section className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white py-16 lg:py-24">
+    <main className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+      <section data-has-hero className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">석면 농도 측정</h1>
@@ -148,7 +148,7 @@ const AsbestosConcentration = () => {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 
