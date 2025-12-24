@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Save, Lock, Globe, AlertCircle } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
-import { createQnA, updateQnA } from "../../services/qnaService";
+import { createQnA, updateQnA, getQnAById } from "../../services/qnaService";
 import { QnAFormData } from "../../types";
 import Button from "../../components/common/Button";
 import Card from "../../components/common/Card";
@@ -30,11 +30,11 @@ const QnAForm: React.FC = () => {
 
       try {
         setLoading(true);
-        const qnaData = await qnaService.getQnAById(id);
+        const qnaData = await getQnAById(id);
 
         if (!qnaData) {
           alert("게시글을 찾을 수 없습니다.");
-          navigate("/board/qna");
+            navigate("/");
           return;
         }
 
@@ -43,7 +43,7 @@ const QnAForm: React.FC = () => {
           user?.uid === qnaData.authorId || userData?.role === "admin";
         if (!canEdit) {
           alert("수정 권한이 없습니다.");
-          navigate("/board/qna");
+            navigate("/");
           return;
         }
 
@@ -56,7 +56,7 @@ const QnAForm: React.FC = () => {
       } catch (error) {
         console.error("QnA 로드 오류:", error);
         alert("게시글을 불러오는데 실패했습니다.");
-        navigate("/board/qna");
+          navigate("/");
       } finally {
         setLoading(false);
       }
@@ -100,7 +100,7 @@ const QnAForm: React.FC = () => {
 
     if (!user) {
       alert("로그인이 필요합니다.");
-      navigate("/auth/login");
+      navigate("/");
       return;
     }
 
@@ -115,16 +115,17 @@ const QnAForm: React.FC = () => {
         // 수정
         await updateQnA(id, formData);
         alert("질문이 수정되었습니다.");
-        navigate(`/board/qna/${id}`);
+          navigate(`/`);
       } else {
         // 새 작성
-        const newQnAId = await createQnA({
-          ...formData,
-          authorId: user.uid,
-          authorName: userData?.displayName || user.email || "익명",
-        });
+        const newQnAId = await createQnA(
+          formData,
+          user.uid,
+          userData?.displayName || user.displayName || "익명",
+          user.email || ""
+        );
         alert("질문이 등록되었습니다.");
-        navigate(`/board/qna/${newQnAId}`);
+          navigate(`/`);
       }
     } catch (error) {
       console.error("QnA 저장 오류:", error);
@@ -162,7 +163,7 @@ const QnAForm: React.FC = () => {
         <p className="text-neutral-600 dark:text-neutral-400 mb-4">
           질문을 작성하려면 로그인해주세요.
         </p>
-        <Button onClick={() => navigate("/auth/login")}>로그인하기</Button>
+        <Button onClick={() => navigate("/")}>로그인하기</Button>
       </Card>
     );
   }
@@ -175,7 +176,7 @@ const QnAForm: React.FC = () => {
     >
       {/* 헤더 */}
       <div className="flex items-center gap-4">
-        <Button onClick={() => navigate("/board/qna")} variant="ghost">
+          <Button onClick={() => navigate("/")} variant="ghost">
           <ArrowLeft className="w-4 h-4 mr-2" />
           목록으로
         </Button>
@@ -302,7 +303,7 @@ const QnAForm: React.FC = () => {
           <div className="flex gap-3 pt-4">
             <Button
               type="button"
-              onClick={() => navigate("/board/qna")}
+                onClick={() => navigate("/")}
               variant="outline"
               className="flex-1"
               disabled={loading}

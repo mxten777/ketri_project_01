@@ -19,8 +19,9 @@ const ProtectedRoute = ({ children, requireAdmin = false }: ProtectedRouteProps)
   }
 
   if (!currentUser) {
-    // 로그?�하지 ?��? 경우 로그???�이지�?리다?�렉??
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    // If route requires admin, redirect to admin login; otherwise go to site root
+    if (requireAdmin) return <Navigate to="/admin/login" state={{ from: location }} replace />;
+    return <Navigate to="/" state={{ from: location }} replace />;
   }
 
   if (requireAdmin && userData?.role !== 'admin') {

@@ -73,7 +73,6 @@ export const getStatistics = async () => {
       totalDownloads,
     };
   } catch (error) {
-    console.error("Error fetching statistics:", error);
     throw error;
   }
 };
@@ -90,7 +89,6 @@ export const getRecentUsers = async (limitCount: number = 10) => {
       ...doc.data(),
     })) as User[];
   } catch (error) {
-    console.error("Error fetching recent users:", error);
     throw error;
   }
 };
@@ -111,7 +109,6 @@ export const getRecentNotices = async (limitCount: number = 5) => {
       ...doc.data(),
     }));
   } catch (error) {
-    console.error("Error fetching recent notices:", error);
     throw error;
   }
 };
@@ -128,7 +125,6 @@ export const getRecentQnA = async (limitCount: number = 5) => {
       ...doc.data(),
     }));
   } catch (error) {
-    console.error("Error fetching recent QnA:", error);
     throw error;
   }
 };
@@ -209,7 +205,6 @@ export const getRecentActivities = async (
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice(0, limitCount);
   } catch (error) {
-    console.error("최근 활동 조회 실패:", error);
     return []; // 에러 시 빈 배열 반환
   }
 };
@@ -252,7 +247,6 @@ export const getMonthlyUserStats = async () => {
       count,
     }));
   } catch (error) {
-    console.error("Error fetching monthly user stats:", error);
     throw error;
   }
 };
@@ -434,19 +428,19 @@ export const getMonthlyActivityStats = async (months: number = 6) => {
 
 // 대시보드 통계 조회
 export const getDashboardStats = async (): Promise<DashboardStats> => {
-  try {
-    // 기본값으로 초기화
-    const defaultStats = {
-      totalUsers: 0,
-      totalQnAs: 0,
-      totalResources: 0,
-      totalNotices: 0,
-      totalDownloads: 0,
-      activeUsers: 0,
-      recentRegistrations: 0,
-    };
+  const defaultStats: DashboardStats = {
+    totalUsers: 0,
+    totalQnAs: 0,
+    totalResources: 0,
+    totalNotices: 0,
+    totalDownloads: 0,
+    recentQnAs: 0,
+    recentResources: 0,
+    recentUsers: 0,
+    answerRate: 0,
+  };
 
-    try {
+  try {
       const [usersCount, qnaCount, resourcesCount, noticesCount] =
         await Promise.all([
           getCountFromServer(collection(db, "users")).catch(() => ({
@@ -480,22 +474,13 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
         totalResources: resourcesCount.data().count || 0,
         totalNotices: noticesCount.data().count || 0,
         totalDownloads,
-        activeUsers: usersCount.data().count || 0,
-        recentRegistrations: 0,
+        recentQnAs: 0,
+        recentResources: 0,
+        recentUsers: 0,
+        answerRate: 0,
       };
-    } catch {
-      return defaultStats;
-    }
   } catch (error) {
     console.error("Error fetching dashboard stats:", error);
-    return {
-      totalUsers: 0,
-      totalQnAs: 0,
-      totalResources: 0,
-      totalNotices: 0,
-      totalDownloads: 0,
-      activeUsers: 0,
-      recentRegistrations: 0,
-    };
+    return defaultStats;
   }
 };

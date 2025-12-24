@@ -1,0 +1,116 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user owns the resource
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      // Anyone can read user profiles (for displaying author names, etc.)
+      allow read: if true;
+      
+      // Users can create their own profile during registration
+      allow create: if isAuthenticated() && 
+                      request.auth.uid == userId;
+      
+      // Users can update their own profile
+      allow update: if isOwner(userId) || isAdmin();
+      
+      // Only admins can delete users
+      allow delete: if isAdmin();
+    }
+    
+    // Notice board (공지사항)
+    match /notices/{noticeId} {
+      // Anyone can read notices
+      allow read: if true;
+      
+      // Only admins can create, update, delete notices
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // QnA board (질문과답변)
+    match /qna/{qnaId} {
+      // Anyone can read QnA
+      allow read: if true;
+      
+      // Authenticated users can create QnA
+      allow create: if isAuthenticated();
+      
+      // Authors and admins can update/delete
+      allow update, delete: if isAuthenticated() && 
+                               (resource.data.authorId == request.auth.uid || isAdmin());
+    }
+    
+    // Free board (자유게시판)
+    match /freePosts/{freeId} {
+      // Anyone can read free board
+      allow read: if true;
+      
+      // Authenticated users can create
+      allow create: if isAuthenticated();
+      
+      // Authors and admins can update/delete
+      allow update, delete: if isAuthenticated() && 
+                               (resource.data.authorId == request.auth.uid || isAdmin());
+    }
+    
+    // Resources (자료실)
+    match /resources/{resourceId} {
+      // Anyone can read resources
+      allow read: if true;
+      
+      // Only admins can create, update, delete resources
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Quote requests (견적 요청)
+    match /quoteRequests/{requestId} {
+      // Users can read their own quote requests, admins can read all
+      allow read: if isAuthenticated() && 
+                    (resource.data.userId == request.auth.uid || isAdmin());
+      
+      // Authenticated users can create quote requests
+      allow create: if isAuthenticated();
+      
+      // Users can update their own requests, admins can update all
+      allow update: if isAuthenticated() && 
+                      (resource.data.userId == request.auth.uid || isAdmin());
+      
+      // Only admins can delete quote requests
+      allow delete: if isAdmin();
+    }
+    
+    // Comments (댓글) - subcollection
+    match /{path=**}/comments/{commentId} {
+      // Anyone can read comments
+      allow read: if true;
+      
+      // Authenticated users can create comments
+      allow create: if isAuthenticated();
+      
+      // Authors and admins can update/delete comments
+      allow update, delete: if isAuthenticated() && 
+                               (resource.data.authorId == request.auth.uid || isAdmin());
+    }
+    
+    // Default deny all other paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

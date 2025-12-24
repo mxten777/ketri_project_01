@@ -10,12 +10,10 @@ import {
   Lock,
   Pin,
   Eye,
-  ChevronRight,
 } from "lucide-react";
 import Button from "../../components/common/Button";
-import Card from "../../components/common/Card";
 import { useAuth } from "../../contexts/AuthContext";
-import { getQnAList } from "../../services/qnaService";
+import { getQnAs } from "../../services/qnaService";
 import type { QnA } from "../../types";
 
 const QnAList = () => {
@@ -44,10 +42,10 @@ const QnAList = () => {
   const fetchQnAList = async () => {
     try {
       setLoading(true);
-      const data = await getQnAList();
+      const data = await getQnAs();
       setQnAList(data);
     } catch (error) {
-      console.error("QnA 목록 조회 실패:", error);
+      // error logging removed
     } finally {
       setLoading(false);
     }
@@ -102,10 +100,16 @@ const QnAList = () => {
     return cat ? cat.label : category;
   };
 
-  const formatDate = (timestamp: any): string => {
+  const formatDate = (timestamp: unknown): string => {
     if (!timestamp) return "";
     try {
-      const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+      const tsObj = timestamp as unknown;
+      let date: Date;
+      if (tsObj && typeof ((tsObj as { toDate?: unknown }).toDate) === "function") {
+        date = ((tsObj as { toDate: () => Date }).toDate)();
+      } else {
+        date = new Date(String(timestamp));
+      }
       return new Intl.DateTimeFormat("ko-KR", {
         year: "numeric",
         month: "2-digit",
@@ -117,8 +121,9 @@ const QnAList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
-      <div className="container mx-auto px-4 py-8">
+    <main className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
+      <section className="pt-10 lg:pt-12 pb-12 lg:pb-16">
+        <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -138,21 +143,19 @@ const QnAList = () => {
                   궁금한 점이 있으시면 언제든 질문해 주세요
                 </p>
               </div>
-              {user && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3 }}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Button
+                  onClick={() => {}}
+                  className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all px-6 py-3"
                 >
-                  <Button
-                    onClick={() => navigate("/board/qna/write")}
-                    className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/30 shadow-premium"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    질문하기
-                  </Button>
-                </motion.div>
-              )}
+                  <Plus className="w-5 h-5 mr-2" />
+                  질문 등록하기
+                </Button>
+              </motion.div>
             </motion.div>
           </div>
 
@@ -236,12 +239,11 @@ const QnAList = () => {
             </div>
           </motion.div>
 
-          {/* 게시글 목록 */}
+          {/* 게시글 목록 - 그리드 카드 레이아웃 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="space-y-4"
           >
             {loading ? (
               <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-12 text-center shadow-premium border border-white/20">
@@ -266,81 +268,79 @@ const QnAList = () => {
                 </p>
               </div>
             ) : (
-              <AnimatePresence>
-                {filteredQnAs.map((qna, index) => (
-                  <motion.div
-                    key={qna.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.2, delay: index * 0.05 }}
-                    whileHover={{ y: -2 }}
-                  >
-                    <div
-                      className="bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-premium border border-white/50 dark:border-neutral-700/50 hover:shadow-2xl hover:border-primary-300/50 dark:hover:border-primary-600/50 transition-all duration-300 cursor-pointer hover:scale-[1.01]"
-                      onClick={() => navigate(`/board/qna/${qna.id}`)}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <AnimatePresence>
+                  {filteredQnAs.map((qna, index) => (
+                    <motion.div
+                      key={qna.id}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.2, delay: index * 0.05 }}
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      onClick={() => {}}
+                      className="cursor-pointer group"
                     >
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          {/* 제목 및 아이콘 */}
-                          <div className="flex items-center gap-2 mb-3">
+                      <div className="bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl p-6 h-full shadow-premium border border-white/50 dark:border-neutral-700/50 hover:shadow-2xl hover:border-primary-300/50 dark:hover:border-primary-600/50 transition-all duration-300 flex flex-col">
+                        {/* 상단 배지 및 상태 */}
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center gap-2">
                             {qna.isPinned && (
                               <Pin className="w-4 h-4 text-primary-600 flex-shrink-0" />
                             )}
                             {qna.isSecret && (
                               <Lock className="w-4 h-4 text-amber-600 flex-shrink-0" />
                             )}
-                            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex-1">
-                              {qna.title}
-                            </h3>
-                            {getStatusBadge(qna.status)}
-                          </div>
-
-                          {/* 미리보기 내용 */}
-                          <p className="text-neutral-600 dark:text-neutral-400 text-sm mb-4 line-clamp-2">
-                            {qna.content}
-                          </p>
-
-                          {/* 메타 정보 */}
-                          <div className="flex items-center gap-4 text-xs text-neutral-500 dark:text-neutral-400">
-                            <span className="px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300">
+                            <span className="px-2 py-1 rounded-full text-xs bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300">
                               {getCategoryLabel(qna.category)}
                             </span>
-                            <span>{qna.authorName}</span>
-                            <span>{formatDate(qna.createdAt)}</span>
-                            {qna.views && qna.views > 0 && (
-                              <span className="flex items-center gap-1 text-xs text-neutral-500">
-                                <Eye className="w-3 h-3" />
-                                {qna.views}
-                              </span>
-                            )}
                           </div>
+                          {getStatusBadge(qna.status)}
+                        </div>
 
-                          {/* 관리자 답변 미리보기 */}
-                          {qna.status === "answered" && qna.answerContent && (
-                            <div className="mt-3 p-3 bg-green-50 dark:bg-green-900/10 rounded-lg border-l-4 border-green-500">
-                              <div className="flex items-center gap-2 mb-1">
-                                <CheckCircle className="w-4 h-4 text-green-600" />
-                                <span className="text-sm font-medium text-green-800 dark:text-green-400">
-                                  관리자 답변
-                                </span>
-                              </div>
-                              <p className="text-sm text-green-700 dark:text-green-300">
-                                {qna.answerContent.substring(0, 100)}
-                                {qna.answerContent.length > 100 && "..."}
-                              </p>
+                        {/* 제목 */}
+                        <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2 flex-grow">
+                          {qna.title}
+                        </h3>
+
+                        {/* 내용 미리보기 */}
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3">
+                          {qna.content.replace(/<[^>]*>/g, '')}
+                        </p>
+
+                        {/* 답변 미리보기 */}
+                        {qna.status === "answered" && qna.answerContent && (
+                          <div className="mb-4 p-3 bg-green-50 dark:bg-green-900/10 rounded-lg border-l-4 border-green-500">
+                            <div className="flex items-center gap-2 mb-1">
+                              <CheckCircle className="w-4 h-4 text-green-600" />
+                              <span className="text-xs font-medium text-green-800 dark:text-green-400">
+                                관리자 답변
+                              </span>
+                            </div>
+                            <p className="text-xs text-green-700 dark:text-green-300 line-clamp-2">
+                              {qna.answerContent}
+                            </p>
+                          </div>
+                        )}
+
+                        {/* 하단 정보 */}
+                        <div className="pt-4 border-t border-neutral-200 dark:border-neutral-700 mt-auto">
+                          <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 mb-2">
+                            <span className="font-medium">{qna.authorName}</span>
+                            <span>{formatDate(qna.createdAt)}</span>
+                          </div>
+                          {qna.views && qna.views > 0 && (
+                            <div className="flex items-center gap-1 text-xs text-neutral-400">
+                              <Eye className="w-3 h-3" />
+                              <span>{qna.views} 조회</span>
                             </div>
                           )}
                         </div>
-
-                        <div className="ml-4 flex flex-col items-end">
-                          <ChevronRight className="w-5 h-5 text-neutral-400" />
-                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
             )}
           </motion.div>
 
@@ -355,7 +355,7 @@ const QnAList = () => {
               <p className="text-neutral-700 dark:text-neutral-300">
                 💡 질문을 등록하시려면{" "}
                 <button
-                  onClick={() => navigate("/auth/login")}
+                  onClick={() => navigate("/")}
                   className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
                 >
                   로그인
@@ -365,8 +365,9 @@ const QnAList = () => {
             </motion.div>
           )}
         </motion.div>
-      </div>
-    </div>
+        </div>
+      </section>
+    </main>
   );
 };
 

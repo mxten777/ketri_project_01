@@ -20,7 +20,7 @@ export interface SearchResult {
 }
 
 /**
- * ?�합 검??- 공�??�항, QnA, ?�료???�체 검??
+ * ?�합 검??- 공�??�항, QnA, ?�료???�체 검??
  */
 export const searchAll = async (searchTerm: string): Promise<SearchResult[]> => {
   if (!searchTerm || searchTerm.trim().length < 2) {
@@ -31,7 +31,7 @@ export const searchAll = async (searchTerm: string): Promise<SearchResult[]> => 
   const results: SearchResult[] = [];
 
   try {
-    // 공�??�항 검??
+    // 공�??�항 검??
     const noticesRef = collection(db, 'notices');
     const noticesSnapshot = await getDocs(noticesRef);
     
@@ -49,7 +49,7 @@ export const searchAll = async (searchTerm: string): Promise<SearchResult[]> => 
           excerpt: data.content ? data.content.substring(0, 150) : '',
           author: data.author || '관리자',
           createdAt: data.createdAt,
-          category: data.category || '?�반'
+          category: data.category || '?�반'
         });
       }
     });
@@ -70,15 +70,15 @@ export const searchAll = async (searchTerm: string): Promise<SearchResult[]> => 
           title: data.title || '',
           content: data.content || '',
           excerpt: data.content ? data.content.substring(0, 150) : '',
-          author: data.authorName || '?�명',
+          author: data.authorName || '?�명',
           createdAt: data.createdAt,
-          category: data.category || '?�반',
+          category: data.category || '?�반',
           isAnswered: data.isAnswered || false
         });
       }
     });
 
-    // ?�료??검??
+    // ?�료??검??
     const resourcesRef = collection(db, 'resources');
     const resourcesSnapshot = await getDocs(resourcesRef);
     
@@ -97,14 +97,14 @@ export const searchAll = async (searchTerm: string): Promise<SearchResult[]> => 
           excerpt: data.description ? data.description.substring(0, 150) : '',
           author: data.uploaderName || '관리자',
           createdAt: data.createdAt,
-          category: data.category || '?�반',
+          category: data.category || '?�반',
           fileName: data.fileName,
           fileUrl: data.fileUrl
         });
       }
     });
 
-    // 최신?�으�??�렬
+    // 최신?�으�??�렬
     results.sort((a, b) => {
       const aTime = a.createdAt?.toMillis?.() || 0;
       const bTime = b.createdAt?.toMillis?.() || 0;
@@ -113,13 +113,12 @@ export const searchAll = async (searchTerm: string): Promise<SearchResult[]> => 
 
     return results;
   } catch (error) {
-    console.error('?�합 검???�패:', error);
     throw error;
   }
 };
 
 /**
- * ?�?�별 검??
+ * ?�?�별 검??
  */
 export const searchByType = async (
   searchTerm: string,
@@ -161,7 +160,7 @@ export const searchByType = async (
           excerpt: (data.content || data.description || '').substring(0, 150),
           author: data.author || data.authorName || data.uploaderName || '관리자',
           createdAt: data.createdAt,
-          category: data.category || '?�반',
+          category: data.category || '?�반',
           ...(type === 'qna' && { isAnswered: data.isAnswered || false }),
           ...(type === 'resource' && { 
             fileName: data.fileName,
@@ -171,7 +170,7 @@ export const searchByType = async (
       }
     });
 
-    // 최신???�렬
+    // 최신???�렬
     results.sort((a, b) => {
       const aTime = a.createdAt?.toMillis?.() || 0;
       const bTime = b.createdAt?.toMillis?.() || 0;
@@ -180,13 +179,12 @@ export const searchByType = async (
 
     return results;
   } catch (error) {
-    console.error(`${type} 검???�패:`, error);
     throw error;
   }
 };
 
 /**
- * 최근 검?�어 ?�??
+ * 최근 검?�어 ?�??
  */
 export const saveRecentSearch = (searchTerm: string) => {
   try {
@@ -194,36 +192,35 @@ export const saveRecentSearch = (searchTerm: string) => {
     const updated = [searchTerm, ...recentSearches.filter(s => s !== searchTerm)].slice(0, 10);
     localStorage.setItem('recentSearches', JSON.stringify(updated));
   } catch (error) {
-    console.error('최근 검?�어 ?�???�패:', error);
+    // ignore storage errors in cleanup
   }
 };
 
 /**
- * 최근 검?�어 조회
+ * 최근 검?�어 조회
  */
 export const getRecentSearches = (): string[] => {
   try {
     const searches = localStorage.getItem('recentSearches');
     return searches ? JSON.parse(searches) : [];
   } catch (error) {
-    console.error('최근 검?�어 조회 ?�패:', error);
     return [];
   }
 };
 
 /**
- * 최근 검?�어 ??��
+ * 최근 검?�어 ??��
  */
 export const clearRecentSearches = () => {
   try {
     localStorage.removeItem('recentSearches');
   } catch (error) {
-    console.error('최근 검?�어 ??�� ?�패:', error);
+    // ignore
   }
 };
 
 /**
- * ?�정 검?�어 ??��
+ * ?�정 검?�어 ??��
  */
 export const removeRecentSearch = (searchTerm: string) => {
   try {
@@ -231,6 +228,6 @@ export const removeRecentSearch = (searchTerm: string) => {
     const updated = recentSearches.filter(s => s !== searchTerm);
     localStorage.setItem('recentSearches', JSON.stringify(updated));
   } catch (error) {
-    console.error('검?�어 ??�� ?�패:', error);
+    // ignore
   }
 };

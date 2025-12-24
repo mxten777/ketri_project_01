@@ -1,6 +1,10 @@
 import { Timestamp } from "firebase/firestore";
 
-// Date utility functions
+/**
+ * 날짜 포맷 유틸리티 함수들
+ */
+
+// 기본 날짜 포맷 (날짜 + 시간)
 export const formatDate = (date: Date): string => {
   return date.toLocaleDateString("ko-KR", {
     year: "numeric",
@@ -9,6 +13,36 @@ export const formatDate = (date: Date): string => {
     hour: "2-digit",
     minute: "2-digit",
   });
+};
+
+// 날짜만 포맷 (시간 제외)
+export const formatDateOnly = (date: Date | string): string => {
+  try {
+    const dateObj = typeof date === "string" ? new Date(date) : date;
+    return dateObj.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  } catch {
+    return "";
+  }
+};
+
+// Firebase Timestamp를 날짜 문자열로 변환
+export const formatFirebaseTimestamp = (
+  timestamp: { seconds: number; nanoseconds: number } | null | undefined
+): string => {
+  if (!timestamp) return "";
+  try {
+    return new Date(timestamp.seconds * 1000).toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  } catch {
+    return "";
+  }
 };
 
 export const formatRelativeTime = (date: Date): string => {

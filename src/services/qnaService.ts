@@ -1,365 +1,209 @@
 import {
   collection,
-  addDoc,
-  getDocs,
   doc,
+  getDocs,
   getDoc,
+  addDoc,
   updateDoc,
   deleteDoc,
   query,
   orderBy,
+  limit,
   where,
-  increment,
-  serverTimestamp,
-  writeBatch,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import type { QnA, QnAFormData } from "../types";
+import { logDev, logError } from "../utils/logger";
 
-const QNA_COLLECTION = "qna";
+const COLLECTION_NAME = "qna";
 
-// QnA 목록 조회
-export const getQnAList = async (): Promise<QnA[]> => {
+// Q&A 목록 조회
+export const getQnAs = async (options?: {
+  limit?: number;
+  status?: "pending" | "answered" | "closed";
+}): Promise<QnA[]> => {
   try {
-    const q = query(
-      collection(db, QNA_COLLECTION),
-      orderBy("isPinned", "desc"),
+    logDev("Fetching Q&As from Firestore...");
+
+    let q = query(
+      collection(db, COLLECTION_NAME),
       orderBy("createdAt", "desc")
     );
 
-    const querySnapshot = await getDocs(q);
-    const qnaList: QnA[] = [];
+    if (options?.status) {
+      q = query(q, where("status", "==", options.status));
+    }
 
-    querySnapshot.forEach((doc) => {
+    if (options?.limit) {
+      q = query(q, limit(options.limit));
+    }
+
+    const querySnapshot = await getDocs(q);
+    logDev(`Found ${querySnapshot.docs.length} Q&As`);
+
+    return querySnapshot.docs.map((doc) => {
       const data = doc.data();
-      qnaList.push({
+      return {
         id: doc.id,
-        title: data.title,
-        content: data.content,
-        category: data.category,
+        title: data.title || "",
+        content: data.content || "",
+        category: data.category || "general",
         status: data.status || "pending",
         isSecret: data.isSecret || false,
         isPinned: data.isPinned || false,
         views: data.views || 0,
-        authorId: data.authorId,
-        authorName: data.authorName,
-        authorEmail: data.authorEmail,
-        createdAt: data.createdAt?.toDate() || new Date(),
-        updatedAt: data.updatedAt?.toDate() || new Date(),
-        answeredAt: data.answeredAt?.toDate(),
-        answeredBy: data.answeredBy,
+        authorId: data.authorId || "",
+        authorName: data.authorName || "",
+        authorEmail: data.authorEmail || "",
         answerContent: data.answerContent,
-      });
+        answeredAt: data.answeredAt?.toDate?.(),
+        answeredBy: data.answeredBy,
+        createdAt: data.createdAt?.toDate?.() || new Date(),
+        updatedAt: data.updatedAt?.toDate?.() || new Date(),
+      } as QnA;
     });
-
-    return qnaList;
   } catch (error) {
-    console.error("Error getting QnA list:", error);
-    throw new Error("QnA 목록을 불러오는데 실패했습니다.");
+    logError("Error fetching Q&As:", error as Error);
+    throw new Error("Q&A 목록을 불러오는데 실패했습니다.");
   }
 };
 
-// QnA 상세 조회 (조회수 증가)
+// Q&A 상세 조회
 export const getQnAById = async (id: string): Promise<QnA | null> => {
   try {
-    const docRef = doc(db, QNA_COLLECTION, id);
+    logDev(`Fetching Q&A ${id} from Firestore...`);
+    const docRef = doc(db, COLLECTION_NAME, id);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
+      logDev(`Q&A ${id} not found`);
       return null;
     }
 
+    const data = docSnap.data();
+    
     // 조회수 증가
     await updateDoc(docRef, {
-      views: increment(1),
+      views: (data.views || 0) + 1,
     });
 
-    const data = docSnap.data();
     return {
       id: docSnap.id,
-      title: data.title,
-      content: data.content,
-      category: data.category,
+      title: data.title || "",
+      content: data.content || "",
+      category: data.category || "general",
       status: data.status || "pending",
       isSecret: data.isSecret || false,
       isPinned: data.isPinned || false,
-      views: (data.views || 0) + 1, // 즉시 반영
-      authorId: data.authorId,
-      authorName: data.authorName,
-      authorEmail: data.authorEmail,
-      createdAt: data.createdAt?.toDate() || new Date(),
-      updatedAt: data.updatedAt?.toDate() || new Date(),
-      answeredAt: data.answeredAt?.toDate(),
-      answeredBy: data.answeredBy,
+      views: (data.views || 0) + 1,
+      authorId: data.authorId || "",
+      authorName: data.authorName || "",
+      authorEmail: data.authorEmail || "",
       answerContent: data.answerContent,
-    };
+      answeredAt: data.answeredAt?.toDate?.(),
+      answeredBy: data.answeredBy,
+      createdAt: data.createdAt?.toDate?.() || new Date(),
+      updatedAt: data.updatedAt?.toDate?.() || new Date(),
+    } as QnA;
   } catch (error) {
-    console.error("Error getting QnA:", error);
-    throw new Error("QnA를 불러오는데 실패했습니다.");
+    logError(`Error fetching Q&A ${id}:`, error as Error);
+    throw new Error("Q&A를 불러오는데 실패했습니다.");
   }
 };
 
-// 새 QnA 작성
+// Q&A 생성
 export const createQnA = async (
-  qnaData: QnAFormData,
+  data: QnAFormData,
   userId: string,
   userName: string,
   userEmail: string
 ): Promise<string> => {
   try {
-    const docRef = await addDoc(collection(db, QNA_COLLECTION), {
-      title: qnaData.title,
-      content: qnaData.content,
-      category: qnaData.category,
-      status: "pending",
-      isSecret: qnaData.isSecret || false,
+    logDev("Creating new Q&A in Firestore...");
+    const now = Timestamp.now();
+
+    const qnaData = {
+      title: data.title,
+      content: data.content,
+      category: data.category,
+      status: "pending" as const,
+      isSecret: data.isSecret || false,
       isPinned: false,
       views: 0,
       authorId: userId,
       authorName: userName,
       authorEmail: userEmail,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-    });
+      createdAt: now,
+      updatedAt: now,
+    };
 
+    const docRef = await addDoc(collection(db, COLLECTION_NAME), qnaData);
+    logDev(`Q&A created with ID: ${docRef.id}`);
     return docRef.id;
   } catch (error) {
-    console.error("Error creating QnA:", error);
-    throw new Error("QnA 작성에 실패했습니다.");
+    logError("Error creating Q&A:", error as Error);
+    throw new Error("Q&A 작성에 실패했습니다.");
   }
 };
 
-// QnA 수정
+// Q&A 수정
 export const updateQnA = async (
   id: string,
-  qnaData: Partial<QnAFormData>
+  data: Partial<QnAFormData>
 ): Promise<void> => {
   try {
-    const docRef = doc(db, QNA_COLLECTION, id);
-    await updateDoc(docRef, {
-      ...qnaData,
-      updatedAt: serverTimestamp(),
-    });
+    logDev(`Updating Q&A ${id}...`);
+    const docRef = doc(db, COLLECTION_NAME, id);
+
+    const updateData = {
+      ...data,
+      updatedAt: Timestamp.now(),
+    };
+
+    await updateDoc(docRef, updateData);
+    logDev(`Q&A ${id} updated successfully`);
   } catch (error) {
-    console.error("Error updating QnA:", error);
-    throw new Error("QnA 수정에 실패했습니다.");
+    logError(`Error updating Q&A ${id}:`, error as Error);
+    throw new Error("Q&A 수정에 실패했습니다.");
   }
 };
 
-// QnA 삭제
+// Q&A 삭제
 export const deleteQnA = async (id: string): Promise<void> => {
   try {
-    await deleteDoc(doc(db, QNA_COLLECTION, id));
+    logDev(`Deleting Q&A ${id}...`);
+    const docRef = doc(db, COLLECTION_NAME, id);
+    await deleteDoc(docRef);
+    logDev(`Q&A ${id} deleted successfully`);
   } catch (error) {
-    console.error("Error deleting QnA:", error);
-    throw new Error("QnA 삭제에 실패했습니다.");
+    logError(`Error deleting Q&A ${id}:`, error as Error);
+    throw new Error("Q&A 삭제에 실패했습니다.");
   }
 };
 
-// 관리자 답변 작성
+// 답변 추가
 export const addAnswer = async (
   qnaId: string,
   answerContent: string,
-  adminId: string,
-  adminName: string
+  answeredByIdOrName: string,
+  answeredByName?: string
 ): Promise<void> => {
   try {
-    const batch = writeBatch(db);
+    logDev(`Adding answer to Q&A ${qnaId}...`);
+    const docRef = doc(db, COLLECTION_NAME, qnaId);
 
-    // QnA 문서 업데이트
-    const qnaRef = doc(db, QNA_COLLECTION, qnaId);
-    batch.update(qnaRef, {
+    await updateDoc(docRef, {
+      answerContent: answerContent,
+      answeredBy: answeredByName || answeredByIdOrName,
+      answeredAt: Timestamp.now(),
       status: "answered",
-      answerContent: answerContent,
-      answeredBy: adminName,
-      answeredAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
+      updatedAt: Timestamp.now(),
     });
 
-    await batch.commit();
+    logDev(`Answer added to Q&A ${qnaId} successfully`);
   } catch (error) {
-    console.error("Error adding answer:", error);
+    logError(`Error adding answer to Q&A ${qnaId}:`, error as Error);
     throw new Error("답변 작성에 실패했습니다.");
-  }
-};
-
-// 관리자 답변 수정
-export const updateAnswer = async (
-  qnaId: string,
-  answerContent: string
-): Promise<void> => {
-  try {
-    const docRef = doc(db, QNA_COLLECTION, qnaId);
-    await updateDoc(docRef, {
-      answerContent: answerContent,
-      updatedAt: serverTimestamp(),
-    });
-  } catch (error) {
-    console.error("Error updating answer:", error);
-    throw new Error("답변 수정에 실패했습니다.");
-  }
-};
-
-// 관리자 답변 삭제
-export const deleteAnswer = async (qnaId: string): Promise<void> => {
-  try {
-    const docRef = doc(db, QNA_COLLECTION, qnaId);
-    await updateDoc(docRef, {
-      status: "pending",
-      answerContent: null,
-      answeredBy: null,
-      answeredAt: null,
-      updatedAt: serverTimestamp(),
-    });
-  } catch (error) {
-    console.error("Error deleting answer:", error);
-    throw new Error("답변 삭제에 실패했습니다.");
-  }
-};
-
-// QnA 상태 변경 (관리자용)
-export const updateQnAStatus = async (
-  id: string,
-  status: "pending" | "answered" | "closed"
-): Promise<void> => {
-  try {
-    const docRef = doc(db, QNA_COLLECTION, id);
-    await updateDoc(docRef, {
-      status: status,
-      updatedAt: serverTimestamp(),
-    });
-  } catch (error) {
-    console.error("Error updating QnA status:", error);
-    throw new Error("QnA 상태 변경에 실패했습니다.");
-  }
-};
-
-// QnA 핀 고정/해제 (관리자용)
-export const toggleQnAPin = async (
-  id: string,
-  isPinned: boolean
-): Promise<void> => {
-  try {
-    const docRef = doc(db, QNA_COLLECTION, id);
-    await updateDoc(docRef, {
-      isPinned: isPinned,
-      updatedAt: serverTimestamp(),
-    });
-  } catch (error) {
-    console.error("Error toggling QnA pin:", error);
-    throw new Error("QnA 핀 고정 변경에 실패했습니다.");
-  }
-};
-
-// 내가 작성한 QnA 조회
-export const getMyQnAList = async (userId: string): Promise<QnA[]> => {
-  try {
-    const q = query(
-      collection(db, QNA_COLLECTION),
-      where("authorId", "==", userId),
-      orderBy("createdAt", "desc")
-    );
-
-    const querySnapshot = await getDocs(q);
-    const qnaList: QnA[] = [];
-
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      qnaList.push({
-        id: doc.id,
-        title: data.title,
-        content: data.content,
-        category: data.category,
-        status: data.status || "pending",
-        isSecret: data.isSecret || false,
-        isPinned: data.isPinned || false,
-        views: data.views || 0,
-        authorId: data.authorId,
-        authorName: data.authorName,
-        authorEmail: data.authorEmail,
-        createdAt: data.createdAt?.toDate() || new Date(),
-        updatedAt: data.updatedAt?.toDate() || new Date(),
-        answeredAt: data.answeredAt?.toDate(),
-        answeredBy: data.answeredBy,
-        answerContent: data.answerContent,
-      });
-    });
-
-    return qnaList;
-  } catch (error) {
-    console.error("Error getting my QnA list:", error);
-    throw new Error("내 QnA 목록을 불러오는데 실패했습니다.");
-  }
-};
-
-// QnA 카테고리별 조회
-export const getQnAByCategory = async (category: string): Promise<QnA[]> => {
-  try {
-    const q = query(
-      collection(db, QNA_COLLECTION),
-      where("category", "==", category),
-      orderBy("createdAt", "desc")
-    );
-
-    const querySnapshot = await getDocs(q);
-    const qnaList: QnA[] = [];
-
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      qnaList.push({
-        id: doc.id,
-        title: data.title,
-        content: data.content,
-        category: data.category,
-        status: data.status || "pending",
-        isSecret: data.isSecret || false,
-        isPinned: data.isPinned || false,
-        views: data.views || 0,
-        authorId: data.authorId,
-        authorName: data.authorName,
-        authorEmail: data.authorEmail,
-        createdAt: data.createdAt?.toDate() || new Date(),
-        updatedAt: data.updatedAt?.toDate() || new Date(),
-        answeredAt: data.answeredAt?.toDate(),
-        answeredBy: data.answeredBy,
-        answerContent: data.answerContent,
-      });
-    });
-
-    return qnaList;
-  } catch (error) {
-    console.error("Error getting QnA by category:", error);
-    throw new Error("카테고리별 QnA 목록을 불러오는데 실패했습니다.");
-  }
-};
-
-// Admin에서 사용하는 함수들
-export const getQnAs = async (): Promise<QnA[]> => {
-  return getQnAList();
-};
-
-export const deleteQna = async (id: string): Promise<void> => {
-  try {
-    await deleteDoc(doc(db, QNA_COLLECTION, id));
-  } catch (error) {
-    console.error("Error deleting QnA:", error);
-    throw new Error("QnA 삭제에 실패했습니다.");
-  }
-};
-
-export const toggleAnswered = async (
-  id: string,
-  answered: boolean
-): Promise<void> => {
-  try {
-    const qnaRef = doc(db, QNA_COLLECTION, id);
-    await updateDoc(qnaRef, {
-      status: answered ? "answered" : "pending",
-      answeredAt: answered ? serverTimestamp() : null,
-      updatedAt: serverTimestamp(),
-    });
-  } catch (error) {
-    console.error("Error toggling answered status:", error);
-    throw new Error("답변 상태 변경에 실패했습니다.");
   }
 };

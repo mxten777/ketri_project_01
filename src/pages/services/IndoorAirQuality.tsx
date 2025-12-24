@@ -1,7 +1,27 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 const IndoorAirQuality = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        const header = document.querySelector("header");
+        const headerHeight = header && header instanceof HTMLElement ? header.offsetHeight : 96;
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      }, 50);
+    }
+  }, [location]);
+
   return (
-    <div className="min-h-screen">
-      <div className="bg-gradient-to-br from-green-600 to-emerald-600 text-white py-16 lg:py-24">
+    <main className="min-h-screen">
+      <section data-has-hero className="bg-gradient-to-br from-green-600 to-emerald-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             실내공기질 측정 및 개선
@@ -11,12 +31,37 @@ const IndoorAirQuality = () => {
             항목 측정 및 개선방안 제시
           </p>
         </div>
-      </div>
+      </section>
 
       <div className="section container-custom">
-        <div className="card p-8">
-          <h2 className="heading-md mb-6">실내공기질 측정 서비스</h2>
-          <div className="prose dark:prose-invert max-w-none">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar */}
+          <aside className="lg:col-span-1">
+            <div className="card p-6 sticky top-32 card-tokenized">
+              <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
+              <nav className="space-y-2">
+                {[
+                  { label: "업무 소개", href: "#introduction" },
+                  { label: "측정 대상시설", href: "#facilities" },
+                  { label: "측정 항목 및 기준", href: "#standards" },
+                ].map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            <div className="card p-8 card-tokenized">
+              <h2 id="introduction" className="heading-md mb-6">실내공기질 측정 서비스</h2>
+              <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 환경부 지정 실내공기질 측정대행업체(등록번호:
               2017-001)로 2006년부터 500여 개 시설의 실내공기질 측정을
@@ -24,7 +69,7 @@ const IndoorAirQuality = () => {
               개선방안 제시, 후속 관리까지 포괄적인 서비스를 제공합니다.
             </p>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">측정 대상 시설</h3>
+            <h3 id="facilities" className="text-2xl font-bold mt-8 mb-4">측정 대상 시설</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl">
                 <div className="text-4xl mb-3">🏫</div>
@@ -58,7 +103,7 @@ const IndoorAirQuality = () => {
               </div>
             </div>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">
+            <h3 id="standards" className="text-2xl font-bold mt-8 mb-4">
               측정 항목 및 유지기준
             </h3>
             <div className="overflow-x-auto mb-8">
@@ -348,10 +393,153 @@ const IndoorAirQuality = () => {
                 </div>
               </div>
             </div>
+
+            {/* FAQ 섹션 */}
+            <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl p-8 mb-8 mt-8">
+              <h3 className="text-2xl font-bold mb-6 text-green-600 dark:text-green-400">
+                💬 자주 묻는 질문 (FAQ)
+              </h3>
+              <div className="space-y-4">
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 실내공기질 측정은 언제 해야 하나요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 신축·리모델링 후 사용 전, 그리고 법적으로 다중이용시설은 연 1회, 지하역사·철도역사는 반기 1회 측정이 의무입니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 측정 시간은 얼마나 걸리나요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 현장 측정은 1~2시간(측정 지점 수에 따라 상이), 시료 분석 후 결과 보고서는 3~5일 이내에 발급됩니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 비용은 얼마인가요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 다중이용시설 기본(3항목) 약 30~50만원, 지하역사(10항목) 약 100~150만원입니다. 
+                    측정 지점 수와 항목에 따라 변동됩니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 부적합 시 어떻게 하나요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 환기 시스템 개선, 오염원 제거, 공기청정기 설치 등의 개선 조치를 실시하고, 
+                    재측정을 통해 적합 판정을 받아야 합니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 비용 안내 */}
+            <div className="bg-white dark:bg-neutral-800 border-2 border-green-200 dark:border-green-800 rounded-xl p-8 mb-8">
+              <h3 className="text-2xl font-bold mb-6 flex items-center">
+                <span className="text-3xl mr-3">💰</span>
+                측정 비용 안내
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="bg-green-600 text-white">
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">시설 구분</th>
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">측정 항목</th>
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">예상 비용</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="bg-white dark:bg-neutral-900">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">다중이용시설 (기본)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">PM10, CO₂, HCHO (3개)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">30만원 ~ 50만원</td>
+                    </tr>
+                    <tr className="bg-neutral-50 dark:bg-neutral-800">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">다중이용시설 (전체)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">6개 항목</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">60만원 ~ 90만원</td>
+                    </tr>
+                    <tr className="bg-white dark:bg-neutral-900">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">지하역사·철도역사</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">10개 항목</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">100만원 ~ 150만원</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
+                ※ 측정 지점 수와 시설 규모에 따라 비용 변동 가능.
+              </p>
+            </div>
+
+            {/* 신청서 다운로드 */}
+            <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-xl p-8 mb-8">
+              <h3 className="text-2xl font-bold mb-4 flex items-center">
+                <span className="text-3xl mr-3">📥</span>
+                신청서 다운로드
+              </h3>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+                실내공기질 측정 의뢰서를 다운로드하여 작성 후 제출해주세요.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a
+                  href="/documents/indoor-air-application.pdf"
+                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-green-200 dark:border-green-800"
+                >
+                  <span className="font-bold">실내공기질 측정 의뢰서</span>
+                  <span className="text-2xl">📄</span>
+                </a>
+                <a
+                  href="/documents/indoor-air-improvement-guide.pdf"
+                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-green-200 dark:border-green-800"
+                >
+                  <span className="font-bold">공기질 개선 가이드</span>
+                  <span className="text-2xl">📋</span>
+                </a>
+              </div>
+            </div>
+
+            {/* 고객 후기 */}
+            <div className="bg-white dark:bg-neutral-900 rounded-xl p-8 border border-neutral-200 dark:border-neutral-700">
+              <h3 className="text-2xl font-bold mb-6 flex items-center">
+                <span className="text-3xl mr-3">⭐</span>
+                고객 후기
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
+                  <div className="flex items-center mb-3">
+                    <div className="text-yellow-500 text-xl">★★★★★</div>
+                    <span className="ml-2 text-sm text-neutral-500">서울 강남구 ○○어린이집</span>
+                  </div>
+                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
+                    "신축 건물이라 걱정이 많았는데, 전문적인 측정과 개선 방안 덕분에 
+                    안심하고 아이들을 맞이할 수 있었습니다."
+                  </p>
+                  <p className="text-xs text-neutral-500">- 박○○ 원장</p>
+                </div>
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
+                  <div className="flex items-center mb-3">
+                    <div className="text-yellow-500 text-xl">★★★★★</div>
+                    <span className="ml-2 text-sm text-neutral-500">충북 청주시 ○○피트니스센터</span>
+                  </div>
+                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
+                    "연 1회 정기 측정을 의뢰하고 있습니다. 신속한 결과 보고와 
+                    개선 컨설팅으로 항상 적합 판정을 유지하고 있습니다."
+                  </p>
+                  <p className="text-xs text-neutral-500">- 최○○ 관리자</p>
+                </div>
+              </div>
+            </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

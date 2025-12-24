@@ -1,7 +1,28 @@
+ 
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 const DialysisWater = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        const header = document.querySelector("header");
+        const headerHeight = header && header instanceof HTMLElement ? header.offsetHeight : 96;
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      }, 50);
+    }
+  }, [location]);
+
   return (
-    <div className="min-h-screen">
-      <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white py-16 lg:py-24">
+    <main className="min-h-screen">
+      <section data-has-hero className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white py-16 lg:py-24">
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             혈액투석용수 검사
@@ -11,12 +32,39 @@ const DialysisWater = () => {
             투석용수 36개 항목 전문 검사 서비스
           </p>
         </div>
-      </div>
+      </section>
 
       <div className="section container-custom">
-        <div className="card p-8">
-          <h2 className="heading-md mb-6">투석용수 검사 서비스</h2>
-          <div className="prose dark:prose-invert max-w-none">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar */}
+          <aside className="lg:col-span-1">
+            <div className="card p-6 sticky top-32 card-tokenized">
+              <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
+              <nav className="space-y-2">
+                {[
+                  { label: "업무소개", href: "#introduction" },
+                  { label: "검사의뢰절차", href: "#procedure" },
+                  { label: "검사주기 및 관련기준", href: "#schedule" },
+                  { label: "수질기준 및 실험방법", href: "#standards" },
+                  { label: "채수방법 및 시료채수위치", href: "#sampling" },
+                ].map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            <div className="card p-8 card-tokenized">
+              <h2 id="introduction" className="heading-md mb-6">투석용수 검사 서비스</h2>
+              <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 혈액투석용수 전문 검사기관으로 2006년부터
               전국 200여 개 투석센터의 용수검사를 수행해왔습니다. 대한신장학회
@@ -26,7 +74,7 @@ const DialysisWater = () => {
             </p>
 
             <h3 className="text-2xl font-bold mt-8 mb-4">투석용수 중요성</h3>
-            <div className="bg-purple-50 dark:bg-purple-900/20 border-l-4 border-purple-500 p-6 mb-8">
+            <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6 mb-8">
               <p className="text-neutral-700 dark:text-neutral-300 mb-3">
                 혈액투석 환자는 일주일에 3회, 회당 약 120L 이상의 투석용수에
                 노출됩니다. 연간 약 18,000L 이상의 물이 환자 혈액과 직접
@@ -41,11 +89,11 @@ const DialysisWater = () => {
               </ul>
             </div>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">검사 항목 및 기준</h3>
+            <h3 id="standards" className="text-2xl font-bold mt-8 mb-4">검사 항목 및 기준</h3>
             <div className="overflow-x-auto mb-8">
               <table className="w-full border-collapse">
                 <thead>
-                  <tr className="bg-purple-600 text-white">
+                  <tr className="bg-primary-600 text-white">
                     <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       구분
                     </th>
@@ -169,9 +217,10 @@ const DialysisWater = () => {
             </div>
 
             <h3 className="text-2xl font-bold mt-8 mb-4">검사 종류</h3>
+            <h3 id="schedule" className="text-2xl font-bold mt-8 mb-4">검사 주기</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl">
-                <h4 className="font-bold text-lg mb-3 text-purple-600 dark:text-purple-400">
+              <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
+                <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-primary-400">
                   화학물질 검사
                 </h4>
                 <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
@@ -184,8 +233,8 @@ const DialysisWater = () => {
                   검사주기: 연 1회 이상
                 </p>
               </div>
-              <div className="p-6 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-xl">
-                <h4 className="font-bold text-lg mb-3 text-pink-600 dark:text-pink-400">
+              <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+                <h4 className="font-bold text-lg mb-3 text-gray-600 dark:text-gray-400">
                   미생물 검사
                 </h4>
                 <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
@@ -200,11 +249,11 @@ const DialysisWater = () => {
               </div>
             </div>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">검사 프로세스</h3>
+            <h3 id="procedure" className="text-2xl font-bold mt-8 mb-4">검사 프로세스</h3>
             <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 mb-6">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                <div id="sampling" className="text-center">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     1
                   </div>
                   <p className="font-bold mb-1">검사 신청</p>
@@ -213,7 +262,7 @@ const DialysisWater = () => {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     2
                   </div>
                   <p className="font-bold mb-1">시료 채취</p>
@@ -222,7 +271,7 @@ const DialysisWater = () => {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     3
                   </div>
                   <p className="font-bold mb-1">정밀 분석</p>
@@ -231,7 +280,7 @@ const DialysisWater = () => {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
                     4
                   </div>
                   <p className="font-bold mb-1">성적서 발급</p>
@@ -243,8 +292,8 @@ const DialysisWater = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-6">
-                <h4 className="font-bold text-lg mb-2 text-red-900 dark:text-red-300">
+              <div className="bg-gray-100 dark:bg-gray-800 border-l-4 border-gray-500 p-6">
+                <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-gray-300">
                   ⚠️ 오염 발생 시 조치사항
                 </h4>
                 <ul className="space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
@@ -254,8 +303,8 @@ const DialysisWater = () => {
                   <li>• 재검사 후 적합 판정 시 사용 재개</li>
                 </ul>
               </div>
-              <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-6">
-                <h4 className="font-bold text-lg mb-2 text-blue-900 dark:text-blue-300">
+              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6">
+                <h4 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
                   ✅ 관리 포인트
                 </h4>
                 <ul className="space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
@@ -300,10 +349,152 @@ const DialysisWater = () => {
                 </div>
               </div>
             </div>
+
+            {/* FAQ 섹션 */}
+            <div className="bg-gradient-to-r from-primary-50 to-blue-50 dark:from-primary-900/20 dark:to-blue-900/20 rounded-xl p-8 mb-8 mt-8">
+              <h3 className="text-2xl font-bold mb-6 text-primary-600 dark:text-primary-400">
+                💬 자주 묻는 질문 (FAQ)
+              </h3>
+              <div className="space-y-4">
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 혈액투석용수 검사는 얼마나 자주 해야 하나요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 화학적 오염물질(중금속 등)은 월 1회, 세균 검사(내독소, 일반세균)는 매주 1회 실시해야 합니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 내독소 검사는 왜 중요한가요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 내독소는 세균의 외막 성분으로, 극소량으로도 발열 반응을 일으킵니다. 투석액에 혼입되면 심각한 합병증을 유발할 수 있습니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 검사 비용은 얼마인가요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 화학적 검사(월 1회) 약 60~80만원, 세균 검사(주 1회) 회당 약 15~20만원입니다. 패키지 계약 시 할인 가능합니다.
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                    Q. 부적합 판정이 나오면 어떻게 하나요?
+                  </h4>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    A. 즉시 투석을 중단하고 수처리시스템 점검, 필터 교체, 배관 소독 등을 실시한 후 재검사를 통해 적합 판정을 받아야 합니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 비용 안내 */}
+            <div className="bg-white dark:bg-neutral-800 border-2 border-primary-200 dark:border-primary-800 rounded-xl p-8 mb-8">
+              <h3 className="text-2xl font-bold mb-6 flex items-center">
+                <span className="text-3xl mr-3">💰</span>
+                검사 비용 안내
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="bg-primary-600 text-white">
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">검사 구분</th>
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">검사 주기</th>
+                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">예상 비용</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="bg-white dark:bg-neutral-900">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">화학적 검사 (중금속 등)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">월 1회</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">60만원 ~ 80만원</td>
+                    </tr>
+                    <tr className="bg-neutral-50 dark:bg-neutral-800">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">세균 검사 (일반세균)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">주 1회</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">회당 15만원 ~ 20만원</td>
+                    </tr>
+                    <tr className="bg-white dark:bg-neutral-900">
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">내독소 검사 (LAL test)</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">주 1회</td>
+                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">회당 10만원 ~ 15만원</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
+                ※ 연간 계약 시 할인 가능. 긴급 검사는 추가 비용 발생.
+              </p>
+            </div>
+
+            {/* 신청서 다운로드 */}
+            <div className="bg-gradient-to-r from-blue-50 to-primary-50 dark:from-blue-900/20 dark:to-primary-900/20 rounded-xl p-8 mb-8">
+              <h3 className="text-2xl font-bold mb-4 flex items-center">
+                <span className="text-3xl mr-3">📥</span>
+                신청서 다운로드
+              </h3>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+                혈액투석용수 검사 의뢰서를 다운로드하여 작성 후 제출해주세요.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a
+                  href="/documents/dialysis-water-application.pdf"
+                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-primary-800"
+                >
+                  <span className="font-bold">투석용수 검사 의뢰서</span>
+                  <span className="text-2xl">📄</span>
+                </a>
+                <a
+                  href="/documents/dialysis-water-management-guide.pdf"
+                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-primary-800"
+                >
+                  <span className="font-bold">수질관리 가이드</span>
+                  <span className="text-2xl">📋</span>
+                </a>
+              </div>
+            </div>
+
+            {/* 고객 후기 */}
+            <div className="bg-white dark:bg-neutral-900 rounded-xl p-8 border border-neutral-200 dark:border-neutral-700">
+              <h3 className="text-2xl font-bold mb-6 flex items-center">
+                <span className="text-3xl mr-3">⭐</span>
+                고객 후기
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
+                  <div className="flex items-center mb-3">
+                    <div className="text-yellow-500 text-xl">★★★★★</div>
+                    <span className="ml-2 text-sm text-neutral-500">서울 강남구 ○○병원</span>
+                  </div>
+                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
+                    "5년째 정기 검사를 의뢰하고 있습니다. 신속한 결과 보고와 전문적인 컨설팅으로 
+                    수질관리에 큰 도움이 됩니다."
+                  </p>
+                  <p className="text-xs text-neutral-500">- 김○○ 투석실 수간호사</p>
+                </div>
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
+                  <div className="flex items-center mb-3">
+                    <div className="text-yellow-500 text-xl">★★★★★</div>
+                    <span className="ml-2 text-sm text-neutral-500">충북 청주시 ○○의원</span>
+                  </div>
+                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
+                    "내독소 검사 결과가 부적합으로 나왔을 때, 원인 분석과 대책을 상세히 안내해주셔서 
+                    빠르게 개선할 수 있었습니다."
+                  </p>
+                  <p className="text-xs text-neutral-500">- 이○○ 원장</p>
+                </div>
+              </div>
+            </div>
+
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

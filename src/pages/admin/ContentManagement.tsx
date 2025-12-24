@@ -18,10 +18,7 @@ import {
   Clock,
   Globe,
   AlertCircle,
-  CheckCircle,
-  MoreVertical,
   Download,
-  Upload,
 } from "lucide-react";
 import {
   contentManagementService,
@@ -37,7 +34,7 @@ const ContentManagement: React.FC = () => {
   const [content, setContent] = useState<ContentItem[]>([]);
   const [statistics, setStatistics] = useState<ContentStatistics | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
-  const [popularTags, setPopularTags] = useState<
+  const [, setPopularTags] = useState<
     { tag: string; count: number }[]
   >([]);
   const [loading, setLoading] = useState(true);
@@ -46,14 +43,16 @@ const ContentManagement: React.FC = () => {
   const [selectedContent, setSelectedContent] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [, setCurrentPage] = useState(1);
+  const [, setHasMore] = useState(true);
   const [selectedContentItem, setSelectedContentItem] =
     useState<ContentItem | null>(null);
+  const [, setShowCreateModal] = useState(false);
 
   // 데이터 로드
   useEffect(() => {
     loadInitialData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run only on mount
   }, []);
 
   // 필터 변경 시 데이터 재로드
@@ -61,6 +60,7 @@ const ContentManagement: React.FC = () => {
     if (!loading) {
       loadContent();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intended to run on filters/searchQuery
   }, [filters, searchQuery]);
 
   const loadInitialData = async () => {
@@ -105,7 +105,7 @@ const ContentManagement: React.FC = () => {
     setCurrentPage(1);
   };
 
-  const handleFilterChange = (key: keyof ContentFilters, value: any) => {
+  const handleFilterChange = (key: keyof ContentFilters, value: unknown) => {
     setFilters((prev) => ({
       ...prev,
       [key]: value === "all" ? undefined : value,
@@ -155,6 +155,11 @@ const ContentManagement: React.FC = () => {
     } catch (error) {
       console.error("Error deleting content:", error);
     }
+  };
+
+  const handleEditContent = (id: string, item: ContentItem) => {
+    setSelectedContentItem(item);
+    setShowCreateModal(true);
   };
 
   const getStatusColor = (status: string) => {
@@ -555,9 +560,7 @@ const ContentManagement: React.FC = () => {
                           <Button
                             size="sm"
                             variant="ghost"
-                            onClick={() =>
-                              handleEditContent(content.id, content)
-                            }
+                            onClick={() => handleEditContent(item.id!, item)}
                             className="p-1"
                           >
                             <Edit className="w-4 h-4" />

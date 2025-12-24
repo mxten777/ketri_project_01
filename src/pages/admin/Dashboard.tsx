@@ -18,7 +18,7 @@ import {
   getMonthlyUserStats,
   getAnswerRate,
 } from "../../services/statsService";
-import type { User } from "../../types";
+import type { User, Notice, QnA } from "../../types";
 
 interface Statistics {
   totalUsers: number;
@@ -47,8 +47,8 @@ const Dashboard: React.FC = () => {
     totalDownloads: 0,
   });
   const [recentUsers, setRecentUsers] = useState<User[]>([]);
-  const [recentNotices, setRecentNotices] = useState<any[]>([]);
-  const [recentQnA, setRecentQnA] = useState<any[]>([]);
+  const [recentNotices, setRecentNotices] = useState<Notice[]>([]);
+  const [recentQnA, setRecentQnA] = useState<QnA[]>([]);
   const [monthlyUsers, setMonthlyUsers] = useState<MonthlyData[]>([]);
   const [answerRate, setAnswerRate] = useState<AnswerRateData>({
     total: 0,
@@ -83,8 +83,8 @@ const Dashboard: React.FC = () => {
 
       setStats(statsData);
       setRecentUsers(usersData);
-      setRecentNotices(noticesData);
-      setRecentQnA(qnaData);
+      setRecentNotices(noticesData as Notice[]);
+      setRecentQnA(qnaData as QnA[]);
       setMonthlyUsers(monthlyData);
       setAnswerRate(answerRateData);
     } catch (error) {
@@ -94,9 +94,22 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const formatDate = (timestamp: any) => {
+  const formatDate = (timestamp: unknown) => {
     if (!timestamp) return "-";
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+    const ts = timestamp as unknown;
+    let date: Date;
+    if (ts && typeof (ts as { toDate?: unknown }).toDate === "function") {
+      date = (ts as { toDate: () => Date }).toDate();
+    } else if (typeof ts === "number") {
+      date = new Date(ts);
+    } else if (typeof ts === "string") {
+      date = new Date(ts);
+    } else if (ts instanceof Date) {
+      date = ts;
+    } else {
+      return "-";
+    }
+
     return new Intl.DateTimeFormat("ko-KR", {
       year: "numeric",
       month: "2-digit",
@@ -180,7 +193,7 @@ const Dashboard: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow"
-            onClick={() => (window.location.href = "/admin/qna")}
+            onClick={() => (window.location.href = "/")}
           >
             <div className="flex items-center justify-between mb-4">
               <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
@@ -204,7 +217,7 @@ const Dashboard: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow"
-            onClick={() => (window.location.href = "/admin/resources")}
+            onClick={() => (window.location.href = "/")}
           >
             <div className="flex items-center justify-between mb-4">
               <div className="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
@@ -329,7 +342,7 @@ const Dashboard: React.FC = () => {
             </div>
             <div className="space-y-3">
               {/* Recent Notices */}
-              {recentNotices.slice(0, 3).map((notice) => (
+              {recentNotices.slice(0, 3).map((notice: { id?: string; title?: string; createdAt?: unknown }) => (
                 <div
                   key={notice.id}
                   className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
@@ -348,7 +361,7 @@ const Dashboard: React.FC = () => {
                 </div>
               ))}
               {/* Recent QnA */}
-              {recentQnA.slice(0, 2).map((qna) => (
+              {recentQnA.slice(0, 2).map((qna: { id?: string; title?: string; createdAt?: unknown; isAnswered?: boolean }) => (
                 <div
                   key={qna.id}
                   className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"

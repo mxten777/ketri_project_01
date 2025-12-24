@@ -112,7 +112,8 @@ const NoticeForm = () => {
         await createNotice(noticeData);
       }
 
-      navigate("/board/notice");
+      // 관리자는 관리자 페이지로, 일반 사용자는 게시판으로
+      navigate(userData?.role === "admin" ? "/admin/notice" : "/board/notice");
     } catch (error) {
       console.error("Error saving notice:", error);
       setError("저장에 실패했습니다. 다시 시도해주세요.");
@@ -128,9 +129,10 @@ const NoticeForm = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-800 py-12">
+    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-800">
       <div className="container-custom max-w-4xl">
-        <motion.div
+        <section className="pt-10 lg:pt-12 pb-12 lg:pb-16">
+          <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -271,9 +273,10 @@ const NoticeForm = () => {
               </div>
             </form>
           </Card>
-        </motion.div>
+          </motion.div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -8,6 +8,9 @@ import {
   Wind,
   Shield,
 } from "lucide-react";
+import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
+// import Button from "../../components/common/Button";
 
 const Organization = () => {
   const certifications = [
@@ -20,9 +23,9 @@ const Organization = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <main className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24">
+      <section data-has-hero className="bg-primary-600 dark:bg-primary-700 text-white py-16 lg:py-24">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -30,8 +33,8 @@ const Organization = () => {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">조직도</h1>
-            <p className="text-lg lg:text-xl opacity-90 max-w-2xl mx-auto">
+            <h1 className="text-display-lg mb-6">조직도</h1>
+            <p className="text-body-lg opacity-90 max-w-2xl mx-auto">
               전문성과 효율성을 바탕으로 한 체계적인 조직 구성
             </p>
           </motion.div>
@@ -39,7 +42,8 @@ const Organization = () => {
       </section>
 
       {/* Main Content */}
-      <section className="section container-custom">
+      <Section spacing="none" className="pt-10 lg:pt-12">
+        <Container>
         {/* Organization Overview */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -47,45 +51,45 @@ const Organization = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center mb-16"
         >
-          <h2 className="heading-lg mb-6 sm:mb-8">조직 현황</h2>
+          <h2 className="text-heading-lg mb-6 sm:mb-8">조직 현황</h2>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
             <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
               <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-primary-500 mx-auto mb-3 sm:mb-4" />
-              <div className="text-2xl sm:text-3xl font-bold text-primary-600 dark:text-primary-400 mb-1 sm:mb-2">
+              <div className="text-display-sm text-primary-600 dark:text-primary-400 mb-1 sm:mb-2">
                 28
               </div>
-              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              <div className="label-md text-neutral-600 dark:text-neutral-400">
                 총 직원 수
               </div>
             </div>
 
             <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
-              <Building className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-blue-500 mx-auto mb-3 sm:mb-4" />
-              <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1 sm:mb-2">
+              <Building className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-primary-500 mx-auto mb-3 sm:mb-4" />
+              <div className="text-display-sm text-primary-600 dark:text-primary-400 mb-1 sm:mb-2">
                 5
               </div>
-              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              <div className="label-md text-neutral-600 dark:text-neutral-400">
                 부서
               </div>
             </div>
 
             <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
-              <UserCheck className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-green-500 mx-auto mb-3 sm:mb-4" />
-              <div className="text-2xl sm:text-3xl font-bold text-green-600 dark:text-green-400 mb-1 sm:mb-2">
+              <UserCheck className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-success-500 mx-auto mb-3 sm:mb-4" />
+              <div className="text-display-sm text-success-500 mb-1 sm:mb-2">
                 85%
               </div>
-              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              <div className="label-md text-neutral-600 dark:text-neutral-400">
                 전문인력 비율
               </div>
             </div>
 
             <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
-              <Award className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-orange-500 mx-auto mb-3 sm:mb-4" />
-              <div className="text-2xl sm:text-3xl font-bold text-orange-600 dark:text-orange-400 mb-1 sm:mb-2">
+              <Award className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-warning-500 mx-auto mb-3 sm:mb-4" />
+              <div className="text-display-sm text-warning-500 mb-1 sm:mb-2">
                 15+
               </div>
-              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              <div className="label-md text-neutral-600 dark:text-neutral-400">
                 보유 자격증
               </div>
             </div>
@@ -99,7 +103,7 @@ const Organization = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mb-12 sm:mb-16"
         >
-          <h3 className="text-xl sm:text-2xl font-bold text-center mb-8 sm:mb-12">
+          <h3 className="text-heading-md text-center mb-8 sm:mb-12">
             조직 구성도
           </h3>
 
@@ -113,13 +117,13 @@ const Organization = () => {
                   transition={{ duration: 0.6 }}
                   className="bg-gradient-to-br from-purple-500 to-purple-700 text-white px-8 sm:px-12 py-4 sm:py-6 rounded-2xl shadow-premium"
                 >
-                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-center">
+                  <div className="text-heading-sm text-center">
                     대표 이사
                   </div>
                 </motion.div>
 
                 {/* Main vertical line from CEO */}
-                <div className="w-1 h-12 sm:h-16 lg:h-20 bg-blue-500"></div>
+                <div className="w-1 h-12 sm:h-16 lg:h-20 bg-primary-500"></div>
               </div>
 
               {/* Board Level with Center Line */}
@@ -128,7 +132,7 @@ const Organization = () => {
                 style={{ height: "100px" }}
               >
                 {/* Center vertical line continues */}
-                <div className="w-1 h-full bg-blue-500 z-10"></div>
+                <div className="w-1 h-full bg-primary-500 z-10"></div>
 
                 {/* Board - positioned to the left with connecting line */}
                 <div
@@ -139,12 +143,12 @@ const Organization = () => {
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="bg-gradient-to-br from-blue-500 to-blue-700 text-white px-6 py-3 rounded-xl shadow-lg text-center ml-4 lg:ml-12"
+                    className="bg-gradient-to-br from-primary-500 to-primary-700 text-white px-6 py-3 rounded-xl shadow-lg text-center ml-4 lg:ml-12"
                     style={{ minWidth: "140px" }}
                   >
-                    <div className="text-base lg:text-lg font-bold">이사회</div>
+                    <div className="text-body-lg font-bold">이사회</div>
                   </motion.div>
-                  <div className="flex-1 h-1 bg-blue-500"></div>
+                  <div className="flex-1 h-1 bg-primary-500"></div>
                 </div>
               </div>
 
@@ -350,20 +354,20 @@ const Organization = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-center bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-8"
+          className="text-center bg-primary-50 dark:bg-primary-900/20 rounded-2xl p-8"
         >
           <h3 className="text-2xl font-bold mb-6">문의하기</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div>
               <h4 className="font-bold mb-2">주소</h4>
               <p className="text-neutral-600 dark:text-neutral-300 text-sm">
-                충북 청주시 서원구 남이면 양동3길 7-30
+                충북 청주시 서원구 남이면 양촌 3길 7-30
               </p>
             </div>
             <div>
               <h4 className="font-bold mb-2">전화</h4>
               <p className="text-neutral-600 dark:text-neutral-300 text-sm">
-                043.237.7624~5
+                043.237.7824~5
               </p>
             </div>
             <div>
@@ -374,8 +378,9 @@ const Organization = () => {
             </div>
           </div>
         </motion.div>
-      </section>
-    </div>
+        </Container>
+      </Section>
+    </main>
   );
 };
 

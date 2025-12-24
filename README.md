@@ -9,6 +9,39 @@
 
 **완전한 기능을 갖춘 엔터프라이즈급 웹 애플리케이션입니다.**
 
+## � 문서 바로가기
+
+모든 상세 문서는 [`docs/`](./docs) 폴더에 통합 관리됩니다:
+
+- 📖 [시작 가이드](./docs/GETTING_STARTED.md) - 프로젝트 설치 및 실행
+- 🚀 [배포 가이드](./docs/DEPLOYMENT.md) - Vercel 배포 방법
+- 🔥 [Firebase 구조](./docs/FIREBASE_STRUCTURE.md) - 데이터베이스 설계
+- 🎨 [디자인 시스템](./docs/DESIGN_SYSTEM.md) - UI/UX 가이드
+- ⚡ [최적화 보고서](./docs/OPTIMIZATION_REPORT.md) - 성능 개선 내역
+- 🌳 [Git 관리 가이드](./docs/GIT_MANAGEMENT.md) - 버전 관리 규칙
+- 📋 [파일 구조](./docs/FILE_TREE.md) - 프로젝트 디렉토리 구조
+
+## 🚀 빠른 시작
+
+```bash
+# 1. 저장소 클론
+git clone <repository-url>
+cd ketri_project_01
+
+# 2. 의존성 설치
+npm install
+
+# 3. 환경변수 설정
+cp .env.example .env
+# .env 파일에 Firebase 설정 입력
+
+# 4. 개발 서버 실행
+npm run dev
+
+# 5. 브라우저에서 확인
+# http://localhost:3000
+```
+
 ## 🚀 기술 스택
 
 - **Frontend Framework**: React 18.3.1 + TypeScript 5.3.3
@@ -27,27 +60,24 @@
 
 ```
 ketri_project_01/
+├── docs/                        # 📚 모든 문서는 여기에
 ├── src/
 │   ├── components/              # 재사용 가능한 컴포넌트
-│   │   ├── common/              # 공통 컴포넌트 (ScrollToTop, ProtectedRoute, etc.)
-│   │   ├── layout/              # 레이아웃 컴포넌트 (Header, Footer, Layout)
-│   │   ├── ui/                  # UI 기본 컴포넌트 (Button, Card, Modal, etc.)
-│   │   ├── notifications/       # 알림 시스템 컴포넌트
-│   │   └── FileUploadModal.tsx  # 파일 업로드 모달
+│   │   ├── common/              # 공통 컴포넌트
+│   │   ├── layout/              # 레이아웃
+│   │   └── admin/               # 관리자 컴포넌트
 │   ├── pages/                   # 페이지 컴포넌트
-│   │   ├── Home.tsx
-│   │   ├── MyPage.tsx
-│   │   ├── QuoteRequest.tsx
-│   │   ├── services/            # 서비스 페이지들 (6개 전문 영역)
-│   │   ├── about/               # 연구소 소개 페이지들
-│   │   ├── board/               # 게시판 페이지들
-│   │   ├── admin/               # 관리자 시스템 (8개 관리 페이지)
-│   │   └── auth/                # 인증 페이지 (Login, Register)
-│   ├── services/                # 비즈니스 로직 & Firebase 연동
-│   │   ├── authService.ts       # 인증 서비스
-│   │   ├── qnaService.ts        # QnA 게시판 서비스
-│   │   ├── resourceService.ts   # 자료실 서비스
-│   │   ├── noticeService.ts     # 공지사항 서비스
+│   │   ├── services/            # 서비스 페이지 (6개)
+│   │   ├── about/               # 연구소 소개
+│   │   ├── board/               # 게시판
+│   │   ├── admin/               # 관리자
+│   │   └── auth/                # 인증
+│   ├── services/                # Firebase 연동 로직
+│   ├── hooks/                   # Custom Hooks
+│   ├── utils/                   # 유틸리티 함수
+│   ├── contexts/                # React Context
+│   ├── types/                   # TypeScript 타입
+│   └── config/                  # 설정 파일
 │   │   ├── quoteService.ts      # 견적 요청 서비스
 │   │   ├── userManagementService.ts  # 사용자 관리 서비스
 │   │   ├── contentManagementService.ts # 콘텐츠 관리 서비스
@@ -341,7 +371,7 @@ Copyright © 2024 한국환경안전연구소 (KESRI). All rights reserved.
 
 - **Website**: https://kesri.re.kr
 - **Email**: info@kesri.re.kr
-- **Phone**: 043.237.7624~5
+- **Phone**: 043.237.7824~5
 
 ## 🎯 개발 진행 현황
 

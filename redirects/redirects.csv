@@ -1,0 +1,44 @@
+old_url,new_url,notes
+https://www.ketri.co.kr/,https://www.kesri.co.kr/,root
+https://www.ketri.co.kr/about/greeting,https://www.kesri.co.kr/about/greeting,company greeting
+https://www.ketri.co.kr/about/history,https://www.kesri.co.kr/about/history,company history
+https://www.ketri.co.kr/about/location,https://www.kesri.co.kr/about/location,location
+https://www.ketri.co.kr/about/organization,https://www.kesri.co.kr/about/organization,organization
+https://www.ketri.co.kr/about/equipment,https://www.kesri.co.kr/about/equipment,equipment
+https://www.ketri.co.kr/about/certificates,https://www.kesri.co.kr/about/certificates,certificates
+https://www.ketri.co.kr/services/industrial-health,https://www.kesri.co.kr/services/industrial-health,service
+https://www.ketri.co.kr/services/water-testing,https://www.kesri.co.kr/services/water-testing,service
+https://www.ketri.co.kr/services/asbestos,https://www.kesri.co.kr/services/asbestos,service
+https://www.ketri.co.kr/services/asbestos/air,https://www.kesri.co.kr/services/asbestos/air,service
+https://www.ketri.co.kr/services/asbestos/concentration,https://www.kesri.co.kr/services/asbestos/concentration,service
+https://www.ketri.co.kr/services/asbestos/dispersion,https://www.kesri.co.kr/services/asbestos/dispersion,service
+https://www.ketri.co.kr/services/asbestos/risk,https://www.kesri.co.kr/services/asbestos/risk,service
+https://www.ketri.co.kr/services/asbestos/supervision,https://www.kesri.co.kr/services/asbestos/supervision,service
+https://www.ketri.co.kr/services/asbestos/survey,https://www.kesri.co.kr/services/asbestos/survey,service
+https://www.ketri.co.kr/services/dialysis-water,https://www.kesri.co.kr/services/dialysis-water,service
+https://www.ketri.co.kr/services/dialysis-water/intro,https://www.kesri.co.kr/services/dialysis-water/intro,service
+https://www.ketri.co.kr/services/dialysis-water/cycle,https://www.kesri.co.kr/services/dialysis-water/cycle,service
+https://www.ketri.co.kr/services/dialysis-water/sampling,https://www.kesri.co.kr/services/dialysis-water/sampling,service
+https://www.ketri.co.kr/services/dialysis-water/request,https://www.kesri.co.kr/services/dialysis-water/request,service
+https://www.ketri.co.kr/services/dialysis-water/standard,https://www.kesri.co.kr/services/dialysis-water/standard,service
+https://www.ketri.co.kr/services/indoor-air-quality,https://www.kesri.co.kr/services/indoor-air-quality,service
+https://www.ketri.co.kr/services/indoor-air-quality/intro,https://www.kesri.co.kr/services/indoor-air-quality/intro,service
+https://www.ketri.co.kr/services/indoor-air-quality/request,https://www.kesri.co.kr/services/indoor-air-quality/request,service
+https://www.ketri.co.kr/services/indoor-air-quality/result,https://www.kesri.co.kr/services/indoor-air-quality/result,service
+https://www.ketri.co.kr/services/water-testing/intro,https://www.kesri.co.kr/services/water-testing/intro,service
+https://www.ketri.co.kr/services/water-testing/process,https://www.kesri.co.kr/services/water-testing/process,service
+https://www.ketri.co.kr/services/water-testing/scope,https://www.kesri.co.kr/services/water-testing/scope,service
+https://www.ketri.co.kr/services/water-testing/fees,https://www.kesri.co.kr/services/water-testing/fees,service
+https://www.ketri.co.kr/board/notice,https://www.kesri.co.kr/board/notice,notice list
+https://www.ketri.co.kr/board/notice/{id},https://www.kesri.co.kr/board/notice/{id},notice detail (preserve id)
+https://www.ketri.co.kr/board/qna,https://www.kesri.co.kr/board/qna,qna list
+https://www.ketri.co.kr/board/qna/{id},https://www.kesri.co.kr/board/qna/{id},qna detail (preserve id)
+https://www.ketri.co.kr/board/free-list,https://www.kesri.co.kr/board/free-list,free list
+https://www.ketri.co.kr/contact,https://www.kesri.co.kr/contact,contact
+https://www.ketri.co.kr/terms,https://www.kesri.co.kr/terms,terms
+https://www.ketri.co.kr/privacy,https://www.kesri.co.kr/privacy,privacy
+https://www.ketri.co.kr/admin/login,https://www.kesri.co.kr/admin/login,admin (restrict crawler)
+
+# Wildcard rule examples (implement in server/hosting redirect config):
+# /board/notice/123 -> https://www.kesri.co.kr/board/notice/123
+# /board/qna/456 -> https://www.kesri.co.kr/board/qna/456

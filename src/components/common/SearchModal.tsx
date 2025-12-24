@@ -137,7 +137,8 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     if (result.type === "notice") {
       path = `/board/notice/${result.id}`;
     } else if (result.type === "qna") {
-      path = `/board/qna/${result.id}`;
+      // qna route removed — redirect to safe route
+      path = `/`;
     } else if (result.type === "resource") {
       path = `/board/resources`;
     }

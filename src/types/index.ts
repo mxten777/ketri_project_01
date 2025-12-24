@@ -197,6 +197,37 @@ export interface QnAFormData {
   isSecret?: boolean;
 }
 
+// Free Post Types
+export interface FreePost {
+  id: string;
+  title: string;
+  content: string;
+  category: "general" | "tip" | "review" | "question" | "discussion";
+  views: number;
+  likes: number;
+  authorId: string;
+  authorName: string;
+  authorEmail: string;
+  createdAt: unknown;
+  updatedAt: unknown;
+  comments: FreeComment[];
+  isPinned?: boolean;
+}
+
+export interface FreeComment {
+  id: string;
+  content: string;
+  authorId: string;
+  authorName: string;
+  createdAt: unknown;
+}
+
+export interface FreeFormData {
+  title: string;
+  content: string;
+  category: "general" | "tip" | "review" | "question" | "discussion";
+}
+
 // Comment Types
 export interface Comment {
   id: string;
