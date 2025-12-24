@@ -12,8 +12,7 @@ import {
   MapPinned,
   ParkingCircle,
 } from "lucide-react";
-import Button from "../../components/common/Button";
-
+ 
 const Location = () => {
   const transportInfo = [
     {
@@ -22,7 +21,7 @@ const Location = () => {
       routes: [
         "경부고속도로 → 청주IC → 청주시내 → 서원구 남이면",
         "중부고속도로 → 남청주IC → 서원구 방향 → 남이면",
-        "청주시내에서 36번 국도 → 남이면 → 양동3길",
+        "청주시내에서 36번 국도 → 남이면 → 양촌 3길",
       ],
     },
     {
@@ -128,7 +127,7 @@ const Location = () => {
 
                   <div className="flex gap-3">
                     <a
-                      href="https://map.naver.com/p/search/충북 청주시 서원구 남이면 양동3길 7-30"
+                      href="https://map.naver.com/p/search/충북 청주시 서원구 남이면 양촌 3길 7-30"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-semibold hover:from-green-600 hover:to-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
@@ -137,7 +136,7 @@ const Location = () => {
                       <ExternalLink className="w-4 h-4" />
                     </a>
                     <a
-                      href="https://map.kakao.com/link/search/충북 청주시 서원구 남이면 양동3길 7-30"
+                      href="https://map.kakao.com/link/search/충북 청주시 서원구 남이면 양촌 3길 7-30"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-xl font-semibold hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-105 transition-all duration-300 shadow-lg"
@@ -146,7 +145,7 @@ const Location = () => {
                       <ExternalLink className="w-4 h-4" />
                     </a>
                     <a
-                      href="https://www.google.com/maps/search/?api=1&query=충북 청주시 서원구 남이면 양동3길 7-30"
+                      href="https://www.google.com/maps/search/?api=1&query=충북 청주시 서원구 남이면 양촌 3길 7-30"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
@@ -180,7 +179,7 @@ const Location = () => {
                   <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
                     충북 청주시 서원구
                     <br />
-                    남이면 양동3길 7-30
+                    남이면 양촌 3길 7-30
                   </p>
                   <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
                     우편번호: 28805

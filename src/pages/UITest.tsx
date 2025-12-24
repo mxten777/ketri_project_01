@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container, Section, Card, CardHeader, CardTitle, CardContent, CardFooter, Input, Modal, ModalFooter } from "@/components/ui";
 import { Button } from "@/components/common";
 import { useTheme } from "@/contexts/ThemeContext";
+import type { ThemeType } from "@/config/themes";
 import { ArrowRight as ArrowRightIcon } from "lucide-react";
 
 /**
@@ -23,7 +24,7 @@ const UITest = () => {
             <div className="flex gap-3">
               <select
                 value={theme}
-                onChange={(e) => setTheme(e.target.value as any)}
+                onChange={(e) => setTheme(e.target.value as unknown as ThemeType)}
                 className="px-4 py-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-primary)]"
               >
                 <option value="default">환경/분석</option>

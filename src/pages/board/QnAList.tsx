@@ -10,10 +10,8 @@ import {
   Lock,
   Pin,
   Eye,
-  ChevronRight,
 } from "lucide-react";
 import Button from "../../components/common/Button";
-import Card from "../../components/common/Card";
 import { useAuth } from "../../contexts/AuthContext";
 import { getQnAs } from "../../services/qnaService";
 import type { QnA } from "../../types";
@@ -102,10 +100,16 @@ const QnAList = () => {
     return cat ? cat.label : category;
   };
 
-  const formatDate = (timestamp: any): string => {
+  const formatDate = (timestamp: unknown): string => {
     if (!timestamp) return "";
     try {
-      const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+      const tsObj = timestamp as unknown;
+      let date: Date;
+      if (tsObj && typeof ((tsObj as { toDate?: unknown }).toDate) === "function") {
+        date = ((tsObj as { toDate: () => Date }).toDate)();
+      } else {
+        date = new Date(String(timestamp));
+      }
       return new Intl.DateTimeFormat("ko-KR", {
         year: "numeric",
         month: "2-digit",

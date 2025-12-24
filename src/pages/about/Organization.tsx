@@ -8,7 +8,7 @@ import {
   Wind,
   Shield,
 } from "lucide-react";
-import Button from "../../components/common/Button";
+// import Button from "../../components/common/Button";
 
 const Organization = () => {
   const certifications = [
@@ -358,7 +358,7 @@ const Organization = () => {
             <div>
               <h4 className="font-bold mb-2">주소</h4>
               <p className="text-neutral-600 dark:text-neutral-300 text-sm">
-                충북 청주시 서원구 남이면 양동3길 7-30
+                충북 청주시 서원구 남이면 양촌 3길 7-30
               </p>
             </div>
             <div>

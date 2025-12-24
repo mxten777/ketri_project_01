@@ -30,9 +30,10 @@ const NoticeAdmin = () => {
       setError("");
       const data = await getNotices(50);
       setNotices(data);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("공지사항 조회 실패:", error);
-      setError(error?.message || "공지사항을 불러오는데 실패했습니다.");
+      const message = error instanceof Error ? error.message : String(error);
+      setError(message || "공지사항을 불러오는데 실패했습니다.");
     } finally {
       setLoading(false);
     }

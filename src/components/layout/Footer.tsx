@@ -158,7 +158,7 @@ const Footer = () => {
               <MapPin className="w-5 h-5 text-primary-600 dark:text-primary-300 flex-shrink-0 mt-0.5" />
               <div className="text-neutral-800 dark:text-neutral-200 text-sm">
                 <p className="mb-2">충북 청주시 서원구 남이면</p>
-                <p className="mb-2">양동3길 7-30 (28805)</p>
+                <p className="mb-2">양촌 3길 7-30 (28805)</p>
                 <Link
                   to="/about/location"
                   className="inline-block mt-2 text-primary-800 dark:text-primary-200 hover:text-primary-900 dark:hover:text-primary-100 font-semibold transition-colors"

@@ -12,7 +12,6 @@ import {
   Briefcase,
 } from "lucide-react";
 import { useState } from "react";
-import Button from "../../components/common/Button";
 
 const Greeting = () => {
   const [showCareer, setShowCareer] = useState(false);

@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Pin, Eye, Calendar, User } from "lucide-react";
 import { getNotices } from "../../services/noticeService";
 import type { Notice } from "../../types";
-import Button from "../../components/common/Button";
 
 const NoticeList = () => {
   const [notices, setNotices] = useState<Notice[]>([]);
@@ -32,30 +31,23 @@ const NoticeList = () => {
     }
   };
 
-  const formatDate = (timestamp: any) => {
+  const formatDate = (timestamp: unknown) => {
     try {
-      let date: Date;
-      
-      // Firebase Timestamp 객체
-      if (timestamp?.toDate) {
-        date = timestamp.toDate();
-      } 
-      // seconds 속성이 있는 경우
-      else if (timestamp?.seconds) {
-        date = new Date(timestamp.seconds * 1000);
+      let date: Date | null = null;
+      const ts = timestamp as unknown;
+
+      if (ts && typeof (ts as { toDate?: unknown }).toDate === "function") {
+        date = (ts as { toDate: () => Date }).toDate();
+      } else if (ts && typeof (ts as { seconds?: unknown }).seconds === "number") {
+        date = new Date((ts as { seconds: number }).seconds * 1000);
+      } else if (typeof ts === "string") {
+        date = new Date(ts);
+      } else if (ts instanceof Date) {
+        date = ts;
       }
-      // 문자열인 경우
-      else if (typeof timestamp === 'string') {
-        date = new Date(timestamp);
-      }
-      // Date 객체인 경우
-      else if (timestamp instanceof Date) {
-        date = timestamp;
-      }
-      else {
-        return '날짜 없음';
-      }
-      
+
+      if (!date) return "날짜 없음";
+
       return date.toLocaleDateString("ko-KR", {
         year: "numeric",
         month: "2-digit",
@@ -63,7 +55,7 @@ const NoticeList = () => {
       });
     } catch (error) {
       console.error("Date formatting error:", error);
-      return '날짜 오류';
+      return "날짜 오류";
     }
   };
 

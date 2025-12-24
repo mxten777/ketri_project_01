@@ -43,7 +43,6 @@ const Hero = ({
   try {
     // safe-guard in non-browser environments
     const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
-    // eslint-disable-next-line no-console
     console.debug('DEBUG: Hero render', { title, subtitle, backgroundImage: !!backgroundImage, variant, isDark });
   } catch (e) {
     /* noop */

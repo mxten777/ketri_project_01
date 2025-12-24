@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -140,10 +141,10 @@ const FreeForm = () => {
                 </label>
                 <select
                   value={formData.category}
-                  onChange={(e) =>
+                    onChange={(e) =>
                     setFormData({
                       ...formData,
-                      category: e.target.value as any,
+                      category: e.target.value as FreeFormData['category'],
                     })
                   }
                   className="w-full px-4 py-3 border border-neutral-200 dark:border-neutral-600 rounded-xl bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500"

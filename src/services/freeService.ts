@@ -43,8 +43,8 @@ export const getFreePosts = async (options?: { limit?: number }): Promise<FreePo
         isPinned: data.isPinned || false,
       } as FreePost;
     });
-  } catch (error) {
-    logError("Error fetching free posts:", error as Error);
+  } catch (error: unknown) {
+    logError("Error fetching free posts:", error);
     throw new Error("게시글을 불러오는데 실패했습니다.");
   }
 };
@@ -70,8 +70,8 @@ export const getFreePost = async (id: string): Promise<FreePost | null> => {
       comments: data.comments || [],
       isPinned: data.isPinned || false,
     } as FreePost;
-  } catch (error) {
-    logError(`Error fetching free post ${id}:`, error as Error);
+  } catch (error: unknown) {
+    logError(`Error fetching free post ${id}:`, error);
     throw new Error("게시글을 불러오는데 실패했습니다.");
   }
 };
@@ -95,8 +95,8 @@ export const createFreePost = async (data: FreeFormData & Partial<FreePost>): Pr
     };
     const docRef = await addDoc(collection(db, COLLECTION_NAME), payload);
     return docRef.id;
-  } catch (error) {
-    logError("Error creating free post:", error as Error);
+  } catch (error: unknown) {
+    logError("Error creating free post:", error);
     throw new Error("게시글 작성에 실패했습니다.");
   }
 };
@@ -108,8 +108,8 @@ export const updateFreePost = async (id: string, data: Partial<FreeFormData & Fr
       ...data,
       updatedAt: Timestamp.now(),
     });
-  } catch (error) {
-    logError(`Error updating free post ${id}:`, error as Error);
+  } catch (error: unknown) {
+    logError(`Error updating free post ${id}:`, error);
     throw new Error("게시글 수정에 실패했습니다.");
   }
 };
@@ -118,8 +118,8 @@ export const deleteFreePost = async (id: string): Promise<void> => {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
     await deleteDoc(docRef);
-  } catch (error) {
-    logError(`Error deleting free post ${id}:`, error as Error);
+  } catch (error: unknown) {
+    logError(`Error deleting free post ${id}:`, error);
     throw new Error("게시글 삭제에 실패했습니다.");
   }
 };
@@ -127,17 +127,17 @@ export const deleteFreePost = async (id: string): Promise<void> => {
 export const incrementFreePostViews = async (id: string): Promise<void> => {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
-    await updateDoc(docRef, { views: (/* keep simple */ 0 as any) });
-  } catch (error) {
-    logError(`Error incrementing views for ${id}:`, error as Error);
+    await updateDoc(docRef, { views: 0 });
+  } catch (error: unknown) {
+    logError(`Error incrementing views for ${id}:`, error);
   }
 };
 
 export const incrementFreePostLikes = async (id: string): Promise<void> => {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
-    await updateDoc(docRef, { likes: (/* keep simple */ 0 as any) });
-  } catch (error) {
-    logError(`Error incrementing likes for ${id}:`, error as Error);
+    await updateDoc(docRef, { likes: 0 });
+  } catch (error: unknown) {
+    logError(`Error incrementing likes for ${id}:`, error);
   }
 };

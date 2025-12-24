@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Palette, Eye, Heart, Target, Lightbulb, Shield } from "lucide-react";
-import Button from "../../components/common/Button";
 
 const CI = () => {
   const colors = [

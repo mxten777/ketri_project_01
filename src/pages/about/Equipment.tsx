@@ -13,7 +13,7 @@ import {
   FileText,
   Download,
 } from "lucide-react";
-import Button from "../../components/common/Button";
+ 
 
 const Equipment = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);

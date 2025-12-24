@@ -54,6 +54,7 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
   ) => {
     return (
       <Component
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ref={ref as any}
         className={cn(sectionVariants({ variant, spacing }), className)}
         {...props}

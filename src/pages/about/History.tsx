@@ -8,8 +8,7 @@ import {
   TrendingUp,
   CheckCircle2,
 } from "lucide-react";
-import Button from "../../components/common/Button";
-
+ 
 const History = () => {
   const historyData = [
     {

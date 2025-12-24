@@ -4,7 +4,6 @@ import { ArrowLeft, MessageSquare, Clock, User, Trash2, Send } from "lucide-reac
 import { useAuth } from "../../contexts/AuthContext";
 import { getQnAById, deleteQnA, addAnswer } from "../../services/qnaService";
 import { QnA } from "../../types";
-import Button from "../../components/common/Button";
 
 const QnADetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();

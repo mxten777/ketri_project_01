@@ -1,4 +1,4 @@
-import { Hero, Button, Card, Section, Container } from "@/components/common";
+import { Hero, Button, Card, Section } from "@/components/common";
 import { ArrowRight, CheckCircle } from "lucide-react";
 
 /**

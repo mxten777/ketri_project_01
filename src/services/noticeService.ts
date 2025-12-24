@@ -71,36 +71,37 @@ export const getNotices = async (
           return a.isPinned ? -1 : 1;
         }
         // 같으면 createdAt으로 비교 (Timestamp와 Date 모두 지원)
-        const aTime = (a.createdAt as any)?.seconds
-          ? (a.createdAt as any).seconds * 1000
-          : a.createdAt?.getTime?.() || 0;
-        const bTime = (b.createdAt as any)?.seconds
-          ? (b.createdAt as any).seconds * 1000
-          : b.createdAt?.getTime?.() || 0;
+        /* eslint-disable @typescript-eslint/no-explicit-any */
+        const aCreated: any = a.createdAt;
+        const bCreated: any = b.createdAt;
+        const aTime = aCreated?.seconds ? aCreated.seconds * 1000 : aCreated?.getTime?.() || 0;
+        const bTime = bCreated?.seconds ? bCreated.seconds * 1000 : bCreated?.getTime?.() || 0;
+        /* eslint-enable @typescript-eslint/no-explicit-any */
         return bTime - aTime;
       })
       .slice(0, limitCount); // 원하는 개수만 반환
 
     return notices;
-  } catch (error: any) {
+  } catch (error: unknown) {
     logError("Error fetching notices:", error);
 
+    const e = error as { code?: string; message?: string } | undefined;
     // Firebase 에러 메시지를 더 명확하게
-    if (error?.code === "permission-denied") {
+    if (e?.code === "permission-denied") {
       throw new Error(
         "데이터베이스 접근 권한이 없습니다. Firestore 규칙을 확인해주세요."
       );
-    } else if (error?.code === "unavailable") {
+    } else if (e?.code === "unavailable") {
       throw new Error(
         "데이터베이스 연결에 실패했습니다. 네트워크를 확인해주세요."
       );
-    } else if (error?.code === "failed-precondition") {
+    } else if (e?.code === "failed-precondition") {
       throw new Error(
         "데이터베이스 인덱스가 필요합니다. Firebase Console을 확인해주세요."
       );
     }
 
-    throw new Error(error?.message || "공지사항을 불러오는데 실패했습니다.");
+    throw new Error(e?.message || "공지사항을 불러오는데 실패했습니다.");
   }
 };
 

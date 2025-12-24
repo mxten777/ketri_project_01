@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
  */
 export function useFetch<T>(
   fetchFn: () => Promise<T>,
-  dependencies: any[] = []
+  dependencies: unknown[] = []
 ) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
@@ -48,11 +48,11 @@ export function useFetch<T>(
 /**
  * 비동기 작업을 위한 공통 Hook
  */
-export function useAsync<T>(asyncFunction: (...args: any[]) => Promise<T>) {
+export function useAsync<T>(asyncFunction: (...args: unknown[]) => Promise<T>) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const execute = async (...args: any[]): Promise<T | null> => {
+  const execute = async (...args: unknown[]): Promise<T | null> => {
     try {
       setLoading(true);
       setError(null);

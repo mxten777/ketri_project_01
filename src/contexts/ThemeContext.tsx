@@ -23,7 +23,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     applyTheme(theme);
     initDarkMode();
     setIsDark(document.documentElement.classList.contains("dark"));
-  }, []);
+  }, [theme]);
 
   // 테마 변경
   const setTheme = (newTheme: ThemeType) => {

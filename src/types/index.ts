@@ -208,8 +208,8 @@ export interface FreePost {
   authorId: string;
   authorName: string;
   authorEmail: string;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: unknown;
+  updatedAt: unknown;
   comments: FreeComment[];
   isPinned?: boolean;
 }
@@ -219,7 +219,7 @@ export interface FreeComment {
   content: string;
   authorId: string;
   authorName: string;
-  createdAt: any;
+  createdAt: unknown;
 }
 
 export interface FreeFormData {

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import LegacyHeader from "./Header.legacy";
 import { HeaderContext } from "./HeaderContext";
 
@@ -15,17 +15,17 @@ export default function HeaderRoot() {
     return false;
   });
 
-  const toggleDarkMode = () => {
+  const toggleDarkMode = useCallback(() => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
     if (newMode) document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
     localStorage.setItem("darkMode", newMode.toString());
-  };
+  }, [isDarkMode]);
 
   const ctx = useMemo(
     () => ({ isMobileMenuOpen, setIsMobileMenuOpen, openDropdown, setOpenDropdown, isDarkMode, setIsDarkMode, toggleDarkMode }),
-    [isMobileMenuOpen, openDropdown, isDarkMode]
+    [isMobileMenuOpen, openDropdown, isDarkMode, toggleDarkMode]
   );
 
   return (

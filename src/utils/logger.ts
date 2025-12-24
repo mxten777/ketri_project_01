@@ -5,30 +5,30 @@
 const isDevelopment = import.meta.env.DEV;
 
 export const logger = {
-  log: (...args: any[]) => {
+  log: (...args: unknown[]) => {
     if (isDevelopment) {
       console.log(...args);
     }
   },
 
-  warn: (...args: any[]) => {
+  warn: (...args: unknown[]) => {
     if (isDevelopment) {
       console.warn(...args);
     }
   },
 
-  error: (...args: any[]) => {
+  error: (...args: unknown[]) => {
     // 에러는 프로덕션에서도 기록 (모니터링 필요)
     console.error(...args);
   },
 
-  debug: (...args: any[]) => {
+  debug: (...args: unknown[]) => {
     if (isDevelopment) {
       console.debug(...args);
     }
   },
 
-  info: (...args: any[]) => {
+  info: (...args: unknown[]) => {
     if (isDevelopment) {
       console.info(...args);
     }
@@ -36,12 +36,12 @@ export const logger = {
 };
 
 // 단순 에러만 필요한 경우
-export const logError = (message: string, error?: any) => {
+export const logError = (message: string, error?: unknown) => {
   console.error(`[Error] ${message}`, error);
 };
 
 // 개발 환경에서만 로그
-export const logDev = (...args: any[]) => {
+export const logDev = (...args: unknown[]) => {
   if (isDevelopment) {
     console.log(...args);
   }

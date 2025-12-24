@@ -1,24 +1,21 @@
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, useContext } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { MenuGroup } from "../../constants/menu";
+import { HeaderContext } from "./HeaderContext";
 
 interface Props {
   menu: MenuGroup;
-  isOpen: boolean;
-  location: any;
+  location: { pathname: string };
   onMouseEnter: (label: string) => void;
   anchorEl?: HTMLElement | null;
+  isOpen: boolean;
 }
 
+// render only when open to avoid multiple stacked menus
 export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter, anchorEl }: Props) {
-  if (typeof document === "undefined") return null;
-
-  // Debug helpers removed.
-
-  // runtime logging removed
-
-  if (!isOpen) return null;
+  // Hooks must run unconditionally
+  const ctx = useContext(HeaderContext);
   const [rect, setRect] = useState<DOMRect | null>(null);
 
   useLayoutEffect(() => {
@@ -50,18 +47,30 @@ export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter, a
   const node = (
     <div>
       <div
+        // invisible hit area between anchor and menu to keep hover alive
         onMouseEnter={() => onMouseEnter(menu.label)}
         style={
           rect
-            ? {
-                position: "fixed",
-                left: 0,
-                top: Math.max(0, rect.top + rect.height - 24) + "px",
-                width: "100%",
-                height: 24,
-                zIndex: 89,
-                pointerEvents: "auto",
-              }
+            ? (() => {
+                const menuWidth = Math.min(880, window.innerWidth - 32);
+                const offset = 8;
+                const left = Math.min(Math.max(8, rect.left), window.innerWidth - menuWidth - offset);
+                // place the hit area just below the anchor (do NOT overlap the anchor)
+                // so the header element still receives pointer events while the
+                // bridge catches quick mouse movements between anchor and menu.
+                const top = Math.max(0, rect.top + rect.height);
+                const height = 40; // bridge height to avoid tiny gaps on fast mouse moves
+                return {
+                  position: "fixed",
+                  left: left + "px",
+                  top: top + "px",
+                  width: menuWidth,
+                  height,
+                  zIndex: 89,
+                  pointerEvents: "auto",
+                  background: "transparent",
+                } as React.CSSProperties;
+              })()
             : { display: "none" }
         }
       />
@@ -74,18 +83,18 @@ export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter, a
                 const menuWidth = Math.min(880, window.innerWidth - 32);
                 const offset = 8;
                 const left = Math.min(Math.max(8, rect.left), window.innerWidth - menuWidth - offset);
+                // position menu directly below the anchor (no overlap)
                 return {
                   position: "fixed",
                   left: left + "px",
-                  top: Math.max(0, rect.top + rect.height - 6) + "px",
+                  top: Math.max(0, rect.top + rect.height) + "px",
                   width: menuWidth,
                   zIndex: 90,
                   pointerEvents: "auto",
-                };
+                } as React.CSSProperties;
               })()
             : { display: "none" }
         }
-        className="w-full"
       >
         <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-neutral-950/95 shadow-md overflow-hidden">
           <div className="px-5 py-4 border-b border-neutral-200 dark:border-neutral-800">
@@ -129,14 +138,14 @@ export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter, a
                         <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-[2px] bg-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
 
                         {hasHash ? (
-                          <a href={item.path} className="block">
+                          <a href={item.path} className="block" onClick={() => ctx?.setOpenDropdown?.(null)}>
                             <div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
                             {item.description && (
                               <div className="text-xs text-neutral-500 mt-1">{item.description}</div>
                             )}
                           </a>
                         ) : (
-                          <Link to={item.path} className="block">
+                          <Link to={item.path} className="block" onClick={() => ctx?.setOpenDropdown?.(null)}>
                             <div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
                             {item.description && (
                               <div className="text-xs text-neutral-500 mt-1">{item.description}</div>
@@ -162,6 +171,9 @@ export default function HeaderMegaMenu({ menu, isOpen, location, onMouseEnter, a
       </div>
     </div>
   );
+
+  if (typeof document === "undefined") return null;
+  if (!isOpen) return null;
 
   return createPortal(node, document.body);
 }

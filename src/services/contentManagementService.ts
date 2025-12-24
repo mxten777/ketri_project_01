@@ -235,7 +235,7 @@ class ContentManagementService {
   ): Promise<void> {
     try {
       const docRef = doc(db, this.collectionName, id);
-      const updateData: any = {
+      const updateData: Partial<Record<keyof ContentItem, unknown>> = {
         ...updates,
         updatedAt: Timestamp.now(),
       };
@@ -285,7 +285,7 @@ class ContentManagementService {
     try {
       const updatePromises = ids.map(async (id) => {
         const docRef = doc(db, this.collectionName, id);
-        const updateData: any = {
+        const updateData: Partial<Record<keyof ContentItem, unknown>> = {
           status,
           updatedAt: Timestamp.now(),
         };

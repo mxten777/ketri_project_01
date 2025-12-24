@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -5,7 +6,6 @@ import {
   ArrowLeft,
   Eye,
   Heart,
-  MessageSquare,
   Edit,
   Trash2,
   Calendar,
@@ -80,10 +80,16 @@ const FreeDetail = () => {
     }
   };
 
-  const formatDate = (timestamp: any): string => {
+  const formatDate = (timestamp: unknown): string => {
     if (!timestamp) return "";
     try {
-      const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+      const tsObj = timestamp as unknown;
+      let date: Date;
+      if (tsObj && typeof ((tsObj as { toDate?: unknown }).toDate) === "function") {
+        date = ((tsObj as { toDate: () => Date }).toDate)();
+      } else {
+        date = new Date(String(timestamp));
+      }
       return new Intl.DateTimeFormat("ko-KR", {
         year: "numeric",
         month: "2-digit",
