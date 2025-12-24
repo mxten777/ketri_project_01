@@ -324,9 +324,7 @@ header button:focus-visible {
     padding: 10px 14px !important;
     border-radius: 12px !important;
     text-decoration: none !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    line-height: 1 !important;
+    /* stabilized via header-level guards; avoid changing layout further */
   }
 
   header nav a:hover,
