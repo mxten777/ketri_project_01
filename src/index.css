@@ -114,6 +114,8 @@
 
     /* reserve header height using CSS variable to avoid initial layout shifts */
     min-height: var(--header-height, 72px);
+    /* lock header to the CSS variable height to avoid transient height shifts */
+    height: var(--header-height, 72px);
     display: block;
 
   background: rgba(255, 255, 255, 0.92) !important;
