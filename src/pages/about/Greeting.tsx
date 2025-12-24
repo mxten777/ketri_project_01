@@ -88,6 +88,8 @@ const Greeting = () => {
           <img
             src="/images/company/KakaoTalk_20251216_093557685.jpg"
             alt="한국환경안전연구소 전경"
+            width={1920}
+            height={1080}
             className="w-full h-full object-cover opacity-40"
           />
           {/* 단순하고 강한 오버레이 */}
