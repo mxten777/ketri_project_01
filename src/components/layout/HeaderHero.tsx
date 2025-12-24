@@ -31,6 +31,8 @@ export default function HeaderHero({
         <img
           src={isDarkMode ? "/images/logo_horizontal_trans.png" : "/images/logo_horizontal.png"}
           alt="한국환경안전연구소"
+          width={200}
+          height={48}
           className="h-12 md:h-14 w-auto object-contain"
         />
       </Link>

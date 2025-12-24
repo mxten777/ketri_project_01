@@ -108,12 +108,13 @@
    - header 태그에 직접 적용(셀렉터 미스 방지)
    ========================================================= */
 
-/* 헤더 베이스 */
-header {
-  /* position/top/z-index delegated to component Tailwind classes to avoid !important conflicts */
+  /* 헤더 베이스 */
+  header {
+    /* position/top/z-index delegated to component Tailwind classes to avoid !important conflicts */
 
-  min-height: auto;
-  display: block;
+    /* reserve header height using CSS variable to avoid initial layout shifts */
+    min-height: var(--header-height, 72px);
+    display: block;
 
   background: rgba(255, 255, 255, 0.92) !important;
   backdrop-filter: blur(10px) saturate(160%);
