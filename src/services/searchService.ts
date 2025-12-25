@@ -30,91 +30,87 @@ export const searchAll = async (searchTerm: string): Promise<SearchResult[]> => 
   const term = searchTerm.toLowerCase().trim();
   const results: SearchResult[] = [];
 
-  try {
-    // 공�??�항 검??
-    const noticesRef = collection(db, 'notices');
-    const noticesSnapshot = await getDocs(noticesRef);
-    
-    noticesSnapshot.forEach((doc) => {
-      const data = doc.data();
-      const titleMatch = data.title?.toLowerCase().includes(term);
-      const contentMatch = data.content?.toLowerCase().includes(term);
-      
-      if (titleMatch || contentMatch) {
-        results.push({
-          id: doc.id,
-          type: 'notice',
-          title: data.title || '',
-          content: data.content || '',
-          excerpt: data.content ? data.content.substring(0, 150) : '',
-          author: data.author || '관리자',
-          createdAt: data.createdAt,
-          category: data.category || '?�반'
-        });
-      }
-    });
+  // 공지사항 검색
+  const noticesRef = collection(db, 'notices');
+  const noticesSnapshot = await getDocs(noticesRef);
 
-    // QnA 검??
-    const qnaRef = collection(db, 'qna');
-    const qnaSnapshot = await getDocs(qnaRef);
-    
-    qnaSnapshot.forEach((doc) => {
-      const data = doc.data();
-      const titleMatch = data.title?.toLowerCase().includes(term);
-      const contentMatch = data.content?.toLowerCase().includes(term);
-      
-      if (titleMatch || contentMatch) {
-        results.push({
-          id: doc.id,
-          type: 'qna',
-          title: data.title || '',
-          content: data.content || '',
-          excerpt: data.content ? data.content.substring(0, 150) : '',
-          author: data.authorName || '?�명',
-          createdAt: data.createdAt,
-          category: data.category || '?�반',
-          isAnswered: data.isAnswered || false
-        });
-      }
-    });
+  noticesSnapshot.forEach((doc) => {
+    const data = doc.data();
+    const titleMatch = data.title?.toLowerCase().includes(term);
+    const contentMatch = data.content?.toLowerCase().includes(term);
 
-    // ?�료??검??
-    const resourcesRef = collection(db, 'resources');
-    const resourcesSnapshot = await getDocs(resourcesRef);
-    
-    resourcesSnapshot.forEach((doc) => {
-      const data = doc.data();
-      const titleMatch = data.title?.toLowerCase().includes(term);
-      const descriptionMatch = data.description?.toLowerCase().includes(term);
-      const fileNameMatch = data.fileName?.toLowerCase().includes(term);
-      
-      if (titleMatch || descriptionMatch || fileNameMatch) {
-        results.push({
-          id: doc.id,
-          type: 'resource',
-          title: data.title || '',
-          content: data.description || '',
-          excerpt: data.description ? data.description.substring(0, 150) : '',
-          author: data.uploaderName || '관리자',
-          createdAt: data.createdAt,
-          category: data.category || '?�반',
-          fileName: data.fileName,
-          fileUrl: data.fileUrl
-        });
-      }
-    });
+    if (titleMatch || contentMatch) {
+      results.push({
+        id: doc.id,
+        type: 'notice',
+        title: data.title || '',
+        content: data.content || '',
+        excerpt: data.content ? data.content.substring(0, 150) : '',
+        author: data.author || '관리자',
+        createdAt: data.createdAt,
+        category: data.category || '일반'
+      });
+    }
+  });
 
-    // 최신?�으�??�렬
-    results.sort((a, b) => {
-      const aTime = a.createdAt?.toMillis?.() || 0;
-      const bTime = b.createdAt?.toMillis?.() || 0;
-      return bTime - aTime;
-    });
+  // QnA 검색
+  const qnaRef = collection(db, 'qna');
+  const qnaSnapshot = await getDocs(qnaRef);
 
-    return results;
-  } catch (error) {
-    throw error;
-  }
+  qnaSnapshot.forEach((doc) => {
+    const data = doc.data();
+    const titleMatch = data.title?.toLowerCase().includes(term);
+    const contentMatch = data.content?.toLowerCase().includes(term);
+
+    if (titleMatch || contentMatch) {
+      results.push({
+        id: doc.id,
+        type: 'qna',
+        title: data.title || '',
+        content: data.content || '',
+        excerpt: data.content ? data.content.substring(0, 150) : '',
+        author: data.authorName || '익명',
+        createdAt: data.createdAt,
+        category: data.category || '일반',
+        isAnswered: data.isAnswered || false
+      });
+    }
+  });
+
+  // 자료 검색
+  const resourcesRef = collection(db, 'resources');
+  const resourcesSnapshot = await getDocs(resourcesRef);
+
+  resourcesSnapshot.forEach((doc) => {
+    const data = doc.data();
+    const titleMatch = data.title?.toLowerCase().includes(term);
+    const descriptionMatch = data.description?.toLowerCase().includes(term);
+    const fileNameMatch = data.fileName?.toLowerCase().includes(term);
+
+    if (titleMatch || descriptionMatch || fileNameMatch) {
+      results.push({
+        id: doc.id,
+        type: 'resource',
+        title: data.title || '',
+        content: data.description || '',
+        excerpt: data.description ? data.description.substring(0, 150) : '',
+        author: data.uploaderName || '관리자',
+        createdAt: data.createdAt,
+        category: data.category || '일반',
+        fileName: data.fileName,
+        fileUrl: data.fileUrl
+      });
+    }
+  });
+
+  // 최신순 정렬
+  results.sort((a, b) => {
+    const aTime = a.createdAt?.toMillis?.() || 0;
+    const bTime = b.createdAt?.toMillis?.() || 0;
+    return bTime - aTime;
+  });
+
+  return results;
 };
 
 /**
@@ -131,56 +127,52 @@ export const searchByType = async (
   const term = searchTerm.toLowerCase().trim();
   const results: SearchResult[] = [];
 
-  try {
-    const collectionName = type === 'resource' ? 'resources' : type === 'qna' ? 'qna' : 'notices';
-    const collectionRef = collection(db, collectionName);
-    const snapshot = await getDocs(collectionRef);
+  const collectionName = type === 'resource' ? 'resources' : type === 'qna' ? 'qna' : 'notices';
+  const collectionRef = collection(db, collectionName);
+  const snapshot = await getDocs(collectionRef);
 
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      let match = false;
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    let match = false;
 
-      if (type === 'resource') {
-        match = 
-          data.title?.toLowerCase().includes(term) ||
-          data.description?.toLowerCase().includes(term) ||
-          data.fileName?.toLowerCase().includes(term);
-      } else {
-        match = 
-          data.title?.toLowerCase().includes(term) ||
-          data.content?.toLowerCase().includes(term);
-      }
+    if (type === 'resource') {
+      match =
+        data.title?.toLowerCase().includes(term) ||
+        data.description?.toLowerCase().includes(term) ||
+        data.fileName?.toLowerCase().includes(term);
+    } else {
+      match =
+        data.title?.toLowerCase().includes(term) ||
+        data.content?.toLowerCase().includes(term);
+    }
 
-      if (match) {
-        results.push({
-          id: doc.id,
-          type,
-          title: data.title || '',
-          content: data.content || data.description || '',
-          excerpt: (data.content || data.description || '').substring(0, 150),
-          author: data.author || data.authorName || data.uploaderName || '관리자',
-          createdAt: data.createdAt,
-          category: data.category || '?�반',
-          ...(type === 'qna' && { isAnswered: data.isAnswered || false }),
-          ...(type === 'resource' && { 
-            fileName: data.fileName,
-            fileUrl: data.fileUrl
-          })
-        });
-      }
-    });
+    if (match) {
+      results.push({
+        id: doc.id,
+        type,
+        title: data.title || '',
+        content: data.content || data.description || '',
+        excerpt: (data.content || data.description || '').substring(0, 150),
+        author: data.author || data.authorName || data.uploaderName || '관리자',
+        createdAt: data.createdAt,
+        category: data.category || '일반',
+        ...(type === 'qna' && { isAnswered: data.isAnswered || false }),
+        ...(type === 'resource' && {
+          fileName: data.fileName,
+          fileUrl: data.fileUrl,
+        }),
+      });
+    }
+  });
 
-    // 최신???�렬
-    results.sort((a, b) => {
-      const aTime = a.createdAt?.toMillis?.() || 0;
-      const bTime = b.createdAt?.toMillis?.() || 0;
-      return bTime - aTime;
-    });
+  // 최신순 정렬
+  results.sort((a, b) => {
+    const aTime = a.createdAt?.toMillis?.() || 0;
+    const bTime = b.createdAt?.toMillis?.() || 0;
+    return bTime - aTime;
+  });
 
-    return results;
-  } catch (error) {
-    throw error;
-  }
+  return results;
 };
 
 /**

@@ -42,91 +42,75 @@ export interface UserStats {
 
 // ?�체 ?�계 조회
 export const getStatistics = async () => {
-  try {
-    // ?�원 ??
-    const usersRef = collection(db, "users");
-    const usersSnapshot = await getCountFromServer(usersRef);
-    const totalUsers = usersSnapshot.data().count;
+  // 사용자 수
+  const usersRef = collection(db, "users");
+  const usersSnapshot = await getCountFromServer(usersRef);
+  const totalUsers = usersSnapshot.data().count;
 
-    // 공�??�항 ??
-    const noticesRef = collection(db, "notices");
-    const noticesSnapshot = await getCountFromServer(noticesRef);
-    const totalNotices = noticesSnapshot.data().count;
+  // 공지사항 수
+  const noticesRef = collection(db, "notices");
+  const noticesSnapshot = await getCountFromServer(noticesRef);
+  const totalNotices = noticesSnapshot.data().count;
 
-    // QnA ??
-    const qnaRef = collection(db, "qna");
-    const qnaSnapshot = await getCountFromServer(qnaRef);
-    const totalQna = qnaSnapshot.data().count;
+  // QnA 수
+  const qnaRef = collection(db, "qna");
+  const qnaSnapshot = await getCountFromServer(qnaRef);
+  const totalQna = qnaSnapshot.data().count;
 
-    // ?�료??�??�운로드 ??
-    const resourcesRef = collection(db, "resources");
-    const resourcesSnapshot = await getDocs(resourcesRef);
-    const totalDownloads = resourcesSnapshot.docs.reduce(
-      (sum, doc) => sum + (doc.data().downloads || 0),
-      0
-    );
+  // 자료 다운로드 집계
+  const resourcesRef = collection(db, "resources");
+  const resourcesSnapshot = await getDocs(resourcesRef);
+  const totalDownloads = resourcesSnapshot.docs.reduce(
+    (sum, doc) => sum + (doc.data().downloads || 0),
+    0
+  );
 
-    return {
-      totalUsers,
-      totalNotices,
-      totalQna,
-      totalDownloads,
-    };
-  } catch (error) {
-    throw error;
-  }
+  return {
+    totalUsers,
+    totalNotices,
+    totalQna,
+    totalDownloads,
+  };
 };
 
 // 최근 가???�원 조회
 export const getRecentUsers = async (limitCount: number = 10) => {
-  try {
-    const usersRef = collection(db, "users");
-    const q = query(usersRef, orderBy("createdAt", "desc"), limit(limitCount));
-    const snapshot = await getDocs(q);
+  const usersRef = collection(db, "users");
+  const q = query(usersRef, orderBy("createdAt", "desc"), limit(limitCount));
+  const snapshot = await getDocs(q);
 
-    return snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    })) as User[];
-  } catch (error) {
-    throw error;
-  }
+  return snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as User[];
 };
 
 // 최근 공�??�항 조회
 export const getRecentNotices = async (limitCount: number = 5) => {
-  try {
-    const noticesRef = collection(db, "notices");
-    const q = query(
-      noticesRef,
-      orderBy("createdAt", "desc"),
-      limit(limitCount)
-    );
-    const snapshot = await getDocs(q);
+  const noticesRef = collection(db, "notices");
+  const q = query(
+    noticesRef,
+    orderBy("createdAt", "desc"),
+    limit(limitCount)
+  );
+  const snapshot = await getDocs(q);
 
-    return snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-  } catch (error) {
-    throw error;
-  }
+  return snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
 };
 
 // 최근 QnA 조회
 export const getRecentQnA = async (limitCount: number = 5) => {
-  try {
-    const qnaRef = collection(db, "qnas");
-    const q = query(qnaRef, orderBy("createdAt", "desc"), limit(limitCount));
-    const snapshot = await getDocs(q);
+  const qnaRef = collection(db, "qnas");
+  const q = query(qnaRef, orderBy("createdAt", "desc"), limit(limitCount));
+  const snapshot = await getDocs(q);
 
-    return snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-  } catch (error) {
-    throw error;
-  }
+  return snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
 };
 
 // 최근 활동 통합 조회
@@ -211,44 +195,40 @@ export const getRecentActivities = async (
 
 // ?�별 가?�자 ?�계 (최근 6개월)
 export const getMonthlyUserStats = async () => {
-  try {
-    const usersRef = collection(db, "users");
-    const snapshot = await getDocs(usersRef);
+  const usersRef = collection(db, "users");
+  const snapshot = await getDocs(usersRef);
 
-    const monthlyData: Record<string, number> = {};
-    const now = new Date();
+  const monthlyData: Record<string, number> = {};
+  const now = new Date();
 
-    // 최근 6개월 초기??
-    for (let i = 5; i >= 0; i--) {
-      const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
-        2,
-        "0"
-      )}`;
-      monthlyData[key] = 0;
-    }
-
-    // ?�별 카운??
-    snapshot.docs.forEach((doc) => {
-      const data = doc.data();
-      if (data.createdAt) {
-        const date = data.createdAt.toDate();
-        const key = `${date.getFullYear()}-${String(
-          date.getMonth() + 1
-        ).padStart(2, "0")}`;
-        if (monthlyData[key] !== undefined) {
-          monthlyData[key]++;
-        }
-      }
-    });
-
-    return Object.entries(monthlyData).map(([month, count]) => ({
-      month,
-      count,
-    }));
-  } catch (error) {
-    throw error;
+  // 최근 6개월 초기화
+  for (let i = 5; i >= 0; i--) {
+    const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}`;
+    monthlyData[key] = 0;
   }
+
+  // 월별 카운트
+  snapshot.docs.forEach((doc) => {
+    const data = doc.data();
+    if (data.createdAt) {
+      const date = data.createdAt.toDate();
+      const key = `${date.getFullYear()}-${String(
+        date.getMonth() + 1
+      ).padStart(2, "0")}`;
+      if (monthlyData[key] !== undefined) {
+        monthlyData[key]++;
+      }
+    }
+  });
+
+  return Object.entries(monthlyData).map(([month, count]) => ({
+    month,
+    count,
+  }));
 };
 
 // 카테고리�?QnA ?�계
