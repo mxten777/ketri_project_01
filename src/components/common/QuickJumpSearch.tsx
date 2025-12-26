@@ -111,21 +111,19 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
 
   return (
     <div className={mobile ? "w-full px-6 py-3" : "relative"}>
-      {!mobile && (
-        <button
-          aria-label="검색"
-          type="button"
-          className="p-2 rounded-xl text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/5"
-          onClick={(e) => {
-            e.preventDefault();
-            openSearch();
-          }}
-        >
-          <Search className="w-5 h-5" />
-        </button>
-      )}
+      <button
+        aria-label="검색"
+        type="button"
+        className="p-2 rounded-xl text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/5"
+        onClick={(e) => {
+          e.preventDefault();
+          openSearch();
+        }}
+      >
+        <Search className="w-5 h-5" />
+      </button>
 
-      {(isOpen || mobile) && (
+      {isOpen && (
         <div className={mobile ? "w-full" : "absolute right-0 mt-2 w-[320px]"}>
           <div className="relative">
             <input
