@@ -59,7 +59,7 @@ const Hero = ({
 
   return (
     <section
-      className={`relative min-h-[600px] py-20 lg:py-32 overflow-hidden ${className}`}
+      className={`relative z-0 min-h-[600px] py-20 lg:py-32 overflow-hidden ${className}`}
     >
       {/* Background */}
       {backgroundImage && (
@@ -71,7 +71,7 @@ const Hero = ({
             backgroundPosition: "center",
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/90 to-neutral-900/70 dark:from-neutral-900/95 dark:to-neutral-900/90" />
+          <div className="absolute inset-0 z-0 bg-gradient-to-r from-neutral-900/90 to-neutral-900/70 dark:from-neutral-900/95 dark:to-neutral-900/90" />
         </div>
       )}
 
@@ -92,16 +92,7 @@ const Hero = ({
                 backgroundImage ? "text-white" : "text-neutral-900 dark:text-neutral-100"
               } text-display-sm lg:text-display-md leading-[1.8]`} 
             >
-              <span
-                data-debug="hero-title"
-                className="hero-title-scrim"
-                style={{
-                  position: 'relative',
-                  zIndex: 10,
-                  textShadow: '0 2px 8px rgba(0,0,0,0.6)',
-                  lineHeight: '1.8'
-                }}
-              >
+              <span data-debug="hero-title" className="hero-title-scrim relative z-10">
                 {title}
               </span>
             </h1>
