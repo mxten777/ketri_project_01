@@ -125,7 +125,7 @@ const Home = () => {
 
         {/* 메인 컨텐츠 */}
         {/* ✅ FIX: z-60 -> z-[60] (Tailwind 기본 없음) / py 과다 제거 */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 md:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-6 md:pt-8 pb-12 md:pb-16">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
