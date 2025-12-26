@@ -84,7 +84,6 @@ const Home = () => {
         className="relative z-0 min-h-[85vh] flex items-center justify-center overflow-hidden min-h-[72px] md:min-h-[80px] lg:min-h-[88px]"
         style={{
           minHeight: "calc(100vh - var(--app-header-h, 84px))",
-          marginTop: "calc(var(--app-header-h, 84px) * -1)",
         }}
       >
         {/* 동적인 배경 그라데이션 */}
