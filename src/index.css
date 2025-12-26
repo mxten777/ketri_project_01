@@ -395,6 +395,12 @@ header button:focus-visible {
   }
 }
 
+/* Ensure subpage hero sections are offset below the fixed header.
+   Exclude the home/bleed hero which uses `pt-header` intentionally. */
+[data-has-hero]:not(.pt-header) {
+  padding-top: var(--app-header-h);
+}
+
 /* FOOTER (Figma-aligned scoped styles)
    - Scoped rules (no !important) to mirror Figma tokens
    - Scoped to `.site-footer` to avoid overriding other footer elements
