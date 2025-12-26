@@ -83,7 +83,7 @@ const Home = () => {
         data-has-hero
         className="relative z-0 pt-header min-h-[85vh] flex items-center justify-center overflow-hidden min-h-[72px] md:min-h-[80px] lg:min-h-[88px]"
         style={{
-          minHeight: "calc(100vh - var(--app-header-h, 84px))",
+          minHeight: "calc(100vh - var(--app-header-h))",
         }}
       >
         {/* 동적인 배경 그라데이션 */}

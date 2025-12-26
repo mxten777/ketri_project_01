@@ -1,0 +1,35 @@
+:root {
+  /* Header height tokens (KETRI Freeze v1.0) */
+  --app-header-h: 72px; /* mobile default — DO NOT change in v1.0 */
+  --logo-height: 32px;
+
+  /* breakpoint overrides (copy from repo tokens) */
+  /* >=1024px */
+  /* @media rules should be applied in consuming CSS */
+
+  /* z-index tokens (minimal set) */
+  --z-header: 50;
+  --z-modal: 9999;
+
+  /* typographic scale tokens (minimal; do not add new tokens lightly) */
+  --type-rhythm: 1.4;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --app-header-h: 88px;
+    --logo-height: 40px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --app-header-h: 80px;
+    --logo-height: 36px;
+  }
+}
+
+/* Notes:
+ - This file mirrors the header tokens used in `src/index.css`.
+ - v1.0 Freeze: do not change `--app-header-h` values without following bump process.
+*/

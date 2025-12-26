@@ -401,6 +401,12 @@ header button:focus-visible {
   padding-top: var(--app-header-h);
 }
 
+/* Anchor target offset: use CSS scroll-margin-top to honor the frozen header height.
+   This replaces any JS-based scroll offset logic. */
+:target {
+  scroll-margin-top: var(--app-header-h);
+}
+
 /* FOOTER (Figma-aligned scoped styles)
    - Scoped rules (no !important) to mirror Figma tokens
    - Scoped to `.site-footer` to avoid overriding other footer elements

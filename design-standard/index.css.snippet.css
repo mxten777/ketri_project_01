@@ -1,0 +1,32 @@
+/* KETRI copy-paste snippet: include in global CSS when applying KETRI UI Standard */
+
+/* 1) Header token (ensure this appears in :root) */
+:root {
+  --app-header-h: 72px; /* mobile default — matches KETRI v1.0 */
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root { --app-header-h: 80px; }
+}
+@media (min-width: 1024px) {
+  :root { --app-header-h: 88px; }
+}
+
+/* 2) Header z-index guidance (minimal) */
+header { z-index: 50; }
+
+/* 3) Hero / header-safe padding rule (core behavior — COPY THIS EXACTLY) */
+/* Applies top padding equal to header height on any element marked as `data-has-hero`,
+   except when `pt-header` (utility) is intentionally used (Home bleed case).
+   This prevents any JS-based offset calculations. */
+[data-has-hero]:not(.pt-header) {
+  padding-top: var(--app-header-h);
+}
+
+/* 4) Explicit bleed override (use only when Hero must bleed to the viewport top)
+   Example usage: <section data-has-hero data-hero-bleed> */
+[data-hero-bleed] {
+  padding-top: 0 !important;
+}
+
+/* Copy this snippet as-is when migrating pages to KETRI standard. */
