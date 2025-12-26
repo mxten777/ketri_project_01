@@ -66,19 +66,32 @@ export default function HeaderMegaMenu({
 
 	const style: React.CSSProperties = rect
 		? (() => {
-				const menuWidth = Math.min(960, window.innerWidth - 32);
-				const offset = 8;
-				const left = Math.min(Math.max(8, rect.left), window.innerWidth - menuWidth - offset);
-				return {
-					position: "fixed",
-					left: left + "px",
-					top: Math.max(0, rect.top + rect.height) + "px",
-					width: menuWidth,
-					zIndex: 90,
-					pointerEvents: "auto",
-				} as React.CSSProperties;
-			})()
+			const menuWidthNum = Math.min(960, window.innerWidth - 32);
+			const offset = 8;
+			const leftNum = Math.min(Math.max(8, rect.left), window.innerWidth - menuWidthNum - offset);
+			const topNum = Math.max(0, rect.top + rect.height);
+			return {
+				position: "fixed",
+				left: leftNum + "px",
+				top: topNum + "px",
+				width: menuWidthNum,
+				zIndex: 90,
+				pointerEvents: "auto",
+			} as React.CSSProperties;
+		})()
 		: { display: "none" };
+
+	// Inline bridge style for an absolute element inside the fixed menu container
+	const bridgeInlineStyle: React.CSSProperties = {
+		position: "absolute",
+		top: "-24px",
+		left: 0,
+		right: 0,
+		height: "24px", // 16-32px range as requested
+		zIndex: 89,
+		background: "transparent",
+		pointerEvents: "auto",
+	};
 
 	const closeMega = () => ctx?.setOpenDropdown?.(null);
 
@@ -100,6 +113,8 @@ export default function HeaderMegaMenu({
 	const node = (
 		<div onMouseEnter={() => selected && onMouseEnter(selected)} onMouseLeave={() => onMouseLeave && onMouseLeave()}>
 			<div style={style}>
+				{/* transparent bridge to maintain hover when moving cursor from header to panel */}
+				<div style={bridgeInlineStyle} onMouseEnter={() => selected && onMouseEnter(selected)} onMouseLeave={() => onMouseLeave && onMouseLeave()} />
 				<div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-md overflow-visible">
 					<div className="px-5 py-4 border-b border-neutral-200 dark:border-neutral-800">
 						<div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">메뉴</div>
