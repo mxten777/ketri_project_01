@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Save } from "lucide-react";
 import Button from "../../components/common/Button";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext.core";
 import {
   createFreePost,
   getFreePost,
@@ -86,9 +86,9 @@ const FreeForm = () => {
         await updateFreePost(id, formData);
         alert("게시글이 수정되었습니다.");
         navigate(`/`);
-      } else {
+        } else {
         // 작성
-        const postId = await createFreePost({
+        await createFreePost({
           ...formData,
           authorId: user.uid,
           authorName: userData.displayName,

@@ -28,7 +28,28 @@
     --ink-rgb: 15 23 42;    /* 딥 네이비(고급 연구소 톤) */
 
     /* header */
-    --header-height: 72px; /* 살짝 여유가 프리미엄 느낌 */
+    /* Default (mobile) token. Breakpoint overrides below. */
+    --app-header-h: 72px; /* Mobile token */
+    --logo-height: 32px;
+  }
+
+  /* Figma token breakpoint mappings
+     - >=1024px -> 88px (desktop)
+     - 768..1023px -> 80px (tablet)
+     - <768px -> 72px (mobile)
+  */
+  @media (min-width: 1024px) {
+    :root {
+      --app-header-h: 88px;
+      --logo-height: 40px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    :root {
+      --app-header-h: 80px;
+      --logo-height: 36px;
+    }
   }
 
   /* dark */
@@ -100,6 +121,8 @@
   .container-custom {
     @apply max-w-7xl mx-auto px-4;
   }
+
+  /* Note: `pt-header` is provided by Tailwind/preset as a utility mapping to var(--app-header-h). */
 }
 
 /* =========================================================
@@ -108,12 +131,13 @@
    - header 태그에 직접 적용(셀렉터 미스 방지)
    ========================================================= */
 
-/* 헤더 베이스 */
-header {
-  /* position/top/z-index delegated to component Tailwind classes to avoid !important conflicts */
+  /* 헤더 베이스 */
+  header {
+    /* position/top/z-index delegated to component Tailwind classes to avoid !important conflicts */
 
-  min-height: auto;
-  display: block;
+    /* reserve header height using CSS variable to avoid initial layout shifts */
+    min-height: var(--app-header-h, 72px);
+    display: block;
 
   background: rgba(255, 255, 255, 0.92) !important;
   backdrop-filter: blur(10px) saturate(160%);
@@ -323,6 +347,7 @@ header button:focus-visible {
     padding: 10px 14px !important;
     border-radius: 12px !important;
     text-decoration: none !important;
+    /* stabilized via header-level guards; avoid changing layout further */
   }
 
   header nav a:hover,
@@ -368,6 +393,18 @@ header button:focus-visible {
     color: rgba(255,255,255,0.96) !important;
     background: rgba(255,255,255,0.06) !important;
   }
+}
+
+/* Ensure subpage hero sections are offset below the fixed header.
+   Exclude the home/bleed hero which uses `pt-header` intentionally. */
+[data-has-hero]:not(.pt-header) {
+  padding-top: var(--app-header-h);
+}
+
+/* Anchor target offset: use CSS scroll-margin-top to honor the frozen header height.
+   This replaces any JS-based scroll offset logic. */
+:target {
+  scroll-margin-top: var(--app-header-h);
 }
 
 /* FOOTER (Figma-aligned scoped styles)

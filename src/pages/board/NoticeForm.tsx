@@ -7,7 +7,7 @@ import {
   updateNotice,
   getNoticeById,
 } from "../../services/noticeService";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext.core";
 
 import Button from "../../components/common/Button";
 import Card from "../../components/common/Card";

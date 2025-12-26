@@ -1,10 +1,5 @@
-﻿import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
+﻿import { useEffect, useState, ReactNode } from "react";
+import { AuthContext } from "./AuthContext.core";
 import {
   User as FirebaseUser,
   createUserWithEmailAndPassword,
@@ -19,36 +14,6 @@ import {
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 import { User } from "../types";
-
-interface AuthContextType {
-  currentUser: FirebaseUser | null;
-  user: FirebaseUser | null; // alias for compatibility
-  userData: User | null;
-  loading: boolean;
-  isAdmin: boolean;
-  signup: (
-    email: string,
-    password: string,
-    displayName: string
-  ) => Promise<void>;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
-  updateUserProfile: (displayName: string) => Promise<void>;
-  changePassword: (newPassword: string) => Promise<void>;
-  resetPassword: (email: string) => Promise<void>;
-  deleteAccount: () => Promise<void>;
-  refreshUserData: () => Promise<void>;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -210,7 +175,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };

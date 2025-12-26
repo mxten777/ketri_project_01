@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "@/contexts/ThemeContext.core";
 import { themes, ThemeType } from "@/config/themes";
 import { Container, Section, Card, CardHeader, CardTitle, CardContent, Input, Modal, ModalFooter } from "@/components/ui";
 import { Button } from "@/components/common";

@@ -26,11 +26,13 @@ export default function HeaderHero({
   isMenuActive,
 }: Props) {
   return (
-    <div className="flex items-center justify-between" style={{ height: "var(--header-height, 84px)" }}>
-      <Link to="/" className="flex items-center py-3 hover:opacity-90 transition-opacity">
+    <div className="relative z-0 flex items-center justify-between" style={{ height: "var(--app-header-h, 84px)" }}>
+      <Link to="/" className="flex items-center py-2 hover:opacity-90 transition-opacity">
         <img
           src={isDarkMode ? "/images/logo_horizontal_trans.png" : "/images/logo_horizontal.png"}
           alt="한국환경안전연구소"
+          width={200}
+          height={48}
           className="h-12 md:h-14 w-auto object-contain"
         />
       </Link>

@@ -81,16 +81,15 @@ const Home = () => {
       {/* ✅ FIX: header 높이 제외 + 레이어 확정 + 상단 scrim */}
       <section
         data-has-hero
-        className="relative min-h-[85vh] flex items-center justify-center overflow-hidden"
+        className="relative z-0 pt-header min-h-[85vh] flex items-center justify-center overflow-hidden min-h-[72px] md:min-h-[80px] lg:min-h-[88px]"
         style={{
-          minHeight: "calc(100vh - var(--header-height, 84px))",
-          marginTop: "calc(var(--header-height, 84px) * -1)",
+          minHeight: "calc(100vh - var(--app-header-h))",
         }}
       >
         {/* 동적인 배경 그라데이션 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 via-primary-700 to-blue-800 dark:from-primary-700 dark:via-primary-800 dark:to-blue-900">
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary-600 via-primary-700 to-blue-800 dark:from-primary-700 dark:via-primary-800 dark:to-blue-900">
           <motion.div
-            className="absolute inset-0 opacity-20"
+            className="absolute inset-0 z-0 opacity-20"
             animate={{
               background: [
                 "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1), transparent 50%)",
@@ -102,7 +101,9 @@ const Home = () => {
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
           <motion.div
-            className="absolute inset-0 opacity-10"
+            aria-hidden="true"
+            className="absolute inset-0 z-0 opacity-10 pointer-events-none transform-gpu will-change-transform"
+            style={{ contain: 'paint' }}
             animate={{
               background: [
                 "linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent)",
@@ -118,13 +119,13 @@ const Home = () => {
 
         {/* ✅ 헤더/텍스트 가독성용 상단 scrim (프리미엄 톤) */}
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-black/35 to-transparent"
-          style={{ height: "var(--header-height, 84px)" }}
+          className="pointer-events-none absolute inset-x-0 top-header z-0 bg-gradient-to-b from-black/35 to-transparent"
+            style={{ height: "var(--app-header-h, 84px)" }}
         />
 
         {/* 메인 컨텐츠 */}
         {/* ✅ FIX: z-60 -> z-[60] (Tailwind 기본 없음) / py 과다 제거 */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-[60] py-12 md:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-8 md:pt-10 pb-12 md:pb-16">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -147,7 +148,7 @@ const Home = () => {
               </motion.span>
               <br />
               <motion.span
-                className="inline-block px-6 py-3 rounded-2xl text-white font-extrabold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
+                className="relative z-10 mt-4 md:mt-6 inline-block px-6 py-3 rounded-2xl text-white font-extrabold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
                 initial={{ opacity: 0, y: 20, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ delay: 0.5, duration: 0.8, type: "spring", stiffness: 100 }}
@@ -168,7 +169,7 @@ const Home = () => {
             </motion.p>
 
             <motion.p
-              className="text-lg text-white/85 mb-12 max-w-2xl mx-auto leading-relaxed"
+              className="hidden sm:block text-lg text-white/85 mb-12 max-w-2xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.6 }}
@@ -256,7 +257,7 @@ const Home = () => {
 
         {/* 스크롤 인디케이터 - 개선 */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
         >

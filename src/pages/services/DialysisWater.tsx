@@ -1,24 +1,8 @@
  
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// No JS-based header offset; anchors handled via CSS :target
 
 const DialysisWater = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.hash) {
-      const id = location.hash.replace("#", "");
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        const header = document.querySelector("header");
-        const headerHeight = header && header instanceof HTMLElement ? header.offsetHeight : 96;
-        if (el) {
-          const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
-          window.scrollTo({ top, behavior: "smooth" });
-        }
-      }, 50);
-    }
-  }, [location]);
+  // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
 
   return (
     <main className="min-h-screen">

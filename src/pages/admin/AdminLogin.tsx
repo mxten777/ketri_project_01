@@ -10,7 +10,7 @@ import {
   Shield,
   ChevronRight,
 } from "lucide-react";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext.core";
 import Button from "../../components/common/Button";
 
 const AdminLogin = () => {

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Plus, Edit, Trash2, Eye, Pin } from "lucide-react";
 import { getNotices, deleteNotice } from "../../services/noticeService";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext.core";
 import { formatDateOnly } from "../../utils/dateUtils";
 import type { Notice } from "../../types";
 import Button from "../../components/common/Button";

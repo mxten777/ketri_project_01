@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Plus,
@@ -14,7 +13,6 @@ import { getFreePosts } from "../../services/freeService";
 import type { FreePost } from "../../types";
 
 const FreeList = () => {
-  const navigate = useNavigate();
   const [posts, setPosts] = useState<FreePost[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");

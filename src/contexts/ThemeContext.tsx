@@ -1,14 +1,6 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { ThemeType, applyTheme, getStoredTheme, initDarkMode, toggleDarkMode } from "@/config/themes";
-
-interface ThemeContextValue {
-  theme: ThemeType;
-  setTheme: (theme: ThemeType) => void;
-  isDark: boolean;
-  toggleDark: () => void;
-}
-
-const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+import { ThemeContext } from "./ThemeContext.core";
 
 interface ThemeProviderProps {
   children: ReactNode;
@@ -44,10 +36,4 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   );
 };
 
-export const useTheme = (): ThemeContextValue => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within ThemeProvider");
-  }
-  return context;
-};
+// Note: `useTheme` is provided from ThemeContext.core to keep this file exporting only the Provider component.

@@ -1,27 +1,9 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// No JS-based header offset; anchors handled via CSS :target
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 
 const IndustrialHealth = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    // If there's a hash in the URL, scroll to the element with offset for header
-    if (location.hash) {
-      const id = location.hash.replace("#", "");
-      // allow layout to settle
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        const header = document.querySelector("header");
-        const headerHeight = header && header instanceof HTMLElement ? header.offsetHeight : 96;
-        if (el) {
-          const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 16; // extra padding
-          window.scrollTo({ top, behavior: "smooth" });
-        }
-      }, 50);
-    }
-  }, [location]);
+  // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
 
   return (
     <main className="min-h-screen">

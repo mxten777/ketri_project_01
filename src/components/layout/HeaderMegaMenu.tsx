@@ -1,9 +1,12 @@
 import { useState, useLayoutEffect, useContext, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MenuGroup } from "../../constants/menu";
 import { isAllowed } from "../../constants/menuFilter";
 import { HeaderContext } from "./HeaderContext";
+
+const ABOUT_LABEL = "연구소 소개";
+const ABOUT_ALL_VIEW = "/about/greeting";
 
 interface Props {
 	menus: MenuGroup[];
@@ -25,6 +28,7 @@ export default function HeaderMegaMenu({
 	anchorEl,
 }: Props) {
 	const ctx = useContext(HeaderContext);
+	const navigate = useNavigate();
 	const [rect, setRect] = useState<DOMRect | null>(null);
 	const [selected, setSelected] = useState<string | null>(activeGroup ?? null);
 
@@ -62,21 +66,42 @@ export default function HeaderMegaMenu({
 
 	const style: React.CSSProperties = rect
 		? (() => {
-				const menuWidth = Math.min(960, window.innerWidth - 32);
-				const offset = 8;
-				const left = Math.min(Math.max(8, rect.left), window.innerWidth - menuWidth - offset);
-				return {
-					position: "fixed",
-					left: left + "px",
-					top: Math.max(0, rect.top + rect.height) + "px",
-					width: menuWidth,
-					zIndex: 90,
-					pointerEvents: "auto",
-				} as React.CSSProperties;
-			})()
+			const menuWidthNum = Math.min(960, window.innerWidth - 32);
+			const offset = 8;
+			const leftNum = Math.min(Math.max(8, rect.left), window.innerWidth - menuWidthNum - offset);
+			const topNum = Math.max(0, rect.top + rect.height);
+			return {
+				position: "fixed",
+				left: leftNum + "px",
+				top: topNum + "px",
+				width: menuWidthNum,
+				zIndex: 90,
+				pointerEvents: "auto",
+			} as React.CSSProperties;
+		})()
 		: { display: "none" };
 
+	// Inline bridge style for an absolute element inside the fixed menu container
+	const bridgeInlineStyle: React.CSSProperties = {
+		position: "absolute",
+		top: "-24px",
+		left: 0,
+		right: 0,
+		height: "24px", // 16-32px range as requested
+		zIndex: 89,
+		background: "transparent",
+		pointerEvents: "none", // do not block clicks on the panel
+	};
+
 	const closeMega = () => ctx?.setOpenDropdown?.(null);
+
+	function handleNav(e: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>, targetHref: string) {
+		e.preventDefault();
+		// navigate first, then close the mega menu to avoid click-loss with portal/close-delay
+		navigate(targetHref);
+		if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
+		else setTimeout(() => closeMega(), 0);
+	}
 
 	function computeDisplay(menuGroup: MenuGroup) {
 		const filtered = menuGroup.items.filter((it) => isAllowed(it.path));
@@ -86,8 +111,10 @@ export default function HeaderMegaMenu({
 	}
 
 	const node = (
-		<div onMouseEnter={() => selected && onMouseEnter(selected)} onMouseLeave={() => onMouseLeave && onMouseLeave()}>
+		<div data-mega-hoverzone="true" onMouseEnter={() => selected && onMouseEnter(selected)} onMouseLeave={() => onMouseLeave && onMouseLeave()}>
 			<div style={style}>
+				{/* transparent bridge to maintain hover when moving cursor from header to panel */}
+				<div style={bridgeInlineStyle} onMouseEnter={() => selected && onMouseEnter(selected)} onMouseLeave={() => onMouseLeave && onMouseLeave()} />
 				<div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-md overflow-visible">
 					<div className="px-5 py-4 border-b border-neutral-200 dark:border-neutral-800">
 						<div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">메뉴</div>
@@ -99,7 +126,7 @@ export default function HeaderMegaMenu({
 							if (!activeMenu) return null;
 
 							if (activeMenu.layout === "grid") {
-								const { filtered, isTruncated, display } = computeDisplay(activeMenu);
+								const { isTruncated, display } = computeDisplay(activeMenu);
 
 								return (
 									<div>
@@ -127,20 +154,29 @@ export default function HeaderMegaMenu({
 										<div className="grid grid-cols-3 md:grid-cols-5 gap-4 max-h-[480px] overflow-y-auto pr-2">
 											{display.map((item) => {
 												const hasHash = item.path.includes("#");
+												const itemHover = "hover:bg-neutral-50 transition-colors";
 												return (
-													<div key={item.path} className="rounded-xl p-3 hover:bg-neutral-50 transition-colors">
-														{hasHash ? (
-															<a href={item.path} className="block" onClick={closeMega}>
-																<div className="text-sm font-medium">{item.label}</div>
-																{item.description && <div className="text-xs text-neutral-500 mt-1">{item.description}</div>}
-															</a>
-														) : (
-															<Link to={item.path} className="block" onClick={closeMega}>
-																<div className="text-sm font-medium">{item.label}</div>
-																{item.description && <div className="text-xs text-neutral-500 mt-1">{item.description}</div>}
-															</Link>
-														)}
-													</div>
+													hasHash ? (
+														<a
+															key={item.path}
+															href={item.path}
+															onClick={closeMega}
+															className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg ${itemHover}`}
+														>
+															<div className="text-sm font-medium">{item.label}</div>
+															{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
+														</a>
+													) : (
+														<a
+															key={item.path}
+															href={item.path}
+															onClick={(e) => handleNav(e, item.path)}
+															className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg ${itemHover}`}
+														>
+															<div className="text-sm font-medium">{item.label}</div>
+															{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
+														</a>
+													)
 												);
 											})}
 										</div>
@@ -150,7 +186,18 @@ export default function HeaderMegaMenu({
 
 							// default: two-column layout
 							const menu = menus.find((mm) => mm.label === selected) || menus[0];
-							const { filtered, isTruncated, display } = computeDisplay(menu);
+							// Special-case: ABOUT_LABEL -> merge left/right items and render all of them in the right column
+							let display = [] as typeof menu.items;
+							let isTruncated = false;
+							if (menu.label === ABOUT_LABEL) {
+								const mergedItems = [...(menu.left?.items ?? []), ...(menu.right?.items ?? [])];
+								display = mergedItems.filter((it) => isAllowed(it.path));
+								isTruncated = false;
+							} else {
+								const _ = computeDisplay(menu);
+								isTruncated = _.isTruncated;
+								display = _.display;
+							}
 
 							return (
 								<div className="grid grid-cols-[220px_1fr] gap-4">
@@ -187,37 +234,51 @@ export default function HeaderMegaMenu({
 												].join(" ");
 
 												return (
-													<div key={item.path} className={itemClasses}>
+													<a
+														key={item.path}
+														href={item.path}
+														onClick={(e) => handleNav(e, item.path)}
+														className={
+															[
+																"flex items-center min-h-[44px] px-4 py-2.5 rounded-lg",
+																"transition-colors duration-150",
+																itemActive ? "bg-primary-50 text-primary-800" : "bg-white/0 text-neutral-900 hover:bg-neutral-50",
+															].join(" ")
+														}
+													>
 														<span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-[2px] bg-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-														{hasHash ? (
-															<a href={item.path} className="block" onClick={closeMega}>
-																<div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
-																{item.description && <div className="text-xs text-neutral-500 mt-1">{item.description}</div>}
-															</a>
-														) : (
-															<Link to={item.path} className="block" onClick={closeMega}>
-																<div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
-																{item.description && <div className="text-xs text-neutral-500 mt-1">{item.description}</div>}
-															</Link>
-														)}
-													</div>
+														<div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
+														{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
+													</a>
 												);
 											})}
 										</div>
 
-										{isTruncated && menu.mainPath && isAllowed(menu.mainPath) && (
+										{(menu.label === ABOUT_LABEL) ? (
 											<div className="mt-3">
-												<Link
-													to={menu.mainPath}
+												<a
+													href={ABOUT_ALL_VIEW}
 													className="text-sm font-medium text-primary-800 hover:underline"
-													onClick={() => {
-														if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
-														else setTimeout(() => closeMega(), 0);
-													}}
+													onClick={(e) => handleNav(e, ABOUT_ALL_VIEW)}
 												>
-													{menu.label} 전체보기 →
-												</Link>
+													전체보기 →
+												</a>
 											</div>
+										) : (
+											isTruncated && menu.mainPath && isAllowed(menu.mainPath) && (
+												<div className="mt-3">
+													<Link
+														to={menu.mainPath}
+														className="text-sm font-medium text-primary-800 hover:underline"
+														onClick={() => {
+															if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
+															else setTimeout(() => closeMega(), 0);
+														}}
+													>
+														{menu.label} 전체보기 →
+													</Link>
+												</div>
+											)
 										)}
 									</div>
 								</div>
