@@ -111,10 +111,24 @@ export default function HeaderMegaMenu({
 	}
 
 	const node = (
-		<div data-mega-hoverzone="true" onMouseEnter={() => selected && onMouseEnter(selected)} onMouseLeave={() => onMouseLeave && onMouseLeave()}>
+		<div
+			data-mega-hoverzone="true"
+			onMouseEnter={() => selected && onMouseEnter(selected)}
+			onMouseLeave={() => onMouseLeave && onMouseLeave()}
+			onKeyDown={(e) => {
+				// Esc should close the mega menu and restore focus to the trigger anchor
+				if (e.key === "Escape" || e.key === "Esc") {
+					e.stopPropagation();
+					closeMega();
+					try {
+						anchorEl?.focus();
+					} catch {}
+				}
+			}}
+		>
 			<div style={style}>
 				{/* transparent bridge to maintain hover when moving cursor from header to panel */}
-				<div style={bridgeInlineStyle} onMouseEnter={() => selected && onMouseEnter(selected)} onMouseLeave={() => onMouseLeave && onMouseLeave()} />
+				<div style={bridgeInlineStyle} />
 				<div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-md overflow-visible">
 					<div className="px-5 py-4 border-b border-neutral-200 dark:border-neutral-800">
 						<div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">메뉴</div>
@@ -204,21 +218,36 @@ export default function HeaderMegaMenu({
 									<div className="pr-2">
 										<ul className="space-y-1">
 											{menus.map((m) => (
-												<li
-													key={m.label}
-													onMouseEnter={() => {
-														setSelected(m.label);
-														onMouseEnter(m.label);
-													}}
-													className={
-														"px-3 py-2 rounded-lg cursor-default transition-colors " +
-														(selected === m.label ? "bg-primary-50 text-primary-800" : "text-neutral-800 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/5")
-													}
-												>
-													<div className="text-sm font-medium">{m.label}</div>
-													{m.description && <div className="text-xs text-neutral-500 mt-1">{m.description}</div>}
-												</li>
-											))}
+													<li
+														key={m.label}
+														onMouseEnter={() => {
+															setSelected(m.label);
+															onMouseEnter(m.label);
+														}}
+														onClick={() => {
+															// clicking a left menu group selects it (click has priority)
+															setSelected(m.label);
+															onMouseEnter(m.label);
+														}}
+														tabIndex={0}
+														onKeyDown={(e) => {
+															// support Enter / Space to activate/select the group
+															if (e.key === "Enter" || e.key === " ") {
+																e.preventDefault();
+																setSelected(m.label);
+																onMouseEnter(m.label);
+															}
+															// Esc handled on ancestor
+														}}
+														className={
+															"px-3 py-2 rounded-lg cursor-default transition-colors focus:outline-none " +
+															(selected === m.label ? "bg-primary-50 text-primary-800" : "text-neutral-800 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/5")
+														}
+													>
+														<div className="text-sm font-medium">{m.label}</div>
+														{m.description && <div className="text-xs text-neutral-500 mt-1">{m.description}</div>}
+													</li>
+												))}
 										</ul>
 									</div>
 
