@@ -131,30 +131,32 @@ const Header = () => {
 
   return (
     <>
-      {/* ✅ sticky + full width (use CSS variable z-index) */}
-      <header id="site-header" className="sticky top-0 left-0 right-0 z-[var(--z-fixed)]">
-        <div
-          className={[
-            "relative",
-            openDropdown ? "bg-white dark:bg-neutral-900" : "bg-white/10 dark:bg-neutral-950/30",
-            "backdrop-blur-md supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-neutral-950/60",
-          ].join(" ")}
-        >
-          <div className="absolute inset-0 pointer-events-none shadow-[0_12px_30px_rgba(15,23,42,0.08)] dark:shadow-[0_18px_44px_rgba(0,0,0,0.45)]" />
+      {/* fixed header pinned to top; use token-based height classes h-header/min-h-header */}
+      <header id="site-header" className="fixed inset-x-0 top-0 z-50 h-header min-h-header bg-white dark:bg-neutral-950">
+        <div className="h-full flex items-center">
+          <div
+            className={[
+              "relative w-full",
+              openDropdown ? "bg-white dark:bg-neutral-900" : "bg-white/10 dark:bg-neutral-950/30",
+              "backdrop-blur-md supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-neutral-950/60",
+            ].join(" ")}
+          >
+            <div className="absolute inset-0 pointer-events-none shadow-[0_12px_30px_rgba(15,23,42,0.08)] dark:shadow-[0_18px_44px_rgba(0,0,0,0.45)]" />
 
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <HeaderGlobal />
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <HeaderGlobal />
 
-            <HeaderHero
-              isDarkMode={isDarkMode}
-              toggleDarkMode={toggleDarkMode}
-              isMobileMenuOpen={isMobileMenuOpen}
-              setIsMobileMenuOpen={(v) => setIsMobileMenuOpen(v)}
-              menuRefs={menuRefs}
-              handleMouseEnter={handleMouseEnter}
-              handleMouseLeave={handleMouseLeave}
-              isMenuActive={isMenuActive}
-            />
+              <HeaderHero
+                isDarkMode={isDarkMode}
+                toggleDarkMode={toggleDarkMode}
+                isMobileMenuOpen={isMobileMenuOpen}
+                setIsMobileMenuOpen={(v) => setIsMobileMenuOpen(v)}
+                menuRefs={menuRefs}
+                handleMouseEnter={handleMouseEnter}
+                handleMouseLeave={handleMouseLeave}
+                isMenuActive={isMenuActive}
+              />
+            </div>
           </div>
         </div>
       </header>
