@@ -111,7 +111,7 @@ export default function HeaderMegaMenu({
 	}
 
 	const node = (
-		<div onMouseEnter={() => selected && onMouseEnter(selected)} onMouseLeave={() => onMouseLeave && onMouseLeave()}>
+		<div data-mega-hoverzone="true" onMouseEnter={() => selected && onMouseEnter(selected)} onMouseLeave={() => onMouseLeave && onMouseLeave()}>
 			<div style={style}>
 				{/* transparent bridge to maintain hover when moving cursor from header to panel */}
 				<div style={bridgeInlineStyle} onMouseEnter={() => selected && onMouseEnter(selected)} onMouseLeave={() => onMouseLeave && onMouseLeave()} />

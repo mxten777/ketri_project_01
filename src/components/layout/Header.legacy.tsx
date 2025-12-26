@@ -95,10 +95,23 @@ const Header = () => {
     setOpenDropdown(menuLabel);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (e?: Event | React.MouseEvent) => {
+    try {
+      const rt = e && (e as any).relatedTarget as Node | null;
+      if (rt) {
+        const zone = typeof document !== "undefined" ? document.querySelector('[data-mega-hoverzone="true"]') : null;
+        if (zone && zone.contains(rt)) {
+          // moving into the hover-zone (trigger/panel/bridge) — do not schedule close
+          return;
+        }
+      }
+    } catch {
+      // ignore and fall through to scheduling close
+    }
+
     const timeout = setTimeout(() => {
       setOpenDropdown(null);
-    }, 250);
+    }, 350);
     setCloseTimeout(timeout);
   };
 
