@@ -90,7 +90,7 @@ export default function HeaderMegaMenu({
 		height: "24px", // 16-32px range as requested
 		zIndex: 89,
 		background: "transparent",
-		pointerEvents: "auto",
+		pointerEvents: "none", // do not block clicks on the panel
 	};
 
 	const closeMega = () => ctx?.setOpenDropdown?.(null);
