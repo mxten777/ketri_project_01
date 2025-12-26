@@ -81,16 +81,16 @@ const Home = () => {
       {/* ✅ FIX: header 높이 제외 + 레이어 확정 + 상단 scrim */}
       <section
         data-has-hero
-        className="relative min-h-[85vh] flex items-center justify-center overflow-hidden min-h-[72px] md:min-h-[80px] lg:min-h-[88px]"
+        className="relative z-0 min-h-[85vh] flex items-center justify-center overflow-hidden min-h-[72px] md:min-h-[80px] lg:min-h-[88px]"
         style={{
           minHeight: "calc(100vh - var(--app-header-h, 84px))",
           marginTop: "calc(var(--app-header-h, 84px) * -1)",
         }}
       >
         {/* 동적인 배경 그라데이션 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 via-primary-700 to-blue-800 dark:from-primary-700 dark:via-primary-800 dark:to-blue-900">
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary-600 via-primary-700 to-blue-800 dark:from-primary-700 dark:via-primary-800 dark:to-blue-900">
           <motion.div
-            className="absolute inset-0 opacity-20"
+            className="absolute inset-0 z-0 opacity-20"
             animate={{
               background: [
                 "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1), transparent 50%)",
@@ -103,7 +103,7 @@ const Home = () => {
           />
           <motion.div
             aria-hidden="true"
-            className="absolute inset-0 opacity-10 pointer-events-none transform-gpu will-change-transform"
+            className="absolute inset-0 z-0 opacity-10 pointer-events-none transform-gpu will-change-transform"
             style={{ contain: 'paint' }}
             animate={{
               background: [
@@ -120,13 +120,13 @@ const Home = () => {
 
         {/* ✅ 헤더/텍스트 가독성용 상단 scrim (프리미엄 톤) */}
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-black/35 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 z-0 bg-gradient-to-b from-black/35 to-transparent"
             style={{ height: "var(--app-header-h, 84px)" }}
         />
 
         {/* 메인 컨텐츠 */}
         {/* ✅ FIX: z-60 -> z-[60] (Tailwind 기본 없음) / py 과다 제거 */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-[60] py-12 md:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 md:py-16">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -258,7 +258,7 @@ const Home = () => {
 
         {/* 스크롤 인디케이터 - 개선 */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
         >
