@@ -148,7 +148,7 @@ const Home = () => {
               </motion.span>
               <br />
               <motion.span
-                className="inline-block px-6 py-3 rounded-2xl text-white font-extrabold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
+                className="relative z-10 mt-4 md:mt-6 inline-block px-6 py-3 rounded-2xl text-white font-extrabold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
                 initial={{ opacity: 0, y: 20, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ delay: 0.5, duration: 0.8, type: "spring", stiffness: 100 }}
