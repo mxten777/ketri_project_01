@@ -81,7 +81,7 @@ const Home = () => {
       {/* ✅ FIX: header 높이 제외 + 레이어 확정 + 상단 scrim */}
       <section
         data-has-hero
-        className="relative z-0 min-h-[85vh] flex items-center justify-center overflow-hidden min-h-[72px] md:min-h-[80px] lg:min-h-[88px]"
+        className="relative z-0 pt-header min-h-[85vh] flex items-center justify-center overflow-hidden min-h-[72px] md:min-h-[80px] lg:min-h-[88px]"
         style={{
           minHeight: "calc(100vh - var(--app-header-h, 84px))",
         }}
@@ -119,7 +119,7 @@ const Home = () => {
 
         {/* ✅ 헤더/텍스트 가독성용 상단 scrim (프리미엄 톤) */}
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 z-0 bg-gradient-to-b from-black/35 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-header z-0 bg-gradient-to-b from-black/35 to-transparent"
             style={{ height: "var(--app-header-h, 84px)" }}
         />
 
