@@ -12,7 +12,7 @@ import {
   User as UserIcon,
 } from "lucide-react";
 import Button from "../../components/common/Button";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext.core";
 import {
   getFreePost,
   incrementFreePostViews,

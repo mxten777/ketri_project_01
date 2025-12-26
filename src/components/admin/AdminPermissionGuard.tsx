@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Shield } from "lucide-react";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext.core";
 
 interface AdminPermissionGuardProps {
   children: React.ReactNode;

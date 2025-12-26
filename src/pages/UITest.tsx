@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container, Section, Card, CardHeader, CardTitle, CardContent, CardFooter, Input, Modal, ModalFooter } from "@/components/ui";
 import { Button } from "@/components/common";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "@/contexts/ThemeContext.core";
 import type { ThemeType } from "@/config/themes";
 import { ArrowRight as ArrowRightIcon } from "lucide-react";
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Save, Lock, Globe, AlertCircle } from "lucide-react";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext.core";
 import { createQnA, updateQnA, getQnAById } from "../../services/qnaService";
 import { QnAFormData } from "../../types";
 import Button from "../../components/common/Button";
@@ -118,7 +118,7 @@ const QnAForm: React.FC = () => {
           navigate(`/`);
       } else {
         // 새 작성
-        const newQnAId = await createQnA(
+        await createQnA(
           formData,
           user.uid,
           userData?.displayName || user.displayName || "익명",

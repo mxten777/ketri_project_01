@@ -12,7 +12,7 @@ import {
   Eye,
 } from "lucide-react";
 import Button from "../../components/common/Button";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext.core";
 import { getQnAs } from "../../services/qnaService";
 import type { QnA } from "../../types";
 

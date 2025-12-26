@@ -11,7 +11,7 @@ import {
   Pin,
 } from "lucide-react";
 import { getNoticeById, deleteNotice } from "../../services/noticeService";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext.core";
 import { Notice } from "../../types";
 import Button from "../../components/common/Button";
 import Card from "../../components/common/Card";

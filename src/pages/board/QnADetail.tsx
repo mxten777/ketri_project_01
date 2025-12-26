@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, MessageSquare, Clock, User, Trash2, Send } from "lucide-react";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext.core";
 import { getQnAById, deleteQnA, addAnswer } from "../../services/qnaService";
 import { QnA } from "../../types";
 
