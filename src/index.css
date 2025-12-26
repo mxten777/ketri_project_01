@@ -29,7 +29,7 @@
 
     /* header */
     /* Default (mobile) token. Breakpoint overrides below. */
-    --app-header-h: 72px; /* Mobile token */
+    --app-header-h: 64px; /* Mobile token (reduced by 8px) */
     --logo-height: 32px;
   }
 
@@ -40,14 +40,14 @@
   */
   @media (min-width: 1024px) {
     :root {
-      --app-header-h: 88px;
+      --app-header-h: 80px; /* Desktop token (reduced by 8px) */
       --logo-height: 40px;
     }
   }
 
   @media (min-width: 768px) and (max-width: 1023px) {
     :root {
-      --app-header-h: 80px;
+      --app-header-h: 72px; /* Tablet token (reduced by 8px) */
       --logo-height: 36px;
     }
   }
@@ -173,9 +173,22 @@ header .topbar,
 header [data-topbar="true"],
 header > div:first-child {
   font-size: 12px !important;
-  letter-spacing: -0.01em;
+  /* Note: menu-level letter-spacing moved to nav link rules per spec */
   color: rgba(var(--ink-rgb), 0.55) !important;
   border-bottom: 1px solid rgba(var(--ink-rgb), 0.06) !important;
+  /* default subtle opacity for top utilities */
+  opacity: 0.65;
+  transition: opacity 220ms cubic-bezier(.2,.8,.2,1);
+}
+
+/* Hover / focus to full opacity for top utilities (premium tone) */
+header .topbar:hover,
+header .topbar:focus-within,
+header [data-topbar="true"]:hover,
+header [data-topbar="true"]:focus-within,
+header > div:first-child:hover,
+header > div:first-child:focus-within {
+  opacity: 1;
 }
 
 /* 네비 높이/정렬(로고+메뉴 라인) */
@@ -193,6 +206,19 @@ header [role="navigation"] a {
   border-radius: 12px !important;
   text-decoration: none !important;
   transition: color 160ms ease, background-color 160ms ease, transform 160ms ease !important;
+  /* Menu-only letter-spacing per design: tighter tracking */
+  letter-spacing: -0.01em !important;
+}
+
+/* Ensure logo respects header height: safe max-height based on header token.
+   Keeps aspect ratio and prevents visual collision with reduced header height. */
+header img[alt="한국환경안전연구소"],
+header a > img[alt="한국환경안전연구소"] {
+  max-height: calc(var(--app-header-h) - 18px) !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
 }
 
 /* hover: 은은하게 */
@@ -405,6 +431,13 @@ header button:focus-visible {
    This replaces any JS-based scroll offset logic. */
 :target {
   scroll-margin-top: var(--app-header-h);
+}
+
+/* Ensure main content starts below the fixed header when there is no
+   dedicated hero section reserving header space. Use :has() so pages
+   with an explicit hero (data-has-hero / pt-header) are not double-offset. */
+main:not(:has(> [data-has-hero])) {
+  padding-top: var(--app-header-h);
 }
 
 /* FOOTER (Figma-aligned scoped styles)
