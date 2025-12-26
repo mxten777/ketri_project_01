@@ -37,3 +37,4 @@
 
 비고
 - 이 체크리스트는 Phase-2 완료 기준 문서로 사용된다. 향후 코드 변경은 본 체크리스트를 반드시 통과해야 한다.
+Smoke test passed @ 2025-12-26 (BASE_URL=http://localhost:3004)
