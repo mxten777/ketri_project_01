@@ -154,20 +154,29 @@ export default function HeaderMegaMenu({
 										<div className="grid grid-cols-3 md:grid-cols-5 gap-4 max-h-[480px] overflow-y-auto pr-2">
 											{display.map((item) => {
 												const hasHash = item.path.includes("#");
+												const itemHover = "hover:bg-neutral-50 transition-colors";
 												return (
-													<div key={item.path} className="rounded-xl p-3 hover:bg-neutral-50 transition-colors">
-														{hasHash ? (
-															<a href={item.path} className="block" onClick={closeMega}>
-																<div className="text-sm font-medium">{item.label}</div>
-																{item.description && <div className="text-xs text-neutral-500 mt-1">{item.description}</div>}
-															</a>
-														) : (
-															<Link to={item.path} className="block" onClick={closeMega}>
-																<div className="text-sm font-medium">{item.label}</div>
-																{item.description && <div className="text-xs text-neutral-500 mt-1">{item.description}</div>}
-															</Link>
-														)}
-													</div>
+													hasHash ? (
+														<a
+															key={item.path}
+															href={item.path}
+															onClick={closeMega}
+															className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg ${itemHover}`}
+														>
+															<div className="text-sm font-medium">{item.label}</div>
+															{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
+														</a>
+													) : (
+														<a
+															key={item.path}
+															href={item.path}
+															onClick={(e) => handleNav(e, item.path)}
+															className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg ${itemHover}`}
+														>
+															<div className="text-sm font-medium">{item.label}</div>
+															{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
+														</a>
+													)
 												);
 											})}
 										</div>
@@ -225,20 +234,22 @@ export default function HeaderMegaMenu({
 												].join(" ");
 
 												return (
-													<div key={item.path} className={itemClasses}>
+													<a
+														key={item.path}
+														href={item.path}
+														onClick={(e) => handleNav(e, item.path)}
+														className={
+															[
+																"flex items-center min-h-[44px] px-4 py-2.5 rounded-lg",
+																"transition-colors duration-150",
+																itemActive ? "bg-primary-50 text-primary-800" : "bg-white/0 text-neutral-900 hover:bg-neutral-50",
+															].join(" ")
+														}
+													>
 														<span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-[2px] bg-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-														{hasHash ? (
-															<a href={item.path} className="block" onClick={(e) => handleNav(e, item.path)}>
-																<div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
-																{item.description && <div className="text-xs text-neutral-500 mt-1">{item.description}</div>}
-															</a>
-														) : (
-															<a href={item.path} className="block" onClick={(e) => handleNav(e, item.path)}>
-																<div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
-																{item.description && <div className="text-xs text-neutral-500 mt-1">{item.description}</div>}
-														</a>
-														)}
-													</div>
+														<div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
+														{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
+													</a>
 												);
 											})}
 										</div>
