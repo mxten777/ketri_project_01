@@ -28,7 +28,28 @@
     --ink-rgb: 15 23 42;    /* 딥 네이비(고급 연구소 톤) */
 
     /* header */
-    --header-height: 72px; /* 살짝 여유가 프리미엄 느낌 */
+    /* Default (mobile) token. Breakpoint overrides below. */
+    --app-header-h: 72px; /* Mobile token */
+    --logo-height: 32px;
+  }
+
+  /* Figma token breakpoint mappings
+     - >=1024px -> 88px (desktop)
+     - 768..1023px -> 80px (tablet)
+     - <768px -> 72px (mobile)
+  */
+  @media (min-width: 1024px) {
+    :root {
+      --app-header-h: 88px;
+      --logo-height: 40px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    :root {
+      --app-header-h: 80px;
+      --logo-height: 36px;
+    }
   }
 
   /* dark */
@@ -100,6 +121,8 @@
   .container-custom {
     @apply max-w-7xl mx-auto px-4;
   }
+
+  /* Note: `pt-header` is provided by Tailwind/preset as a utility mapping to var(--app-header-h). */
 }
 
 /* =========================================================
@@ -113,7 +136,7 @@
     /* position/top/z-index delegated to component Tailwind classes to avoid !important conflicts */
 
     /* reserve header height using CSS variable to avoid initial layout shifts */
-    min-height: var(--header-height, 72px);
+    min-height: var(--app-header-h, 72px);
     display: block;
 
   background: rgba(255, 255, 255, 0.92) !important;

@@ -26,8 +26,8 @@ export default function HeaderHero({
   isMenuActive,
 }: Props) {
   return (
-    <div className="flex items-center justify-between" style={{ height: "var(--header-height, 84px)" }}>
-      <Link to="/" className="flex items-center py-3 hover:opacity-90 transition-opacity">
+    <div className="flex items-center justify-between" style={{ height: "var(--app-header-h, 84px)" }}>
+      <Link to="/" className="flex items-center py-2 hover:opacity-90 transition-opacity">
         <img
           src={isDarkMode ? "/images/logo_horizontal_trans.png" : "/images/logo_horizontal.png"}
           alt="한국환경안전연구소"

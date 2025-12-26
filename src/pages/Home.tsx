@@ -81,10 +81,10 @@ const Home = () => {
       {/* ✅ FIX: header 높이 제외 + 레이어 확정 + 상단 scrim */}
       <section
         data-has-hero
-        className="relative min-h-[85vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[85vh] flex items-center justify-center overflow-hidden min-h-[72px] md:min-h-[80px] lg:min-h-[88px]"
         style={{
-          minHeight: "calc(100vh - var(--header-height, 84px))",
-          marginTop: "calc(var(--header-height, 84px) * -1)",
+          minHeight: "calc(100vh - var(--app-header-h, 84px))",
+          marginTop: "calc(var(--app-header-h, 84px) * -1)",
         }}
       >
         {/* 동적인 배경 그라데이션 */}
@@ -102,7 +102,9 @@ const Home = () => {
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
           <motion.div
-            className="absolute inset-0 opacity-10"
+            aria-hidden="true"
+            className="absolute inset-0 opacity-10 pointer-events-none transform-gpu will-change-transform"
+            style={{ contain: 'paint' }}
             animate={{
               background: [
                 "linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent)",
@@ -119,7 +121,7 @@ const Home = () => {
         {/* ✅ 헤더/텍스트 가독성용 상단 scrim (프리미엄 톤) */}
         <div
           className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-black/35 to-transparent"
-          style={{ height: "var(--header-height, 84px)" }}
+            style={{ height: "var(--app-header-h, 84px)" }}
         />
 
         {/* 메인 컨텐츠 */}

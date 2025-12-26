@@ -99,7 +99,7 @@ export default function HeaderMegaMenu({
 							if (!activeMenu) return null;
 
 							if (activeMenu.layout === "grid") {
-								const { filtered, isTruncated, display } = computeDisplay(activeMenu);
+								const { isTruncated, display } = computeDisplay(activeMenu);
 
 								return (
 									<div>
@@ -150,7 +150,7 @@ export default function HeaderMegaMenu({
 
 							// default: two-column layout
 							const menu = menus.find((mm) => mm.label === selected) || menus[0];
-							const { filtered, isTruncated, display } = computeDisplay(menu);
+							const { isTruncated, display } = computeDisplay(menu);
 
 							return (
 								<div className="grid grid-cols-[220px_1fr] gap-4">
