@@ -1,9 +1,12 @@
 import { useState, useLayoutEffect, useContext, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MenuGroup } from "../../constants/menu";
 import { isAllowed } from "../../constants/menuFilter";
 import { HeaderContext } from "./HeaderContext";
+
+const ABOUT_LABEL = "연구소 소개";
+const ABOUT_ALL_VIEW = "/about/greeting";
 
 interface Props {
 	menus: MenuGroup[];
@@ -25,6 +28,7 @@ export default function HeaderMegaMenu({
 	anchorEl,
 }: Props) {
 	const ctx = useContext(HeaderContext);
+	const navigate = useNavigate();
 	const [rect, setRect] = useState<DOMRect | null>(null);
 	const [selected, setSelected] = useState<string | null>(activeGroup ?? null);
 
@@ -77,6 +81,14 @@ export default function HeaderMegaMenu({
 		: { display: "none" };
 
 	const closeMega = () => ctx?.setOpenDropdown?.(null);
+
+	function handleNav(e: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>, targetHref: string) {
+		e.preventDefault();
+		// navigate first, then close the mega menu to avoid click-loss with portal/close-delay
+		navigate(targetHref);
+		if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
+		else setTimeout(() => closeMega(), 0);
+	}
 
 	function computeDisplay(menuGroup: MenuGroup) {
 		const filtered = menuGroup.items.filter((it) => isAllowed(it.path));
@@ -150,7 +162,18 @@ export default function HeaderMegaMenu({
 
 							// default: two-column layout
 							const menu = menus.find((mm) => mm.label === selected) || menus[0];
-							const { isTruncated, display } = computeDisplay(menu);
+							// Special-case: ABOUT_LABEL -> merge left/right items and render all of them in the right column
+							let display = [] as typeof menu.items;
+							let isTruncated = false;
+							if (menu.label === ABOUT_LABEL) {
+								const mergedItems = [...(menu.left?.items ?? []), ...(menu.right?.items ?? [])];
+								display = mergedItems.filter((it) => isAllowed(it.path));
+								isTruncated = false;
+							} else {
+								const _ = computeDisplay(menu);
+								isTruncated = _.isTruncated;
+								display = _.display;
+							}
 
 							return (
 								<div className="grid grid-cols-[220px_1fr] gap-4">
@@ -190,34 +213,46 @@ export default function HeaderMegaMenu({
 													<div key={item.path} className={itemClasses}>
 														<span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-[2px] bg-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
 														{hasHash ? (
-															<a href={item.path} className="block" onClick={closeMega}>
+															<a href={item.path} className="block" onClick={(e) => handleNav(e, item.path)}>
 																<div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
 																{item.description && <div className="text-xs text-neutral-500 mt-1">{item.description}</div>}
 															</a>
 														) : (
-															<Link to={item.path} className="block" onClick={closeMega}>
+															<a href={item.path} className="block" onClick={(e) => handleNav(e, item.path)}>
 																<div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
 																{item.description && <div className="text-xs text-neutral-500 mt-1">{item.description}</div>}
-															</Link>
+														</a>
 														)}
 													</div>
 												);
 											})}
 										</div>
 
-										{isTruncated && menu.mainPath && isAllowed(menu.mainPath) && (
+										{(menu.label === ABOUT_LABEL) ? (
 											<div className="mt-3">
-												<Link
-													to={menu.mainPath}
+												<a
+													href={ABOUT_ALL_VIEW}
 													className="text-sm font-medium text-primary-800 hover:underline"
-													onClick={() => {
-														if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
-														else setTimeout(() => closeMega(), 0);
-													}}
+													onClick={(e) => handleNav(e, ABOUT_ALL_VIEW)}
 												>
-													{menu.label} 전체보기 →
-												</Link>
+													전체보기 →
+												</a>
 											</div>
+										) : (
+											isTruncated && menu.mainPath && isAllowed(menu.mainPath) && (
+												<div className="mt-3">
+													<Link
+														to={menu.mainPath}
+														className="text-sm font-medium text-primary-800 hover:underline"
+														onClick={() => {
+															if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
+															else setTimeout(() => closeMega(), 0);
+														}}
+													>
+														{menu.label} 전체보기 →
+													</Link>
+												</div>
+											)
 										)}
 									</div>
 								</div>
