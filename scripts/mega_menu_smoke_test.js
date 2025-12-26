@@ -2,7 +2,7 @@
 // Smoke test for Phase-2 Mega Menu using curl.exe on Windows
 // Usage: BASE_URL=http://localhost:3004 node scripts/mega_menu_smoke_test.js
 
-const { spawnSync } = require('child_process');
+const { spawnSync } = await import('child_process');
 
 // Prefer environment BASE_URL, otherwise use provided arg, otherwise default to localhost:3004
 const argBase = process.argv[2];
