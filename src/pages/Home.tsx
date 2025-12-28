@@ -133,21 +133,21 @@ const Home = () => {
             className="text-center text-white max-w-5xl mx-auto"
           >
             {/* 메인 타이틀 - 글자별 애니메이션 */}
+            <motion.span
+              className="text-base lg:text-[18px] tracking-wide font-medium"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              기준으로 선택되는 신뢰
+            </motion.span>
+
             <motion.h1
               className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <motion.span
-                className="text-base lg:text-[18px] tracking-wide font-medium"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-              >
-                기준으로 선택되는 신뢰
-              </motion.span>
-              <br />
               <motion.span
                 className="relative z-10 mt-4 md:mt-6 inline-block px-6 py-3 rounded-2xl text-white font-semibold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
                 initial={{ opacity: 0, y: 20, scale: 0.9 }}
