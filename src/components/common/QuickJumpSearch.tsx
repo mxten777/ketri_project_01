@@ -11,22 +11,23 @@ function nextTick(fn: () => void) {
 
 export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }) {
   const navigate = useNavigate();
-  const ctx = useContext(HeaderContext);
-
   const [value, setValue] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const ctx = useContext(HeaderContext);
+  const [isOpenLocal, setIsOpenLocal] = useState(false);
   const [results, setResults] = useState<QuickJumpItem[]>([]);
   const [focused, setFocused] = useState<number | null>(null);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const listId = mobile ? "quickjump-listbox-mobile" : "quickjump-listbox";
+
+  const isOpen = ctx?.isSearchOpen ?? isOpenLocal;
 
   useEffect(() => {
     const qTrim = value.trim();
     // Do not show suggestions for inputs shorter than 2 characters
     if (qTrim.length < 2) {
       setResults([]);
-      setIsOpen(false);
       setFocused(null);
       return;
     }
@@ -38,12 +39,14 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
     }).slice(0, 5);
 
     setResults(matched);
-    setIsOpen(true);
+    const setter = ctx?.setIsSearchOpen ?? setIsOpenLocal;
+    setter(true);
     setFocused(matched.length > 0 ? 0 : null);
   }, [value]);
 
   const closeSearch = () => {
-    setIsOpen(false);
+    const setter = ctx?.setIsSearchOpen ?? setIsOpenLocal;
+    setter(false);
     setFocused(null);
     setValue("");
   };
@@ -70,6 +73,7 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const isOpen = ctx?.isSearchOpen ?? isOpenLocal;
     if (!isOpen) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -95,17 +99,38 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
     }
   };
 
-  // close on blur, but delay to next tick to avoid click being swallowed
-  const handleBlur = () => {
-    nextTick(() => {
-      setIsOpen(false);
-    });
-  };
+  // outside-click handling using pointerdown (unified for mouse/touch)
+  useEffect(() => {
+    const isOpen = ctx?.isSearchOpen ?? isOpenLocal;
+    const handlePointerDown = (e: PointerEvent) => {
+      const root = containerRef.current;
+      const target = e.target as Node | null;
+
+      // If event started inside the search container, do nothing
+      if (target && root && root.contains(target)) return;
+
+      // If target is the search toggle (or inside it), ignore to prevent
+      // pointerdown firing before the click handler that opens the search.
+      if (target instanceof Element && target.closest('[data-search-toggle]')) return;
+
+      // Otherwise treat as outside click
+      closeSearch();
+    };
+
+    if (isOpen) {
+      document.addEventListener("pointerdown", handlePointerDown);
+    }
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ctx?.isSearchOpen, isOpenLocal]);
 
   // when opening search, ensure mega menu closed
   const openSearch = () => {
     ctx?.setOpenDropdown?.(null);
-    setIsOpen(true);
+    const setter = ctx?.setIsSearchOpen ?? setIsOpenLocal;
+    setter(true);
     nextTick(() => inputRef.current?.focus());
   };
 
@@ -114,6 +139,7 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
       <button
         aria-label="검색"
         type="button"
+        data-search-toggle="true"
         className="p-2 rounded-xl text-neutral-700 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/5"
         onClick={(e) => {
           e.preventDefault();
@@ -124,14 +150,14 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
       </button>
 
       {isOpen && (
-        <div className={mobile ? "w-full" : "absolute right-0 mt-2 w-[320px]"}>
+        <div ref={containerRef} className={mobile ? "w-full" : "absolute right-0 mt-2 w-[320px]"}>
           <div className="relative">
             <input
               ref={inputRef}
               value={value}
               onChange={(e) => setValue(e.target.value)}
               onKeyDown={handleKeyDown}
-              onBlur={handleBlur}
+              // blur should not close — outside clicks handled via pointerdown
               aria-label="서비스 빠른검색"
               role="combobox"
               aria-expanded={isOpen}

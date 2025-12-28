@@ -5,6 +5,7 @@ import { HeaderContext } from "./HeaderContext";
 export default function HeaderRoot() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
       return (
@@ -24,8 +25,18 @@ export default function HeaderRoot() {
   }, [isDarkMode]);
 
   const ctx = useMemo(
-    () => ({ isMobileMenuOpen, setIsMobileMenuOpen, openDropdown, setOpenDropdown, isDarkMode, setIsDarkMode, toggleDarkMode }),
-    [isMobileMenuOpen, openDropdown, isDarkMode, toggleDarkMode]
+    () => ({
+      isMobileMenuOpen,
+      setIsMobileMenuOpen,
+      openDropdown,
+      setOpenDropdown,
+      isDarkMode,
+      setIsDarkMode,
+      toggleDarkMode,
+      isSearchOpen,
+      setIsSearchOpen,
+    }),
+    [isMobileMenuOpen, openDropdown, isDarkMode, toggleDarkMode, isSearchOpen]
   );
 
   return (

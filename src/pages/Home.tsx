@@ -142,6 +142,8 @@ const Home = () => {
               기준으로 선택되는 신뢰
             </motion.span>
 
+            <br />
+
             <motion.h1
               className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
               initial={{ opacity: 0, scale: 0.95 }}
