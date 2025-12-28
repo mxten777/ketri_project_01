@@ -81,7 +81,7 @@ const Home = () => {
       {/* ✅ FIX: header 높이 제외 + 레이어 확정 + 상단 scrim */}
       <section
         data-has-hero
-        className="relative z-0 pt-header min-h-[85vh] flex items-center justify-center overflow-hidden min-h-[72px] md:min-h-[80px] lg:min-h-[88px]"
+        className="relative z-0 pt-header min-h-[85vh] flex flex-col items-center justify-start md:justify-center overflow-hidden min-h-[72px] md:min-h-[80px] lg:min-h-[88px]"
         style={{
           minHeight: "calc(100vh - var(--app-header-h))",
         }}
@@ -123,132 +123,132 @@ const Home = () => {
             style={{ height: "var(--app-header-h, 84px)" }}
         />
 
-        {/* 메인 컨텐츠 */}
-        {/* ✅ FIX: z-60 -> z-[60] (Tailwind 기본 없음) / py 과다 제거 */}
+        {/* 메인 컨텐츠 + Stats: 모바일은 세로 스택, md 이상은 좌(A)/우(B) 가로 분할 */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-8 md:pt-10 pb-12 md:pb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center text-white max-w-5xl mx-auto"
-          >
-            {/* 메인 타이틀 - 글자별 애니메이션 */}
-            <motion.span
-              className="text-base lg:text-[18px] tracking-wide font-medium"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-            >
-              기준으로 선택되는 신뢰
-            </motion.span>
-
-            <br />
-
-            <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-            >
-              <motion.span
-                className="relative z-10 mt-4 md:mt-6 inline-block px-6 py-3 rounded-2xl text-white font-semibold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: 0.5, duration: 0.8, type: "spring", stiffness: 100 }}
-                whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-              >
-                한국환경안전연구소
-              </motion.span>
-            </motion.h1>
-
-            {/* 서브 타이틀 */}
-            
-
-            <motion.p
-              className="hidden sm:block text-lg text-white/85 mb-12 max-w-2xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-            >
-              산업보건 · 먹는물 · 석면 · 실내공기질 분야의 KOLAS 공인 전문기관으로,
-              <br className="hidden sm:block" />
-              최고 수준의 분석 서비스를 제공합니다.
-            </motion.p>
-
-            {/* CTA 버튼 - 개선된 디자인 */}
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12">
+            {/* A: Hero top (왼쪽 영역, md 이상에서 확장) */}
             <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.6 }}
+              transition={{ duration: 0.8 }}
+              className="text-center text-white max-w-5xl mx-auto md:mx-0 md:flex-1"
             >
-              <motion.a
-                href="tel:043-237-7824"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto"
+              {/* 메인 타이틀 - 글자별 애니메이션 */}
+              <motion.span
+                className="text-base lg:text-[18px] tracking-wide font-medium"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
               >
-                <Button
-                  size="lg"
-                  className="w-full sm:w-auto min-w-[280px] bg-white/20 border border-white/30 text-white hover:bg-white/30 backdrop-blur-sm transition-all duration-300"
-                >
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                    />
-                  </svg>
-                  전화 상담: 043-237-7824
-                </Button>
-              </motion.a>
+                기준으로 선택되는 신뢰
+              </motion.span>
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
-                <Link to="/about/greeting" className="w-full sm:w-auto">
+              <motion.h1
+                className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+              >
+                <motion.span
+                  className="relative z-10 mt-4 md:mt-6 inline-block px-6 py-3 rounded-2xl text-white font-semibold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
+                  initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ delay: 0.5, duration: 0.8, type: "spring", stiffness: 100 }}
+                  whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+                >
+                  한국환경안전연구소
+                </motion.span>
+              </motion.h1>
+
+              <motion.p
+                className="hidden sm:block text-lg text-white/85 mb-12 max-w-2xl mx-auto leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+              >
+                산업보건 · 먹는물 · 석면 · 실내공기질 분야의 KOLAS 공인 전문기관으로,
+                <br className="hidden sm:block" />
+                최고 수준의 분석 서비스를 제공합니다.
+              </motion.p>
+
+              <motion.div
+                className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.6 }}
+              >
+                <motion.a
+                  href="tel:043-237-7824"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full sm:w-auto"
+                >
                   <Button
                     size="lg"
-                    variant="outline"
-                    className="w-full sm:w-auto min-w-[280px] border-2 border-white/30 text-white hover:bg-white hover:text-primary-700 backdrop-blur-sm transition-all duration-300"
+                    className="w-full sm:w-auto min-w-[280px] bg-white/20 border border-white/30 text-white hover:bg-white/30 backdrop-blur-sm transition-all duration-300"
                   >
-                    회사 소개 보기
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                    전화 상담: 043-237-7824
                   </Button>
-                </Link>
+                </motion.a>
+
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+                  <Link to="/about/greeting" className="w-full sm:w-auto">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="w-full sm:w-auto min-w-[280px] border-2 border-white/30 text-white hover:bg-white hover:text-primary-700 backdrop-blur-sm transition-all duration-300"
+                    >
+                      회사 소개 보기
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                  </Link>
+                </motion.div>
               </motion.div>
             </motion.div>
 
-            {/* 주요 통계 - 카운트 업 애니메이션 추가 */}
-            <motion.div
-              className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0, duration: 0.6 }}
-            >
-              {stats.map((stat, index) => {
-                const IconComponent = stat.icon as React.ComponentType<{ className?: string }>;
-                const count = statCounts[index];
-                return (
-                  <motion.div
-                    key={index}
-                    className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300 group"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.0 + index * 0.1 }}
-                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  >
-                    <div className="flex items-center justify-center mb-3">
-                      <IconComponent className="w-8 h-8 text-white/80 group-hover:text-white transition-colors duration-300" />
-                    </div>
-                    <div className="text-3xl font-bold text-white mb-1">
-                      {stat.value.includes("+") ? `${count}+` : stat.value.includes("년") ? `${count}년` : count}
-                    </div>
-                    <div className="text-sm text-white/80">{stat.label}</div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </motion.div>
+            {/* B: Stats (오른쪽 영역, md 이상에서 가로 배치) */}
+            <div className="w-full md:w-1/3 mt-6 md:mt-0">
+              <div className="overflow-x-auto md:overflow-visible">
+                <motion.div
+                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.0, duration: 0.6 }}
+                >
+                  {stats.map((stat, index) => {
+                    const IconComponent = stat.icon as React.ComponentType<{ className?: string }>;
+                    const count = statCounts[index];
+                    return (
+                      <motion.div
+                        key={index}
+                        className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300 group"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.0 + index * 0.1 }}
+                        whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                      >
+                        <div className="flex items-center justify-center mb-3">
+                          <IconComponent className="w-8 h-8 text-white/80 group-hover:text-white transition-colors duration-300" />
+                        </div>
+                        <div className="text-3xl font-bold text-white mb-1">
+                          {stat.value.includes("+") ? `${count}+` : stat.value.includes("년") ? `${count}년` : count}
+                        </div>
+                        <div className="text-sm text-white/80">{stat.label}</div>
+                      </motion.div>
+                    );
+                  })}
+                </motion.div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* 스크롤 인디케이터 - 개선 */}
