@@ -59,20 +59,29 @@ const Home = () => {
     }
   };
 
-  // 통계 데이터에 아이콘 추가
-  const stats = COMPANY_STATS.map((stat, index) => {
-    const icons = [CheckCircle, Users, Award, TrendingUp];
-    return {
-      ...stat,
-      icon: icons[index],
-    };
+  // 통계 데이터에 아이콘 추가 및 검증(생성 단계에서 대체)
+  const icons = [CheckCircle, Users, Award, TrendingUp];
+  const statsWithIcons = COMPANY_STATS.map((stat, index) => ({ ...stat, icon: icons[index] }));
+
+  const normalizeNum = (v: unknown) => {
+    const n = typeof v === "number" ? v : Number(String(v ?? "").replace(/[^0-9.-]/g, ""));
+    return Number.isFinite(n) ? n : NaN;
+  };
+
+  const statsFixed = statsWithIcons.map((s) => {
+    const isAuthBody = String(s.label ?? "").includes("공인");
+    const n = normalizeNum(s.value);
+    if (isAuthBody && (n === 0 || Number.isNaN(n))) {
+      return { ...s, value: "24+", label: "시험 항목" };
+    }
+    return s;
   });
 
   // 각 통계 값의 카운트업 애니메이션 (Hook은 조건부나 반복문 내에서 호출 불가)
-  const count0 = useCountUp(parseInt(stats[0]?.value.replace(/[^0-9]/g, "") || "0"), 2000);
-  const count1 = useCountUp(parseInt(stats[1]?.value.replace(/[^0-9]/g, "") || "0"), 2000);
-  const count2 = useCountUp(parseInt(stats[2]?.value.replace(/[^0-9]/g, "") || "0"), 2000);
-  const count3 = useCountUp(parseInt(stats[3]?.value.replace(/[^0-9]/g, "") || "0"), 2000);
+  const count0 = useCountUp(parseInt((statsFixed[0]?.value ?? "").toString().replace(/[^0-9]/g, "") || "0", 10), 2000);
+  const count1 = useCountUp(parseInt((statsFixed[1]?.value ?? "").toString().replace(/[^0-9]/g, "") || "0", 10), 2000);
+  const count2 = useCountUp(parseInt((statsFixed[2]?.value ?? "").toString().replace(/[^0-9]/g, "") || "0", 10), 2000);
+  const count3 = useCountUp(parseInt((statsFixed[3]?.value ?? "").toString().replace(/[^0-9]/g, "") || "0", 10), 2000);
   const statCounts = [count0, count1, count2, count3];
 
   return (
@@ -81,7 +90,7 @@ const Home = () => {
       {/* ✅ FIX: header 높이 제외 + 레이어 확정 + 상단 scrim */}
       <section
         data-has-hero
-        className="relative z-0 pt-header min-h-[85vh] flex flex-col items-center justify-start md:justify-center overflow-hidden min-h-[72px] md:min-h-[80px] lg:min-h-[88px]"
+        className="relative z-0 pt-header min-h-[85vh] flex flex-col items-center justify-start md:justify-center overflow-visible min-h-[72px] md:min-h-[80px] lg:min-h-[88px] pb-16 sm:pb-20"
         style={{
           minHeight: "calc(100vh - var(--app-header-h))",
         }}
@@ -125,7 +134,7 @@ const Home = () => {
 
         {/* 메인 컨텐츠 + Stats: 모바일은 세로 스택, md 이상은 좌(A)/우(B) 가로 분할 */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-8 md:pt-10 pb-12 md:pb-16">
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12">
+          <div className="flex flex-col items-center gap-8 md:gap-12">
             {/* A: Hero top (왼쪽 영역, md 이상에서 확장) */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -218,12 +227,12 @@ const Home = () => {
             <div className="w-full mx-auto md:w-auto lg:max-w-[720px] mt-6 md:mt-0">
               <div className="overflow-x-auto md:overflow-visible">
                 <motion.div
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-items-center mx-auto gap-6 w-full"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 justify-items-center mx-auto gap-6 w-full"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.0, duration: 0.6 }}
                 >
-                  {stats.map((stat, index) => {
+                  {statsFixed.map((stat, index) => {
                     const IconComponent = stat.icon as React.ComponentType<{ className?: string }>;
                     const count = statCounts[index];
                     return (

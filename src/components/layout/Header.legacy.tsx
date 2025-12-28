@@ -97,7 +97,7 @@ const Header = () => {
 
   const handleMouseLeave = (e?: Event | React.MouseEvent) => {
     try {
-      const rt = e && (e as any).relatedTarget as Node | null;
+      const rt = e ? (e as Event & { relatedTarget?: Node | null }).relatedTarget ?? null : null;
       if (rt) {
         const zone = typeof document !== "undefined" ? document.querySelector('[data-mega-hoverzone="true"]') : null;
         if (zone && zone.contains(rt)) {
@@ -105,8 +105,8 @@ const Header = () => {
           return;
         }
       }
-    } catch {
-      // ignore and fall through to scheduling close
+    } catch (err) {
+      void err;
     }
 
     const timeout = setTimeout(() => {

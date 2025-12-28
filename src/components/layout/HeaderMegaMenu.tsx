@@ -5,7 +5,6 @@ import { MenuGroup } from "../../constants/menu";
 import { isAllowed } from "../../constants/menuFilter";
 import { HeaderContext } from "./HeaderContext";
 
-const ABOUT_LABEL = "연구소 소개";
 const ABOUT_KEY = "about";
 const ABOUT_ALL_VIEW = "/about";
 
@@ -119,12 +118,14 @@ export default function HeaderMegaMenu({
 			onMouseLeave={() => onMouseLeave && onMouseLeave()}
 			onKeyDown={(e) => {
 				// Esc should close the mega menu and restore focus to the trigger anchor
-				if (e.key === "Escape" || e.key === "Esc") {
+								if (e.key === "Escape" || e.key === "Esc") {
 					e.stopPropagation();
 					closeMega();
 					try {
 						anchorEl?.focus();
-					} catch {}
+									} catch (err) {
+										void err;
+									}
 				}
 			}}
 		>
@@ -271,12 +272,7 @@ export default function HeaderMegaMenu({
 										<div className="grid grid-cols-2 gap-3">
 											{display.map((item) => {
 												const itemActive = location.pathname === item.path || location.pathname.startsWith(item.path.split("#")[0] + "/");
-												const hasHash = item.path.includes("#");
-												const itemClasses = [
-													"relative group block p-3 rounded-lg",
-													"transition-colors duration-150",
-													itemActive ? "bg-primary-50 text-primary-800" : "bg-white/0 text-neutral-900 hover:bg-neutral-50",
-												].join(" ");
+                                                
 
 												return (
 													<a

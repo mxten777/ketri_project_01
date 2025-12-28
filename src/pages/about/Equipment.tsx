@@ -8,7 +8,6 @@ import {
   Thermometer,
   Zap,
   Settings,
-  Calendar,
   ChevronLeft,
   ChevronRight,
   X,
@@ -591,28 +590,7 @@ const Equipment = () => {
     },
   ];
 
-  const maintenanceSchedule = [
-    {
-      equipment: "ICP-MS",
-      lastMaintenance: "2024.01.15",
-      nextMaintenance: "2024.04.15",
-    },
-    {
-      equipment: "GC-MS",
-      lastMaintenance: "2024.02.10",
-      nextMaintenance: "2024.05.10",
-    },
-    {
-      equipment: "실내공기질 측정기",
-      lastMaintenance: "2024.01.25",
-      nextMaintenance: "2024.04.25",
-    },
-    {
-      equipment: "편광현미경",
-      lastMaintenance: "2024.02.05",
-      nextMaintenance: "2024.05.05",
-    },
-  ];
+  
 
   return (
     <main className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
@@ -832,50 +810,7 @@ const Equipment = () => {
           </div>
         </motion.div>
 
-        {/* Maintenance Schedule */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mb-16"
-        >
-          <h2 className="heading-lg text-center mb-12">정기점검 일정</h2>
-
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-soft overflow-hidden">
-            <div className="p-6 border-b border-neutral-200 dark:border-neutral-700">
-              <div className="flex items-center gap-3">
-                <Calendar className="w-6 h-6 text-primary-500" />
-                <h3 className="text-lg font-bold">2024년 점검 계획</h3>
-              </div>
-            </div>
-
-            <div className="divide-y divide-neutral-200 dark:divide-neutral-700">
-              {maintenanceSchedule.map((item) => (
-                <div
-                  key={item.equipment}
-                  className="p-6 hover:bg-neutral-50 dark:hover:bg-neutral-700/50 transition-colors"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-bold mb-1">{item.equipment}</h4>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                        최근 점검: {item.lastMaintenance}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">
-                        다음 점검
-                      </div>
-                      <div className="font-bold text-primary-600 dark:text-primary-400">
-                        {item.nextMaintenance}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+        {/* Maintenance Schedule removed from public pages */}
 
         {/* Quality Management */}
         <motion.div

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useRef, useEffect, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import QUICK_JUMP_SERVICES, { QuickJumpItem } from "../../constants/quickJump";
@@ -24,19 +24,19 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
 
   const isOpen = ctx?.isSearchOpen ?? isOpenLocal;
 
+  // Stable local references to context setters (avoid optional chaining in deps)
+  const setIsSearchOpen = ctx?.setIsSearchOpen ?? setIsOpenLocal;
+  const setOpenDropdown = ctx?.setOpenDropdown;
+
   // === Single Source of Truth for closing ===
   // Only allowed reasons: 'select', 'outside', 'explicitClose'
   // NEVER allowed during input events: onChange, onInput, composition, focus, blur
-  const closeSearchWithReason = (reason: 'select' | 'outside' | 'explicitClose') => {
-    const setter = ctx?.setIsSearchOpen ?? setIsOpenLocal;
-    setter(false); // Hide results panel
+  const closeSearchWithReason = useCallback((reason: 'select' | 'outside' | 'explicitClose') => {
+    setIsSearchOpen(false);
     setFocused(null);
-    // Mobile + outside: Keep value (user can continue typing), only hide results
-    // All other cases: Clear value completely
-    if (!mobile || reason !== 'outside') {
-      setValue("");
-    }
-  };
+    if (!mobile || reason !== 'outside') setValue("");
+    setOpenDropdown?.(null);
+  }, [setIsSearchOpen, setOpenDropdown, mobile]);
 
   // Search results calculation - ONLY opens, NEVER closes
   useEffect(() => {
@@ -58,10 +58,9 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
 
     setResults(matched);
     // Open search if there are results - this effect ONLY opens, never closes
-    const setter = ctx?.setIsSearchOpen ?? setIsOpenLocal;
-    setter(true);
+    setIsSearchOpen(true);
     setFocused(matched.length > 0 ? 0 : null);
-  }, [value]);
+  }, [value, setIsSearchOpen]);
 
   const handleSelect = (item: QuickJumpItem) => {
     // 1. Navigate FIRST - React Router updates history synchronously
@@ -118,7 +117,6 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
 
   // outside-click handling using pointerdown (unified for mouse/touch)
   useEffect(() => {
-    const isOpen = ctx?.isSearchOpen ?? isOpenLocal;
     const handlePointerDown = (e: PointerEvent) => {
       const root = containerRef.current;
       const input = inputRef.current;
@@ -128,11 +126,9 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
       if (target && root && root.contains(target)) return;
 
       // PROTECTION 2: Target is the search toggle button - NEVER close
-      // (prevents pointerdown from closing before click handler opens)
       if (target instanceof Element && target.closest('[data-search-toggle]')) return;
 
-      // PROTECTION 3 (CRITICAL): Target is a search result item or result list - NEVER close
-      // Check for data-search-result attribute OR any element inside results listbox
+      // PROTECTION 3: Target is a search result item or result list - NEVER close
       if (target instanceof Element) {
         const isResultItem = target.closest('[data-search-result]');
         const isResultList = target.closest(`#${listId}`);
@@ -140,9 +136,7 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
       }
 
       // PROTECTION 4: User is typing - input has focus or non-empty value
-      // This prevents premature close during active search session
       if (input && (document.activeElement === input || value.trim().length > 0)) {
-        // User is actively searching - do NOT close on accidental outside taps
         return;
       }
 
@@ -156,8 +150,7 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ctx?.isSearchOpen, isOpenLocal]);
+  }, [isOpen, closeSearchWithReason, listId, value, mobile]);
 
   // when opening search, ensure mega menu closed
   const openSearch = () => {
@@ -333,3 +326,5 @@ export default function QuickJumpSearch({ mobile = false }: { mobile?: boolean }
     </div>
   );
 }
+
+ 
