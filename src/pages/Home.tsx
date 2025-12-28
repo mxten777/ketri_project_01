@@ -214,11 +214,11 @@ const Home = () => {
               </motion.div>
             </motion.div>
 
-            {/* B: Stats (오른쪽 영역, md 이상에서 가로 배치) */}
-            <div className="w-full md:w-1/3 mt-6 md:mt-0">
+            {/* B: Stats (오른쪽 영역) - 모바일 중앙 정렬, lg에서 4열 고정 */}
+            <div className="w-full mx-auto md:w-auto lg:max-w-[720px] mt-6 md:mt-0">
               <div className="overflow-x-auto md:overflow-visible">
                 <motion.div
-                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-items-center mx-auto gap-6 w-full"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.0, duration: 0.6 }}
