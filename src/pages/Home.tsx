@@ -134,39 +134,33 @@ const Home = () => {
           >
             {/* 메인 타이틀 - 글자별 애니메이션 */}
             <motion.h1
-              className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight"
+              className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
               <motion.span
+                className="text-base lg:text-[18px] tracking-wide font-medium"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
               >
-                신뢰할 수 있는
+                기준으로 선택되는 신뢰
               </motion.span>
               <br />
               <motion.span
-                className="relative z-10 mt-4 md:mt-6 inline-block px-6 py-3 rounded-2xl text-white font-extrabold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
+                className="relative z-10 mt-4 md:mt-6 inline-block px-6 py-3 rounded-2xl text-white font-semibold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
                 initial={{ opacity: 0, y: 20, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ delay: 0.5, duration: 0.8, type: "spring", stiffness: 100 }}
                 whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
               >
-                환경안전 전문기관
+                한국환경안전연구소
               </motion.span>
             </motion.h1>
 
             {/* 서브 타이틀 */}
-            <motion.p
-              className="text-2xl sm:text-3xl mb-8 text-white/90 font-light"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-            >
-              한국환경안전연구소
-            </motion.p>
+            
 
             <motion.p
               className="hidden sm:block text-lg text-white/85 mb-12 max-w-2xl mx-auto leading-relaxed"
