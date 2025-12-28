@@ -168,14 +168,14 @@ export default function HeaderMegaMenu({
 										<div className="grid grid-cols-3 md:grid-cols-5 gap-4 max-h-[480px] overflow-y-auto pr-2">
 											{display.map((item) => {
 												const hasHash = item.path.includes("#");
-												const itemHover = "hover:bg-neutral-50 transition-colors";
-												return (
-													hasHash ? (
-														<a
-															key={item.path}
-															href={item.path}
-															onClick={closeMega}
-															className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg ${itemHover}`}
+											const itemHover = "hover:bg-neutral-50 dark:hover:bg-white/10 dark:hover:text-neutral-50 transition-colors";
+											return (
+												hasHash ? (
+													<a
+														key={item.path}
+														href={item.path}
+														onClick={closeMega}
+														className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg text-neutral-900 dark:text-neutral-200 ${itemHover}`}
 														>
 															<div className="text-sm font-medium">{item.label}</div>
 															{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
@@ -185,7 +185,7 @@ export default function HeaderMegaMenu({
 															key={item.path}
 															href={item.path}
 															onClick={(e) => handleNav(e, item.path)}
-															className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg ${itemHover}`}
+															className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg text-neutral-900 dark:text-neutral-200 ${itemHover}`}
 														>
 															<div className="text-sm font-medium">{item.label}</div>
 															{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
@@ -271,7 +271,9 @@ export default function HeaderMegaMenu({
 															[
 																"flex items-center min-h-[44px] px-4 py-2.5 rounded-lg",
 																"transition-colors duration-150",
-																itemActive ? "bg-primary-50 text-primary-800" : "bg-white/0 text-neutral-900 hover:bg-neutral-50",
+																itemActive 
+																	? "bg-primary-50 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300" 
+																	: "bg-white/0 text-neutral-900 hover:bg-neutral-50 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-neutral-50",
 															].join(" ")
 														}
 													>
