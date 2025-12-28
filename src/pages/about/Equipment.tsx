@@ -12,6 +12,7 @@ import {
   ChevronRight,
   X,
   FileText,
+  Inbox,
   Download,
 } from "lucide-react";
  
@@ -811,6 +812,62 @@ const Equipment = () => {
         </motion.div>
 
         {/* Maintenance Schedule removed from public pages */}
+
+        {/* 품질관리 프로세스 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="py-10"
+        >
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-2xl font-bold mb-3">품질관리 프로세스</h2>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
+              의뢰 접수부터 분석, 결과 보고까지 표준 절차에 따라 투명하게 진행합니다.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {/* Step 01 - 접수 */}
+              <div className="p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-sm">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-semibold text-neutral-500">01</span>
+                  <div className="w-12 h-12 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center">
+                    <Inbox className="w-6 h-6 text-primary-600 dark:text-primary-300" />
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold mb-2">접수</h3>
+                <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-2">의뢰 내용을 확인하고 시료/방법/일정을 확정합니다.</p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">필요 시 사전 상담 및 범위 조정</p>
+              </div>
+
+              {/* Step 02 - 분석 */}
+              <div className="p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-sm">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-semibold text-neutral-500">02</span>
+                  <div className="w-12 h-12 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center">
+                    <FlaskConical className="w-6 h-6 text-green-600 dark:text-green-300" />
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold mb-2">분석</h3>
+                <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-2">공인 절차 및 내부 QC 기준에 따라 분석을 수행합니다.</p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">장비 점검·검량·블랭크/표준물질 확인</p>
+              </div>
+
+              {/* Step 03 - 보고 */}
+              <div className="p-6 bg-white dark:bg-neutral-800 rounded-xl shadow-sm">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-semibold text-neutral-500">03</span>
+                  <div className="w-12 h-12 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-orange-600 dark:text-orange-300" />
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold mb-2">보고</h3>
+                <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-2">결과를 검토 후 보고서로 제공하고 이력 관리합니다.</p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">결과 해석 지원 및 재분석 안내</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Quality Management */}
         <motion.div
