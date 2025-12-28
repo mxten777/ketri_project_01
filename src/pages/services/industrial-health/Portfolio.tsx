@@ -28,17 +28,17 @@ const Portfolio = () => {
                   <div className="text-4xl font-bold text-primary-600 dark:text-primary-300 mb-2">1,200+</div>
                   <p className="text-neutral-600 dark:text-neutral-300">작업환경측정</p>
                 </div>
-                <div className="bg-secondary-50 dark:bg-secondary-900/30 p-6 rounded-xl text-center border border-secondary-100 dark:border-secondary-800">
+                <div className="bg-secondary-50 dark:bg-neutral-800 p-6 rounded-xl text-center border border-secondary-100 dark:border-neutral-700">
                   <div className="text-4xl font-bold text-secondary-600 dark:text-secondary-300 mb-2">450+</div>
-                  <p className="text-neutral-600 dark:text-neutral-200">근골격계 유해요인조사</p>
+                  <p className="text-neutral-600 dark:text-neutral-300">근골격계 유해요인조사</p>
                 </div>
-                <div className="bg-orange-50 dark:bg-orange-900/30 p-6 rounded-xl text-center border border-orange-100 dark:border-orange-800">
+                <div className="bg-orange-50 dark:bg-neutral-800 p-6 rounded-xl text-center border border-orange-100 dark:border-neutral-700">
                   <div className="text-4xl font-bold text-orange-600 dark:text-orange-300 mb-2">300+</div>
-                  <p className="text-neutral-600 dark:text-neutral-200">화학물질관리</p>
+                  <p className="text-neutral-600 dark:text-neutral-300">화학물질관리</p>
                 </div>
-                <div className="bg-green-50 dark:bg-green-900/30 p-6 rounded-xl text-center border border-green-100 dark:border-green-800">
+                <div className="bg-green-50 dark:bg-neutral-800 p-6 rounded-xl text-center border border-green-100 dark:border-neutral-700">
                   <div className="text-4xl font-bold text-green-600 dark:text-green-300 mb-2">180+</div>
-                  <p className="text-neutral-600 dark:text-neutral-200">중대재해 대응 컨설팅</p>
+                  <p className="text-neutral-600 dark:text-neutral-300">중대재해 대응 컨설팅</p>
                 </div>
               </div>
 

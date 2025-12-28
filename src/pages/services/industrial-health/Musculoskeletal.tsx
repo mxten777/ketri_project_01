@@ -119,12 +119,12 @@ const Musculoskeletal = () => {
                 </table>
               </div>
 
-              <div className="bg-gradient-to-r from-secondary-50 to-accent-50 dark:from-secondary-900/20 dark:to-accent-900/20 border-l-4 border-secondary-500 p-6 rounded-xl">
-                <h4 className="font-bold text-lg mb-3 flex items-center text-neutral-900 dark:text-white">
+              <div className="bg-gradient-to-r from-secondary-50 to-accent-50 dark:from-neutral-800 dark:to-neutral-800 border-l-4 border-secondary-500 p-6 rounded-xl">
+                <h4 className="font-bold text-lg mb-3 flex items-center text-neutral-900 dark:text-neutral-100">
                   <span className="text-2xl mr-2">📋</span>
                   개선 권고사항 제공
                 </h4>
-                <p className="text-neutral-700 dark:text-neutral-200">
+                <p className="text-neutral-700 dark:text-neutral-300">
                   조사 결과를 바탕으로 작업공정 개선, 작업자세 교정, 보조기구 도입 등 
                   실질적이고 구체적인 개선방안을 제시하여 근골격계질환 예방에 기여합니다.
                 </p>

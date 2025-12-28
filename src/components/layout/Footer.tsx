@@ -45,8 +45,8 @@ const Footer = () => {
                   href="tel:043-237-7824"
                   className={[
                     "inline-flex items-center gap-3 h-16 rounded-full font-bold",
-                    "text-primary-700 bg-white/95 hover:bg-white",
-                    "border border-white/40",
+                    "text-primary-700 dark:text-primary-600 bg-white hover:bg-white/95",
+                    "border border-white/50",
                     "shadow-[0_10px_30px_rgba(0,0,0,0.18)]",
                     "transition-transform duration-200 hover:-translate-y-[1px]",
                     "px-6 sm:px-8 min-w-[240px] justify-center",
@@ -60,8 +60,8 @@ const Footer = () => {
                   href="mailto:kesri0728@naver.com"
                   className={[
                     "inline-flex items-center gap-3 h-16 rounded-full font-bold",
-                    "text-white bg-white/10 hover:bg-white/15",
-                    "border-2 border-white/70",
+                    "text-white bg-white/10 hover:bg-white/20",
+                    "border-2 border-white/80",
                     "shadow-[0_10px_30px_rgba(0,0,0,0.14)]",
                     "transition-transform duration-200 hover:-translate-y-[1px]",
                     "px-6 sm:px-8 min-w-[240px] justify-center",

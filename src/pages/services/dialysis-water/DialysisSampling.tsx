@@ -23,7 +23,7 @@ const DialysisSampling = () => {
             <div className="prose dark:prose-invert max-w-none">
               <h2 className="text-2xl font-bold mb-6">채수 위치</h2>
               
-              <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl mb-8">
+              <div className="bg-primary-50 dark:bg-neutral-800 p-6 rounded-xl mb-8 border-l-4 border-primary-500 dark:border-neutral-700">
                 <h3 className="font-bold text-lg mb-4 text-primary-900 dark:text-primary-300">
                   채수 지점 선정 원칙
                 </h3>
@@ -39,8 +39,8 @@ const DialysisSampling = () => {
                   <p className="text-neutral-600 dark:text-neutral-400 mb-3">
                     <strong>투석기 공급 라인 (개별 투석기 직전)</strong>
                   </p>
-                  <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
-                    <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
+                  <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg">
+                    <ul className="space-y-2 text-neutral-600 dark:text-neutral-300 text-sm">
                       <li>• 투석기에 연결되기 직전의 배관 말단</li>
                       <li>• 혈액회로 연결 전 채취</li>
                       <li>• 실제 투석 시 사용되는 수질 확인</li>
@@ -242,9 +242,9 @@ const DialysisSampling = () => {
               <h2 className="text-2xl font-bold mb-6 mt-12">채수 시 주의사항</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl">
+                <div className="bg-primary-50 dark:bg-neutral-800 p-6 rounded-xl border-l-4 border-primary-500 dark:border-neutral-700">
                   <h3 className="font-bold text-lg mb-3 text-primary-700 dark:text-primary-300">✅ 해야 할 것</h3>
-                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
+                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-300 text-sm">
                     <li>• 투석 직전 또는 투석 중 채취</li>
                     <li>• 충분한 방류 후 채취</li>
                     <li>• 멸균 용기 사용</li>
@@ -264,7 +264,7 @@ const DialysisSampling = () => {
                 </div>
               </div>
 
-              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6">
+              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 dark:border-neutral-700 p-6">
                 <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
                   📞 채수 교육 및 문의
                 </h3>

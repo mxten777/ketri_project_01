@@ -228,7 +228,7 @@ const DialysisCycle = () => {
                 </table>
               </div>
 
-              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6">
+              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 dark:border-neutral-700 p-6">
                 <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
                   💡 수질 기준의 의미
                 </h3>

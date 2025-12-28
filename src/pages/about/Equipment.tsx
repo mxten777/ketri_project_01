@@ -660,7 +660,7 @@ const Equipment = () => {
                   onClick={() => setSelectedPdf(doc.file)}
                 >
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-primary-100 dark:bg-neutral-800 rounded-xl flex items-center justify-center flex-shrink-0">
                       <Icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -799,7 +799,7 @@ const Equipment = () => {
                     >
                       <td className="px-6 py-4">
                         <div>
-                          <span className="inline-block px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 text-xs rounded-full mb-1">
+                          <span className="inline-block px-2 py-1 bg-primary-100 dark:bg-neutral-800 text-primary-600 dark:text-primary-400 text-xs rounded-full mb-1">
                             {item.category}
                           </span>
                           <div className="font-bold text-neutral-900 dark:text-neutral-100">
@@ -898,7 +898,7 @@ const Equipment = () => {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-green-100 dark:bg-neutral-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <FlaskConical className="w-8 h-8 text-green-600 dark:text-green-400" />
               </div>
               <h3 className="font-bold mb-2">정도관리</h3>

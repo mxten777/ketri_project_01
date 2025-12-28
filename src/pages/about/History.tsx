@@ -245,7 +245,7 @@ const History = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 bg-primary-100 dark:bg-primary-900/30 px-5 py-2 rounded-full mb-6"
+              className="inline-flex items-center gap-2 bg-primary-100 dark:bg-neutral-800 px-5 py-2 rounded-full mb-6"
             >
               <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
               <span className="label-md text-primary-600 dark:text-primary-400">

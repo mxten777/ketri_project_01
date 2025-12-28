@@ -50,30 +50,30 @@ const WaterTesting = () => {
 
                 <h3 id="scope" className="text-2xl font-bold mt-8 mb-4">검사 대상 시설</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                  <div className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 rounded-xl">
+                  <div className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl">
                     <div className="text-4xl mb-3">🏢</div>
                     <h4 className="font-bold text-lg mb-2">건물 급수시설</h4>
-                    <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
+                    <ul className="text-sm text-neutral-600 dark:text-neutral-300 space-y-1">
                       <li>• 아파트, 오피스텔</li>
                       <li>• 상업용 빌딩</li>
                       <li>• 학교, 병원</li>
                       <li>• 집단급식소</li>
                     </ul>
                   </div>
-                  <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl">
+                  <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl">
                     <div className="text-4xl mb-3">💧</div>
                     <h4 className="font-bold text-lg mb-2">소규모 급수시설</h4>
-                    <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
+                    <ul className="text-sm text-neutral-600 dark:text-neutral-300 space-y-1">
                       <li>• 마을상수도</li>
                       <li>• 소규모 급수시설</li>
                       <li>• 전용상수도</li>
                       <li>• 지하수</li>
                     </ul>
                   </div>
-                  <div className="p-6 bg-gradient-to-br from-indigo-50 to-cyan-50 dark:from-indigo-900/20 dark:to-cyan-900/20 rounded-xl">
+                  <div className="p-6 bg-gradient-to-br from-indigo-50 to-cyan-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl">
                     <div className="text-4xl mb-3">🏭</div>
                     <h4 className="font-bold text-lg mb-2">수처리시설</h4>
-                    <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
+                    <ul className="text-sm text-neutral-600 dark:text-neutral-300 space-y-1">
                       <li>• 정수장</li>
                       <li>• 정수처리시설</li>
                       <li>• 저수조</li>
@@ -82,9 +82,9 @@ const WaterTesting = () => {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 rounded-xl p-6 mb-8">
+                <div className="bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-6 mb-8">
                   <h3 className="text-xl font-bold text-cyan-600 dark:text-cyan-400 mb-3">🧪 KOLAS 인증 수질검사 능력 (총 59개 항목)</h3>
-                  <p className="text-neutral-700 dark:text-neutral-300 mb-4">먹는물 수질기준 및 검사 등에 관한 규칙에 따른 전체 59개 항목 분석 가능하며, ISO/IEC 17025 국제표준에 따른 품질보증 시스템으로 정확한 결과를 제공합니다.</p>
+                  <p className="text-neutral-700 dark:text-neutral-200 mb-4">먹는물 수질기준 및 검사 등에 관한 규칙에 따른 전체 59개 항목 분석 가능하며, ISO/IEC 17025 국제표준에 따른 품질보증 시스템으로 정확한 결과를 제공합니다.</p>
                 </div>
 
                 <h3 className="text-2xl font-bold mt-8 mb-4">수질검사 항목 (KOLAS 인증범위)</h3>
@@ -205,30 +205,30 @@ const WaterTesting = () => {
                 </div>
 
                 {/* FAQ 섹션 */}
-                <div className="bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 rounded-xl p-8 mb-8 mt-8">
+                <div className="bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-8 mb-8 mt-8">
                   <h3 className="text-2xl font-bold mb-6 text-cyan-600 dark:text-cyan-400">💬 자주 묻는 질문 (FAQ)</h3>
                   <div className="space-y-4">
                     <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
-                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">Q. 수질검사는 얼마나 자주 해야 하나요?</h4>
-                      <p className="text-neutral-600 dark:text-neutral-400">A. 건물 급수시설은 연 1회 이상, 마을상수도는 분기 1회, 먹는샘물 제조업은 월 1회 이상 검사가 의무입니다。</p>
+                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">Q. 수질검사는 얼마나 자주 해야 하나요?</h4>
+                      <p className="text-neutral-600 dark:text-neutral-300">A. 건물 급수시설은 연 1회 이상, 마을상수도는 분기 1회, 먹는샘물 제조업은 월 1회 이상 검사가 의무입니다。</p>
                     </div>
                     <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
-                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">Q. 검사 비용은 얼마인가요?</h4>
-                      <p className="text-neutral-600 dark:text-neutral-400">A. 일반세균 등 기본항목(5~10개)은 약 15~30만원, 전체 59개 항목은 약 80~120만원입니다。 정확한 견적은 검사 항목에 따라 달라집니다。</p>
+                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">Q. 검사 비용은 얼마인가요?</h4>
+                      <p className="text-neutral-600 dark:text-neutral-300">A. 일반세균 등 기본항목(5~10개)은 약 15~30만원, 전체 59개 항목은 약 80~120만원입니다。 정확한 견적은 검사 항목에 따라 달라집니다。</p>
                     </div>
                     <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
-                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">Q. 시료는 어떻게 채수하나요?</h4>
-                      <p className="text-neutral-600 dark:text-neutral-400">A. 전문 채수 요원이 현장 방문하여 채수하거나, 멸균 용기를 제공하여 고객이 직접 채수 후 보내실 수 있습니다。</p>
+                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">Q. 시료는 어떻게 채수하나요?</h4>
+                      <p className="text-neutral-600 dark:text-neutral-300">A. 전문 채수 요원이 현장 방문하여 채수하거나, 멸균 용기를 제공하여 고객이 직접 채수 후 보내실 수 있습니다。</p>
                     </div>
                     <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
-                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">Q. 결과는 언제 나오나요?</h4>
-                      <p className="text-neutral-600 dark:text-neutral-400">A. 일반항목은 3~5일, 중금속 등 정밀 항목은 5~7일 소요됩니다。 긴급 검사도 가능합니다(추가 비용)。</p>
+                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">Q. 결과는 언제 나오나요?</h4>
+                      <p className="text-neutral-600 dark:text-neutral-300">A. 일반항목은 3~5일, 중금속 등 정밀 항목은 5~7일 소요됩니다。 긴급 검사도 가능합니다(추가 비용)。</p>
                     </div>
                   </div>
                 </div>
 
                 {/* 비용 안내 */}
-                <div className="bg-white dark:bg-neutral-800 border-2 border-cyan-200 dark:border-cyan-800 rounded-xl p-8 mb-8">
+                <div className="bg-white dark:bg-neutral-800 border-2 border-cyan-200 dark:border-neutral-700 rounded-xl p-8 mb-8">
                   <h3 className="text-2xl font-bold mb-6 flex items-center"><span className="text-3xl mr-3">💰</span>검사 비용 안내</h3>
                   <div className="overflow-x-auto">
                     <table className="w-full border-collapse">
@@ -262,15 +262,15 @@ const WaterTesting = () => {
                 </div>
 
                 {/* 신청서 다운로드 */}
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-8 mb-8">
+                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-8 mb-8">
                   <h3 className="text-2xl font-bold mb-4 flex items-center"><span className="text-3xl mr-3">📥</span>신청서 다운로드</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400 mb-6">수질검사 의뢰서를 다운로드하여 작성 후 제출해주세요。</p>
+                  <p className="text-neutral-600 dark:text-neutral-300 mb-6">수질검사 의뢰서를 다운로드하여 작성 후 제출해주세요。</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="/documents/water-testing-application.pdf" className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-cyan-200 dark:border-cyan-800">
+                    <a href="/documents/water-testing-application.pdf" className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-cyan-200 dark:border-neutral-700">
                       <span className="font-bold">수질검사 의뢰서</span>
                       <span className="text-2xl">📄</span>
                     </a>
-                    <a href="/documents/water-sampling-guide.pdf" className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-cyan-200 dark:border-cyan-800">
+                    <a href="/documents/water-sampling-guide.pdf" className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-cyan-200 dark:border-neutral-700">
                       <span className="font-bold">채수 방법 안내서</span>
                       <span className="text-2xl">📋</span>
                     </a>

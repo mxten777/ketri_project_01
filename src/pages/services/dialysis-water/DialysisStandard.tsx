@@ -105,11 +105,11 @@ const DialysisStandard = () => {
               <h2 className="text-2xl font-bold mb-6 mt-12">품질 관리</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl">
+                <div className="bg-primary-50 dark:bg-neutral-800 p-6 rounded-xl">
                   <h3 className="font-bold text-lg mb-3 text-primary-700 dark:text-primary-300">
                     내부 정도관리 (IQC)
                   </h3>
-                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
+                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-300 text-sm">
                     <li>• 표준물질을 이용한 일일 정도관리</li>
                     <li>• 검량선 작성 및 검증</li>
                     <li>• 바탕시험 및 회수율 시험</li>
@@ -118,7 +118,7 @@ const DialysisStandard = () => {
                 </div>
                 <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-2 border-primary-500">
                   <h3 className="font-bold text-lg mb-3">외부 정도관리 (EQC)</h3>
-                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
+                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-300 text-sm">
                     <li>• 환경부 숙련도 시험 참여</li>
                     <li>• 대한신장학회 정도관리 참여</li>
                     <li>• KOLAS 인증 유지 관리</li>
@@ -162,7 +162,7 @@ const DialysisStandard = () => {
                 </table>
               </div>
 
-              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6 mb-8">
+              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 dark:border-neutral-700 p-6 mb-8">
                 <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
                   ✅ KOLAS 인증 시험기관
                 </h3>

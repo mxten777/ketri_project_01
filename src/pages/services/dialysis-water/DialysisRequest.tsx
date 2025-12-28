@@ -32,9 +32,9 @@ const DialysisRequest = () => {
                       <p className="text-neutral-600 dark:text-neutral-400 mb-3">
                         전화, 팩스, 이메일 또는 온라인으로 검사를 신청합니다.
                       </p>
-                      <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
+                      <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg">
                         <h4 className="font-semibold text-sm mb-2">필요 정보</h4>
-                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-300">
                           <li>• 병원명 및 투석실 소재지</li>
                           <li>• 투석기계 대수 및 제조사</li>
                           <li>• 정수시스템 종류 (R.O 여부)</li>
@@ -57,16 +57,16 @@ const DialysisRequest = () => {
                         검사 신청 후 멸균된 채수 용기와 채수 설명서를 발송해 드립니다.
                       </p>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
+                        <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg">
                           <h4 className="font-semibold text-sm mb-2">화학적 검사용</h4>
-                          <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                          <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-300">
                             <li>• 1L 플라스틱 용기</li>
                             <li>• 보냉백 포함</li>
                           </ul>
                         </div>
-                        <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
+                        <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg">
                           <h4 className="font-semibold text-sm mb-2">미생물 검사용</h4>
-                          <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                          <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-300">
                             <li>• 멸균 용기 (120mL)</li>
                             <li>• 아이스팩 동봉</li>
                           </ul>
@@ -86,9 +86,9 @@ const DialysisRequest = () => {
                       <p className="text-neutral-600 dark:text-neutral-400 mb-3">
                         동봉된 채수 설명서에 따라 시료를 채취합니다.
                       </p>
-                      <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg mb-3">
+                      <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg mb-3">
                         <h4 className="font-semibold text-sm mb-2">채수 시 주의사항</h4>
-                        <ol className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400 list-decimal list-inside">
+                        <ol className="space-y-1 text-sm text-neutral-600 dark:text-neutral-300 list-decimal list-inside">
                           <li>투석 직전 또는 투석 중 채취</li>
                           <li>투석기 혈액회로 연결 전 채취</li>
                           <li>수도꼭지를 알코올 솜으로 소독 후 채취</li>
@@ -119,14 +119,14 @@ const DialysisRequest = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="bg-white dark:bg-neutral-700 p-4 rounded-lg border border-neutral-300 dark:border-neutral-600">
                           <h4 className="font-semibold text-sm mb-2">방문 수거</h4>
-                          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                          <p className="text-sm text-neutral-600 dark:text-neutral-300">
                             수도권 지역: 전문 채수요원 방문<br />
                             (예약 필요)
                           </p>
                         </div>
                         <div className="bg-white dark:bg-neutral-700 p-4 rounded-lg border border-neutral-300 dark:border-neutral-600">
                           <h4 className="font-semibold text-sm mb-2">택배 발송</h4>
-                          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                          <p className="text-sm text-neutral-600 dark:text-neutral-300">
                             전국: 택배 이용 가능<br />
                             (아이스팩과 함께 보냉 포장)
                           </p>
@@ -183,9 +183,9 @@ const DialysisRequest = () => {
                       <p className="text-neutral-600 dark:text-neutral-300 mb-3">
                         시험성적서를 발급하고 결과를 안내해 드립니다.
                       </p>
-                      <div className="bg-primary-50 dark:bg-primary-900/30 p-4 rounded-lg border border-primary-100 dark:border-primary-800">
+                      <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg border border-primary-100 dark:border-neutral-700">
                         <h4 className="font-semibold text-sm mb-2 text-neutral-900 dark:text-white">시험성적서 포함 내용</h4>
-                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-200">
+                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-300">
                           <li>• 각 항목별 측정값 및 기준치</li>
                           <li>• 적합/부적합 판정</li>
                           <li>• 부적합 시 초과 항목 및 배수 표시</li>
@@ -197,7 +197,7 @@ const DialysisRequest = () => {
                 </div>
               </div>
 
-              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6 mt-8">
+              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 dark:border-neutral-700 p-6 mt-8">
                 <h3 className="font-bold text-lg mb-3 text-primary-900 dark:text-primary-300">
                   📞 검사 신청 및 문의
                 </h3>
@@ -207,7 +207,7 @@ const DialysisRequest = () => {
                     <p className="text-neutral-700 dark:text-neutral-300 mb-1">
                       Tel: 02-1234-5678
                     </p>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-300">
                       평일 09:00~18:00
                     </p>
                   </div>
@@ -216,7 +216,7 @@ const DialysisRequest = () => {
                     <p className="text-neutral-700 dark:text-neutral-300 mb-1">
                       Email: dialysis@ketri.co.kr
                     </p>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-300">
                       24시간 접수 가능
                     </p>
                   </div>

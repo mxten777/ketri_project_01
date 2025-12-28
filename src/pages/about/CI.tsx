@@ -200,7 +200,7 @@ const CI = () => {
             </div>
 
             <div className="text-center p-8 bg-white dark:bg-neutral-800 rounded-2xl shadow-soft">
-              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-green-100 dark:bg-neutral-800 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <Heart className="w-8 h-8 text-green-600 dark:text-green-400" />
               </div>
               <h3 className="text-xl font-bold mb-4">책임감</h3>
@@ -256,7 +256,7 @@ const CI = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="bg-primary-50 dark:bg-primary-900/20 rounded-2xl p-8"
+          className="bg-primary-50 dark:bg-neutral-800 rounded-2xl p-8"
         >
           <h2 className="text-2xl font-bold text-center mb-8">
             CI 사용 가이드라인

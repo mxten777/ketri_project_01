@@ -20,7 +20,7 @@ const IndoorIntro = () => {
           <div className="card p-8">
             <div className="prose dark:prose-invert max-w-none">
               <h2 className="text-2xl font-bold mb-6">실내공기질 측정</h2>
-              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
+              <p className="text-lg text-neutral-600 dark:text-neutral-300 mb-6">
                 실내공기질관리법에 따라 다중이용시설의 실내공기질을 측정하고 관리하는 서비스입니다.
                 국민 건강 보호와 쾌적한 실내환경 조성을 위해 과학적이고 체계적인 측정 서비스를 제공합니다.
               </p>
@@ -42,7 +42,7 @@ const IndoorIntro = () => {
 
               <h3 className="text-xl font-bold mt-8 mb-4">측정 대상 시설</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800">
+                <div className="bg-green-50 dark:bg-neutral-800 p-6 rounded-xl border border-green-200 dark:border-neutral-700">
                   <h4 className="font-bold text-lg mb-3 text-green-700 dark:text-green-300">다중이용시설</h4>
                   <ul className="space-y-2 text-neutral-600 dark:text-neutral-300 text-sm">
                     <li>• 지하역사, 지하도상가</li>
@@ -55,7 +55,7 @@ const IndoorIntro = () => {
                 </div>
                 <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-2 border-primary-500">
                   <h4 className="font-bold text-lg mb-3">공동주택 및 신축건축물</h4>
-                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
+                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-300 text-sm">
                     <li>• 100세대 이상 공동주택 (입주 전)</li>
                     <li>• 주택법에 따른 오피스텔</li>
                     <li>• 연면적 3,000㎡ 이상 신축 건축물</li>
@@ -107,21 +107,21 @@ const IndoorIntro = () => {
                 <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-2 border-primary-500 text-center">
                   <div className="text-3xl mb-3">🔬</div>
                   <h4 className="font-bold mb-2">법정 측정기관</h4>
-                  <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                  <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                     환경부 지정 실내공기질 측정기관
                   </p>
                 </div>
                 <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-2 border-primary-500 text-center">
                   <div className="text-3xl mb-3">⚡</div>
                   <h4 className="font-bold mb-2">신속한 측정</h4>
-                  <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                  <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                     현장 측정 후 7일 이내 결과 통보
                   </p>
                 </div>
                 <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl border-2 border-primary-500 text-center">
                   <div className="text-3xl mb-3">📊</div>
                   <h4 className="font-bold mb-2">정밀 분석</h4>
-                  <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                  <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                     첨단 장비를 이용한 정확한 측정
                   </p>
                 </div>
@@ -159,7 +159,7 @@ const IndoorIntro = () => {
                 </table>
               </div>
 
-              <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-6">
+              <div className="bg-green-50 dark:bg-neutral-800 border-l-4 border-green-500 p-6">
                 <h3 className="font-bold text-lg mb-2 text-green-900 dark:text-green-300">
                   ✅ 전문 컨설팅 서비스
                 </h3>

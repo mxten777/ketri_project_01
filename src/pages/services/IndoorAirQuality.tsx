@@ -314,18 +314,18 @@ const IndoorAirQuality = () => {
 
             <h3 className="text-2xl font-bold mt-8 mb-4">공기질 개선 방안</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="p-6 bg-green-50 dark:bg-green-900/20 rounded-xl">
+              <div className="p-6 bg-green-50 dark:bg-neutral-800 rounded-xl">
                 <h4 className="font-bold text-lg mb-3">🌬️ 환기 개선</h4>
-                <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-300">
                   <li>• 기계환기장치 설치 및 관리</li>
                   <li>• 자연환기 시간 확보 (1일 3회, 회당 10분)</li>
                   <li>• 공조시스템 필터 정기 교체</li>
                   <li>• 외부공기 도입량 증대</li>
                 </ul>
               </div>
-              <div className="p-6 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
+              <div className="p-6 bg-emerald-50 dark:bg-neutral-800 rounded-xl">
                 <h4 className="font-bold text-lg mb-3">🧹 오염원 관리</h4>
-                <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-300">
                   <li>• 저방출 자재 사용 (친환경 마크)</li>
                   <li>• 실내흡연 금지 철저</li>
                   <li>• 청소 및 먼지 제거</li>
@@ -346,18 +346,18 @@ const IndoorAirQuality = () => {
               </ul>
             </div>
 
-            <div className="bg-primary-50 dark:bg-primary-900/20 rounded-xl p-6">
+            <div className="bg-primary-50 dark:bg-neutral-800 rounded-xl p-6">
               <h3 className="text-xl font-bold mb-4">전문 측정 장비 보유</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <h4 className="font-bold mb-2">광산란법 측정기 (DustTrak)</h4>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">
                     PM10, PM2.5 실시간 측정
                   </p>
                 </div>
                 <div>
                   <h4 className="font-bold mb-2">NDIR CO₂ 측정기</h4>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">
                     이산화탄소 연속 측정
                   </p>
                 </div>
@@ -379,16 +379,16 @@ const IndoorAirQuality = () => {
             </div>
 
             {/* FAQ 섹션 */}
-            <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl p-8 mb-8 mt-8">
+            <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-8 mb-8 mt-8">
               <h3 className="text-2xl font-bold mb-6 text-green-600 dark:text-green-400">
                 💬 자주 묻는 질문 (FAQ)
               </h3>
               <div className="space-y-4">
                 <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
-                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                  <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">
                     Q. 실내공기질 측정은 언제 해야 하나요?
                   </h4>
-                  <p className="text-neutral-600 dark:text-neutral-400">
+                  <p className="text-neutral-600 dark:text-neutral-300">
                     A. 신축·리모델링 후 사용 전, 그리고 법적으로 다중이용시설은 연 1회, 지하역사·철도역사는 반기 1회 측정이 의무입니다.
                   </p>
                 </div>
@@ -461,18 +461,18 @@ const IndoorAirQuality = () => {
             </div>
 
             {/* 신청서 다운로드 */}
-            <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-xl p-8 mb-8">
+            <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-8 mb-8">
               <h3 className="text-2xl font-bold mb-4 flex items-center">
                 <span className="text-3xl mr-3">📥</span>
                 신청서 다운로드
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+              <p className="text-neutral-600 dark:text-neutral-300 mb-6">
                 실내공기질 측정 의뢰서를 다운로드하여 작성 후 제출해주세요.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <a
                   href="/documents/indoor-air-application.pdf"
-                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-green-200 dark:border-green-800"
+                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-green-200 dark:border-neutral-700"
                 >
                   <span className="font-bold">실내공기질 측정 의뢰서</span>
                   <span className="text-2xl">📄</span>

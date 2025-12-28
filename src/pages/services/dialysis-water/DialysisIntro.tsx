@@ -42,9 +42,9 @@ const DialysisIntro = () => {
 
               <h3 className="text-xl font-bold mt-8 mb-4">검사 항목</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl">
+                <div className="bg-primary-50 dark:bg-neutral-800 p-6 rounded-xl border-l-4 border-primary-500 dark:border-neutral-700">
                   <h4 className="font-bold text-lg mb-3 text-primary-700 dark:text-primary-300">화학적 오염물질</h4>
-                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-400 text-sm">
+                  <ul className="space-y-2 text-neutral-600 dark:text-neutral-300 text-sm">
                     <li>• <strong>칼슘(Ca):</strong> 2 mg/L 이하</li>
                     <li>• <strong>마그네슘(Mg):</strong> 2 mg/L 이하</li>
                     <li>• <strong>나트륨(Na):</strong> 50 mg/L 이하</li>
@@ -70,12 +70,12 @@ const DialysisIntro = () => {
                 </div>
               </div>
 
-              <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl mb-8">
+              <div className="bg-primary-50 dark:bg-neutral-800 p-6 rounded-xl mb-8 border-l-4 border-primary-500 dark:border-neutral-700">
                 <h4 className="font-bold text-lg mb-3 text-primary-700 dark:text-primary-300">미생물학적 기준</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <p className="font-semibold mb-2">표준투석액</p>
-                    <ul className="space-y-1 text-neutral-600 dark:text-neutral-400 text-sm">
+                    <ul className="space-y-1 text-neutral-600 dark:text-neutral-300 text-sm">
                       <li>• 일반세균: 100 CFU/mL 이하</li>
                       <li>• 내독소: 0.25 EU/mL 이하</li>
                     </ul>
@@ -115,7 +115,7 @@ const DialysisIntro = () => {
                 </div>
               </div>
 
-              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6">
+              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 dark:border-neutral-700 p-6">
                 <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
                   ✅ 정기 검사 관리 서비스
                 </h3>

@@ -27,8 +27,8 @@ const ChemicalManagement = () => {
                 산업안전보건법에 따라 사업장에서 사용하는 화학물질로 인한 근로자의 건강장해를 예방하고, 
                 안전한 작업환경을 조성하기 위한 종합적인 관리 시스템입니다.
               </p>
-              <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
-                <p className="text-sm text-blue-900 dark:text-blue-100">
+              <div className="bg-blue-50 dark:bg-neutral-800 border border-blue-200 dark:border-neutral-700 rounded-xl p-4">
+                <p className="text-sm text-blue-900 dark:text-neutral-100">
                   화학물질의 유해성·위험성 파악부터 노출평가, 관리방안 수립까지 체계적으로 지원합니다.
                 </p>
               </div>
@@ -41,21 +41,21 @@ const ChemicalManagement = () => {
                 관리 대상 화학물질
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 bg-red-50 dark:bg-red-900/30 rounded-xl border border-red-200 dark:border-red-800">
-                  <h3 className="font-semibold text-red-900 dark:text-red-100 mb-2">금지물질</h3>
-                  <p className="text-sm text-red-700 dark:text-red-200">제조·사용이 금지된 12종의 화학물질</p>
+                <div className="p-4 bg-red-50 dark:bg-neutral-800 rounded-xl border border-red-200 dark:border-neutral-700">
+                  <h3 className="font-semibold text-red-900 dark:text-red-300 mb-2">금지물질</h3>
+                  <p className="text-sm text-red-700 dark:text-neutral-300">제조·사용이 금지된 12종의 화학물질</p>
                 </div>
-                <div className="p-4 bg-orange-50 dark:bg-orange-900/30 rounded-xl border border-orange-200 dark:border-orange-800">
-                  <h3 className="font-semibold text-orange-900 dark:text-orange-100 mb-2">허가물질</h3>
-                  <p className="text-sm text-orange-700 dark:text-orange-200">노동부 장관의 허가를 받아야 하는 11종</p>
+                <div className="p-4 bg-orange-50 dark:bg-neutral-800 rounded-xl border border-orange-200 dark:border-neutral-700">
+                  <h3 className="font-semibold text-orange-900 dark:text-orange-300 mb-2">허가물질</h3>
+                  <p className="text-sm text-orange-700 dark:text-neutral-300">노동부 장관의 허가를 받아야 하는 11종</p>
                 </div>
-                <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-xl border border-yellow-200 dark:border-yellow-800">
-                  <h3 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">관리대상 유해물질</h3>
-                  <p className="text-sm text-yellow-700 dark:text-yellow-200">특별한 관리가 필요한 165종</p>
+                <div className="p-4 bg-yellow-50 dark:bg-neutral-800 rounded-xl border border-yellow-200 dark:border-neutral-700">
+                  <h3 className="font-semibold text-yellow-900 dark:text-yellow-300 mb-2">관리대상 유해물질</h3>
+                  <p className="text-sm text-yellow-700 dark:text-neutral-300">특별한 관리가 필요한 165종</p>
                 </div>
-                <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-xl border border-green-200 dark:border-green-800">
-                  <h3 className="font-semibold text-green-900 dark:text-green-100 mb-2">작업환경측정 대상</h3>
-                  <p className="text-sm text-green-700 dark:text-green-200">정기적 측정이 필요한 물질</p>
+                <div className="p-4 bg-green-50 dark:bg-neutral-800 rounded-xl border border-green-200 dark:border-neutral-700">
+                  <h3 className="font-semibold text-green-900 dark:text-green-300 mb-2">작업환경측정 대상</h3>
+                  <p className="text-sm text-green-700 dark:text-neutral-300">정기적 측정이 필요한 물질</p>
                 </div>
               </div>
             </div>

@@ -257,7 +257,7 @@ const Organization = () => {
                       </span>
                     </h4>
                     <div className="space-y-2">
-                      <div className="text-sm text-center py-2 bg-green-50 dark:bg-green-900/20 rounded-lg font-medium">
+                      <div className="text-sm text-center py-2 bg-green-50 dark:bg-neutral-800 rounded-lg font-medium">
                         작업환경 측정
                       </div>
                     </div>
@@ -338,7 +338,7 @@ const Organization = () => {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <h4 className="font-bold text-lg mb-2">{cert.title}</h4>
-                    <span className="inline-block px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 text-sm rounded-full">
+                    <span className="inline-block px-3 py-1 bg-primary-100 dark:bg-neutral-800 text-primary-600 dark:text-primary-400 text-sm rounded-full">
                       {cert.type}
                     </span>
                   </div>
@@ -354,7 +354,7 @@ const Organization = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-center bg-primary-50 dark:bg-primary-900/20 rounded-2xl p-8"
+          className="text-center bg-primary-50 dark:bg-neutral-800 rounded-2xl p-8"
         >
           <h3 className="text-2xl font-bold mb-6">문의하기</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">

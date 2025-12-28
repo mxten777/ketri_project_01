@@ -58,7 +58,7 @@ const DialysisWater = () => {
             </p>
 
             <h3 className="text-2xl font-bold mt-8 mb-4">투석용수 중요성</h3>
-            <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6 mb-8">
+            <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 p-6 mb-8">
               <p className="text-neutral-700 dark:text-neutral-300 mb-3">
                 혈액투석 환자는 일주일에 3회, 회당 약 120L 이상의 투석용수에
                 노출됩니다. 연간 약 18,000L 이상의 물이 환자 혈액과 직접
@@ -203,11 +203,11 @@ const DialysisWater = () => {
             <h3 className="text-2xl font-bold mt-8 mb-4">검사 종류</h3>
             <h3 id="schedule" className="text-2xl font-bold mt-8 mb-4">검사 주기</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
+              <div className="p-6 bg-primary-50 dark:bg-neutral-800 rounded-xl">
                 <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-primary-400">
                   화학물질 검사
                 </h4>
-                <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+                <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-300">
                   <li>• 중금속 13종 분석 (ICP/MS)</li>
                   <li>• 염소/클로라민 분석</li>
                   <li>• 경도, pH 측정</li>
@@ -287,7 +287,7 @@ const DialysisWater = () => {
                   <li>• 재검사 후 적합 판정 시 사용 재개</li>
                 </ul>
               </div>
-              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6">
+              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 p-6">
                 <h4 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
                   ✅ 관리 포인트
                 </h4>
@@ -300,7 +300,7 @@ const DialysisWater = () => {
               </div>
             </div>
 
-            <div className="bg-primary-50 dark:bg-primary-900/20 rounded-xl p-6">
+            <div className="bg-primary-50 dark:bg-neutral-800 rounded-xl p-6">
               <h3 className="text-xl font-bold mb-4">검사 분석 장비</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>

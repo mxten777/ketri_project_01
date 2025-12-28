@@ -106,7 +106,7 @@ const IndustrialHealth = () => {
                       • 리스크 특성비에 따른 위험도 결정 및 관리방안 수립
                     </p>
                   </div>
-                  <div id="musculoskeletal" className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-6">
+                  <div id="musculoskeletal" className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-6">
                     <h4 className="font-bold text-xl mb-3 text-blue-700 dark:text-blue-400">
                       💪 근골격계 유해요인조사 (의무조사)
                     </h4>
@@ -149,12 +149,12 @@ const IndustrialHealth = () => {
                   ].map((feature) => (
                     <div
                       key={feature.title}
-                      className="p-6 bg-gradient-to-br from-primary-50 to-white dark:from-primary-900/20 dark:to-neutral-800 rounded-lg border border-primary-100 dark:border-primary-900/30"
+                      className="p-6 bg-gradient-to-br from-primary-50 to-white dark:from-neutral-800 dark:to-neutral-800 rounded-lg border border-primary-100 dark:border-neutral-700"
                     >
                       <h4 className="font-bold text-primary-600 dark:text-primary-400 mb-2 text-lg">
                         {feature.title}
                       </h4>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400">{feature.desc}</p>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-300">{feature.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -177,40 +177,40 @@ const IndustrialHealth = () => {
                 </div>
 
                 {/* FAQ 섹션 */}
-                <div className="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-xl p-8 mb-8 mt-8">
+                <div className="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-8 mb-8 mt-8">
                   <h3 className="text-2xl font-bold mb-6 text-primary-600 dark:text-primary-400">
                     💬 자주 묻는 질문 (FAQ)
                   </h3>
                   <div className="space-y-4">
                     <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
-                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">
                         Q. 작업환경측정은 얼마나 자주 해야 하나요?
                       </h4>
-                      <p className="text-neutral-600 dark:text-neutral-400">
+                      <p className="text-neutral-600 dark:text-neutral-300">
                         A. 일반 유해인자는 6개월마다 1회 이상, 특별관리물질(발암성 물질 등)은 3개월마다 1회 이상 측정이 의무입니다.
                       </p>
                     </div>
                     <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
-                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">
                         Q. 중대재해처벌법 대응을 위해 꼭 해야 할 것은?
                       </h4>
-                      <p className="text-neutral-600 dark:text-neutral-400">
+                      <p className="text-neutral-600 dark:text-neutral-300">
                         A. 안전보건관리체계 구축, 위험성평가 실시, 안전보건 예산 편성, 정기적인 작업환경측정 및 특수건강진단이 필수입니다.
                       </p>
                     </div>
                     <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
-                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">
                         Q. 위험성평가는 어떻게 진행되나요?
                       </h4>
-                      <p className="text-neutral-600 dark:text-neutral-400">
+                      <p className="text-neutral-600 dark:text-neutral-300">
                         A. 사업장 현황 조사 → 유해·위험요인 파악 → 위험성 추정 → 위험성 결정 → 감소대책 수립 순으로 진행되며, 약 2~4주 소요됩니다.
                       </p>
                     </div>
                     <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
-                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
+                      <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-100">
                         Q. 비용은 얼마나 드나요?
                       </h4>
-                      <p className="text-neutral-600 dark:text-neutral-400">
+                      <p className="text-neutral-600 dark:text-neutral-300">
                         A. 사업장 규모와 측정 항목 수에 따라 다릅니다. 작업환경측정은 50~300만원, 위험성평가는 100~500만원 수준입니다.
                       </p>
                     </div>
@@ -218,7 +218,7 @@ const IndustrialHealth = () => {
                 </div>
 
                 {/* 비용 안내 */}
-                <div className="bg-white dark:bg-neutral-800 border-2 border-primary-200 dark:border-primary-800 rounded-xl p-8 mb-8">
+                <div className="bg-white dark:bg-neutral-800 border-2 border-primary-200 dark:border-neutral-700 rounded-xl p-8 mb-8">
                   <h3 className="text-2xl font-bold mb-6 flex items-center">
                     <span className="text-3xl mr-3">💰</span>
                     서비스 비용 안내
@@ -262,25 +262,25 @@ const IndustrialHealth = () => {
                 </div>
 
                 {/* 신청서 다운로드 */}
-                <div className="bg-gradient-to-r from-secondary-50 to-primary-50 dark:from-secondary-900/20 dark:to-primary-900/20 rounded-xl p-8 mb-8">
+                <div className="bg-gradient-to-r from-secondary-50 to-primary-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-8 mb-8">
                   <h3 className="text-2xl font-bold mb-4 flex items-center">
                     <span className="text-3xl mr-3">📥</span>
                     신청서 및 자료 다운로드
                   </h3>
-                  <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+                  <p className="text-neutral-600 dark:text-neutral-300 mb-6">
                     각종 신청서와 안내 자료를 다운로드하여 활용하실 수 있습니다.
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <a
                       href="/documents/work-environment-application.pdf"
-                      className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-primary-800"
+                      className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-neutral-700"
                     >
                       <span className="font-bold">작업환경측정 신청서</span>
                       <span className="text-2xl">📄</span>
                     </a>
                     <a
                       href="/documents/risk-assessment-guide.pdf"
-                      className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-primary-800"
+                      className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-neutral-700"
                     >
                       <span className="font-bold">위험성평가 가이드</span>
                       <span className="text-2xl">📋</span>

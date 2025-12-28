@@ -24,11 +24,11 @@ const IndoorResult = () => {
                 <div className="prose dark:prose-invert max-w-none">
                   <h2 className="text-2xl font-bold mb-6">온라인 성적서 조회</h2>
                   
-                  <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl mb-8">
+                  <div className="bg-primary-50 dark:bg-neutral-800 p-6 rounded-xl mb-8">
                     <h3 className="font-bold text-lg mb-3 text-primary-900 dark:text-primary-300">
                       조회 방법
                     </h3>
-                    <ol className="space-y-2 text-neutral-600 dark:text-neutral-400 list-decimal list-inside">
+                    <ol className="space-y-2 text-neutral-600 dark:text-neutral-300 list-decimal list-inside">
                       <li>측정 결과서에 기재된 고유번호 준비</li>
                       <li>우측 조회 양식에 정보 입력</li>
                       <li>인증 후 결과 확인</li>
@@ -125,11 +125,11 @@ const IndoorResult = () => {
                   </div>
 
                   <h3 className="text-xl font-bold mb-4">재발급 신청</h3>
-                  <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl">
-                    <p className="text-neutral-600 dark:text-neutral-400 mb-3">
+                  <div className="bg-primary-50 dark:bg-neutral-800 p-6 rounded-xl">
+                    <p className="text-neutral-600 dark:text-neutral-300 mb-3">
                       측정 결과서 분실 시 재발급이 가능합니다.
                     </p>
-                    <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-300">
                       <li>
                         <strong>재발급 수수료:</strong> 10,000원 (우편 발송 시 배송비 별도)
                       </li>
