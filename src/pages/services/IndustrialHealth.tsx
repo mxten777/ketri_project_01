@@ -159,9 +159,9 @@ const IndustrialHealth = () => {
                   ))}
                 </div>
 
-                <div className="bg-primary-50 dark:bg-primary-900/20 rounded-xl p-6 mb-8">
-                  <h3 className="text-xl font-bold mb-4">📞 문의 및 상담</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400 mb-4">
+                <div className="bg-primary-50 dark:bg-neutral-800 rounded-xl p-6 mb-8">
+                  <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">📞 문의 및 상담</h3>
+                  <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                     사업장의 안전보건 관리에 대한 전문적인 상담이 필요하시면 언제든지 연락 주시기 바랍니다.
                   </p>
                   <div className="flex flex-wrap gap-4">

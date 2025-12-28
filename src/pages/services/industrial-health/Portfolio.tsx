@@ -24,9 +24,9 @@ const Portfolio = () => {
               <h2 className="text-2xl font-bold mb-6">주요 실적 현황</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-                <div className="bg-primary-50 dark:bg-primary-900/30 p-6 rounded-xl text-center border border-primary-100 dark:border-primary-800">
+                <div className="bg-primary-50 dark:bg-neutral-800 p-6 rounded-xl text-center border border-primary-100 dark:border-neutral-700">
                   <div className="text-4xl font-bold text-primary-600 dark:text-primary-300 mb-2">1,200+</div>
-                  <p className="text-neutral-600 dark:text-neutral-200">작업환경측정</p>
+                  <p className="text-neutral-600 dark:text-neutral-300">작업환경측정</p>
                 </div>
                 <div className="bg-secondary-50 dark:bg-secondary-900/30 p-6 rounded-xl text-center border border-secondary-100 dark:border-secondary-800">
                   <div className="text-4xl font-bold text-secondary-600 dark:text-secondary-300 mb-2">450+</div>
@@ -152,16 +152,16 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              <div className="bg-primary-50 dark:bg-primary-900/30 border-l-4 border-primary-500 p-6 rounded-xl border border-primary-100 dark:border-primary-800">
-                <h4 className="font-bold text-lg mb-3 flex items-center text-neutral-900 dark:text-white">
+              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 p-6 rounded-xl border border-primary-100 dark:border-neutral-700">
+                <h4 className="font-bold text-lg mb-3 flex items-center text-neutral-900 dark:text-neutral-100">
                   <span className="text-2xl mr-2">🏆</span>
                   신뢰받는 산업보건 파트너
                 </h4>
-                <p className="text-neutral-700 dark:text-neutral-200 mb-3">
+                <p className="text-neutral-700 dark:text-neutral-300 mb-3">
                   한국환경안전연구소는 다양한 업종과 규모의 사업장에서 축적한 풍부한 경험을 바탕으로 
                   실질적이고 효과적인 산업보건 솔루션을 제공합니다.
                 </p>
-                <p className="text-neutral-700 dark:text-neutral-200">
+                <p className="text-neutral-700 dark:text-neutral-300">
                   법적 의무사항 준수는 물론, 사업장의 특성을 고려한 맞춤형 컨설팅으로 
                   근로자 건강 보호와 생산성 향상이라는 두 가지 목표를 동시에 달성하도록 지원합니다.
                 </p>

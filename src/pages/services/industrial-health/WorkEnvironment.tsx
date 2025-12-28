@@ -36,21 +36,21 @@ const WorkEnvironment = () => {
                 측정 대상
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-xl border border-primary-100 dark:border-primary-800">
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">화학적 인자</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-200">유기화합물, 금속류, 산·알카리류, 가스류 등</p>
+                <div className="p-4 bg-primary-50 dark:bg-neutral-800 rounded-xl border border-primary-100 dark:border-neutral-700">
+                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">화학적 인자</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">유기화합물, 금속류, 산·알카리류, 가스류 등</p>
                 </div>
-                <div className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-xl border border-primary-100 dark:border-primary-800">
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">물리적 인자</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-200">소음, 진동, 온열, 조명, 방사선 등</p>
+                <div className="p-4 bg-primary-50 dark:bg-neutral-800 rounded-xl border border-primary-100 dark:border-neutral-700">
+                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">물리적 인자</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">소음, 진동, 온열, 조명, 방사선 등</p>
                 </div>
-                <div className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-xl border border-primary-100 dark:border-primary-800">
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">분진</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-200">광물성 분진, 금속 분진, 유기 분진 등</p>
+                <div className="p-4 bg-primary-50 dark:bg-neutral-800 rounded-xl border border-primary-100 dark:border-neutral-700">
+                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">분진</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">광물성 분진, 금속 분진, 유기 분진 등</p>
                 </div>
-                <div className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-xl border border-primary-100 dark:border-primary-800">
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">생물학적 인자</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-200">바이러스, 곰팡이, 세균 등</p>
+                <div className="p-4 bg-primary-50 dark:bg-neutral-800 rounded-xl border border-primary-100 dark:border-neutral-700">
+                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">생물학적 인자</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">바이러스, 곰팡이, 세균 등</p>
                 </div>
               </div>
             </div>

@@ -230,10 +230,10 @@ const Greeting = () => {
                     >
                       <div className="mt-6 space-y-6 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
                         {/* Education */}
-                        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
+                        <div className="bg-blue-50 dark:bg-neutral-800 rounded-xl p-4">
                           <div className="flex items-center gap-2 mb-3">
                             <GraduationCap className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                            <h4 className="font-bold text-blue-900 dark:text-blue-300">
+                            <h4 className="font-bold text-blue-900 dark:text-neutral-100">
                               학력
                             </h4>
                           </div>

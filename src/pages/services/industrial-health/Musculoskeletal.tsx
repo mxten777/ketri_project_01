@@ -29,9 +29,9 @@ const Musculoskeletal = () => {
               </p>
 
               <h3 className="text-xl font-bold mt-8 mb-4">조사 대상</h3>
-              <div className="bg-primary-50 dark:bg-primary-900/30 rounded-xl p-6 mb-8 border border-primary-100 dark:border-primary-800">
-                <h4 className="font-semibold mb-3 text-neutral-900 dark:text-white">근골격계부담작업 11종</h4>
-                <ul className="space-y-2 text-neutral-700 dark:text-neutral-200">
+              <div className="bg-primary-50 dark:bg-neutral-800 rounded-xl p-6 mb-8 border border-primary-100 dark:border-neutral-700">
+                <h4 className="font-semibold mb-3 text-neutral-900 dark:text-neutral-100">근골격계부담작업 11종</h4>
+                <ul className="space-y-2 text-neutral-700 dark:text-neutral-300">
                   <li>• 하루에 4시간 이상 집중적으로 자료입력 등을 위해 키보드 또는 마우스를 조작하는 작업</li>
                   <li>• 하루에 총 2시간 이상 목, 어깨, 팔꿈치, 손목 또는 손을 사용하여 같은 동작을 반복하는 작업</li>
                   <li>• 하루에 총 2시간 이상 머리 위에 손이 있거나, 팔꿈치가 어깨 위에 있거나, 팔꿈치를 몸통으로부터 들거나, 팔꿈치를 몸통 뒤쪽에 위치하도록 하는 상태에서 이루어지는 작업</li>
@@ -48,9 +48,9 @@ const Musculoskeletal = () => {
 
               <h3 className="text-xl font-bold mt-8 mb-4">조사 시기</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-primary-50 dark:bg-primary-900/30 border-2 border-primary-200 dark:border-primary-800 rounded-xl p-6">
-                  <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-primary-300">정기조사</h4>
-                  <p className="text-neutral-600 dark:text-neutral-200">
+                <div className="bg-primary-50 dark:bg-neutral-800 border-2 border-primary-200 dark:border-neutral-700 rounded-xl p-6">
+                  <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-neutral-100">정기조사</h4>
+                  <p className="text-neutral-600 dark:text-neutral-300">
                     근골격계부담작업이 있는 사업장은 <strong>3년마다 1회 이상</strong> 정기적으로 유해요인조사를 실시해야 합니다.
                   </p>
                 </div>

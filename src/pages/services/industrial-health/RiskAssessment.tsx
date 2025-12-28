@@ -64,21 +64,21 @@ const RiskAssessment = () => {
                 평가 방법
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-xl border border-primary-100 dark:border-primary-800">
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">빈도-강도법</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-200">발생 가능성과 중대성의 곱으로 위험성 추정</p>
+                <div className="p-4 bg-primary-50 dark:bg-neutral-800 rounded-xl border border-primary-100 dark:border-neutral-700">
+                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">빈도-강도법</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">발생 가능성과 중대성의 곱으로 위험성 추정</p>
                 </div>
-                <div className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-xl border border-primary-100 dark:border-primary-800">
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">체크리스트법</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-200">표준화된 체크리스트를 활용한 평가</p>
+                <div className="p-4 bg-primary-50 dark:bg-neutral-800 rounded-xl border border-primary-100 dark:border-neutral-700">
+                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">체크리스트법</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">표준화된 체크리스트를 활용한 평가</p>
                 </div>
-                <div className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-xl border border-primary-100 dark:border-primary-800">
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">위험성 매트릭스법</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-200">매트릭스를 이용한 시각적 평가</p>
+                <div className="p-4 bg-primary-50 dark:bg-neutral-800 rounded-xl border border-primary-100 dark:border-neutral-700">
+                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">위험성 매트릭스법</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">매트릭스를 이용한 시각적 평가</p>
                 </div>
-                <div className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-xl border border-primary-100 dark:border-primary-800">
-                  <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">KRAS법</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-200">한국형 위험성 평가 기법</p>
+                <div className="p-4 bg-primary-50 dark:bg-neutral-800 rounded-xl border border-primary-100 dark:border-neutral-700">
+                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">KRAS법</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">한국형 위험성 평가 기법</p>
                 </div>
               </div>
             </div>

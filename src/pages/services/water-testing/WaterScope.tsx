@@ -22,8 +22,8 @@ const WaterScope = () => {
               <h2 className="text-2xl font-bold mb-6">검사 대상 시설</h2>
               
               <div className="space-y-6 mb-8">
-                <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl">
-                  <h3 className="text-xl font-bold mb-4">1. 소규모 급수시설</h3>
+                <div className="bg-primary-50 dark:bg-neutral-800 p-6 rounded-xl">
+                  <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">1. 소규모 급수시설</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <h4 className="font-semibold mb-2">대상 시설</h4>
@@ -85,8 +85,8 @@ const WaterScope = () => {
                   </div>
                 </div>
 
-                <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl">
-                  <h3 className="text-xl font-bold mb-4">4. 다중이용시설</h3>
+                <div className="bg-primary-50 dark:bg-neutral-800 p-6 rounded-xl">
+                  <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">2. 공동주택 공동시설</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <h4 className="font-semibold mb-2">대상 시설</h4>
@@ -157,8 +157,8 @@ const WaterScope = () => {
                 </table>
               </div>
 
-              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6">
-                <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
+              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 p-6">
+                <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-neutral-100">
                   💡 맞춤형 검사 항목 선택
                 </h3>
                 <p className="text-neutral-700 dark:text-neutral-300">

@@ -32,9 +32,9 @@ const WaterProcess = () => {
                       <p className="text-neutral-600 dark:text-neutral-400 mb-3">
                         전화, 팩스, 이메일 또는 온라인을 통해 검사를 신청합니다.
                       </p>
-                      <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
-                        <h4 className="font-semibold text-sm mb-2">필요 정보</h4>
-                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg">
+                        <h4 className="font-semibold text-sm text-neutral-900 dark:text-neutral-100 mb-2">필요 정보</h4>
+                        <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-300">
                           <li>• 시설명 및 소재지</li>
                           <li>• 시설 유형 (급수시설, 샘물, 공동시설 등)</li>
                           <li>• 희망 검사 항목 (간이/일반/전항목)</li>
@@ -56,9 +56,9 @@ const WaterProcess = () => {
                         시료 채취를 위한 현장 방문 일정을 조율합니다.
                       </p>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
-                          <h4 className="font-semibold text-sm mb-2">방문 전 준비사항</h4>
-                          <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+                        <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg">
+                          <h4 className="font-semibold text-sm text-neutral-900 dark:text-neutral-100 mb-2">방문 전 준비사항</h4>
+                          <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-300">
                             <li>• 수도꼭지 사전 세척</li>
                             <li>• 저수조 청소일자 확인</li>
                             <li>• 채수 위치 파악</li>
@@ -86,9 +86,9 @@ const WaterProcess = () => {
                       <p className="text-neutral-600 dark:text-neutral-400 mb-3">
                         전문 채수요원이 현장을 방문하여 시료를 채취합니다.
                       </p>
-                      <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
-                        <h4 className="font-semibold text-sm mb-2">채취 절차</h4>
-                        <ol className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400 list-decimal list-inside">
+                      <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg">
+                        <h4 className="font-semibold text-sm text-neutral-900 dark:text-neutral-100 mb-2">채취 절차</h4>
+                        <ol className="space-y-1 text-sm text-neutral-600 dark:text-neutral-300 list-decimal list-inside">
                           <li>채수 지점 확인 및 기록</li>
                           <li>수도꼭지 소독 후 3~5분간 방류</li>
                           <li>멸균 용기에 시료 채취</li>
@@ -149,23 +149,23 @@ const WaterProcess = () => {
                         시험성적서를 발급하고 결과를 안내해 드립니다.
                       </p>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="bg-primary-50 dark:bg-primary-900/30 p-4 rounded-lg text-center border border-primary-100 dark:border-primary-800">
+                        <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg text-center border border-primary-100 dark:border-neutral-700">
                           <div className="text-2xl mb-2">📧</div>
-                          <h4 className="font-semibold text-sm mb-1 text-neutral-900 dark:text-white">이메일</h4>
+                          <h4 className="font-semibold text-sm mb-1 text-neutral-900 dark:text-neutral-100">이메일</h4>
                           <p className="text-xs text-neutral-600 dark:text-neutral-300">
                             PDF 파일 전송
                           </p>
                         </div>
-                        <div className="bg-primary-50 dark:bg-primary-900/30 p-4 rounded-lg text-center border border-primary-100 dark:border-primary-800">
+                        <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg text-center border border-primary-100 dark:border-neutral-700">
                           <div className="text-2xl mb-2">📠</div>
-                          <h4 className="font-semibold text-sm mb-1 text-neutral-900 dark:text-white">팩스</h4>
+                          <h4 className="font-semibold text-sm mb-1 text-neutral-900 dark:text-neutral-100">팩스</h4>
                           <p className="text-xs text-neutral-600 dark:text-neutral-300">
                             즉시 전송
                           </p>
                         </div>
-                        <div className="bg-primary-50 dark:bg-primary-900/30 p-4 rounded-lg text-center border border-primary-100 dark:border-primary-800">
+                        <div className="bg-primary-50 dark:bg-neutral-800 p-4 rounded-lg text-center border border-primary-100 dark:border-neutral-700">
                           <div className="text-2xl mb-2">📮</div>
-                          <h4 className="font-semibold text-sm mb-1 text-neutral-900 dark:text-white">우편</h4>
+                          <h4 className="font-semibold text-sm mb-1 text-neutral-900 dark:text-neutral-100">우편</h4>
                           <p className="text-xs text-neutral-600 dark:text-neutral-300">
                             원본 발송
                           </p>
@@ -198,8 +198,8 @@ const WaterProcess = () => {
                 </div>
               </div>
 
-              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6 mt-8">
-                <h3 className="font-bold text-lg mb-3 text-primary-900 dark:text-primary-300">
+              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 p-6 mt-8">
+                <h3 className="font-bold text-lg mb-3 text-primary-900 dark:text-neutral-100">
                   📞 검사 신청 및 문의
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

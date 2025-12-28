@@ -176,30 +176,30 @@ const WaterTesting = () => {
                   </div>
                 </div>
 
-                <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-6 mb-8">
-                  <h3 className="font-bold text-lg mb-2 text-blue-900 dark:text-blue-300">✅ 지정검사기관 자격 보유</h3>
-                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">환경부로부터 먹는물 수질검사기관으로 지정받아 공신력 있는 검사 성적서를 발급합니다。</p>
-                  <ul className="space-y-1 text-neutral-700 dark:text-neutral-300 text-sm">
+                <div className="bg-blue-50 dark:bg-neutral-800 border-l-4 border-blue-500 p-6 mb-8">
+                  <h3 className="font-bold text-lg mb-2 text-blue-900 dark:text-neutral-100">✅ 지정검사기관 자격 보유</h3>
+                  <p className="text-neutral-700 dark:text-neutral-200 mb-2">환경부로부터 먹는물 수질검사기관으로 지정받아 공신력 있는 검사 성적서를 발급합니다。</p>
+                  <ul className="space-y-1 text-neutral-700 dark:text-neutral-200 text-sm">
                     <li>• 국제공인시험기관(KOLAS) 인증</li>
                     <li>• 최신 분석 장비 (ICP/MS, GC/MS, IC 등) 보유</li>
                     <li>• 숙련된 분석 전문인력</li>
                   </ul>
                 </div>
 
-                <div className="bg-primary-50 dark:bg-primary-900/20 rounded-xl p-6">
-                  <h3 className="text-xl font-bold mb-4">📞 검사 문의 및 신청</h3>
+                <div className="bg-primary-50 dark:bg-neutral-800 rounded-xl p-6">
+                  <h3 className="text-xl font-bold mb-4 text-neutral-900 dark:text-neutral-100">📞 검사 문의 및 신청</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">전화 문의</p>
-                      <p className="font-bold text-lg">043.237.7824~5</p>
+                      <p className="font-bold text-lg text-neutral-900 dark:text-neutral-200">043.237.7824~5</p>
                     </div>
                     <div>
                       <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">팩스</p>
-                      <p className="font-bold text-lg">043.237.7626</p>
+                      <p className="font-bold text-lg text-neutral-900 dark:text-neutral-200">043.237.7626</p>
                     </div>
                     <div>
                       <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">이메일</p>
-                      <p className="font-bold text-lg">water@kesri.co.kr</p>
+                      <p className="font-bold text-lg text-neutral-900 dark:text-neutral-200">water@kesri.co.kr</p>
                     </div>
                   </div>
                 </div>

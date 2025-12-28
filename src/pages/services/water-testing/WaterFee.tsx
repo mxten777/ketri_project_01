@@ -163,8 +163,8 @@ const WaterFee = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-xl">
-                  <h3 className="font-bold text-lg mb-3 text-primary-900 dark:text-primary-300">
+                <div className="bg-primary-50 dark:bg-neutral-800 p-6 rounded-xl">
+                  <h3 className="font-bold text-lg mb-3 text-primary-900 dark:text-neutral-100">
                     💰 할인 혜택
                   </h3>
                   <ul className="space-y-2 text-neutral-700 dark:text-neutral-300 text-sm">
@@ -184,8 +184,8 @@ const WaterFee = () => {
                 </div>
               </div>
 
-              <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6">
-                <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
+              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 p-6">
+                <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-neutral-100">
                   📞 견적 문의
                 </h3>
                 <p className="text-neutral-700 dark:text-neutral-300 mb-3">
