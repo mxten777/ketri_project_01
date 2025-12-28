@@ -185,7 +185,7 @@ const Home = () => {
                 >
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto min-w-[280px] bg-white/20 border border-white/30 text-white hover:bg-white/30 backdrop-blur-sm transition-all duration-300"
+                    className="w-full sm:w-auto min-w-[280px] bg-white/60 border border-white/90 text-white hover:bg-white/70 backdrop-blur-sm transition-all duration-300 shadow-2xl"
                   >
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
@@ -204,7 +204,7 @@ const Home = () => {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="w-full sm:w-auto min-w-[280px] border-2 border-white/30 text-white hover:bg-white hover:text-primary-700 backdrop-blur-sm transition-all duration-300"
+                      className="w-full sm:w-auto min-w-[280px] border-2 border-white/80 text-white hover:bg-white/40 hover:text-white backdrop-blur-sm transition-all duration-300"
                     >
                       회사 소개 보기
                       <ArrowRight className="w-5 h-5 ml-2" />

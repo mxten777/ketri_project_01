@@ -16,6 +16,8 @@ export interface MenuItem {
 
 export interface MenuGroup {
   label: string;
+  /** stable identifier for programmatic checks (e.g. 'about') */
+  key?: string;
   items: MenuItem[];
   mainPath?: string;
   /** Optional one-line description for the group (left column in mega menu) */
@@ -36,7 +38,8 @@ export interface ServiceItem {
 export const MENU_ITEMS: MenuGroup[] = [
   {
     label: "연구소 소개",
-    mainPath: "/about/greeting",
+    key: "about",
+    mainPath: "/about",
     layout: "grid",
     description: "연구소의 미션·연혁·조직 및 주요 장비 안내",
     items: [

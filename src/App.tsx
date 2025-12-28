@@ -8,6 +8,7 @@ import History from "./pages/about/History";
 import Organization from "./pages/about/Organization";
 import CI from "./pages/about/CI";
 import Location from "./pages/about/Location";
+import AboutIndex from "./pages/about/AboutIndex";
 import Equipment from "./pages/about/Equipment";
 import Certificates from "./pages/about/Certificates";
 
@@ -37,6 +38,7 @@ export default function App() {
 
         {/* 연구소 소개 */}
         <Route path="/about/greeting" element={<Greeting />} />
+        <Route path="/about" element={<AboutIndex />} />
         <Route path="/about/history" element={<History />} />
         <Route path="/about/organization" element={<Organization />} />
         <Route path="/about/ci" element={<CI />} />

@@ -6,7 +6,8 @@ import { isAllowed } from "../../constants/menuFilter";
 import { HeaderContext } from "./HeaderContext";
 
 const ABOUT_LABEL = "연구소 소개";
-const ABOUT_ALL_VIEW = "/about/greeting";
+const ABOUT_KEY = "about";
+const ABOUT_ALL_VIEW = "/about";
 
 interface Props {
 	menus: MenuGroup[];
@@ -105,7 +106,8 @@ export default function HeaderMegaMenu({
 
 	function computeDisplay(menuGroup: MenuGroup) {
 		const filtered = menuGroup.items.filter((it) => isAllowed(it.path));
-		const isTruncated = filtered.length > 4;
+		// For the special 'about' group we want to show all items (no slicing to 4)
+		const isTruncated = filtered.length > 4 && menuGroup.key !== ABOUT_KEY;
 		const display = isTruncated ? filtered.slice(0, 4) : filtered;
 		return { filtered, isTruncated, display } as const;
 	}
@@ -149,7 +151,7 @@ export default function HeaderMegaMenu({
 												<div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{activeMenu.label}</div>
 												{activeMenu.description && <div className="text-xs text-neutral-500 mt-1">{activeMenu.description}</div>}
 											</div>
-											{isTruncated && activeMenu.mainPath && isAllowed(activeMenu.mainPath) && (
+											{isTruncated && activeMenu.mainPath && isAllowed(activeMenu.mainPath) && activeMenu.key !== ABOUT_KEY && (
 												<div>
 													<Link
 														to={activeMenu.mainPath}
@@ -203,7 +205,7 @@ export default function HeaderMegaMenu({
 							// Special-case: ABOUT_LABEL -> merge left/right items and render all of them in the right column
 							let display = [] as typeof menu.items;
 							let isTruncated = false;
-							if (menu.label === ABOUT_LABEL) {
+							if (menu.key === ABOUT_KEY) {
 								const mergedItems = [...(menu.left?.items ?? []), ...(menu.right?.items ?? [])];
 								display = mergedItems.filter((it) => isAllowed(it.path));
 								isTruncated = false;
@@ -244,7 +246,21 @@ export default function HeaderMegaMenu({
 															(selected === m.label ? "bg-primary-50 text-primary-800" : "text-neutral-800 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/5")
 														}
 													>
-														<div className="text-sm font-medium">{m.label}</div>
+														{m.key === ABOUT_KEY ? (
+															<Link
+																to={ABOUT_ALL_VIEW}
+																className="text-sm font-medium"
+																aria-label="연구소 소개 목록 보기"
+																onClick={() => {
+																	if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
+																	else setTimeout(() => closeMega(), 0);
+																}}
+															>
+																{m.label}
+															</Link>
+														) : (
+															<div className="text-sm font-medium">{m.label}</div>
+														)}
 														{m.description && <div className="text-xs text-neutral-500 mt-1">{m.description}</div>}
 													</li>
 												))}
@@ -285,31 +301,19 @@ export default function HeaderMegaMenu({
 											})}
 										</div>
 
-										{(menu.label === ABOUT_LABEL) ? (
+										{isTruncated && menu.mainPath && isAllowed(menu.mainPath) && (
 											<div className="mt-3">
-												<a
-													href={ABOUT_ALL_VIEW}
+												<Link
+													to={menu.mainPath}
 													className="text-sm font-medium text-primary-800 hover:underline"
-													onClick={(e) => handleNav(e, ABOUT_ALL_VIEW)}
+													onClick={() => {
+														if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
+														else setTimeout(() => closeMega(), 0);
+													}}
 												>
-													전체보기 →
-												</a>
+													{menu.label} 전체보기 →
+												</Link>
 											</div>
-										) : (
-											isTruncated && menu.mainPath && isAllowed(menu.mainPath) && (
-												<div className="mt-3">
-													<Link
-														to={menu.mainPath}
-														className="text-sm font-medium text-primary-800 hover:underline"
-														onClick={() => {
-															if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
-															else setTimeout(() => closeMega(), 0);
-														}}
-													>
-														{menu.label} 전체보기 →
-													</Link>
-												</div>
-											)
 										)}
 									</div>
 								</div>
