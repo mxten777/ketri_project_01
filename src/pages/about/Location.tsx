@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import {
   MapPin,
   Clock,
@@ -91,7 +93,9 @@ const Location = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-16"
+            id="map"
+            data-section="location-map"
+            className="mb-16 scroll-mt-[var(--app-header-h)]"
           >
             <div className="text-center mb-8">
               <h2 className="text-heading-xl mb-3 text-neutral-900 dark:text-white">
@@ -160,6 +164,11 @@ const Location = () => {
               </div>
             </div>
           </motion.div>
+
+          {/* Scroll-to-hash correction: if navigated with #map ensure we arrive at the map start. */}
+          {/* Uses requestAnimationFrame for a single, non-blocking correction without magic timeouts. */}
+          {/** keep this effect client-only and run once per mount when hash present */}
+          <ScrollHashHandler />
 
           {/* Contact Cards - 3단 그리드 */}
           <motion.div
@@ -467,3 +476,26 @@ const Location = () => {
 };
 
 export default Location;
+
+function ScrollHashHandler() {
+  const location = useLocation();
+  const didRunRef = useRef(false);
+
+  useEffect(() => {
+    if (didRunRef.current) return;
+    if (!location.hash) return;
+    if (location.pathname !== "/about/location") return;
+
+    const id = location.hash.replace("#", "");
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    didRunRef.current = true;
+    // Use requestAnimationFrame to avoid arbitrary timeouts and ensure DOM painted
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [location.pathname, location.hash]);
+
+  return null;
+}

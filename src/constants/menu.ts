@@ -49,7 +49,7 @@ export const MENU_ITEMS: MenuGroup[] = [
       { label: "주요장비", path: "/about/equipment", description: "보유 주요 장비 안내" },
       { label: "CI 소개", path: "/about/ci", description: "브랜드 가이드와 CI 안내" },
       { label: "인증서", path: "/about/certificates", description: "보유 인증서 및 신뢰성" },
-      { label: "오시는길", path: "/about/location", description: "찾아오시는 방법 및 교통안내" },
+      { label: "오시는길", path: "/about/location#map", description: "찾아오시는 방법 및 교통안내" },
     ],
   },
   {
