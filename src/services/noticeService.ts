@@ -26,12 +26,16 @@ export const getNotices = async (
   try {
     logDev("Fetching notices from Firestore...");
 
+    const startMs = Date.now();
+
     // 인덱스 없이 작동: createdAt만으로 정렬 후 메모리에서 isPinned 처리
     const q = query(
       collection(db, COLLECTION_NAME),
       orderBy("createdAt", "desc"),
       limit(limitCount * 2) // 고정글 필터링을 위해 더 많이 가져옴
     );
+
+    // queryShape intentionally not stored to avoid unused-var; logging below uses explicit shape
 
     // Guard: avoid hanging indefinitely if Firestore doesn't respond
     const timeoutMs = 8000;
@@ -40,7 +44,8 @@ export const getNotices = async (
     );
 
     const querySnapshot = await Promise.race([getDocs(q), timeoutPromise]);
-    logDev(`Found ${querySnapshot.docs.length} notices`);
+    const elapsedMs = Date.now() - startMs;
+    logDev(`Found ${querySnapshot.docs.length} notices (elapsed ${elapsedMs}ms)`);
 
     // 메모리에서 정렬: isPinned 우선, 그 다음 createdAt
     const notices = querySnapshot.docs
@@ -71,21 +76,75 @@ export const getNotices = async (
           return a.isPinned ? -1 : 1;
         }
         // 같으면 createdAt으로 비교 (Timestamp와 Date 모두 지원)
-        /* eslint-disable @typescript-eslint/no-explicit-any */
-        const aCreated: any = a.createdAt;
-        const bCreated: any = b.createdAt;
+        const aCreated = a.createdAt as unknown as { seconds?: number; getTime?: () => number };
+        const bCreated = b.createdAt as unknown as { seconds?: number; getTime?: () => number };
         const aTime = aCreated?.seconds ? aCreated.seconds * 1000 : aCreated?.getTime?.() || 0;
         const bTime = bCreated?.seconds ? bCreated.seconds * 1000 : bCreated?.getTime?.() || 0;
-        /* eslint-enable @typescript-eslint/no-explicit-any */
         return bTime - aTime;
       })
       .slice(0, limitCount); // 원하는 개수만 반환
 
+    // 캐시 저장 (직렬화: Date -> ISO)
+    try {
+      const serializable = notices.map((n) => ({
+        ...n,
+        createdAt: n.createdAt instanceof Date ? n.createdAt.toISOString() : n.createdAt,
+        updatedAt: n.updatedAt instanceof Date ? n.updatedAt.toISOString() : n.updatedAt,
+      } as unknown as Notice));
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem(
+          "notices_cache",
+          JSON.stringify({ ts: Date.now(), data: serializable })
+        );
+      }
+    } catch (cacheErr) {
+      logDev("Failed to write notices cache:", cacheErr);
+    }
+
     return notices;
   } catch (error: unknown) {
-    logError("Error fetching notices:", error);
-
+    // Structured diagnostic log (safe for production)
     const e = error as { code?: string; message?: string } | undefined;
+    const elapsedMs = undefined as number | undefined;
+
+    try {
+      console.error({
+        operation: "notice-fetch",
+        code: e?.code,
+        message: e?.message || String(error),
+        query: {
+          collection: COLLECTION_NAME,
+          orderBy: ["createdAt desc"],
+          limit: limitCount * 2,
+        },
+        isOnline: typeof navigator !== "undefined" ? navigator.onLine : null,
+        elapsedMs: elapsedMs > 0 ? elapsedMs : undefined,
+      });
+    } catch (logErr) {
+      // swallow logging errors
+      logError("Failed to emit structured notice-fetch log:", logErr);
+    }
+
+    // 캐시 폴백: 마지막 성공 데이터를 5분 TTL로 사용
+    try {
+      const raw = typeof localStorage !== "undefined" ? localStorage.getItem("notices_cache") : null;
+      if (raw) {
+        const parsed = JSON.parse(raw) as { ts: number; data: Notice[] };
+        if (parsed && Date.now() - parsed.ts < 5 * 60 * 1000) {
+          logDev("Serving notices from cache (within TTL)");
+          // deserialize createdAt (if stored as ISO)
+          const deserialized = parsed.data.map((n) => ({
+            ...n,
+            createdAt: typeof n.createdAt === "string" ? new Date(n.createdAt) : n.createdAt,
+            updatedAt: typeof n.updatedAt === "string" ? new Date(n.updatedAt) : n.updatedAt,
+          }));
+          return deserialized;
+        }
+      }
+    } catch (cacheErr) {
+      logDev("Cache read failed:", cacheErr);
+    }
+
     // Firebase 에러 메시지를 더 명확하게
     if (e?.code === "permission-denied") {
       throw new Error(
@@ -200,8 +259,11 @@ export const getPinnedNotices = async (): Promise<Notice[]> => {
       where("isPinned", "==", true),
       orderBy("createdAt", "desc")
     );
-
+    const startMs = Date.now();
     const querySnapshot = await getDocs(q);
+    const elapsedMs = Date.now() - startMs;
+    logDev(`Found ${querySnapshot.docs.length} pinned notices (elapsed ${elapsedMs}ms)`);
+
     return querySnapshot.docs.map((doc) => {
       const data = doc.data();
       return {
@@ -224,6 +286,19 @@ export const getPinnedNotices = async (): Promise<Notice[]> => {
       } as Notice;
     });
   } catch (error) {
+    const e = error as { code?: string; message?: string } | undefined;
+    try {
+      console.error({
+        operation: "pinned-notices-fetch",
+        code: e?.code,
+        message: e?.message || String(error),
+        query: { collection: COLLECTION_NAME, where: ["isPinned==true"], orderBy: ["createdAt desc"] },
+        isOnline: typeof navigator !== "undefined" ? navigator.onLine : null,
+      });
+    } catch (logErr) {
+      logError("Failed to emit structured pinned-notices log:", logErr);
+    }
+
     logError("Error fetching pinned notices:", error);
     throw error;
   }

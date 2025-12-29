@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Pin, Eye, Calendar, User } from "lucide-react";
@@ -10,11 +10,10 @@ const NoticeList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchNotices();
-  }, []);
+  const fetchNotices = useCallback(async () => {
+    // Prevent duplicate concurrent requests
+    if (loading) return;
 
-  const fetchNotices = async () => {
     try {
       setLoading(true);
       setError(null);
@@ -26,7 +25,11 @@ const NoticeList = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [loading]);
+
+  useEffect(() => {
+    fetchNotices();
+  }, [fetchNotices]);
 
   const formatDate = (timestamp: unknown) => {
     try {
@@ -71,7 +74,10 @@ const NoticeList = () => {
           <p className="text-red-800 mb-4">⚠️ {error}</p>
           <button
             onClick={fetchNotices}
-            className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700"
+            disabled={loading}
+            className={`px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 ${
+              loading ? "opacity-60 cursor-not-allowed" : ""
+            }`}
           >
             다시 시도
           </button>
