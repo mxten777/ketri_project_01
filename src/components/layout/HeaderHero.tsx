@@ -29,7 +29,7 @@ export default function HeaderHero({
     <div className="relative z-0 flex items-center justify-between" style={{ height: "var(--app-header-h, 84px)" }}>
       <Link
         to="/"
-        className="flex items-center py-2 hover:opacity-90 transition-opacity"
+        className="flex items-center py-2 transition-transform hover:scale-[1.02]"
         onClick={() => {
           // Ensure clicking the logo always jumps to top (immediate)
           if (typeof window !== "undefined") window.scrollTo(0, 0);
@@ -60,9 +60,9 @@ export default function HeaderHero({
                 <Link
                   to={menu.mainPath}
                   className={[
-                    "relative px-4 py-2 rounded-xl text-[15px] font-medium whitespace-nowrap flex items-center gap-1",
+                    "relative px-4 py-2 rounded-xl text-[15px] font-semibold whitespace-nowrap flex items-center gap-1",
                     "transition-all duration-200",
-                    "text-neutral-700 dark:text-white hover:text-primary-800 dark:hover:text-primary-200",
+                    "text-neutral-800 dark:text-white hover:text-primary-800 dark:hover:text-primary-200",
                     "hover:bg-neutral-50 dark:hover:bg-white/5",
                     active
                       ? "text-primary-800 dark:text-primary-200 bg-primary-50/60 dark:bg-primary-900/10"
@@ -84,9 +84,9 @@ export default function HeaderHero({
                 <button
                   type="button"
                   className={[
-                    "relative px-4 py-2 rounded-xl text-[15px] font-medium whitespace-nowrap flex items-center gap-1",
+                    "relative px-4 py-2 rounded-xl text-[15px] font-semibold whitespace-nowrap flex items-center gap-1",
                     "transition-all duration-200",
-                    "text-neutral-700 dark:text-white hover:text-primary-800 dark:hover:text-primary-200",
+                    "text-neutral-800 dark:text-white hover:text-primary-800 dark:hover:text-primary-200",
                     "hover:bg-neutral-50 dark:hover:bg-white/5",
                     active
                       ? "text-primary-800 dark:text-primary-200 bg-primary-50/60 dark:bg-primary-900/10"
@@ -120,7 +120,7 @@ export default function HeaderHero({
 
         <button
           onClick={toggleDarkMode}
-          className="p-2.5 rounded-xl text-neutral-700 dark:text-neutral-200 hover:text-primary-800 dark:hover:text-primary-200 hover:bg-neutral-50 dark:hover:bg-white/5 transition-all"
+          className="relative z-10 pointer-events-auto p-2.5 rounded-xl text-neutral-800 dark:text-neutral-200 hover:text-primary-900 dark:hover:text-primary-200 hover:bg-neutral-100 dark:hover:bg-white/5 transition-all"
           aria-label="다크모드 토글"
           type="button"
         >

@@ -80,22 +80,22 @@ const NoticeAdmin = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 overflow-hidden"
+      className="bg-white/[0.18] backdrop-blur-md rounded-3xl shadow-2xl border border-white/25 overflow-hidden"
     >
       {/* Header */}
-      <div className="p-6 border-b border-white/10 bg-gradient-to-r from-blue-500/10 to-purple-500/10">
+      <div className="p-6 border-b border-white/20 bg-gradient-to-r from-blue-500/10 to-purple-500/10">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white mb-2">
               📢 회사소식 관리
             </h2>
-            <p className="text-gray-300">
+            <p className="text-white/85">
               총 {notices.length}개의 소식이 등록되어 있습니다
             </p>
           </div>
           <Button
             onClick={() => navigate("/admin/notice/create")}
-            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all"
           >
             <Plus className="w-5 h-5 mr-2" />
             새 소식 작성
@@ -118,12 +118,12 @@ const NoticeAdmin = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
                     whileHover={{ y: -8, scale: 1.02 }}
-                    className="bg-slate-700/50 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden hover:border-primary-400/50 transition-all duration-300 shadow-lg hover:shadow-2xl"
+                    className="bg-slate-700/60 backdrop-blur-sm rounded-xl border border-white/20 overflow-hidden hover:border-primary-400/60 transition-all duration-300 shadow-lg hover:shadow-2xl"
                   >
                     <div className="p-6 flex flex-col h-full">
                       {/* 상단 배지 */}
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="px-3 py-1 text-xs rounded-full bg-blue-500/20 text-blue-300 font-medium">
+                        <span className="px-3 py-1 text-xs rounded-full bg-blue-500/30 text-blue-200 font-semibold">
                           {notice.category}
                         </span>
                         {notice.isPinned && (
@@ -133,19 +133,19 @@ const NoticeAdmin = () => {
 
                       {/* 제목 */}
                       <h3
-                        className="text-lg font-bold text-white mb-3 line-clamp-2 hover:text-blue-400 cursor-pointer transition-colors flex-grow"
+                        className="text-lg font-semibold text-white mb-3 line-clamp-2 hover:text-blue-300 cursor-pointer transition-colors flex-grow"
                         onClick={() => navigate(`/board/notice/${notice.id}`)}
                       >
                         {notice.title}
                       </h3>
 
                       {/* 내용 미리보기 */}
-                      <p className="text-sm text-gray-400 mb-4 line-clamp-3">
+                      <p className="text-sm text-white/70 mb-4 line-clamp-3">
                         {notice.content ? notice.content.replace(/<[^>]*>/g, '').substring(0, 100) : ''}
                       </p>
 
                       {/* 통계 및 날짜 */}
-                      <div className="flex items-center justify-between text-xs text-gray-400 mb-4 pb-4 border-b border-white/10">
+                      <div className="flex items-center justify-between text-xs text-white/65 mb-4 pb-4 border-b border-white/15">
                         <span className="flex items-center gap-1">
                           <Eye className="w-4 h-4" />
                           {notice.views || 0}
@@ -157,14 +157,14 @@ const NoticeAdmin = () => {
                       <div className="flex items-center gap-2 mt-auto">
                         <button
                           onClick={() => navigate(`/admin/notice/edit/${notice.id}`)}
-                          className="flex-1 p-2 text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 rounded-lg transition-colors flex items-center justify-center gap-1"
+                          className="flex-1 py-2.5 px-3 text-blue-200 hover:text-white font-medium hover:bg-blue-500/20 rounded-lg transition-colors flex items-center justify-center gap-1.5 border border-blue-400/30 hover:border-blue-400/60"
                         >
                           <Edit className="w-4 h-4" />
                           수정
                         </button>
                         <button
                           onClick={() => handleDelete(notice.id!)}
-                          className="flex-1 p-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors flex items-center justify-center gap-1"
+                          className="flex-1 py-2.5 px-3 text-red-200 hover:text-white font-medium hover:bg-red-500/20 rounded-lg transition-colors flex items-center justify-center gap-1.5 border border-red-400/30 hover:border-red-400/60"
                         >
                           <Trash2 className="w-4 h-4" />
                           삭제

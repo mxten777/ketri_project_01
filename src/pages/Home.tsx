@@ -133,18 +133,18 @@ const Home = () => {
         />
 
         {/* 메인 컨텐츠 + Stats: 모바일은 세로 스택, md 이상은 좌(A)/우(B) 가로 분할 */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-8 md:pt-10 pb-12 md:pb-16">
-          <div className="flex flex-col items-center gap-8 md:gap-12">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12 md:pt-16 lg:pt-20 pb-16 md:pb-20 lg:pb-24">
+          <div className="flex flex-col items-center gap-10 md:gap-14 lg:gap-16">
             {/* A: Hero top (왼쪽 영역, md 이상에서 확장) */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center text-white max-w-5xl mx-auto md:mx-0 md:flex-1"
+              className="text-center text-white max-w-6xl mx-auto md:mx-0 md:flex-1"
             >
               {/* 메인 타이틀 - 글자별 애니메이션 */}
               <motion.span
-                className="text-base lg:text-[18px] tracking-wide font-medium"
+                className="inline-block text-base md:text-lg tracking-wide font-semibold text-white/95 mb-4 md:mb-5"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
@@ -153,13 +153,13 @@ const Home = () => {
               </motion.span>
 
               <motion.h1
-                className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-tight"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
                 <motion.span
-                  className="relative z-10 mt-4 md:mt-6 inline-block px-6 py-3 rounded-2xl text-white font-semibold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
+                  className="relative z-10 mt-4 md:mt-6 inline-block px-10 md:px-12 lg:px-14 py-3 md:py-4 rounded-2xl text-white font-extrabold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
                   initial={{ opacity: 0, y: 20, scale: 0.9 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ delay: 0.5, duration: 0.8, type: "spring", stiffness: 100 }}
@@ -170,18 +170,20 @@ const Home = () => {
               </motion.h1>
 
               <motion.p
-                className="hidden sm:block text-lg text-white/85 mb-12 max-w-2xl mx-auto leading-relaxed"
+                className="hidden sm:block text-lg md:text-xl text-white/90 mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed font-normal"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
               >
-                산업보건 · 먹는물 · 석면 · 실내공기질 분야의 KOLAS 공인 전문기관으로,
+                산업보건 · 먹는물 · 석면 · 실내공기질 분야의
+                <br className="hidden sm:block" />
+                KOLAS 공인 전문기관으로
                 <br className="hidden sm:block" />
                 최고 수준의 분석 서비스를 제공합니다.
               </motion.p>
 
               <motion.div
-                className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
+                className="flex flex-col sm:flex-row items-center justify-center gap-5 md:gap-6 mb-12 md:mb-16"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
@@ -194,7 +196,7 @@ const Home = () => {
                 >
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto min-w-[280px] bg-white/60 border border-white/90 text-white hover:bg-white/70 backdrop-blur-sm transition-all duration-300 shadow-2xl"
+                    className="w-full sm:w-auto min-w-[240px] md:min-w-[260px] h-14 md:h-16 text-base md:text-lg font-semibold bg-white/60 border border-white/90 text-white hover:bg-white/70 backdrop-blur-sm transition-all duration-300 shadow-2xl"
                   >
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
@@ -213,7 +215,7 @@ const Home = () => {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="w-full sm:w-auto min-w-[280px] border-2 border-white/80 text-white hover:bg-white/40 hover:text-white backdrop-blur-sm transition-all duration-300"
+                      className="w-full sm:w-auto min-w-[240px] md:min-w-[260px] h-14 md:h-16 text-base md:text-lg font-semibold border-2 border-white/80 text-white hover:bg-white/40 hover:text-white backdrop-blur-sm transition-all duration-300"
                     >
                       회사 소개 보기
                       <ArrowRight className="w-5 h-5 ml-2" />
@@ -224,10 +226,10 @@ const Home = () => {
             </motion.div>
 
             {/* B: Stats (오른쪽 영역) - 모바일 중앙 정렬, lg에서 4열 고정 */}
-            <div className="w-full mx-auto md:w-auto lg:max-w-[720px] mt-6 md:mt-0">
+            <div className="w-full mx-auto md:w-auto lg:max-w-[900px] mt-8 md:mt-0">
               <div className="overflow-x-auto md:overflow-visible">
                 <motion.div
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 justify-items-center mx-auto gap-6 w-full"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-items-center mx-auto gap-5 md:gap-6 w-full"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.0, duration: 0.6 }}
@@ -238,19 +240,19 @@ const Home = () => {
                     return (
                       <motion.div
                         key={index}
-                        className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300 group"
+                        className="bg-white/10 backdrop-blur-md rounded-2xl p-7 md:p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 group w-full"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.0 + index * 0.1 }}
                         whileHover={{ y: -5, transition: { duration: 0.2 } }}
                       >
-                        <div className="flex items-center justify-center mb-3">
-                          <IconComponent className="w-8 h-8 text-white/80 group-hover:text-white transition-colors duration-300" />
+                        <div className="flex items-center justify-center mb-4">
+                          <IconComponent className="w-10 h-10 md:w-12 md:h-12 text-white/80 group-hover:text-white transition-colors duration-300" />
                         </div>
-                        <div className="text-3xl font-bold text-white mb-1">
+                        <div className="text-4xl md:text-5xl font-bold text-white mb-2">
                           {stat.value.includes("+") ? `${count}+` : stat.value.includes("년") ? `${count}년` : count}
                         </div>
-                        <div className="text-sm text-white/80">{stat.label}</div>
+                        <div className="text-base md:text-lg text-white/85 font-medium">{stat.label}</div>
                       </motion.div>
                     );
                   })}

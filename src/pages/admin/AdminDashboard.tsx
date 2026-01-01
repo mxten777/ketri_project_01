@@ -67,7 +67,7 @@ const AdminDashboard: React.FC = () => {
       {/* 헤더 */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">관리자 대시보드</h1>
-        <p className="text-gray-300">공지사항을 관리합니다.</p>
+        <p className="text-white/85">공지사항을 관리합니다.</p>
       </div>
 
       {/* 통계 카드 */}
@@ -100,25 +100,25 @@ const AdminDashboard: React.FC = () => {
       </div>
 
       {/* 빠른 링크 */}
-      <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+      <div className="bg-white/[0.18] backdrop-blur-md rounded-2xl p-6 border border-white/25">
         <h2 className="text-xl font-bold text-white mb-4">공지사항 관리</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div
-            className="p-5 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-xl bg-opacity-20 transition-all border border-blue-400/30 flex flex-col items-center text-center gap-3"
+            className="p-5 bg-gradient-to-br from-blue-500/25 to-blue-600/25 rounded-xl transition-all border border-blue-400/40 flex flex-col items-center text-center gap-3 hover:border-blue-400/60 hover:from-blue-500/30 hover:to-blue-600/30 cursor-pointer"
           >
-            <Bell className="w-10 h-10 text-blue-300" />
+            <Bell className="w-10 h-10 text-blue-200" />
             <div>
-              <div className="text-white font-bold text-lg whitespace-nowrap">공지사항 목록</div>
-              <div className="text-gray-300 text-sm mt-1">전체 공지 확인</div>
+              <div className="text-white font-semibold text-lg whitespace-nowrap">공지사항 목록</div>
+              <div className="text-white/75 text-sm mt-1">전체 공지 확인</div>
             </div>
           </div>
           <a
-            className="p-5 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-xl bg-opacity-20 transition-all border border-green-400/30 flex flex-col items-center text-center gap-3"
+            className="p-5 bg-gradient-to-br from-green-500/25 to-green-600/25 rounded-xl transition-all border border-green-400/40 flex flex-col items-center text-center gap-3 hover:border-green-400/60 hover:from-green-500/30 hover:to-green-600/30 cursor-pointer"
           >
-            <Plus className="w-10 h-10 text-green-300" />
+            <Plus className="w-10 h-10 text-green-200" />
             <div>
-              <div className="text-white font-bold text-lg whitespace-nowrap">새 공지 작성</div>
-              <div className="text-gray-300 text-sm mt-1">공지 등록</div>
+              <div className="text-white font-semibold text-lg whitespace-nowrap">새 공지 작성</div>
+              <div className="text-white/75 text-sm mt-1">공지 등록</div>
             </div>
           </a>
         </div>

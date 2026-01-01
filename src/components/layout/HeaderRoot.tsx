@@ -17,12 +17,14 @@ export default function HeaderRoot() {
   });
 
   const toggleDarkMode = useCallback(() => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-    if (newMode) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-    localStorage.setItem("darkMode", newMode.toString());
-  }, [isDarkMode]);
+    setIsDarkMode((prev) => {
+      const newMode = !prev;
+      if (newMode) document.documentElement.classList.add("dark");
+      else document.documentElement.classList.remove("dark");
+      localStorage.setItem("darkMode", newMode.toString());
+      return newMode;
+    });
+  }, []);
 
   const ctx = useMemo(
     () => ({

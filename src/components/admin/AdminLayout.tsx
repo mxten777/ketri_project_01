@@ -38,36 +38,38 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden flex flex-col">
       {/* 관리자 헤더 */}
-      <header className="relative z-20 bg-slate-900/80 backdrop-blur-sm border-b border-slate-700/50">
+      <header className="relative z-20 bg-slate-900 border-b border-slate-600">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-6">
-            <Link to="/admin/notice" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">K</span>
-              </div>
-              <span className="text-white font-semibold text-lg">KESRI Admin</span>
+            <Link to="/admin/notice" className="flex items-center space-x-3">
+              <img 
+                src="/images/ketri_symbol.png" 
+                alt="KESRI Logo" 
+                className="h-6 w-auto pointer-events-none select-none"
+              />
+              <span className="text-white font-bold text-lg">KESRI Admin</span>
             </Link>
             <nav className="hidden md:flex items-center space-x-4">
-              <Link to="/admin/notice" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors">
+              <Link to="/admin/notice" className="text-white hover:text-blue-300 px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors font-semibold">
                 공지사항 관리
               </Link>
             </nav>
           </div>
           <div className="flex items-center space-x-4">
-            <Link to="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors flex items-center space-x-2">
+            <Link to="/" className="text-white hover:text-blue-300 px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors flex items-center space-x-2">
               <Home className="w-4 h-4" />
-              <span className="hidden sm:inline">홈페이지로</span>
+              <span className="hidden sm:inline font-semibold">홈페이지로</span>
             </Link>
-            <div className="flex items-center space-x-2 text-gray-300">
+            <div className="flex items-center space-x-2 text-white">
               <User className="w-4 h-4" />
-              <span className="text-sm">{userData?.displayName || "관리자"}</span>
+              <span className="text-sm font-semibold">{userData?.displayName || "관리자"}</span>
             </div>
             <button
               onClick={handleLogout}
-              className="text-gray-300 hover:text-red-400 px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors flex items-center space-x-2"
+              className="text-white hover:text-red-300 px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors flex items-center space-x-2"
             >
               <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">로그아웃</span>
+              <span className="hidden sm:inline font-semibold">로그아웃</span>
             </button>
           </div>
         </div>
@@ -112,6 +114,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
             'url(\'data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\')',
         }}
       ></div>
+
+      {/* 읽기 레이어 (가독성 개선) */}
+      <div className="fixed inset-0 bg-black/30 pointer-events-none z-5"></div>
 
       {/* 컨텐츠 */}
       <div className="relative z-10 max-w-7xl mx-auto p-6 space-y-8">
