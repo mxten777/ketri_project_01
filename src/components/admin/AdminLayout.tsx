@@ -38,7 +38,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden flex flex-col">
       {/* 관리자 헤더 */}
-      <header className="relative z-20 bg-slate-900 border-b border-slate-600">
+      <header className="relative z-20 bg-neutral-950 border-b border-neutral-700">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-6">
             <Link to="/admin/notice" className="flex items-center space-x-3">
@@ -50,15 +50,15 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
               <span className="text-white font-bold text-lg">KESRI Admin</span>
             </Link>
             <nav className="hidden md:flex items-center space-x-4">
-              <Link to="/admin/notice" className="text-white hover:text-blue-300 px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors font-semibold">
+              <Link to="/admin/notice" className="text-white px-3 py-2 rounded-lg hover:bg-white/10 transition-colors font-semibold">
                 공지사항 관리
               </Link>
             </nav>
           </div>
           <div className="flex items-center space-x-4">
-            <Link to="/" className="text-white hover:text-blue-300 px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors flex items-center space-x-2">
+            <Link to="/" className="text-white px-3 py-2 rounded-lg hover:bg-white/10 transition-colors flex items-center space-x-2 font-semibold">
               <Home className="w-4 h-4" />
-              <span className="hidden sm:inline font-semibold">홈페이지로</span>
+              <span className="hidden sm:inline">홈페이지로</span>
             </Link>
             <div className="flex items-center space-x-2 text-white">
               <User className="w-4 h-4" />
@@ -66,10 +66,10 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
             </div>
             <button
               onClick={handleLogout}
-              className="text-white hover:text-red-300 px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors flex items-center space-x-2"
+              className="text-white px-3 py-2 rounded-lg hover:bg-red-500/20 transition-colors flex items-center space-x-2 font-semibold"
             >
               <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline font-semibold">로그아웃</span>
+              <span className="hidden sm:inline">로그아웃</span>
             </button>
           </div>
         </div>
