@@ -22,6 +22,7 @@ import Asbestos from "./pages/services/Asbestos";
 // Board pages
 import NoticeList from "./pages/board/NoticeList";
 import NoticeDetail from "./pages/board/NoticeDetail";
+import AiOps from "./pages/ops/AiOps";
 
 // Admin pages (for admin notice management)
 import AdminLogin from "./pages/admin/AdminLogin";
@@ -60,6 +61,9 @@ export default function App() {
         {/* 없는 경로는 홈으로 */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
+
+      {/* Operations - AI helpers (standalone, no global header/footer) */}
+      <Route path="/ops/ai" element={<AiOps />} />
 
       {/* Admin routes (separate layout) */}
       <Route path="/admin/login" element={<AdminLogin />} />

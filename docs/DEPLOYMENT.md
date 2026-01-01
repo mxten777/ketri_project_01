@@ -439,7 +439,32 @@ Vercel이 자동으로 `https://ketri-website-git-feature-new-page.vercel.app` �
 
 ---
 
-## 📞 지원
+## �️ /ops/ai 상태 바 개선(최종)
+
+### 목적
+/ops/ai가 공식 서비스가 아닌 내부 운영자용 AI 보조 도구임을 화면만으로 즉시 인식시키기 위함
+
+### 구성(좌측 정렬)
+- **기관 로고 심볼**: `/images/ketri_symbol.png`, 높이 20px(h-5), pointer-events-none, select-none
+- **AI 이모지**: 🤖 단일, 클릭 불가
+- **메인 문구**: "내부 AI 보조 도구 (운영 전용 · 비공식)"
+- **보조 설명**: "본 도구는 내부 운영 참고용이며, AI 결과는 최종 판단이 아닙니다."
+
+### 스타일/규정 준수
+- 단색 배경(bg-yellow-50, dark 대응)
+- border-b로만 구분
+- opacity/blur/backdrop-filter/shadow 미사용
+- static position(fixed/sticky 미사용)
+- 배지 스타일 제거
+
+### 영향 범위
+- /ops/ai 내부 UI만 변경
+- 전역 CSS/토큰/기능 로직 변경 없음
+- 네트워크 전송/데이터 저장 없음(클립보드 복사만)
+
+---
+
+## �📞 지원
 
 문제 발생 시:
 
