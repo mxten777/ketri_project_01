@@ -38,38 +38,44 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden flex flex-col">
       {/* 관리자 헤더 */}
-      <header className="relative z-20 bg-neutral-950 border-b border-neutral-700">
+      <header className="relative z-20 bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 shadow-[0_12px_30px_rgba(15,23,42,0.08)] dark:shadow-[0_18px_44px_rgba(0,0,0,0.45)]">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-6">
-            <Link to="/admin/notice" className="flex items-center space-x-3">
+            <Link to="/admin/notice" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
               <img 
                 src="/images/ketri_symbol.png" 
                 alt="KESRI Logo" 
-                className="h-6 w-auto pointer-events-none select-none"
+                className="h-9 w-auto pointer-events-none select-none"
               />
-              <span className="text-white font-bold text-lg">KESRI Admin</span>
+              <span className="text-neutral-900 dark:text-white font-bold text-2xl tracking-tight">KESRI Admin</span>
             </Link>
-            <nav className="hidden md:flex items-center space-x-4">
-              <Link to="/admin/notice" className="text-white px-3 py-2 rounded-lg hover:bg-white/10 transition-colors font-semibold">
+            <nav className="hidden md:flex items-center space-x-2">
+              <Link 
+                to="/admin/notice" 
+                className="text-neutral-700 dark:text-neutral-200 hover:text-primary-700 dark:hover:text-primary-300 px-4 py-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors font-semibold text-base"
+              >
                 공지사항 관리
               </Link>
             </nav>
           </div>
-          <div className="flex items-center space-x-4">
-            <Link to="/" className="text-white px-3 py-2 rounded-lg hover:bg-white/10 transition-colors flex items-center space-x-2 font-semibold">
-              <Home className="w-4 h-4" />
-              <span className="hidden sm:inline">홈페이지로</span>
+          <div className="flex items-center space-x-3">
+            <Link 
+              to="/" 
+              className="text-neutral-700 dark:text-neutral-200 hover:text-primary-700 dark:hover:text-primary-300 px-4 py-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors flex items-center space-x-2 font-medium text-base"
+            >
+              <Home className="w-5 h-5" />
+              <span>홈페이지로</span>
             </Link>
-            <div className="flex items-center space-x-2 text-white">
-              <User className="w-4 h-4" />
-              <span className="text-sm font-semibold">{userData?.displayName || "관리자"}</span>
+            <div className="flex items-center space-x-2 text-neutral-700 dark:text-neutral-300 px-4 py-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+              <User className="w-5 h-5" />
+              <span className="text-base font-medium">{userData?.displayName || "관리자"}</span>
             </div>
             <button
               onClick={handleLogout}
-              className="text-white px-3 py-2 rounded-lg hover:bg-red-500/20 transition-colors flex items-center space-x-2 font-semibold"
+              className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 px-4 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex items-center space-x-2 font-medium text-base"
             >
-              <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">로그아웃</span>
+              <LogOut className="w-5 h-5" />
+              <span>로그아웃</span>
             </button>
           </div>
         </div>

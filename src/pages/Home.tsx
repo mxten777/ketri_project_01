@@ -183,7 +183,7 @@ const Home = () => {
               </motion.p>
 
               <motion.div
-                className="flex flex-col sm:flex-row items-center justify-center gap-5 md:gap-6 mb-12 md:mb-16"
+                className="flex flex-col sm:flex-row items-center justify-center gap-5 md:gap-6 mb-16 md:mb-20 mt-4 md:mt-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
@@ -528,7 +528,7 @@ const Home = () => {
           <div className="relative max-w-6xl mx-auto">
             <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 via-cyan-500 to-green-500 transform -translate-x-1/2"></div>
 
-            <div className="space-y-12 lg:space-y-0">
+            <div className="space-y-12 lg:space-y-24">
               {[
                 {
                   step: "01",
