@@ -57,7 +57,10 @@ export default function HeaderMegaMenu({
 
 	const prevPathRef = useRef<string | null>(null);
 	useEffect(() => {
-		if (prevPathRef.current && prevPathRef.current !== location.pathname) ctx?.setOpenDropdown?.(null);
+		if (prevPathRef.current && prevPathRef.current !== location.pathname) {
+
+			ctx?.setOpenDropdown?.(null);
+		}
 		prevPathRef.current = location.pathname;
 	}, [location.pathname, ctx]);
 
@@ -97,10 +100,31 @@ export default function HeaderMegaMenu({
 
 	function handleNav(e: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>, targetHref: string) {
 		e.preventDefault();
-		// navigate first, then close the mega menu to avoid click-loss with portal/close-delay
-		navigate(targetHref);
-		if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
-		else setTimeout(() => closeMega(), 0);
+		e.stopPropagation();
+
+		const hasHash = targetHref.includes('#');
+
+		// Step 1: Close mega menu first to prevent overlay/portal interaction
+		closeMega();
+
+		// Step 2: Navigate after microtask to ensure clean state
+		if (typeof queueMicrotask === "function") {
+			queueMicrotask(() => {
+				navigate(targetHref);
+				
+				// Step 3: Force scroll to top for non-hash routes only
+				if (!hasHash) {
+					window.scrollTo(0, 0);
+				}
+			});
+		} else {
+			setTimeout(() => {
+				navigate(targetHref);
+				if (!hasHash) {
+					window.scrollTo(0, 0);
+				}
+			}, 0);
+		}
 	}
 
 	function computeDisplay(menuGroup: MenuGroup) {
@@ -170,30 +194,17 @@ export default function HeaderMegaMenu({
 
 										<div className="grid grid-cols-3 md:grid-cols-5 gap-4 max-h-[480px] overflow-y-auto pr-2">
 											{display.map((item) => {
-												const hasHash = item.path.includes("#");
-											const itemHover = "hover:bg-neutral-50 dark:hover:bg-white/10 dark:hover:text-neutral-50 transition-colors";
-											return (
-												hasHash ? (
+												const itemHover = "hover:bg-neutral-50 dark:hover:bg-white/10 dark:hover:text-neutral-50 transition-colors";
+												return (
 													<a
 														key={item.path}
 														href={item.path}
-														onClick={closeMega}
+														onClick={(e) => handleNav(e, item.path)}
 														className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg text-neutral-900 dark:text-neutral-200 ${itemHover}`}
-														>
-															<div className="text-sm font-medium">{item.label}</div>
-															{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
-														</a>
-													) : (
-														<a
-															key={item.path}
-															href={item.path}
-															onClick={(e) => handleNav(e, item.path)}
-															className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg text-neutral-900 dark:text-neutral-200 ${itemHover}`}
-														>
-															<div className="text-sm font-medium">{item.label}</div>
-															{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
-														</a>
-													)
+													>
+														<div className="text-sm font-medium">{item.label}</div>
+														{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
+													</a>
 												);
 											})}
 										</div>
