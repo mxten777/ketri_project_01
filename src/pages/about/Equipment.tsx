@@ -1,593 +1,597 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+﻿import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import {
   Microscope,
   FlaskConical,
-  Thermometer,
-  Zap,
   Settings,
   ChevronLeft,
   ChevronRight,
   X,
   FileText,
   Inbox,
-  Download,
+  AlertCircle,
 } from "lucide-react";
  
 
 const Equipment = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
+  const [selectedEquipmentImage, setSelectedEquipmentImage] = useState<string | null>(null);
+  const [imageLoading, setImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
 
-  // 장비 관련 문서
-  const equipmentDocuments = [
-    {
-      title: "분석지원부(먹는물) 분석장비",
-      file: "/documents/equipment/분석지원부(먹는물) 분석장비.pdf",
-      category: "먹는물",
-      icon: FlaskConical,
-    },
-    {
-      title: "장비사진(먹는물 미생물)",
-      file: "/documents/equipment/장비사진(먹는물 미생물).pdf",
-      category: "미생물",
-      icon: Microscope,
-    },
-    {
-      title: "장비사진(작업환경)",
-      file: "/documents/equipment/장비사진(작업환경).pdf",
-      category: "작업환경",
-      icon: Thermometer,
-    },
-    {
-      title: "장비사진-석면",
-      file: "/documents/equipment/장비사진-석면.pdf",
-      category: "석면",
-      icon: Settings,
-    },
-  ];
+  // 모달 열릴 때 body scroll 차단 - 기존 값 저장 및 복원
+  useEffect(() => {
+    if (selectedEquipmentImage) {
+      const originalOverflow = window.getComputedStyle(document.body).overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [selectedEquipmentImage]);
+
+  // ESC 키로 모달 닫기
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedEquipmentImage) {
+        setSelectedEquipmentImage(null);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [selectedEquipmentImage]);
+
+  // Focus trap - 모달 내부에서만 포커스 순환
+  useEffect(() => {
+    if (!selectedEquipmentImage) return;
+
+    const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const modal = document.querySelector('[role="dialog"]');
+    if (!modal) return;
+
+    const firstFocusable = modal.querySelector(focusableElements) as HTMLElement;
+    const focusableContent = modal.querySelectorAll(focusableElements);
+    const lastFocusable = focusableContent[focusableContent.length - 1] as HTMLElement;
+
+    const trapFocus = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusable) {
+          lastFocusable?.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastFocusable) {
+          firstFocusable?.focus();
+          e.preventDefault();
+        }
+      }
+    };
+
+    modal.addEventListener('keydown', trapFocus as EventListener);
+    return () => modal.removeEventListener('keydown', trapFocus as EventListener);
+  }, [selectedEquipmentImage]);
 
   // 분석실별 이미지 데이터
   const labImages: Record<string, Array<{ src: string; alt: string }>> = {
-    "3층 기기분석실": Array.from({ length: 5 }, (_, i) => ({
-      src: `/images/equipment/instrument-${String(i + 1).padStart(2, "0")}.jpg`,
+    "기기분석실": Array.from({ length: 8 }, (_, i) => ({
+      src: `/images/equipment/instrument_analysis_lab_${String(i + 1).padStart(2, "0")}.jpg`,
       alt: `기기분석실 ${i + 1}`,
     })),
-    무기분석실: Array.from({ length: 6 }, (_, i) => ({
-      src: `/images/equipment/inorganic-${String(i + 1).padStart(2, "0")}.jpg`,
-      alt: `무기분석실 ${i + 1}`,
-    })),
-    유기분석실: Array.from({ length: 7 }, (_, i) => ({
-      src: `/images/equipment/organic-${String(i + 1).padStart(2, "0")}.jpg`,
-      alt: `유기분석실 ${i + 1}`,
-    })),
-    미생물실: Array.from({ length: 6 }, (_, i) => ({
-      src: `/images/equipment/microbio-${String(i + 1).padStart(2, "0")}.jpg`,
-      alt: `미생물실 ${i + 1}`,
-    })),
-    석면실: Array.from({ length: 2 }, (_, i) => ({
-      src: `/images/equipment/asbestos-${String(i + 1).padStart(2, "0")}.jpg`,
-      alt: `석면실 ${i + 1}`,
-    })),
-    전처리실: Array.from({ length: 9 }, (_, i) => ({
-      src: `/images/equipment/pretreat-${String(i + 1).padStart(2, "0")}.jpg`,
+    전처리실: Array.from({ length: 3 }, (_, i) => ({
+      src: `/images/equipment/sample_preparation_lab_${String(i + 1).padStart(2, "0")}.jpg`,
       alt: `전처리실 ${i + 1}`,
     })),
-    시약실: Array.from({ length: 3 }, (_, i) => ({
-      src: `/images/equipment/reagent-${String(i + 1).padStart(2, "0")}.jpg`,
-      alt: `시약실 ${i + 1}`,
+    미생물실: Array.from({ length: 2 }, (_, i) => ({
+      src: `/images/equipment/microbiology_lab_${String(i + 1).padStart(2, "0")}.jpg`,
+      alt: `미생물실 ${i + 1}`,
     })),
-    천칭실: Array.from({ length: 4 }, (_, i) => ({
-      src: `/images/equipment/balance-${String(i + 1).padStart(2, "0")}.jpg`,
+    석면실: Array.from({ length: 1 }, (_, i) => ({
+      src: `/images/equipment/asbestos_lab_${String(i + 1).padStart(2, "0")}.jpg`,
+      alt: `석면실 ${i + 1}`,
+    })),
+    천칭실: Array.from({ length: 2 }, (_, i) => ({
+      src: `/images/equipment/balance_room_${String(i + 1).padStart(2, "0")}.jpg`,
       alt: `천칭실 ${i + 1}`,
     })),
-    시료냉장고: Array.from({ length: 6 }, (_, i) => ({
-      src: `/images/equipment/refrigerator-${String(i + 1).padStart(
-        2,
-        "0"
-      )}.jpg`,
-      alt: `시료냉장고 ${i + 1}`,
+    먹는물시료냉장고: Array.from({ length: 3 }, (_, i) => ({
+      src: `/images/equipment/drinking_water_sample_fridge_${String(i + 1).padStart(2, "0")}.jpg`,
+      alt: `먹는물시료냉장고 ${i + 1}`,
     })),
   };
 
-  const equipmentCategories = [
-    {
-      name: "분석 장비",
-      icon: FlaskConical,
-      count: 12,
-      color: "bg-blue-500",
-      description: "정밀 화학 분석",
-    },
-    {
-      name: "측정 장비",
-      icon: Thermometer,
-      count: 8,
-      color: "bg-green-500",
-      description: "환경 측정",
-    },
-    {
-      name: "현미경 장비",
-      icon: Microscope,
-      count: 5,
-      color: "bg-purple-500",
-      description: "미세 분석",
-    },
-    {
-      name: "전기 장비",
-      icon: Zap,
-      count: 6,
-      color: "bg-orange-500",
-      description: "전기 안전",
-    },
-  ];
-
   const equipment = [
-    // 석면 분석장비
+    {
+      category: "먹는물",
+      name: "가스크로마토그래피-질량분석기 (GC-MSD)",
+      model: "7890B-5977A",
+      manufacturer: "Agilent",
+      testItems: "휘발성유기화합물",
+      image: "/images/equipment/images_01/equip_001.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "퍼지앤트랩 (Purge&Trap)",
+      model: "AQUATek 100",
+      manufacturer: "TELEDYNE TEKMAR",
+      testItems: "휘발성유기화합물 가스크로마토그래피-질량분석기",
+      image: "/images/equipment/images_01/equip_002.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "가스크로마토그래피-질량분석기/헤드스페이스 (GC-MSD/Headspace)",
+      model: "6890N-5975/CombiPAL",
+      manufacturer: "Agilent/CTC Analytics",
+      testItems: "지오스민",
+      image: "/images/equipment/images_01/equip_003.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "가스크로마토그래피-질량분석기 (GC-MSD)",
+      model: "6890N/5975",
+      manufacturer: "Agilent",
+      testItems: "1,4-다이옥산",
+      image: "/images/equipment/images_01/equip_004.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "가스크로마토그래피-질량분석기/헤드스페이스 (GC-MSD/Headspace)",
+      model: "6890N-5975/CombiPAL",
+      manufacturer: "Agilent/CTC Analytics",
+      testItems: "포름알데히드",
+      image: "/images/equipment/images_01/equip_005.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "가스크로마토그래피-질량분석기 (GC-MSD)",
+      model: "2010PLUS/QP2010",
+      manufacturer: "SIMADZU",
+      testItems: "휘발성유기화합물",
+      image: "/images/equipment/images_01/equip_006.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "유도결합플라즈마-질량분석기 (ICP-MS)",
+      model: "iCAP RQ",
+      manufacturer: "Thermo",
+      testItems: "중금속",
+      image: "/images/equipment/images_01/equip_007.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "가스크로마토그래피-전자포획검출기 (GC-ECD)",
+      model: "6890N",
+      manufacturer: "Agilent",
+      testItems: "할로아세틱에시드",
+      image: "/images/equipment/images_01/equip_008.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "가스크로마토그래피-질소인검출기 (GC-NPD)",
+      model: "6890N",
+      manufacturer: "Agilent",
+      testItems: "유기인계농약, 카바릴",
+      image: "/images/equipment/images_01/equip_009.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "액체크로마토그래피-텐덤질량분석기 (LC-MSMS)",
+      model: "6495 LC/TQ",
+      manufacturer: "Agilent",
+      testItems: "마이크로시스틴, 과불화합물 등",
+      image: "/images/equipment/images_01/equip_010.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "고성능액체크로마토그래피 (HPLC)",
+      model: "e2695",
+      manufacturer: "WATERS",
+      testItems: "카바릴",
+      image: "/images/equipment/images_01/equip_011.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "수질자동분석기 (AutoAnalyzer)",
+      model: "FUTRA3",
+      manufacturer: "Alliance",
+      testItems: "시안, 페놀, 세제",
+      image: "/images/equipment/images_01/equip_012.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "이온크로마토그래피 (IC)",
+      model: "Dionex Aquion",
+      manufacturer: "Thermo",
+      testItems: "음이온",
+      image: "/images/equipment/images_01/equip_013.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "이온크로마토그래피 (IC)",
+      model: "881 Compact IC pro",
+      manufacturer: "Metrohm",
+      testItems: "음이온",
+      image: "/images/equipment/images_01/equip_014.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "이온크로마토그래피 (IC)",
+      model: "ICS-1100",
+      manufacturer: "Thermo",
+      testItems: "브롬산염",
+      image: "/images/equipment/images_01/equip_015.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "수은분석기 (Mercury Analyzer)",
+      model: "FIMS400",
+      manufacturer: "PerkinElmer",
+      testItems: "수은",
+      image: "/images/equipment/images_01/equip_016.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "가시선-자외선 분광광도계 (UV-Vis Spectrophotometer)",
+      model: "UV-1900i",
+      manufacturer: "SIMADZU",
+      testItems: "암모니아성질소",
+      image: "/images/equipment/images_01/equip_017.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "액체섬광계수기 (LCS)",
+      model: "300SL",
+      manufacturer: "HIDEX",
+      testItems: "라돈",
+      image: "/images/equipment/images_01/equip_018.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "유도결합플라즈마-분광분석기 (ICP-OES)",
+      model: "iCAP 7000",
+      manufacturer: "Thermo",
+      testItems: "중금속",
+      image: "/images/equipment/images_01/equip_019.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "총유기탄소 분석기 (TOC Analyzer)",
+      model: "TOC-L/ASI-L",
+      manufacturer: "SIMADZU",
+      testItems: "총유기탄소(TOC)",
+      image: "/images/equipment/images_01/equip_020.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "마이크로웨이브 (Microwave)",
+      model: "Multiwave 3000",
+      manufacturer: "Anton paar",
+      testItems: "시료 전처리",
+      image: "/images/equipment/images_01/equip_021.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "항온항습 배양기 (Incubator)",
+      model: "LHS-100CL",
+      manufacturer: "NEURONFIT",
+      testItems: "미생물",
+      image: "/images/equipment/images_01/equip_022.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "배양기 (Incubator)",
+      model: "HSM-125 2ROOM",
+      manufacturer: "SINAN",
+      testItems: "미생물",
+      image: "/images/equipment/images_01/equip_023.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "배양기 (Incubator)",
+      model: "IMP180",
+      manufacturer: "Thermo",
+      testItems: "미생물",
+      image: "/images/equipment/images_01/equip_024.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "고압멸균기 (Autoclave)",
+      model: "SSAC-060H",
+      manufacturer: "SSOLKOREA",
+      testItems: "배지 제조",
+      image: "/images/equipment/images_01/equip_025.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "내독소 분석장비 (Microplate Reader)",
+      model: "ELx808",
+      manufacturer: "Charles river",
+      testItems: "내독소(엔도톡신)",
+      image: "/images/equipment/images_01/equip_026.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "광학현미경 (Optical Microscope)",
+      model: "CHK2-F-GS",
+      manufacturer: "OLYMPUS",
+      testItems: "녹농균, 살모넬라, 쉬겔라, 여시니아균 확인시험 (그람염색 현미경 관찰)",
+      image: "/images/equipment/images_01/equip_027.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "무균작업대 (Clean Bench)",
+      model: "HB-402VL-O",
+      manufacturer: "한백과학",
+      testItems: "미생물",
+      image: "/images/equipment/images_01/equip_028.jpeg",
+    },
+    {
+      category: "작업환경",
+      name: "가스크로마토그래피",
+      model: "8890A",
+      manufacturer: "Agilent",
+      testItems: "유기화합물",
+      image: "/images/equipment/images_02/split2_equip_001.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "가스크로마토그래피",
+      model: "7890A",
+      manufacturer: "Agilent",
+      testItems: "유기화합물",
+      image: "/images/equipment/images_02/split2_equip_002.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "가스크로마토그래피",
+      model: "6890N",
+      manufacturer: "Agilent",
+      testItems: "이황화탄소",
+      image: "/images/equipment/images_02/split2_equip_003.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "가스크로마토그래피",
+      model: "GC-2010 PLUS",
+      manufacturer: "SHIMADZU",
+      testItems: "산화에틸렌",
+      image: "/images/equipment/images_02/split2_equip_004.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "가스크로마토그래피",
+      model: "GC-2010",
+      manufacturer: "SHIMADZU",
+      testItems: "유기화합물",
+      image: "/images/equipment/images_02/split2_equip_005.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "가스크로마토그래피",
+      model: "GC-2010 PLUS",
+      manufacturer: "SHIMADZU",
+      testItems: "유기화합물",
+      image: "/images/equipment/images_02/split2_equip_006.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "유도결합플라즈마",
+      model: "G3272B",
+      manufacturer: "Agilent",
+      testItems: "중금속",
+      image: "/images/equipment/images_02/split2_equip_007.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "고성능액체크로마토그래피",
+      model: "LC-40A",
+      manufacturer: "SHIMADZU",
+      testItems: "알데하이드류",
+      image: "/images/equipment/images_02/split2_equip_008.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "이온크로마토그래피",
+      model: "DIONEX IC",
+      manufacturer: "Thermo",
+      testItems: "음이온",
+      image: "/images/equipment/images_02/split2_equip_009.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "적외선 분광계",
+      model: "Spectrum",
+      manufacturer: "PerkinElmer",
+      testItems: "석영",
+      image: "/images/equipment/images_02/split2_equip_010.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "고성능액체크로마토그래피",
+      model: "Waters 15",
+      manufacturer: "WATERS",
+      testItems: "6가크롬",
+      image: "/images/equipment/images_02/split2_equip_011.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "자외선분광광도계",
+      model: "UV-1900i",
+      manufacturer: "SHIMADZU",
+      testItems: "과산화수소",
+      image: "/images/equipment/images_02/split2_equip_012.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "전자저울",
+      model: "MT5",
+      manufacturer: "Mettler Toledo",
+      testItems: "극소량중량",
+      image: "/images/equipment/images_02/split2_equip_013.jpg",
+    },
+    {
+      category: "작업환경",
+      name: "전자저울",
+      model: "AT261",
+      manufacturer: "Mettler Toledo",
+      testItems: "중량 분석",
+      image: "/images/equipment/images_02/split2_equip_014.jpg",
+    },
+    {
+      category: "실내공기질",
+      name: "가스크로마토그래피",
+      model: "Clarus680",
+      manufacturer: "PerkinElmer",
+      testItems: "휘발성유기가스크로마토그래피",
+      image: "/images/equipment/images_03/split3_equip_001.jpg",
+    },
+    {
+      category: "실내공기질",
+      name: "열탈착장치",
+      model: "TurboMatrix",
+      manufacturer: "PerkinElmer",
+      testItems: "휘발성유기가스크로마토그래피",
+      image: "/images/equipment/images_03/split3_equip_002.jpg",
+    },
+    {
+      category: "실내공기질",
+      name: "가스크로마토그래피",
+      model: "GC-2010",
+      manufacturer: "SHIMADZU",
+      testItems: "휘발성유기가스크로마토그래피",
+      image: "/images/equipment/images_03/split3_equip_003.jpg",
+    },
+    {
+      category: "실내공기질",
+      name: "열탈착장치",
+      model: "TurboMatrix",
+      manufacturer: "PerkinElmer",
+      testItems: "휘발성유기가스크로마토그래피",
+      image: "/images/equipment/images_03/split3_equip_004.jpg",
+    },
+    {
+      category: "실내공기질",
+      name: "고성능액체크로마토그래피",
+      model: "LC-20A",
+      manufacturer: "SHIMADZU",
+      testItems: "폼알데하이드",
+      image: "/images/equipment/images_03/split3_equip_005.jpg",
+    },
+    {
+      category: "실내공기질",
+      name: "알파트랙검출기",
+      model: "44345 / Detectron",
+      manufacturer: "CELESTRON",
+      testItems: "라돈",
+      image: "/images/equipment/images_03/split3_equip_006.jpg",
+    },
+    {
+      category: "실내공기질",
+      name: "위상차 현미경",
+      model: "CX31 RBSFO",
+      manufacturer: "OLYMPUS",
+      testItems: "석면",
+      image: "/images/equipment/images_03/split3_equip_007.jpg",
+    },
+    {
+      category: "실내공기질",
+      name: "배양기",
+      model: "IncuBI-150E",
+      manufacturer: "LabTech",
+      testItems: "부유세균",
+      image: "/images/equipment/images_03/split3_equip_008.jpg",
+    },
+    {
+      category: "실내공기질",
+      name: "전자저울",
+      model: "BM5D",
+      manufacturer: "AND",
+      testItems: "미세먼지",
+      image: "/images/equipment/images_03/split3_equip_009.jpg",
+    },
+    {
+      category: "실내공기질",
+      name: "배양기",
+      model: "IncuLIB-300M",
+      manufacturer: "LabTech",
+      testItems: "부유세균",
+      image: "/images/equipment/images_03/split3_equip_010.jpg",
+    },
+    {
+      category: "실내공기질",
+      name: "자동 슬로터",
+      model: "OH-3S",
+      manufacturer: "AS ONE",
+      testItems: "미세먼지",
+      image: "/images/equipment/images_03/split3_equip_011.jpg",
+    },
     {
       category: "석면",
       name: "위상차현미경",
       model: "ECLIPSE E200",
       manufacturer: "Nikon",
-      testItems: "공기중 석면시료",
-      status: "active",
+      testItems: "공기중 석면",
+      image: "/images/equipment/images_04/01_phase_contrast_microscope_eclipse_e200_nikon.jpg",
     },
     {
       category: "석면",
       name: "위상차현미경",
       model: "BA200",
       manufacturer: "MOTIC",
-      testItems: "공기중 석면시료",
-      status: "active",
+      testItems: "공기중 석면",
+      image: "/images/equipment/images_04/02_phase_contrast_microscope_ba200_motic.jpg",
     },
     {
       category: "석면",
       name: "편광현미경",
       model: "ECLIPSE CiPOL",
       manufacturer: "Nikon",
-      testItems: "석면 고형시료",
-      status: "active",
+      testItems: "고형 석면",
+      image: "/images/equipment/images_04/03_polarization_microscope_eclipse_cipol_nikon.jpg",
     },
     {
       category: "석면",
       name: "편광현미경",
-      model: "BA300 Pol.",
+      model: "BA300 Pol",
       manufacturer: "MOTIC",
-      testItems: "석면 고형시료",
-      status: "active",
+      testItems: "고형 석면",
+      image: "/images/equipment/images_04/04_polarization_microscope_plm_ba300_pol_motic.jpg",
     },
     {
       category: "석면",
       name: "실체현미경",
       model: "SMZ-143 SERIES",
       manufacturer: "MOTIC",
-      testItems: "석면 고형시료 전처리",
-      status: "active",
+      testItems: "고형 석면",
+      image: "/images/equipment/images_04/05_stereo_microscope_smz_143_series_motic.jpg",
     },
     {
       category: "석면",
-      name: "전자저울",
-      model: "METTLER AT261",
-      manufacturer: "METTLER",
-      testItems: "고형시료 전처리",
-      status: "active",
-    },
-
-    // 먹는물 미생물 분석장비
-    {
-      category: "먹는물(미생물)",
-      name: "광학현미경",
-      model: "CHK2-F-GS",
-      manufacturer: "OLYMPUS",
-      testItems:
-        "녹농균, 살모넬라, 쉬겔라, 여시니아균 확인시험 (그람염색 현미경 관찰)",
-      status: "active",
+      name: "아세톤 기화기",
+      model: "800101",
+      manufacturer: "Quick Fix",
+      testItems: "공기중 석면",
+      image: "/images/equipment/images_04/06_acetone_vaporizer_800101_quick_fix.jpg",
     },
     {
-      category: "먹는물(미생물)",
-      name: "고압멸균기",
-      model: "SSAC-060H",
-      manufacturer: "SSOLKO REA",
-      testItems: "배지 제조",
-      status: "active",
+      category: "석면",
+      name: "전기로",
+      model: "LEF-105S-1",
+      manufacturer: "LabTech",
+      testItems: "고형 석면",
+      image: "/images/equipment/images_04/07_muffle_furnace_lef_105s_1_labtech.jpg",
     },
     {
-      category: "먹는물(미생물)",
-      name: "오븐 제어 배양기",
-      model: "HSM-125 2ROOM",
-      manufacturer: "SINAN",
-      testItems: "미생물 배양",
-      status: "active",
-    },
-    {
-      category: "먹는물(미생물)",
-      name: "저압전 펠트",
-      model: "98-20951-00",
-      manufacturer: "SPECTR OLINE",
-      testItems: "대장균, 녹농균 결과 확인용도",
-      status: "active",
-    },
-    {
-      category: "먹는물(미생물)",
-      name: "저온배양기",
-      model: "IMP180",
-      manufacturer: "Thermo SCIENTIFIC",
-      testItems: "미생물 배양",
-      status: "active",
-    },
-    {
-      category: "먹는물(미생물)",
-      name: "항온진조기",
-      model: "Thermo Stable OF-105",
-      manufacturer: "DAIHAN Scientific",
-      testItems: "초저류 건조",
-      status: "active",
-    },
-    {
-      category: "먹는물(미생물)",
-      name: "멸도독신 분쇄장비",
-      model: "ELX808",
-      manufacturer: "Charles river",
-      testItems: "멸도독신 분석",
-      status: "active",
-    },
-    {
-      category: "먹는물(미생물)",
-      name: "항온항습 배양기",
-      model: "LHS-100CL",
-      manufacturer: "NEURON FIT",
-      testItems: "미생물 배양",
-      status: "active",
-    },
-
-    // 먹는물 분석장비
-    {
-      category: "먹는물",
-      name: "ICP-MS (유도결합플라즈마질량분석기)",
-      model: "7A",
-      manufacturer: "-",
-      testItems: "무기물질 분석",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "양극 펄스 폴라로그래프",
-      model: "Polarograph",
-      manufacturer: "METRONIC",
-      testItems: "무기물질 분석",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "양극 펄스 폴라로그래프",
-      model: "POLAROG TRACE",
-      manufacturer: "METRONIC",
-      testItems: "무기물질 분석",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "GC-MSO, 6890N",
-      manufacturer: "Agilent",
-      testItems: "잔류농약",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "GC-ECD 7890A",
-      manufacturer: "Agilent",
-      testItems: "잔류농약",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "GC-ECD 7890A",
-      manufacturer: "Agilent",
-      testItems: "잔류농약",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "GC-NPD 6890A",
-      manufacturer: "Agilent",
-      testItems: "잔류농약",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "액체크로마토그래피",
-      model: "HPLC(UV) CBM-20A",
-      manufacturer: "SHIMADZU",
-      testItems: "잔류농약",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "액체크로마토그래피",
-      model: "UV-VIS Spectrometer",
-      manufacturer: "-",
-      testItems: "일반항목",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "액체크로마토그래피",
-      model: "UV-1800",
-      manufacturer: "SHIMADZU",
-      testItems: "일반항목",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "이온크로마토그래피",
-      model: "IC",
-      manufacturer: "Thermo",
-      testItems: "일반항목",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "이온크로마토그래피",
-      model: "IC Compact",
-      manufacturer: "METROHM",
-      testItems: "일반항목",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "유도결합플라즈마",
-      model: "ICPS-8100",
-      manufacturer: "SHIMADZU",
-      testItems: "무기물질",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "원자흡광광도계",
-      model: "AA-7000",
-      manufacturer: "SHIMADZU",
-      testItems: "무기물질",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "HPLC Pump LC-20AD",
-      manufacturer: "SHIMADZU",
-      testItems: "소독제 및 소독부산물",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "GCMS-QP2010 Ultra",
-      manufacturer: "SHIMADZU",
-      testItems: "소독제 및 소독부산물",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "GC Agilent 7890A",
-      manufacturer: "Agilent",
-      testItems: "소독제 및 소독부산물",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "ICP-MS Agilent 7A",
-      manufacturer: "Agilent",
-      testItems: "유해물질",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "ICP-MS G3272B",
-      manufacturer: "Agilent",
-      testItems: "유해물질",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "GC-MS Agilent 6890N",
-      manufacturer: "Agilent",
-      testItems: "유해물질",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "액체크로마토그래피",
-      model: "HPLC-FLD Agilent 1200",
-      manufacturer: "Agilent",
-      testItems: "유해물질",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "GC/P&T Agilent 7890A",
-      manufacturer: "Agilent",
-      testItems: "휘발성유기물질",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "GC-MS G3272B",
-      manufacturer: "Agilent",
-      testItems: "잔류농약",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "HPLC-MS/MS TSQ8000",
-      manufacturer: "Thermo",
-      testItems: "잔류농약",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "GC Agilent 7890A",
-      manufacturer: "Agilent",
-      testItems: "잔류농약",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "액체크로마토그래피",
-      model: "HPLC-MS/MS API4000",
-      manufacturer: "AB SCIEX",
-      testItems: "잔류농약",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "이온크로마토그래피",
-      model: "IC 1100/AS",
-      manufacturer: "Thermo",
-      testItems: "할로아세토니트릴",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "가스크로마토그래피",
-      model: "6890",
-      manufacturer: "Agilent",
-      testItems: "할로케톤",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "이온크로마토그래피",
-      model: "IC",
-      manufacturer: "Thermo",
-      testItems: "할로아세트산",
-      status: "active",
-    },
-    {
-      category: "먹는물",
-      name: "액체크로마토그래피",
-      model: "HPLC Multiskan Spectrum",
-      manufacturer: "Thermo",
-      testItems: "시험항목",
-      status: "active",
-    },
-
-    // 작업환경 분석장비
-    {
-      category: "작업환경",
-      name: "가스크로마토그래피 (GC-FID, FTD)",
-      model: "GC-2010",
-      manufacturer: "SHIMADZU",
-      testItems: "휘발성유기화합물",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "가스크로마토그래피 (GC-FID)",
-      model: "GC-2010 PLUS",
-      manufacturer: "SHIMADZU",
-      testItems: "휘발성유기화합물",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "이온크로마토그래피(IC)",
-      model: "Dionex ICS-1600, Dionex ICS-2100",
-      manufacturer: "Thermo Scientific",
-      testItems: "음이온 및 6가 크롬 등 분석",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "유도결합플라즈마 질량분석기(ICP/MS)",
-      model: "G3272B",
-      manufacturer: "Agilent Technologies",
-      testItems: "중금속 분석",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "액체크로마토그래피(HPLC)",
-      model: "LC-40A",
-      manufacturer: "SHIMADZU",
-      testItems: "알데하이드류, 아민류 등",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "가스크로마토그래피 (GC-ECD)",
-      model: "GC-2010 PLUS",
-      manufacturer: "SHIMADZU",
-      testItems: "산화에틸렌",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "가스크로마토그래피 (GC-FPD)",
-      model: "6890N",
-      manufacturer: "Agilent Technologies",
-      testItems: "이황화탄소, 황산디메틸",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "적외선 분광계(FT-IR)",
-      model: "Spectrum Two",
-      manufacturer: "Perkin Elmer",
-      testItems: "석영",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "자외선흡광광도계",
-      model: "UV-1900i",
-      manufacturer: "SHIMADZU",
-      testItems: "과산화수소, 알킬니아 등 분석",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "가스크로마토그래피 (GC-FID)",
-      model: "8890A",
-      manufacturer: "Agilent Technologies",
-      testItems: "휘발성유기화합물",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "가스크로마토그래피 (GC-FID)",
-      model: "7890A",
-      manufacturer: "Agilent Technologies",
-      testItems: "휘발성유기화합물",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "전자저울(Micro Blance)",
-      model: "METTLER AT261",
-      manufacturer: "METTLER",
-      testItems: "중량 분석",
-      status: "active",
-    },
-    {
-      category: "작업환경",
-      name: "전자저울(Micro Blance)(10⁻⁵)",
-      model: "MT5",
-      manufacturer: "METTLER",
-      testItems: "극소량의 중량 분석",
-      status: "active",
+      category: "석면",
+      name: "마이크로천칭",
+      model: "AT261",
+      manufacturer: "Mettler Toledo",
+      testItems: "고형 석면",
+      image: "/images/equipment/images_04/08_microbalance_at261_mettler_toledo.jpg",
     },
   ];
 
@@ -617,59 +621,6 @@ const Equipment = () => {
       {/* Main Content */}
       <Section spacing="none" className="pt-10 lg:pt-12">
         <Container>
-        {/* Equipment Documents Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-16"
-        >
-          <h2 className="heading-lg text-center mb-12">장비 상세 자료</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {equipmentDocuments.map((doc, index) => {
-              const Icon = doc.icon;
-              return (
-                <motion.div
-                  key={doc.title}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.1 * index }}
-                  className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all cursor-pointer"
-                  onClick={() => setSelectedPdf(doc.file)}
-                >
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="w-12 h-12 bg-primary-100 dark:bg-neutral-800 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-bold text-sm mb-1 line-clamp-2">
-                        {doc.title}
-                      </h3>
-                      <span className="inline-block px-2 py-1 bg-neutral-100 dark:bg-neutral-700 text-xs rounded-full">
-                        {doc.category}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between pt-4 border-t border-neutral-200 dark:border-neutral-700">
-                    <div className="flex items-center gap-2 text-sm text-primary-600 dark:text-primary-400">
-                      <FileText className="w-4 h-4" />
-                      <span>PDF</span>
-                    </div>
-                    <a
-                      href={doc.file}
-                      download
-                      onClick={(e) => e.stopPropagation()}
-                      className="text-neutral-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                    >
-                      <Download className="w-4 h-4" />
-                    </a>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
 
         {/* Lab Photos Gallery */}
         <motion.div
@@ -712,40 +663,6 @@ const Equipment = () => {
           </div>
         </motion.div>
 
-        {/* Equipment Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
-        >
-          {equipmentCategories.map((category, index) => {
-            const Icon = category.icon;
-            return (
-              <motion.div
-                key={category.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-                className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-soft text-center"
-              >
-                <div
-                  className={`w-16 h-16 ${category.color} rounded-2xl flex items-center justify-center mx-auto mb-4`}
-                >
-                  <Icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="font-bold text-lg mb-1">{category.name}</h3>
-                <p className="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-2">
-                  {category.count}대
-                </p>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  {category.description}
-                </p>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
         {/* Equipment Details */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -764,7 +681,7 @@ const Equipment = () => {
                     <th className="px-6 py-4 text-left font-bold">모델명</th>
                     <th className="px-6 py-4 text-left font-bold">제조사</th>
                     <th className="px-6 py-4 text-left font-bold">검사항목</th>
-                    <th className="px-6 py-4 text-center font-bold">상태</th>
+                    <th className="px-6 py-4 text-center font-bold">이미지</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
@@ -796,11 +713,17 @@ const Equipment = () => {
                         {item.testItems}
                       </td>
                       <td className="px-6 py-4 text-center">
-                        <div className="flex items-center justify-center gap-2">
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span className="text-sm text-green-600 dark:text-green-400">
-                            가동중
-                          </span>
+                        <div className="flex items-center justify-center">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-16 h-16 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+                            onClick={() => {
+                              setSelectedEquipmentImage(item.image);
+                              setImageLoading(true);
+                              setImageError(false);
+                            }}
+                          />
                         </div>
                       </td>
                     </motion.tr>
@@ -995,27 +918,101 @@ const Equipment = () => {
         </div>
       )}
 
-      {/* PDF Viewer Modal */}
-      {selectedPdf && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
-          <button
-            onClick={() => setSelectedPdf(null)}
-            className="absolute top-4 right-4 text-white hover:text-neutral-300 transition-colors z-10"
+      {/* Equipment Image Modal - 고급 뷰어 */}
+      <AnimatePresence>
+        {selectedEquipmentImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
+            className="fixed inset-0 bg-black/70 z-[1050] flex items-center justify-center p-4"
+            onClick={() => setSelectedEquipmentImage(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="장비 이미지 확대 보기"
           >
-            <X className="w-8 h-8" />
-          </button>
-
-          <div className="max-w-7xl w-full h-[90vh] bg-white dark:bg-neutral-800 rounded-lg overflow-hidden">
-            <div className="h-full">
-              <iframe
-                src={selectedPdf}
-                className="w-full h-full"
-                title="장비 상세 자료"
-              />
+            {/* 상단 컨트롤 영역 */}
+            <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-4 z-10">
+              <div className="text-sm text-white/70 font-medium">
+                장비 이미지 보기
+              </div>
+              <div className="flex items-center gap-2">
+                {/* 접근성 테스트용 숨김 요소 - 향후 기능 추가 시 실제 버튼으로 전환 가능 */}
+                <button
+                  className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:right-20 focus:bg-white/10 focus:text-white focus:px-3 focus:py-2 focus:rounded-lg"
+                  aria-label="테스트용 포커스 요소"
+                  tabIndex={0}
+                >
+                  Focus Test
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedEquipmentImage(null);
+                  }}
+                  className="text-white hover:bg-white/10 p-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white/40"
+                  aria-label="이미지 닫기"
+                  autoFocus
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+
+            {/* 이미지 컨테이너 - 뷰어 프레임 */}
+            {/* 
+              [클릭 닫기 정책]
+              1. backdrop(최외곽 div) 클릭 → 닫기
+              2. 이미지 컨테이너(프레임) 클릭 → stopPropagation으로 닫기 방지
+              3. 이미지 자체 클릭 → 닫기 (향후 확대 기능 추가 시 이 이벤트만 조정)
+            */}
+            <motion.div
+              initial={{ scale: 0.96, y: 8 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.96, y: 8 }}
+              transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
+              className="max-w-4xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative bg-neutral-800/40 backdrop-blur-sm rounded-lg p-3 shadow-2xl">
+                {imageLoading && !imageError && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-8 h-8 border-3 border-white/20 border-t-white rounded-full animate-spin" />
+                  </div>
+                )}
+                
+                {imageError ? (
+                  <div className="flex flex-col items-center justify-center py-24 text-white/60">
+                    <AlertCircle className="w-12 h-12 mb-4" />
+                    <p className="text-sm">이미지를 불러올 수 없습니다</p>
+                  </div>
+                ) : (
+                  <img
+                    src={selectedEquipmentImage}
+                    alt="장비 이미지"
+                    className="w-full h-auto max-h-[80vh] object-contain rounded cursor-pointer"
+                    style={{ opacity: imageLoading ? 0 : 1, transition: 'opacity 0.2s' }}
+                    onLoad={() => setImageLoading(false)}
+                    onError={() => {
+                      setImageLoading(false);
+                      setImageError(true);
+                    }}
+                    onClick={() => setSelectedEquipmentImage(null)}
+                  />
+                )}
+              </div>
+            </motion.div>
+
+            {/* 하단 보조 정보 */}
+            <div className="absolute bottom-4 left-0 right-0 text-center">
+              <p className="text-xs text-white/50">
+                클릭하여 닫기 · ESC
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 };

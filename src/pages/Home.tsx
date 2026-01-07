@@ -175,11 +175,9 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
               >
-                산업보건 · 먹는물 · 석면 · 실내공기질 분야의
+                산업보건 · 먹는물 · 석면 · 실내공기질 분야에서 최고 수준의 분석 서비스를
                 <br className="hidden sm:block" />
-                KOLAS 공인 전문기관으로
-                <br className="hidden sm:block" />
-                최고 수준의 분석 서비스를 제공합니다.
+                제공합니다.
               </motion.p>
 
               <motion.div
@@ -390,10 +388,10 @@ const Home = () => {
                 <Award className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
-                KOLAS 공인인증
+                품질관리
               </h3>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                국가공인시험기관으로서 국제적으로 인정받는 품질관리 시스템 운영
+                국제적으로 인정받는 품질관리 시스템 운영
               </p>
             </motion.div>
 
