@@ -1,9 +1,46 @@
 // No JS-based header offset; anchors handled via CSS :target
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
+import { useLayoutEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const IndustrialHealth = () => {
   // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
+  const location = useLocation();
+
+  // Scroll protection for industrial-health route
+  useLayoutEffect(() => {
+    // Force scroll to top only if no hash anchor
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    } else {
+      // If hash is present, scroll to target section after render
+      const targetId = location.hash.slice(1);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        // Use requestAnimationFrame to ensure DOM is fully rendered
+        requestAnimationFrame(() => {
+          targetEl.scrollIntoView({ block: "start", behavior: "auto" });
+        });
+      }
+    }
+  }, [location.pathname, location.hash]);
+
+  // Handle sidebar section navigation with precise scroll control
+  const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      // Use 'auto' behavior for precise positioning without cumulative errors
+      // 'smooth' can cause slight position drift over multiple clicks
+      targetEl.scrollIntoView({ block: "start", behavior: "auto" });
+      
+      // Update URL hash without triggering page reload
+      window.history.pushState(null, '', `#${targetId}`);
+    }
+  };
 
   return (
     <main className="min-h-screen">
@@ -33,15 +70,19 @@ const IndustrialHealth = () => {
                   { label: "근골격계유해요인조사", href: "#musculoskeletal" },
                   { label: "화학물질관리", href: "#chemical-management" },
                   { label: "서비스 프로세스", href: "#service-process" },
-                ].map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                ].map((item) => {
+                  const targetId = item.href.slice(1);
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={(e) => handleSectionClick(e, targetId)}
+                      className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
               </nav>
             </div>
           </aside>
@@ -80,8 +121,7 @@ const IndustrialHealth = () => {
                     <p className="text-neutral-700 dark:text-neutral-300 mb-3">
                       • 산업안전보건법 제125조 따른 6개월마다 의무측정<br />
                       • 소음, 분진, 유기화합물, 금속류 등 190여종 유해인자 측정<br />
-                      • KOSHA-A-1-2021 작업환경측정 및 시료채취보고서 작성<br />
-                      • 노출기준 초과 시 개선조치 및 재측정 지원
+                      • KOSHA-A-1-2021 작업환경측정 및 시료채취보고서 작성
                     </p>
                   </div>
                   <div id="risk-assessment" className="bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 rounded-xl p-6">
@@ -100,7 +140,7 @@ const IndustrialHealth = () => {
                       🧪 화학물질관리 (노출평가 및 CRA)
                     </h4>
                     <p className="text-neutral-700 dark:text-neutral-300 mb-3">
-                      • 화관법 개정(2021.1.16)에 따른 화학물질 위험성평가 의무화<br />
+                      • 화관법 개정(2021.1.16)에 따른 화학물질 위험성평가<br />
                       • 개인노출평가 및 작업환경노출평가 수행<br />
                       • ECETOC TRA, EASE, Stoffenmanager 등 국제 검증 모델 사용<br />
                       • 리스크 특성비에 따른 위험도 결정 및 관리방안 수립
@@ -111,7 +151,7 @@ const IndustrialHealth = () => {
                       💪 근골격계 유해요인조사 (의무조사)
                     </h4>
                     <p className="text-neutral-700 dark:text-neutral-300 mb-3">
-                      • 산업안전보건법 제24조 따른 3년 주기 의무조사 (5인 이상 사업장)<br />
+                      • 산업안전보건기준에 관한 규칙 제 657조에 따른 3년 주기 의무조사<br />
                       • KOSHA-H-30-2020 기법에 따른 과학적 위험도 평가<br />
                       • 작업장 맞춤형 개선안 및 예방관리프로그램 제공<br />
                       • 근골격계질환 예방을 위한 교육 및 체조개선 가이드라인
@@ -187,7 +227,7 @@ const IndustrialHealth = () => {
                         Q. 작업환경측정은 얼마나 자주 해야 하나요?
                       </h4>
                       <p className="text-neutral-600 dark:text-neutral-300">
-                        A. 일반 유해인자는 6개월마다 1회 이상, 특별관리물질(발암성 물질 등)은 3개월마다 1회 이상 측정이 의무입니다.
+                        A. 특별관리물질은 100%초과 시 3개월마다 1회, 일반 화학적인자의 경우 200%초과 시 3개월마다 1회측정이 의무입니다.
                       </p>
                     </div>
                     <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
@@ -261,63 +301,89 @@ const IndustrialHealth = () => {
                   </p>
                 </div>
 
-                {/* 신청서 다운로드 */}
-                <div className="bg-gradient-to-r from-secondary-50 to-primary-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-8 mb-8">
-                  <h3 className="text-2xl font-bold mb-4 flex items-center">
-                    <span className="text-3xl mr-3">📥</span>
-                    신청서 및 자료 다운로드
+                {/* 법 위반 시 과태료 부과기준 */}
+                <div className="bg-neutral-50 dark:bg-neutral-800 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl p-8 mb-8">
+                  <h3 className="text-2xl font-bold mb-6 flex items-center text-neutral-900 dark:text-neutral-100">
+                    <span className="text-3xl mr-3">⚠️</span>
+                    법 위반 시 과태료 부과기준 내용 추가요청
                   </h3>
-                  <p className="text-neutral-600 dark:text-neutral-300 mb-6">
-                    각종 신청서와 안내 자료를 다운로드하여 활용하실 수 있습니다.
+                  <div className="overflow-x-auto">
+                    <table className="w-full border-collapse text-sm">
+                      <thead>
+                        <tr className="bg-neutral-700 dark:bg-neutral-600 text-white">
+                          <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">위반행위</th>
+                          <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">근거 법조문</th>
+                          <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">세부내용</th>
+                          <th colSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">과태료 금액(만원)</th>
+                        </tr>
+                        <tr className="bg-neutral-600 dark:bg-neutral-500 text-white">
+                          <th colSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-4 py-2"></th>
+                          <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-2">1회위반</th>
+                          <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-2">2회위반</th>
+                          <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-2">3회위반</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="bg-white dark:bg-neutral-900">
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">작업환경측정을 하지않은 경우</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">법제175조 제4항제16호</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">노동자 1명당</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">20</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">20</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">50</td>
+                        </tr>
+                        <tr className="bg-neutral-50 dark:bg-neutral-800">
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">작업환경측정 시 해당 동분영으로 정한 작업환경측정의 방법을 준수하지 않은 경우</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">법175조 5항제13호</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">-</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">100</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">300</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">500</td>
+                        </tr>
+                        <tr className="bg-white dark:bg-neutral-900">
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">노동자대표가 요구했는데도 노동자대표를 입회시키지 않은 경우</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">법제175조제5항제14호</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">-</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">500</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">500</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">500</td>
+                        </tr>
+                        <tr className="bg-neutral-50 dark:bg-neutral-800">
+                          <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">결과를 보고하지 않거나 거짓으로 보고한 경우 및 작업환경측정을 한 때</td>
+                          <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">법제175조 제6항제15호</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">보고하지 않은 경우</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">50</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">150</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">300</td>
+                        </tr>
+                        <tr className="bg-neutral-50 dark:bg-neutral-800">
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">거짓으로 보고한 경우</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">300</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">300</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">300</td>
+                        </tr>
+                        <tr className="bg-white dark:bg-neutral-900">
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">작업환경측정의 결과를 해당 작업장 노동자에게 알리지 않은 경우</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">법제175조제5항제15호</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">-</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">100</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">300</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">500</td>
+                        </tr>
+                        <tr className="bg-neutral-50 dark:bg-neutral-800">
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">산업안전보건위원회 또는 노동자대표와 작업환경측정 결과에 대한 개선을 요구했음에도 이에 따르지 않은 경우</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">법제175조제5항제1호</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">-</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">100</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">300</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center font-bold">500</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-4">
+                    ※ 위반 횟수에 따라 과태료가 가중되며, 법규 준수를 위해 정기적인 측정과 관리가 필수입니다.
                   </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a
-                      href="/documents/work-environment-application.pdf"
-                      className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-neutral-700"
-                    >
-                      <span className="font-bold">작업환경측정 신청서</span>
-                      <span className="text-2xl">📄</span>
-                    </a>
-                    <a
-                      href="/documents/risk-assessment-guide.pdf"
-                      className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-neutral-700"
-                    >
-                      <span className="font-bold">위험성평가 가이드</span>
-                      <span className="text-2xl">📋</span>
-                    </a>
-                  </div>
-                </div>
-
-                {/* 고객 후기 */}
-                <div className="bg-white dark:bg-neutral-900 rounded-xl p-8 border border-neutral-200 dark:border-neutral-700 high-contrast-review">
-                  <h3 className="text-2xl font-bold mb-6 flex items-center">
-                    <span className="text-3xl mr-3">⭐</span>
-                    고객 후기
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6 review-card">
-                      <div className="flex items-center mb-3">
-                        <div className="text-yellow-500 text-xl">★★★★★</div>
-                        <span className="ml-2 text-sm text-neutral-500">충북 청주시 제조업체</span>
-                      </div>
-                      <p className="text-neutral-700 dark:text-neutral-300 mb-2">
-                        "중대재해처벌법 시행 후 위험성평가를 의뢰했는데, 체계적인 컨설팅으로 
-                        안전관리체계를 완벽하게 구축할 수 있었습니다."
-                      </p>
-                      <p className="text-xs text-neutral-500">- 김○○ 안전관리자</p>
-                    </div>
-                    <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6 review-card">
-                      <div className="flex items-center mb-3">
-                        <div className="text-yellow-500 text-xl">★★★★★</div>
-                        <span className="ml-2 text-sm text-neutral-500">충북 진천군 화학공장</span>
-                      </div>
-                      <p className="text-neutral-700 dark:text-neutral-300 mb-2">
-                        "작업환경측정을 10년째 맡기고 있습니다. 정확한 측정과 개선방안 제시로 
-                        항상 적합 판정을 유지하고 있습니다."
-                      </p>
-                      <p className="text-xs text-neutral-500">- 이○○ 공장장</p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
