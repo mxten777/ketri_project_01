@@ -1,7 +1,43 @@
 // No JS-based header offset; anchors handled via CSS :target
+import { useLayoutEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const IndoorAirQuality = () => {
   // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
+  const location = useLocation();
+
+  // Scroll protection for indoor-air-quality route
+  useLayoutEffect(() => {
+    // Force scroll to top only if no hash anchor
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    } else {
+      // If hash is present, scroll to target section after render
+      const targetId = location.hash.slice(1);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        // Use requestAnimationFrame to ensure DOM is fully rendered
+        requestAnimationFrame(() => {
+          targetEl.scrollIntoView({ block: "start", behavior: "auto" });
+        });
+      }
+    }
+  }, [location.pathname, location.hash]);
+
+  // Handle sidebar section navigation with precise scroll control
+  const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      // Use 'auto' behavior for precise positioning without cumulative errors
+      targetEl.scrollIntoView({ block: "start", behavior: "auto" });
+      
+      // Update URL hash without triggering page reload
+      window.history.pushState(null, '', `#${targetId}`);
+    }
+  };
 
   return (
     <main className="min-h-screen">
@@ -25,18 +61,23 @@ const IndoorAirQuality = () => {
               <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
               <nav className="space-y-2">
                 {[
-                  { label: "업무 소개", href: "#introduction" },
-                  { label: "측정 대상시설", href: "#facilities" },
-                  { label: "측정 항목 및 기준", href: "#standards" },
-                ].map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                  { label: "실내공기질 측정 개요", href: "#iaq-overview" },
+                  { label: "측정대상시설", href: "#iaq-target-facilities" },
+                  { label: "보유장비", href: "#iaq-equipment" },
+                  { label: "측정 프로세스", href: "#iaq-process" },
+                ].map((item) => {
+                  const targetId = item.href.slice(1);
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={(e) => handleSectionClick(e, targetId)}
+                      className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
               </nav>
             </div>
           </aside>
@@ -44,8 +85,9 @@ const IndoorAirQuality = () => {
           {/* Main Content */}
           <div className="lg:col-span-3">
             <div className="card p-8 card-tokenized">
-              <h2 id="introduction" className="heading-md mb-6">실내공기질 측정 서비스</h2>
+              <h2 id="iaq-overview" className="heading-md mb-6">실내공기질 측정 개요</h2>
               <div className="prose dark:prose-invert max-w-none">
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4 italic">업무소개</p>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 환경부 지정 실내공기질 측정대행업체(등록번호:
               2017-001)로 2006년부터 500여 개 시설의 실내공기질 측정을
@@ -53,7 +95,94 @@ const IndoorAirQuality = () => {
               개선방안 제시, 후속 관리까지 포괄적인 서비스를 제공합니다.
             </p>
 
-            <h3 id="facilities" className="text-2xl font-bold mt-8 mb-4">측정 대상 시설</h3>
+            {/* 사무실 공기관리 지침 */}
+            <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-6 mb-8">
+              <h3 className="text-xl font-bold mb-4 flex items-center">
+                <span className="text-3xl mr-3">📋</span>
+                사무실 공기관리 지침 (4페이지)
+              </h3>
+              <a 
+                href="/air/air_01.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <img 
+                  src="/air/air_01.jpg" 
+                  alt="사무실 공기관리 지침" 
+                  className="w-full max-w-sm mx-auto rounded-lg border-2 border-green-200 dark:border-neutral-700 hover:shadow-xl hover:scale-105 transition-all cursor-pointer"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement?.insertAdjacentHTML('afterend', 
+                      '<p class="text-red-500 text-center">이미지를 불러올 수 없습니다. 파일 경로를 확인해주세요.</p>'
+                    );
+                  }}
+                />
+              </a>
+              <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 mt-2">
+                클릭하면 전체 PDF 문서를 볼 수 있습니다
+              </p>
+            </div>
+
+            {/* 다중이용시설 안내문 */}
+            <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-6 mb-8">
+              <h3 className="text-xl font-bold mb-4 flex items-center">
+                <span className="text-3xl mr-3">🏢</span>
+                다중이용시설 공기관리 안내문
+              </h3>
+              <a 
+                href="/air/air_02.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <img 
+                  src="/air/air_02.jpg" 
+                  alt="다중이용시설 공기관리 안내문" 
+                  className="w-full max-w-sm mx-auto rounded-lg border-2 border-emerald-200 dark:border-neutral-700 hover:shadow-xl hover:scale-105 transition-all cursor-pointer"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement?.insertAdjacentHTML('afterend', 
+                      '<p class="text-red-500 text-center">이미지를 불러올 수 없습니다. 파일 경로를 확인해주세요.</p>'
+                    );
+                  }}
+                />
+              </a>
+              <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 mt-2">
+                클릭하면 전체 PDF 문서를 볼 수 있습니다
+              </p>
+            </div>
+
+            {/* 교육시설 안내문 */}
+            <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-6 mb-8">
+              <h3 className="text-xl font-bold mb-4 flex items-center">
+                <span className="text-3xl mr-3">🏫</span>
+                교육시설 공기관리 안내문
+              </h3>
+              <a 
+                href="/air/air_03.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <img 
+                  src="/air/air_03.jpg" 
+                  alt="교육시설 공기관리 안내문" 
+                  className="w-full max-w-sm mx-auto rounded-lg border-2 border-orange-200 dark:border-neutral-700 hover:shadow-xl hover:scale-105 transition-all cursor-pointer"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement?.insertAdjacentHTML('afterend', 
+                      '<p class="text-red-500 text-center">이미지를 불러올 수 없습니다. 파일 경로를 확인해주세요.</p>'
+                    );
+                  }}
+                />
+              </a>
+              <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 mt-2">
+                클릭하면 전체 PDF 문서를 볼 수 있습니다
+              </p>
+            </div>
+
+            <h3 id="iaq-target-facilities" className="text-2xl font-bold mt-8 mb-4">측정대상시설</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl">
                 <div className="text-4xl mb-3">🏫</div>
@@ -87,7 +216,7 @@ const IndoorAirQuality = () => {
               </div>
             </div>
 
-            <h3 id="standards" className="text-2xl font-bold mt-8 mb-4">
+            <h3 className="text-2xl font-bold mt-8 mb-4">
               측정 항목 및 유지기준
             </h3>
             <div className="overflow-x-auto mb-8">
@@ -261,7 +390,50 @@ const IndoorAirQuality = () => {
               </div>
             </div>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">측정 프로세스</h3>
+            <h3 id="iaq-equipment" className="text-2xl font-bold mt-8 mb-4">보유장비</h3>
+            <div className="bg-primary-50 dark:bg-neutral-800 rounded-xl p-6 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                  <h4 className="font-bold mb-2">광산란법 측정기 (DustTrak)</h4>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">
+                    PM10, PM2.5 실시간 측정
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-bold mb-2">NDIR CO₂ 측정기</h4>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">
+                    이산화탄소 연속 측정
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-bold mb-2">
+                    HPLC (고성능액체크로마토그래피)
+                  </h4>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    폼알데하이드 정밀 분석
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-bold mb-2">GC/MS (가스크로마토그래프)</h4>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    TVOC 성분 분석
+                  </p>
+                </div>
+              </div>
+              <div className="text-center">
+                <button
+                  onClick={() => navigate('/about/introduction#equipment')}
+                  className="inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors duration-200"
+                >
+                  <span>전체 보유장비 보기</span>
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <h3 id="iaq-process" className="text-2xl font-bold mt-8 mb-4">측정 프로세스</h3>
             <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 mb-6">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex-1 text-center">
@@ -346,38 +518,6 @@ const IndoorAirQuality = () => {
               </ul>
             </div>
 
-            <div className="bg-primary-50 dark:bg-neutral-800 rounded-xl p-6">
-              <h3 className="text-xl font-bold mb-4">전문 측정 장비 보유</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <h4 className="font-bold mb-2">광산란법 측정기 (DustTrak)</h4>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-300">
-                    PM10, PM2.5 실시간 측정
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-bold mb-2">NDIR CO₂ 측정기</h4>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-300">
-                    이산화탄소 연속 측정
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-bold mb-2">
-                    HPLC (고성능액체크로마토그래피)
-                  </h4>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                    폼알데하이드 정밀 분석
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-bold mb-2">GC/MS (가스크로마토그래프)</h4>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                    TVOC 성분 분석
-                  </p>
-                </div>
-              </div>
-            </div>
-
             {/* FAQ 섹션 */}
             <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-8 mb-8 mt-8">
               <h3 className="text-2xl font-bold mb-6 text-green-600 dark:text-green-400">
@@ -458,65 +598,6 @@ const IndoorAirQuality = () => {
               <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
                 ※ 측정 지점 수와 시설 규모에 따라 비용 변동 가능.
               </p>
-            </div>
-
-            {/* 신청서 다운로드 */}
-            <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-8 mb-8">
-              <h3 className="text-2xl font-bold mb-4 flex items-center">
-                <span className="text-3xl mr-3">📥</span>
-                신청서 다운로드
-              </h3>
-              <p className="text-neutral-600 dark:text-neutral-300 mb-6">
-                실내공기질 측정 의뢰서를 다운로드하여 작성 후 제출해주세요.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a
-                  href="/documents/indoor-air-application.pdf"
-                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-green-200 dark:border-neutral-700"
-                >
-                  <span className="font-bold">실내공기질 측정 의뢰서</span>
-                  <span className="text-2xl">📄</span>
-                </a>
-                <a
-                  href="/documents/indoor-air-improvement-guide.pdf"
-                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-green-200 dark:border-green-800"
-                >
-                  <span className="font-bold">공기질 개선 가이드</span>
-                  <span className="text-2xl">📋</span>
-                </a>
-              </div>
-            </div>
-
-            {/* 고객 후기 */}
-            <div className="bg-white dark:bg-neutral-900 rounded-xl p-8 border border-neutral-200 dark:border-neutral-700">
-              <h3 className="text-2xl font-bold mb-6 flex items-center">
-                <span className="text-3xl mr-3">⭐</span>
-                고객 후기
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
-                  <div className="flex items-center mb-3">
-                    <div className="text-yellow-500 text-xl">★★★★★</div>
-                    <span className="ml-2 text-sm text-neutral-500">서울 강남구 ○○어린이집</span>
-                  </div>
-                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
-                    "신축 건물이라 걱정이 많았는데, 전문적인 측정과 개선 방안 덕분에 
-                    안심하고 아이들을 맞이할 수 있었습니다."
-                  </p>
-                  <p className="text-xs text-neutral-500">- 박○○ 원장</p>
-                </div>
-                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
-                  <div className="flex items-center mb-3">
-                    <div className="text-yellow-500 text-xl">★★★★★</div>
-                    <span className="ml-2 text-sm text-neutral-500">충북 청주시 ○○피트니스센터</span>
-                  </div>
-                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
-                    "연 1회 정기 측정을 의뢰하고 있습니다. 신속한 결과 보고와 
-                    개선 컨설팅으로 항상 적합 판정을 유지하고 있습니다."
-                  </p>
-                  <p className="text-xs text-neutral-500">- 최○○ 관리자</p>
-                </div>
-              </div>
             </div>
               </div>
             </div>

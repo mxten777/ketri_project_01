@@ -96,9 +96,10 @@ export const MENU_ITEMS: MenuGroup[] = [
     description: "실내공기질 관련 측정 항목 및 기준 안내",
     layout: "grid",
     items: [
-      { label: "업무 소개", path: "/services/indoor-air-quality#introduction", description: "실내공기질 측정 개요" },
-      { label: "측정 대상시설", path: "/services/indoor-air-quality#facilities", description: "대상 및 적용 범위" },
-      { label: "측정 항목 및 기준", path: "/services/indoor-air-quality#standards", description: "측정 항목과 평가 기준" },
+      { label: "실내공기질 측정 개요", path: "/services/indoor-air-quality#iaq-overview", description: "업무소개 및 서비스 개요" },
+      { label: "측정대상시설", path: "/services/indoor-air-quality#iaq-target-facilities", description: "교육·의료·다중이용시설" },
+      { label: "보유장비", path: "/services/indoor-air-quality#iaq-equipment", description: "전문 측정 장비" },
+      { label: "측정 프로세스", path: "/services/indoor-air-quality#iaq-process", description: "4단계 측정 절차" },
     ],
   },
   {
