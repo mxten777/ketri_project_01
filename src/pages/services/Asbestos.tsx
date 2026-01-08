@@ -1,19 +1,20 @@
  
 // No JS-based header offset; anchors handled via CSS :target
+import { useNavigate } from "react-router-dom";
 
 const Asbestos = () => {
   // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
+  const navigate = useNavigate();
 
   return (
     <main className="min-h-screen">
       <section data-has-hero className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white py-16 lg:py-24">
         <div className="container-custom">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">
+          <h1 className="text-3xl lg:text-4xl font-bold mb-4">
             석면조사 및 분석
           </h1>
           <p className="text-lg">
-            환경부 지정 석면조사기관\n 석면안전관리법에 따른 전문적이고 체계적인
-            석면 안전관리 서비스
+            고용노동부 지정 석면조사기관으로 석면안전관리법에 따른 전문적이고 체계적인 석면 안전관리 서비스
           </p>
         </div>
       </section>
@@ -51,23 +52,75 @@ const Asbestos = () => {
               <h2 id="survey" className="heading-md mb-6">석면조사·분석 서비스</h2>
               <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
-              한국환경안전연구소는 환경부 지정 석면조사기관(등록번호:
-              2017-AB-001)으로 2006년부터 1,200여 건의 석면조사 및 3,000여 건의
-              석면분석을 수행해왔습니다. 석면안전관리법, 산업안전보건법,
-              환경정책기본법 등 관련 법령에 따른 전문적이고 체계적인 석면
+              한국환경안전연구소는 고용노동부 지정 석면조사기관으로 2006년부터 1,200여 건의 석면조사 및 3,000여 건의
+              석면분석을 수행해왔습니다. 석면안전관리법, 산업안전보건법 등 관련 법령에 따른 전문적이고 체계적인 석면
               안전관리 서비스를 제공합니다.
             </p>
 
             <div className="bg-gray-100 dark:bg-gray-800 border-l-4 border-gray-500 p-6 mb-8">
-              <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-gray-300">
-                ⚠️ 석면이란?
+              <h3 className="font-bold text-lg mb-3 text-gray-900 dark:text-gray-300">
+                ● 석면조사(산업안전보건법-고용노동부) - 산업안전보건법 제119조
               </h3>
-              <p className="text-neutral-700 dark:text-neutral-300 mb-3">
-                석면(Asbestos)은 천연 광물질 섬유로, 내열성·내구성이 뛰어나
-                1970~1990년대 건축자재로 광범위하게 사용되었습니다. 그러나 흡입
-                시 폐암, 악성중피종, 석면폐증 등을 유발하는 1급 발암물질로
-                2009년부터 제조·사용이 전면 금지되었습니다.
-              </p>
+              <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-4 mt-4">
+                <h4 className="font-bold text-base mb-2 flex items-center text-gray-900 dark:text-gray-300">
+                  <span className="text-green-600 dark:text-green-400 mr-2">📋</span>
+                  석면조사
+                </h4>
+                <p className="text-sm text-neutral-700 dark:text-neutral-300">
+                  해당건축물이나 설비에 석면이 함유되어 있는지의 여부, 함유된 석면의 종류 및 함유량, 함유 제품의 위치 및 면적을 
+                  파악하기 위한 조사로서 일정규모 이상의 건축물 또는 설비를 철거 · 해체하고자 하려는 자는 지정 석면조사기관을 통해 
+                  석면조사를 실시 한 후 그 결과를 기록 · 보존하여야 함
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-xl p-6 mb-8">
+              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-gray-300">
+                ● 석면조사대상(산업안전보건법-고용노동부) - 산업안전보건법 제119조
+              </h3>
+              <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 mb-4">
+                <p className="text-sm font-semibold text-red-700 dark:text-red-300">
+                  과태료 : 기관석면조사대상 5천만원 이하 / 일반석면조사대상 300만원 이하
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="border-l-4 border-primary-500 pl-4">
+                  <h4 className="font-bold text-base mb-3 text-primary-600 dark:text-primary-400">기관석면조사대상</h4>
+                  <ul className="space-y-2 text-sm text-neutral-700 dark:text-neutral-300">
+                    <li>• <strong>일반건축물(주택 제외):</strong> 연면적 합계가 50㎡ 이상이면서, 그 건축물의 철거·해체하려는 부분의 면적 합계가 50㎡ 이상</li>
+                    <li>• <strong>주택:</strong> 연면적 합계가 200㎡ 이상이면서, 그 주택의 철거·해체하려는 부분의 면적 합계가 200㎡ 이상</li>
+                    <li>• <strong>설비:</strong> 단열재, 보온재, 내화피복재 등을 사용한 면적의 합이 15㎡ 이상 또는 그 부피의 합이 1㎥ 이상</li>
+                    <li>• <strong>파이프:</strong> 길이의 합이 80m 이상이면서, 그 파이프의 철거·해체하려는 부분의 보온재로 사용된 길이의 합이 80m 이상</li>
+                  </ul>
+                </div>
+                <div className="border-l-4 border-gray-500 pl-4">
+                  <h4 className="font-bold text-base mb-3 text-gray-600 dark:text-gray-400">일반석면조사대상</h4>
+                  <p className="text-sm text-neutral-700 dark:text-neutral-300">기관석면조사 대상 이외의 건축물 및 설비</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-xl p-6 mb-8">
+              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-gray-300">
+                ● 석면조사대상(석면안전관리법-기후에너지환경부) - 석면안전관리법 제21조
+              </h3>
+              <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 mb-4">
+                <p className="text-sm font-semibold text-red-700 dark:text-red-300">
+                  과태료 : 2천만원 이하
+                </p>
+              </div>
+
+              <ul className="space-y-2 text-sm text-neutral-700 dark:text-neutral-300">
+                <li>• 연면적이 500㎡ 이상인 건축물</li>
+                <li>• 국회, 법원, 헌법재판소 등 중앙행정기관 및 그 소속 기관과 지방자치단체가 소유 및 사용하는 건축물</li>
+                <li>• 공공기관이 사용하는 건축물</li>
+                <li>• 특별법에 따라 설립된 특수법인이 소유 및 사용하는 건축물</li>
+                <li>• 지방공기업법에 따른 지방공사 및 지방공단이 소유 및 사용하는 건축물</li>
+                <li>• 영유아 보육법에 따른 어린이집, 유아교육법에 따른 유치원, 초중등교육법에 따른 학교, 고등교육법에 따른 학교 및 아동복지법에 따른 지역아동센터</li>
+                <li>• 불특정 다수인이 사용하는 다중이용시설 건축물 (지하역사, 지하도상가, 철도역사 대합실 등)</li>
+                <li>• 문화 및 집회시설, 의료시설, 노유자시설</li>
+              </ul>
             </div>
 
             <h3 className="text-2xl font-bold mt-8 mb-4">주요 서비스</h3>
@@ -285,45 +338,26 @@ const Asbestos = () => {
             </div>
 
             <h3 className="text-2xl font-bold mt-8 mb-4">분석 방법</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="border-2 border-primary-500 rounded-lg p-6">
-                <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-primary-400">
-                  PLM (편광현미경)
-                </h4>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
-                  가장 기본적인 석면 정성분석 방법
-                </p>
-                <ul className="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
-                  <li>• 석면 함유 여부 판정</li>
-                  <li>• 석면 종류 구분</li>
-                  <li>• 분석시간: 1~2일</li>
-                </ul>
-              </div>
-              <div className="border-2 border-gray-500 rounded-lg p-6">
-                <h4 className="font-bold text-lg mb-3 text-gray-600 dark:text-gray-400">
-                  XRD (X선회절분석)
-                </h4>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
-                  석면 함유량 정량분석
-                </p>
-                <ul className="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
-                  <li>• 석면 함유량 % 측정</li>
-                  <li>• 고정밀 정량분석</li>
-                  <li>• 분석시간: 3~5일</li>
-                </ul>
-              </div>
-              <div className="border-2 border-gray-500 rounded-lg p-6">
-                <h4 className="font-bold text-lg mb-3 text-gray-600 dark:text-gray-400">
-                  TEM (투과전자현미경)
-                </h4>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
-                  공기 중 석면섬유 계수
-                </p>
-                <ul className="text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
-                  <li>• 초미량 석면 검출</li>
-                  <li>• 석면농도 측정 (개/cc)</li>
-                  <li>• 분석시간: 7~10일</li>
-                </ul>
+            <div className="bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl p-6 mb-8">
+              <h4 className="font-bold text-lg mb-4">석면조사 및 공기중 석면농도 분석</h4>
+              <div className="space-y-6">
+                <div className="border-l-4 border-primary-500 pl-4">
+                  <h5 className="font-bold mb-2 text-primary-600 dark:text-primary-400">PLM (편광현미경)</h5>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">석면조사(고형) 정성, 정량분석</p>
+                  <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
+                    <li>• 석면 함유여부 및 함유량 판정</li>
+                    <li>• 석면 종류 구분</li>
+                    <li>• 분석 기간: 1~2일</li>
+                  </ul>
+                </div>
+                <div className="border-l-4 border-gray-500 pl-4">
+                  <h5 className="font-bold mb-2 text-gray-600 dark:text-gray-400">PCM (위상차현미경)</h5>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">공기중 석면농도 분석</p>
+                  <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
+                    <li>• 공기중 석면 농도 분석 (개/CC)</li>
+                    <li>• 분석기간: 2~3일</li>
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -349,7 +383,7 @@ const Asbestos = () => {
 
             <div className="bg-primary-50 dark:bg-primary-900/20 rounded-xl p-6">
               <h3 className="text-xl font-bold mb-4">전문 분석 장비 보유</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div>
                   <h4 className="font-bold mb-2">
                     PLM (Polarized Light Microscopy)
@@ -380,6 +414,17 @@ const Asbestos = () => {
                     초고배율 석면섬유 분석
                   </p>
                 </div>
+              </div>
+              <div className="text-center">
+                <button
+                  onClick={() => navigate('/about/introduction#equipment')}
+                  className="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200"
+                >
+                  <span>전체 보유장비 보기</span>
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
             </div>
 
@@ -464,65 +509,6 @@ const Asbestos = () => {
               <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
                 ※ 건물 구조 복잡도와 접근성에 따라 비용 변동 가능.
               </p>
-            </div>
-
-            {/* 신청서 다운로드 */}
-            <div className="bg-gradient-to-r from-orange-50 to-primary-50 dark:from-orange-900/20 dark:to-primary-900/20 rounded-xl p-8 mb-8">
-              <h3 className="text-2xl font-bold mb-4 flex items-center">
-                <span className="text-3xl mr-3">📥</span>
-                신청서 다운로드
-              </h3>
-              <p className="text-neutral-600 dark:text-neutral-400 mb-6">
-                석면 조사 의뢰서를 다운로드하여 작성 후 제출해주세요.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a
-                  href="/documents/asbestos-survey-application.pdf"
-                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-primary-800"
-                >
-                  <span className="font-bold">석면 조사 의뢰서</span>
-                  <span className="text-2xl">📄</span>
-                </a>
-                <a
-                  href="/documents/asbestos-removal-guide.pdf"
-                  className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border-2 border-primary-200 dark:border-primary-800"
-                >
-                  <span className="font-bold">석면 해체 안내서</span>
-                  <span className="text-2xl">📋</span>
-                </a>
-              </div>
-            </div>
-
-            {/* 고객 후기 */}
-            <div className="bg-white dark:bg-neutral-900 rounded-xl p-8 border border-neutral-200 dark:border-neutral-700">
-              <h3 className="text-2xl font-bold mb-6 flex items-center">
-                <span className="text-3xl mr-3">⭐</span>
-                고객 후기
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
-                  <div className="flex items-center mb-3">
-                    <div className="text-yellow-500 text-xl">★★★★★</div>
-                    <span className="ml-2 text-sm text-neutral-500">서울 송파구 재건축 조합</span>
-                  </div>
-                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
-                    "대규모 철거 전 조사였는데, 체계적인 시료 채취와 정확한 분석으로 
-                    안전하게 공사를 진행할 수 있었습니다."
-                  </p>
-                  <p className="text-xs text-neutral-500">- 김○○ 조합장</p>
-                </div>
-                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-6">
-                  <div className="flex items-center mb-3">
-                    <div className="text-yellow-500 text-xl">★★★★★</div>
-                    <span className="ml-2 text-sm text-neutral-500">충북 청주시 ○○공장</span>
-                  </div>
-                  <p className="text-neutral-700 dark:text-neutral-300 mb-2">
-                    "공장 리모델링 전 의뢰했습니다. 신속한 조사와 해체 계획 수립으로 
-                    일정 차질 없이 진행할 수 있었습니다."
-                  </p>
-                  <p className="text-xs text-neutral-500">- 이○○ 공장장</p>
-                </div>
-              </div>
             </div>
 
               </div>

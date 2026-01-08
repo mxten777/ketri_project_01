@@ -138,7 +138,7 @@ export const SERVICES: ServiceItem[] = [
   {
     icon: Droplets,
     title: "먹는물 검사",
-    description: "수돗물·지하수·정수기 등 59개 항목 수질검사 서비스",
+    description: "수돇물·지하수·정수기 등 60여개 항목 수질검사 서비스",
     path: "/services/water-testing",
     color: "from-cyan-500 to-blue-500",
   },
@@ -159,7 +159,7 @@ export const SERVICES: ServiceItem[] = [
   {
     icon: Shield,
     title: "석면조사분석",
-    description: "환경부 지정 석면조사기관으로 정성·정량분석 및 위해성 평가 서비스",
+    description: "고용노동부 지정 석면조사기관으로 정성·정량분석 및 위해성 평가 서비스",
     path: "/services/asbestos",
     color: "from-orange-500 to-red-500",
   },

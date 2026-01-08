@@ -90,7 +90,7 @@ const Home = () => {
       {/* ✅ FIX: header 높이 제외 + 레이어 확정 + 상단 scrim */}
       <section
         data-has-hero
-        className="relative z-0 pt-header min-h-[85vh] flex flex-col items-center justify-start md:justify-center overflow-visible min-h-[72px] md:min-h-[80px] lg:min-h-[88px] pb-16 sm:pb-20"
+        className="relative z-0 pt-header flex flex-col items-center justify-start md:justify-center overflow-visible pb-16 sm:pb-20"
         style={{
           minHeight: "calc(100vh - var(--app-header-h))",
         }}
@@ -128,7 +128,7 @@ const Home = () => {
 
         {/* ✅ 헤더/텍스트 가독성용 상단 scrim (프리미엄 톤) */}
         <div
-          className="pointer-events-none absolute inset-x-0 top-header z-0 bg-gradient-to-b from-black/35 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-header z-0 bg-gradient-to-b from-black/20 to-transparent"
             style={{ height: "var(--app-header-h, 84px)" }}
         />
 
@@ -142,9 +142,9 @@ const Home = () => {
               transition={{ duration: 0.8 }}
               className="text-center text-white max-w-6xl mx-auto md:mx-0 md:flex-1"
             >
-              {/* 메인 타이틀 - 글자별 애니메이션 */}
+              {/* 상단 문구 - 더 절제되고 보조적으로 */}
               <motion.span
-                className="inline-block text-base md:text-lg tracking-wide font-semibold text-white/95 mb-4 md:mb-5"
+                className="inline-block text-sm md:text-base tracking-wider font-medium text-white/75 mb-6 md:mb-7"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
@@ -152,25 +152,26 @@ const Home = () => {
                 기준으로 선택되는 신뢰
               </motion.span>
 
+              {/* 메인 타이틀 - pill 배경을 더 은은하게 */}
               <motion.h1
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-tight"
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
                 <motion.span
-                  className="relative z-10 mt-4 md:mt-6 inline-block px-10 md:px-12 lg:px-14 py-3 md:py-4 rounded-2xl text-white font-extrabold bg-white/15 backdrop-blur-md border border-white/25 shadow-2xl"
-                  initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ delay: 0.5, duration: 0.8, type: "spring", stiffness: 100 }}
-                  whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+                  className="relative z-10 mt-4 md:mt-6 inline-block px-8 sm:px-10 md:px-12 lg:px-14 py-3 md:py-4 rounded-2xl text-white font-extrabold bg-white/8 backdrop-blur-md border border-white/15 shadow-xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.8 }}
                 >
                   한국환경안전연구소
                 </motion.span>
               </motion.h1>
 
+              {/* 서브 텍스트 - 줄간격과 자간 개선 */}
               <motion.p
-                className="hidden sm:block text-lg md:text-xl text-white/90 mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed font-normal"
+                className="hidden sm:block text-lg md:text-xl text-white/80 mb-12 md:mb-14 max-w-3xl mx-auto leading-[1.75] tracking-wide font-light"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
@@ -180,21 +181,22 @@ const Home = () => {
                 제공합니다.
               </motion.p>
 
+              {/* CTA 버튼 - 덜 강조, 더 정돈된 느낌 */}
               <motion.div
-                className="flex flex-col sm:flex-row items-center justify-center gap-5 md:gap-6 mb-16 md:mb-20 mt-4 md:mt-6"
+                className="flex flex-col sm:flex-row items-center justify-center gap-5 md:gap-5 mb-16 md:mb-20 mt-6 md:mt-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
               >
                 <motion.a
                   href="tel:043-237-7824"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   className="w-full sm:w-auto"
                 >
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto min-w-[240px] md:min-w-[260px] h-14 md:h-16 text-base md:text-lg font-semibold bg-white/60 border border-white/90 text-white hover:bg-white/70 backdrop-blur-sm transition-all duration-300 shadow-2xl"
+                    className="w-full sm:w-auto min-w-[220px] md:min-w-[240px] h-12 md:h-14 text-base md:text-lg font-semibold bg-white/40 border border-white/70 text-white hover:bg-white/50 backdrop-blur-sm transition-all duration-200 shadow-md"
                   >
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
@@ -208,12 +210,12 @@ const Home = () => {
                   </Button>
                 </motion.a>
 
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
                   <Link to="/about/greeting" className="w-full sm:w-auto">
                     <Button
                       size="lg"
                       variant="outline"
-                      className="w-full sm:w-auto min-w-[240px] md:min-w-[260px] h-14 md:h-16 text-base md:text-lg font-semibold border-2 border-white/80 text-white hover:bg-white/40 hover:text-white backdrop-blur-sm transition-all duration-300"
+                      className="w-full sm:w-auto min-w-[220px] md:min-w-[240px] h-12 md:h-14 text-base md:text-lg font-semibold border border-white/60 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm transition-all duration-200"
                     >
                       회사 소개 보기
                       <ArrowRight className="w-5 h-5 ml-2" />

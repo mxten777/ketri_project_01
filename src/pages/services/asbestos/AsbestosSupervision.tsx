@@ -126,7 +126,7 @@ const AsbestosSupervision = () => {
               <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6">
                 <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">✅ 전문 감리 서비스</h3>
                 <p className="text-neutral-700 dark:text-neutral-300">
-                  환경부 지정 석면조사기관의 전문 감리원이 작업 전 과정을 철저히 감독하여 
+                  고용노동부 지정 석면조사기관의 전문 감리원이 작업 전 과정을 철저히 감독하여 
                   안전한 석면 해체·제거를 보장합니다.
                 </p>
               </div>

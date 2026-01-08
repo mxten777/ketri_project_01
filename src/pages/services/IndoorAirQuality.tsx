@@ -43,7 +43,7 @@ const IndoorAirQuality = () => {
     <main className="min-h-screen">
       <section data-has-hero className="bg-gradient-to-br from-green-600 to-emerald-600 text-white py-16 lg:py-24">
         <div className="container-custom">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">
+          <h1 className="text-3xl lg:text-4xl font-bold mb-4">
             실내공기질 측정 및 개선
           </h1>
           <p className="text-lg">

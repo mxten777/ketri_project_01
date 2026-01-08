@@ -7,7 +7,7 @@ const WaterTesting = () => {
     <main className="min-h-screen">
       <section data-has-hero className="bg-gradient-to-br from-cyan-600 to-blue-600 text-white py-16 lg:py-24">
         <div className="container-custom">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">먹는물 수질검사</h1>
+          <h1 className="text-3xl lg:text-4xl font-bold mb-4">먹는물 수질검사</h1>
           <p className="text-lg">
             환경부 지정 수질검사기관으로 60여개 항목 수질검사 서비스를 제공합니다. 먹는물관리법과 수돗물법에 따른 정확하고 신속한 분석으로 안전한 먹는물을 책임집니다.
           </p>
@@ -50,7 +50,7 @@ const WaterTesting = () => {
 
                 <h3 id="scope" className="text-2xl font-bold mt-8 mb-4">수질검사대상 및 범위</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                  <div className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl">
+                  <div className="p-6 bg-gradient-to-br from-cyan-50/50 to-blue-50/50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl">
                     <div className="text-4xl mb-3">🏢</div>
                     <h4 className="font-bold text-lg mb-2">건물 급수시설</h4>
                     <ul className="text-sm text-neutral-600 dark:text-neutral-300 space-y-1">
@@ -59,7 +59,7 @@ const WaterTesting = () => {
                       <li>• 학교, 병원</li>
                     </ul>
                   </div>
-                  <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl">
+                  <div className="p-6 bg-gradient-to-br from-blue-50/50 to-indigo-50/50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl">
                     <div className="text-4xl mb-3">💧</div>
                     <h4 className="font-bold text-lg mb-2">소규모 급수시설</h4>
                     <ul className="text-sm text-neutral-600 dark:text-neutral-300 space-y-1">
@@ -68,7 +68,7 @@ const WaterTesting = () => {
                       <li>• 전용상수도</li>
                     </ul>
                   </div>
-                  <div className="p-6 bg-gradient-to-br from-indigo-50 to-cyan-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl">
+                  <div className="p-6 bg-gradient-to-br from-indigo-50/50 to-cyan-50/50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl">
                     <div className="text-4xl mb-3">🏭</div>
                     <h4 className="font-bold text-lg mb-2">지하수</h4>
                     <ul className="text-sm text-neutral-600 dark:text-neutral-300 space-y-1">

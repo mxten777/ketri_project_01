@@ -27,55 +27,60 @@ const Footer = () => {
     >
       {/* ================= CTA SECTION (항상 그라데이션) ================= */}
       <div className="relative">
+        {/* Base gradient */}
         <div className="absolute inset-0 -z-10 pointer-events-none" style={CTA_BG} />
+        {/* Subtle highlights */}
         <div className="absolute inset-0 -z-10 pointer-events-none opacity-60" style={CTA_HL} />
+        {/* Bottom fade for smooth transition to footer */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/20 to-transparent -z-10 pointer-events-none" />
 
         <div className="relative z-10">
           <Container size="xl">
-            <div className="text-center text-white py-12 md:py-14">
-              <h3 className="text-2xl md:text-3xl font-bold mb-3">
+            <div className="text-center text-white py-16 md:py-20 px-6">
+              <h3 className="text-2xl md:text-3xl font-semibold mb-3 tracking-tight">
                 전문적인 환경안전 서비스가 필요하신가요?
               </h3>
-              <p className="text-lg mb-8 text-white/90">
+              <p className="text-base md:text-lg mb-10 text-white/85 tracking-wide">
                 전문 상담원이 친절하게 안내해드립니다
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-5 max-w-2xl mx-auto">
                 <a
                   href="tel:043-237-7824"
                   className={[
-                    "inline-flex items-center gap-3 h-16 rounded-full font-bold",
-                    "text-primary-700 dark:text-primary-700 bg-white hover:bg-neutral-50",
-                    "border-2 border-white",
-                    "shadow-[0_10px_30px_rgba(0,0,0,0.18)]",
-                    "transition-transform duration-200 hover:-translate-y-[1px]",
-                    "px-6 sm:px-8 min-w-[240px] justify-center",
+                    "group inline-flex items-center gap-3 h-14 rounded-xl font-semibold",
+                    "text-blue-700 dark:text-blue-700 bg-white hover:bg-white/95",
+                    "border border-white/40 hover:border-white/60",
+                    "shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:shadow-[0_10px_28px_rgba(0,0,0,0.16)]",
+                    "transition-all duration-200 hover:-translate-y-0.5",
+                    "px-8 w-full sm:w-auto min-w-[220px] justify-center",
                   ].join(" ")}
                 >
-                  <Phone className="w-5 h-5" />
-                  전화 상담: 043-237-7824
+                  <Phone className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+                  <span>전화 상담: 043-237-7824</span>
                 </a>
 
                 <a
                   href="mailto:kesri0728@naver.com"
                   className={[
-                    "inline-flex items-center gap-3 h-16 rounded-full font-bold",
-                    "text-white bg-white/20 hover:bg-white/30",
-                    "border-2 border-white",
-                    "shadow-[0_10px_30px_rgba(0,0,0,0.14)]",
-                    "transition-transform duration-200 hover:-translate-y-[1px]",
-                    "px-6 sm:px-8 min-w-[240px] justify-center",
+                    "group inline-flex items-center gap-3 h-14 rounded-xl font-semibold",
+                    "text-white bg-white/15 hover:bg-white/25",
+                    "border border-white/50 hover:border-white/70",
+                    "shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:shadow-[0_10px_28px_rgba(0,0,0,0.12)]",
+                    "transition-all duration-200 hover:-translate-y-0.5",
+                    "px-8 w-full sm:w-auto min-w-[220px] justify-center backdrop-blur-sm",
                   ].join(" ")}
                 >
-                  <Mail className="w-5 h-5" />
-                  이메일 문의
+                  <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+                  <span>이메일 문의</span>
                 </a>
               </div>
             </div>
           </Container>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 h-px bg-white/20 z-10" />
+        {/* Subtle divider for footer transition */}
+        <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent z-10" />
       </div>
 
       {/* ================= MAIN FOOTER ================= */}

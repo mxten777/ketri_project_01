@@ -87,9 +87,9 @@ const AsbestosSurvey = () => {
               </div>
 
               <div className="bg-primary-50 dark:bg-primary-900/20 border-l-4 border-primary-500 p-6">
-                <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">✅ 환경부 지정 석면조사기관</h3>
+                <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">✅ 고용노동부 지정 석면조사기관</h3>
                 <p className="text-neutral-700 dark:text-neutral-300">
-                  한국환경안전연구소는 환경부 지정 석면조사기관으로 정확하고 신뢰할 수 있는 조사 서비스를 제공합니다.
+                  한국환경안전연구소는 고용노동부 지정 석면조사기관으로 정확하고 신뢰할 수 있는 조사 서비스를 제공합니다.
                 </p>
               </div>
             </div>

@@ -8,7 +8,7 @@ const DialysisWater = () => {
     <main className="min-h-screen">
       <section data-has-hero className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white py-16 lg:py-24">
         <div className="container-custom">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">
+          <h1 className="text-3xl lg:text-4xl font-bold mb-4">
             혈액투석용수 검사
           </h1>
           <p className="text-lg">
