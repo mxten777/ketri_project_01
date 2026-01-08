@@ -53,7 +53,7 @@ export const MENU_ITEMS: MenuGroup[] = [
     ],
   },
   {
-    label: "산업보건컨설팅",
+    label: "작업환경측정",
     mainPath: "/services/industrial-health",
     description: "현장 중심의 산업보건 전문 컨설팅 및 검사 서비스",
     layout: "grid",
@@ -129,7 +129,7 @@ export const MENU_ITEMS: MenuGroup[] = [
 export const SERVICES: ServiceItem[] = [
   {
     icon: Building2,
-    title: "산업보건컨설팅",
+    title: "작업환경측정",
     description: "작업환경측정, 근골격계질환 예방, 화학물질 위해성 평가 등 산업보건 전문 서비스",
     path: "/services/industrial-health",
     color: "from-blue-500 to-cyan-500",
