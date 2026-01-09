@@ -11,9 +11,6 @@ const NoticeList = () => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchNotices = useCallback(async () => {
-    // Prevent duplicate concurrent requests
-    if (loading) return;
-
     try {
       setLoading(true);
       setError(null);
@@ -25,7 +22,7 @@ const NoticeList = () => {
     } finally {
       setLoading(false);
     }
-  }, [loading]);
+  }, []);
 
   useEffect(() => {
     fetchNotices();
