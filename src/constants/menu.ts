@@ -118,6 +118,7 @@ export const MENU_ITEMS: MenuGroup[] = [
   },
   {
     label: "정보센터",
+    mainPath: "/board/notice",
     description: "공지사항 및 자료실을 통해 최신 정보를 제공",
     layout: "grid",
     items: [

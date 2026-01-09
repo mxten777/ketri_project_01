@@ -19,7 +19,8 @@ const WaterTesting = () => {
           {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="card p-6 sticky top-32 card-tokenized">
-              <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
+              <h3 className="font-bold text-lg mb-2">먹는물 검사</h3>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">세부 서비스</p>
               <nav className="space-y-2">
                 {[
                   { label: "업무소개", href: "#introduction" },

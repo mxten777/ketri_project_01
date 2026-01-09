@@ -58,7 +58,8 @@ const IndoorAirQuality = () => {
           {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="card p-6 sticky top-32 card-tokenized">
-              <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
+              <h3 className="font-bold text-lg mb-2">실내공기질 측정</h3>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">세부 서비스</p>
               <nav className="space-y-2">
                 {[
                   { label: "실내공기질 측정 개요", href: "#iaq-overview" },
@@ -561,44 +562,6 @@ const IndoorAirQuality = () => {
               </div>
             </div>
 
-            {/* 비용 안내 */}
-            <div className="bg-white dark:bg-neutral-800 border-2 border-green-200 dark:border-green-800 rounded-xl p-8 mb-8">
-              <h3 className="text-2xl font-bold mb-6 flex items-center">
-                <span className="text-3xl mr-3">💰</span>
-                측정 비용 안내
-              </h3>
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse">
-                  <thead>
-                    <tr className="bg-green-600 text-white">
-                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">시설 구분</th>
-                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">측정 항목</th>
-                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">예상 비용</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="bg-white dark:bg-neutral-900">
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">다중이용시설 (기본)</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">PM10, CO₂, HCHO (3개)</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">30만원 ~ 50만원</td>
-                    </tr>
-                    <tr className="bg-neutral-50 dark:bg-neutral-800">
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">다중이용시설 (전체)</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">6개 항목</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">60만원 ~ 90만원</td>
-                    </tr>
-                    <tr className="bg-white dark:bg-neutral-900">
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">지하역사·철도역사</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">10개 항목</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">100만원 ~ 150만원</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
-                ※ 측정 지점 수와 시설 규모에 따라 비용 변동 가능.
-              </p>
-            </div>
               </div>
             </div>
           </div>

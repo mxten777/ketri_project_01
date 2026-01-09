@@ -111,7 +111,7 @@ const Header = () => {
 
     const timeout = setTimeout(() => {
       setOpenDropdown(null);
-    }, 350);
+    }, 800);
     setCloseTimeout(timeout);
   };
 

@@ -24,7 +24,8 @@ const Asbestos = () => {
           {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="card p-6 sticky top-32 card-tokenized">
-              <h3 className="font-bold text-lg mb-4">세부 서비스</h3>
+              <h3 className="font-bold text-lg mb-2">석면조사·분석</h3>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">세부 서비스</p>
               <nav className="space-y-2">
                 {[
                   { label: "석면조사분석", href: "#survey" },
@@ -470,45 +471,6 @@ const Asbestos = () => {
                   </p>
                 </div>
               </div>
-            </div>
-
-            {/* 비용 안내 */}
-            <div className="bg-white dark:bg-neutral-800 border-2 border-primary-200 dark:border-primary-800 rounded-xl p-8 mb-8">
-              <h3 className="text-2xl font-bold mb-6 flex items-center">
-                <span className="text-3xl mr-3">💰</span>
-                조사 비용 안내
-              </h3>
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse">
-                  <thead>
-                    <tr className="bg-primary-600 text-white">
-                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">건물 규모</th>
-                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">시료 수</th>
-                      <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">예상 비용</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="bg-white dark:bg-neutral-900">
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">소형 (주택, 상가)</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">3~5개</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">50만원 ~ 80만원</td>
-                    </tr>
-                    <tr className="bg-neutral-50 dark:bg-neutral-800">
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">중형 (빌라, 소규모 건물)</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">5~10개</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">80만원 ~ 120만원</td>
-                    </tr>
-                    <tr className="bg-white dark:bg-neutral-900">
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold">대형 (공장, 대형 건물)</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">10개 이상</td>
-                      <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-center">100만원 ~ 200만원+</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
-                ※ 건물 구조 복잡도와 접근성에 따라 비용 변동 가능.
-              </p>
             </div>
 
               </div>
