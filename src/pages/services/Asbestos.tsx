@@ -1,6 +1,7 @@
  
 // No JS-based header offset; anchors handled via CSS :target
 import { useNavigate } from "react-router-dom";
+import ServiceCta from "../../components/common/ServiceCta";
 
 const Asbestos = () => {
   // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
@@ -471,6 +472,11 @@ const Asbestos = () => {
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* CTA 섹션 */}
+            <div className="mt-12">
+              <ServiceCta message="석면조사 문의가 필요하신가요?" />
             </div>
 
               </div>

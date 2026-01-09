@@ -1,5 +1,7 @@
 // No JS-based header offset; anchors handled via CSS :target
 
+import ServiceCta from "../../components/common/ServiceCta";
+
 const WaterTesting = () => {
   // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
 
@@ -228,23 +230,7 @@ const WaterTesting = () => {
                   </ul>
                 </div>
 
-                <div className="bg-primary-50 dark:bg-neutral-800 rounded-xl p-6">
-                  <h3 className="text-xl font-bold mb-4 text-neutral-900 dark:text-neutral-100">📞 검사 문의 및 신청</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">전화 문의</p>
-                      <p className="font-bold text-lg text-neutral-900 dark:text-neutral-200">043.237.7824~5</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">팩스</p>
-                      <p className="font-bold text-lg text-neutral-900 dark:text-neutral-200">043.237.7626</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">이메일</p>
-                      <p className="font-bold text-lg text-neutral-900 dark:text-neutral-200">kesri0728@naver.com</p>
-                    </div>
-                  </div>
-                </div>
+                <ServiceCta message="수질검사 문의가 필요하신가요?" />
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
  
 // No JS-based header offset; anchors handled via CSS :target
+import ServiceCta from "../../components/common/ServiceCta";
 
 const DialysisWater = () => {
   // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
@@ -374,6 +375,11 @@ const DialysisWater = () => {
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* CTA 섹션 */}
+            <div className="mt-12">
+              <ServiceCta message="혈액투석용수 검사 문의가 필요하신가요?" />
             </div>
 
               </div>

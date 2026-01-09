@@ -3,6 +3,7 @@ import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
+import ServiceCta from "../../components/common/ServiceCta";
 
 const IndustrialHealth = () => {
   // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
@@ -200,22 +201,7 @@ const IndustrialHealth = () => {
                   ))}
                 </div>
 
-                <div className="bg-primary-50 dark:bg-neutral-800 rounded-xl p-6 mb-8">
-                  <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">📞 문의 및 상담</h3>
-                  <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-                    사업장의 안전보건 관리에 대한 전문적인 상담이 필요하시면 언제든지 연락 주시기 바랍니다.
-                  </p>
-                  <div className="flex flex-wrap gap-4">
-                    <div className="flex items-center space-x-2">
-                      <span className="font-bold">전화:</span>
-                      <span className="text-primary-600 dark:text-primary-400">043.237.7824~5</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="font-bold">팩스:</span>
-                      <span>043.237.7626</span>
-                    </div>
-                  </div>
-                </div>
+                <ServiceCta message="산업보건 상담이 필요하신가요?" />
 
                 {/* FAQ 섹션 */}
                 <div className="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-8 mb-8 mt-8">

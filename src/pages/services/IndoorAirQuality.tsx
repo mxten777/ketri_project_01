@@ -1,6 +1,7 @@
 // No JS-based header offset; anchors handled via CSS :target
 import { useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
+import ServiceCta from "../../components/common/ServiceCta";
 
 const IndoorAirQuality = () => {
   // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
@@ -560,6 +561,11 @@ const IndoorAirQuality = () => {
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* CTA 섹션 */}
+            <div className="mt-12">
+              <ServiceCta message="실내공기질 측정 문의가 필요하신가요?" />
             </div>
 
               </div>
