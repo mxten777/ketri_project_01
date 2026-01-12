@@ -55,41 +55,41 @@ const Organization = () => {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
             <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
-              <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-primary-500 mx-auto mb-3 sm:mb-4" />
-              <div className="text-display-sm text-primary-600 dark:text-primary-400 mb-1 sm:mb-2">
+              <Users className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-primary-500 mx-auto mb-3 sm:mb-4" />
+              <div className="text-5xl lg:text-6xl font-bold text-primary-600 dark:text-primary-400 mb-2 sm:mb-3">
                 28
               </div>
-              <div className="label-md text-neutral-600 dark:text-neutral-400">
+              <div className="text-body-lg font-medium text-neutral-600 dark:text-neutral-400">
                 총 직원 수
               </div>
             </div>
 
             <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
-              <Building className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-primary-500 mx-auto mb-3 sm:mb-4" />
-              <div className="text-display-sm text-primary-600 dark:text-primary-400 mb-1 sm:mb-2">
+              <Building className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-primary-500 mx-auto mb-3 sm:mb-4" />
+              <div className="text-5xl lg:text-6xl font-bold text-primary-600 dark:text-primary-400 mb-2 sm:mb-3">
                 5
               </div>
-              <div className="label-md text-neutral-600 dark:text-neutral-400">
+              <div className="text-body-lg font-medium text-neutral-600 dark:text-neutral-400">
                 부서
               </div>
             </div>
 
             <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
-              <UserCheck className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-success-500 mx-auto mb-3 sm:mb-4" />
-              <div className="text-display-sm text-success-500 mb-1 sm:mb-2">
+              <UserCheck className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-success-500 mx-auto mb-3 sm:mb-4" />
+              <div className="text-5xl lg:text-6xl font-bold text-success-500 mb-2 sm:mb-3">
                 85%
               </div>
-              <div className="label-md text-neutral-600 dark:text-neutral-400">
+              <div className="text-body-lg font-medium text-neutral-600 dark:text-neutral-400">
                 전문인력 비율
               </div>
             </div>
 
             <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 shadow-soft">
-              <Award className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-warning-500 mx-auto mb-3 sm:mb-4" />
-              <div className="text-display-sm text-warning-500 mb-1 sm:mb-2">
+              <Award className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-warning-500 mx-auto mb-3 sm:mb-4" />
+              <div className="text-5xl lg:text-6xl font-bold text-warning-500 mb-2 sm:mb-3">
                 15+
               </div>
-              <div className="label-md text-neutral-600 dark:text-neutral-400">
+              <div className="text-body-lg font-medium text-neutral-600 dark:text-neutral-400">
                 보유 자격증
               </div>
             </div>
@@ -103,7 +103,7 @@ const Organization = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mb-12 sm:mb-16"
         >
-          <h3 className="text-heading-md text-center mb-8 sm:mb-12">
+          <h3 className="text-heading-lg text-center mb-8 sm:mb-12">
             조직 구성도
           </h3>
 
@@ -115,9 +115,9 @@ const Organization = () => {
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.6 }}
-                  className="bg-gradient-to-br from-purple-500 to-purple-700 text-white px-8 sm:px-12 py-4 sm:py-6 rounded-2xl shadow-premium"
+                  className="bg-gradient-to-br from-purple-500 to-purple-700 text-white px-8 sm:px-12 py-5 sm:py-7 rounded-2xl shadow-premium"
                 >
-                  <div className="text-heading-sm text-center">
+                  <div className="text-heading-md font-bold text-center">
                     대표 이사
                   </div>
                 </motion.div>
@@ -143,10 +143,10 @@ const Organization = () => {
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="bg-gradient-to-br from-primary-500 to-primary-700 text-white px-6 py-3 rounded-xl shadow-lg text-center ml-4 lg:ml-12"
-                    style={{ minWidth: "140px" }}
+                    className="bg-gradient-to-br from-primary-500 to-primary-700 text-white px-6 py-4 rounded-xl shadow-lg text-center ml-4 lg:ml-12"
+                    style={{ minWidth: "150px" }}
                   >
-                    <div className="text-body-lg font-bold">이사회</div>
+                    <div className="text-heading-sm font-bold">이사회</div>
                   </motion.div>
                   <div className="flex-1 h-1 bg-primary-500"></div>
                 </div>
