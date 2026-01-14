@@ -105,6 +105,101 @@ const WorkEnvironment = () => {
               </div>
             </div>
 
+            {/* 기관 지정 · 평가 · 품질관리 현황 */}
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-neutral-900 dark:to-neutral-800 rounded-2xl shadow-lg border border-blue-200 dark:border-neutral-700 p-8 mt-8 mb-8">
+              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+                기관 지정 · 평가 · 품질관리 현황
+              </h2>
+              <p className="text-neutral-700 dark:text-neutral-300 mb-8 leading-relaxed">
+                본 연구소는 작업환경측정 수행기관으로 지정되어 있으며,
+                정기적인 기관 평가 및 정도관리를 통해 측정 결과의 신뢰성을 유지하고 있습니다.
+              </p>
+
+              {/* ① 작업환경측정 기관 지정 현황 */}
+              <div className="bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-700 p-6 mb-6">
+                <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3">
+                  작업환경측정 기관 지정 현황
+                </h3>
+                <p className="text-neutral-700 dark:text-neutral-300 mb-4">
+                  본 연구소는 산업안전보건법에 따라 작업환경측정 수행기관으로 지정되어 있으며,
+                  지정 범위 및 수행 지역 변경 사항을 관련 절차에 따라 관리하고 있습니다.
+                </p>
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 space-y-2">
+                  <div className="flex items-start">
+                    <span className="font-semibold text-neutral-900 dark:text-white min-w-[140px]">수행기관 지정:</span>
+                    <span className="text-neutral-700 dark:text-neutral-300">작업환경측정 수행기관</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="font-semibold text-neutral-900 dark:text-white min-w-[140px]">지정 범위:</span>
+                    <span className="text-neutral-700 dark:text-neutral-300">법정 작업환경측정</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="font-semibold text-neutral-900 dark:text-white min-w-[140px]">지정 변경 사항:</span>
+                    <span className="text-neutral-700 dark:text-neutral-300">소재지 변경 및 지정 한계 변경 반영</span>
+                  </div>
+                </div>
+                <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
+                  📎 원본 보기: <a href="/documents/work-environment-designation.pdf" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">작업환경측정 기관 지정서 (PDF)</a>
+                </p>
+              </div>
+
+              {/* ② 작업환경측정 기관 평가 결과 */}
+              <div className="bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-700 p-6 mb-6">
+                <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3">
+                  작업환경측정 기관 평가 결과
+                </h3>
+                <p className="text-neutral-700 dark:text-neutral-300 mb-4">
+                  고용노동부 주관 작업환경측정 수행기관 평가에서
+                  관련 기준을 충족하여 적합 판정을 받았습니다.
+                </p>
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 space-y-2">
+                  <div className="flex items-start">
+                    <span className="font-semibold text-neutral-900 dark:text-white min-w-[140px]">평가 연도:</span>
+                    <span className="text-neutral-700 dark:text-neutral-300">2024년</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="font-semibold text-neutral-900 dark:text-white min-w-[140px]">평가 주체:</span>
+                    <span className="text-neutral-700 dark:text-neutral-300">고용노동부</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="font-semibold text-neutral-900 dark:text-white min-w-[140px]">평가 결과:</span>
+                    <span className="text-neutral-700 dark:text-neutral-300">적합</span>
+                  </div>
+                </div>
+                <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
+                  📎 원본 보기: <a href="/documents/work-environment-evaluation-2024.pdf" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">작업환경측정 기관평가 통보서 (PDF)</a>
+                </p>
+              </div>
+
+              {/* ③ 정도관리(숙련도 평가) 수행 현황 */}
+              <div className="bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-700 p-6">
+                <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3">
+                  정도관리(숙련도 평가) 수행 현황
+                </h3>
+                <p className="text-neutral-700 dark:text-neutral-300 mb-4">
+                  측정 결과의 정확성과 재현성 확보를 위해
+                  정기적인 정도관리(숙련도 평가)에 참여하고 있습니다.
+                </p>
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 space-y-2">
+                  <div className="flex items-start">
+                    <span className="font-semibold text-neutral-900 dark:text-white min-w-[140px]">수행 시기:</span>
+                    <span className="text-neutral-700 dark:text-neutral-300">2025년 상반기</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="font-semibold text-neutral-900 dark:text-white min-w-[140px]">대상:</span>
+                    <span className="text-neutral-700 dark:text-neutral-300">작업환경측정 분석 항목</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="font-semibold text-neutral-900 dark:text-white min-w-[140px]">목적:</span>
+                    <span className="text-neutral-700 dark:text-neutral-300">분석 정확도 및 신뢰성 검증</span>
+                  </div>
+                </div>
+                <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
+                  📎 원본 보기: <a href="/documents/work-environment-qc-2025-h1.pdf" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">2025년 상반기 정도관리 결과 (PDF)</a>
+                </p>
+              </div>
+            </div>
+
             {/* 문의 */}
             <div className="mt-8 text-center">
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">

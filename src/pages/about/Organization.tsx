@@ -14,7 +14,6 @@ import { Container } from "@/components/ui/Container";
 
 const Organization = () => {
   const certifications = [
-    { title: "KOLAS 시험기관 인정", type: "국가공인" },
     { title: "ISO/IEC 17025", type: "국제표준" },
     { title: "먹는물 수질검사업", type: "환경부 등록" },
     { title: "실내공기질 측정업", type: "환경부 등록" },
@@ -322,7 +321,7 @@ const Organization = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mb-16"
         >
-          <h3 className="text-2xl font-bold text-center mb-8">
+          <h3 className="text-heading-lg text-center mb-8 sm:mb-12">
             보유 인증 및 지정
           </h3>
 
@@ -337,7 +336,7 @@ const Organization = () => {
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h4 className="font-bold text-lg mb-2">{cert.title}</h4>
+                    <h4 className="text-heading-sm font-bold mb-3">{cert.title}</h4>
                     <span className="inline-block px-3 py-1 bg-primary-100 dark:bg-neutral-800 text-primary-600 dark:text-primary-400 text-sm rounded-full">
                       {cert.type}
                     </span>
@@ -356,24 +355,24 @@ const Organization = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-center bg-primary-50 dark:bg-neutral-800 rounded-2xl p-8"
         >
-          <h3 className="text-2xl font-bold mb-6">문의하기</h3>
+          <h3 className="text-heading-lg mb-6 sm:mb-8">문의하기</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div>
-              <h4 className="font-bold mb-2">주소</h4>
+              <h4 className="text-heading-sm font-bold mb-3">주소</h4>
               <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                 충북 청주시 서원구 남이면 양촌 3길 7-30
               </p>
             </div>
             <div>
-              <h4 className="font-bold mb-2">전화</h4>
+              <h4 className="text-heading-sm font-bold mb-3">전화</h4>
               <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                 043.237.7824~5
               </p>
             </div>
             <div>
-              <h4 className="font-bold mb-2">팩스</h4>
+              <h4 className="text-heading-sm font-bold mb-3">팩스</h4>
               <p className="text-neutral-600 dark:text-neutral-300 text-sm">
-                043.237.7626
+                043.237.7826
               </p>
             </div>
           </div>

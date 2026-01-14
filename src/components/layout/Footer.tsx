@@ -99,7 +99,7 @@ const Footer = () => {
             </div>
 
             <p className="text-sm leading-relaxed text-neutral-800 dark:text-neutral-200">
-              (사)한국환경안전연구소
+              (주)한국환경안전연구소
             </p>
             <p className="text-sm text-neutral-700 dark:text-neutral-300">대표이사: 이정식</p>
             <p className="text-sm text-neutral-700 dark:text-neutral-300">

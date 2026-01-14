@@ -13,8 +13,7 @@ const DialysisWater = () => {
             혈액투석용수 검사
           </h1>
           <p className="text-lg">
-            신장학회 가이드라인 및 ISO 13959 기준 준수\n 환자 안전을 위한
-            투석용수 36개 항목 전문 검사 서비스
+            대한신장학회 감염관리 지침 및 ISO 23500/건강보험심사평가원 기준에 근거하여 환자 안전을 최우선으로 한 혈액투석용수 26개 항목 검사 서비스를 제공합니다.
           </p>
         </div>
       </section>
@@ -54,17 +53,14 @@ const DialysisWater = () => {
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 혈액투석용수 전문 검사기관으로 2006년부터
               전국 200여 개 투석센터의 용수검사를 수행해왔습니다. 대한신장학회
-              가이드라인, ISO 13959(Concentrates for haemodialysis), ISO
-              11663(Quality of dialysis fluid) 등 국제표준에 따른 36개 항목
-              검사로 환자 안전과 투석 효율성 향상에 기여하고 있습니다.
+              감염관리 지침, ISO 23500/건강보험심사평가원 26개 항목 기준에 근거하여
+              환자 안전과 투석 효율성 향상에 기여하고 있습니다.
             </p>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">투석용수 중요성</h3>
+            <h3 className="text-heading-lg mt-8 mb-4">투석용수 중요성</h3>
             <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 p-6 mb-8">
               <p className="text-neutral-700 dark:text-neutral-300 mb-3">
-                혈액투석 환자는 일주일에 3회, 회당 약 120L 이상의 투석용수에
-                노출됩니다. 연간 약 18,000L 이상의 물이 환자 혈액과 직접
-                접촉하므로 용수의 품질은 환자 건강에 직결됩니다.
+                환자는 혈액투석 치료 중 매주 300~600리터의 물에 노출될 수 있습니다. 이러한 노출은 주사, 복막 투석에 의한 간헐 위험을 증가시킵니다. 감염성 질환의 매개체로서 투석용수에 대한 감염이 증가되면서 투석용수에 대한 적절한 관리 지침을 반드시 필요합니다.
               </p>
               <ul className="space-y-1 text-neutral-700 dark:text-neutral-300">
                 <li>• 미량의 오염물질도 투석막을 통과하여 환자 혈액에 축적</li>
@@ -75,7 +71,7 @@ const DialysisWater = () => {
               </ul>
             </div>
 
-            <h3 id="standards" className="text-2xl font-bold mt-8 mb-4">검사 항목 및 기준</h3>
+            <h3 id="standards" className="text-heading-lg mt-8 mb-4">검사 항목 및 기준</h3>
             <div className="overflow-x-auto mb-8">
               <table className="w-full border-collapse">
                 <thead>
@@ -95,7 +91,7 @@ const DialysisWater = () => {
                   <tr className="bg-white dark:bg-neutral-800">
                     <td
                       className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold"
-                      rowSpan={6}
+                      rowSpan={8}
                     >
                       화학물질
                     </td>
@@ -140,10 +136,26 @@ const DialysisWater = () => {
                   </tr>
                   <tr className="bg-neutral-50 dark:bg-neutral-700">
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      기타 중금속 (Cd, Cr, Hg 등)
+                      카드뮴 (Cd)
                     </td>
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      각 ≤ 0.001 mg/L
+                      ≤ 0.001 mg/L
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-800">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      크롬 (Cr)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      ≤ 0.014 mg/L
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      수은 (Hg)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      ≤ 0.0002 mg/L
                     </td>
                   </tr>
                   <tr className="bg-white dark:bg-neutral-800">
@@ -157,7 +169,7 @@ const DialysisWater = () => {
                       일반세균
                     </td>
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      ≤ 200 CFU/mL (표준), ≤ 20 CFU/mL (고순도)
+                      &lt; 100 CFU/mL
                     </td>
                   </tr>
                   <tr className="bg-neutral-50 dark:bg-neutral-700">
@@ -165,13 +177,13 @@ const DialysisWater = () => {
                       엔도톡신 (Endotoxin)
                     </td>
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      ≤ 2 EU/mL (표준), ≤ 0.25 EU/mL (고순도)
+                      &lt; 0.25 EU/mL
                     </td>
                   </tr>
                   <tr className="bg-white dark:bg-neutral-800">
                     <td
                       className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold"
-                      rowSpan={3}
+                      rowSpan={2}
                     >
                       물리화학적
                     </td>
@@ -184,14 +196,6 @@ const DialysisWater = () => {
                   </tr>
                   <tr className="bg-neutral-50 dark:bg-neutral-700">
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      경도 (Ca, Mg)
-                    </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      CaCO₃ ≤ 100 mg/L
-                    </td>
-                  </tr>
-                  <tr className="bg-white dark:bg-neutral-800">
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       pH
                     </td>
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
@@ -202,44 +206,44 @@ const DialysisWater = () => {
               </table>
             </div>
 
-            <h3 className="text-2xl font-bold mt-8 mb-4">검사 종류</h3>
-            <h3 id="schedule" className="text-2xl font-bold mt-8 mb-4">검사 주기</h3>
+            <h3 className="text-heading-lg mt-8 mb-4">검사 종류</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <div className="p-6 bg-primary-50 dark:bg-neutral-800 rounded-xl">
-                <h4 className="font-bold text-lg mb-3 text-primary-600 dark:text-primary-400">
-                  화학물질 검사
+                <h4 className="text-heading-sm font-bold mb-3 text-primary-600 dark:text-primary-400">
+                  화학미세 물질검사
                 </h4>
-                <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-300">
-                  <li>• 중금속 13종 분석 (ICP/MS)</li>
-                  <li>• 염소/클로라민 분석</li>
-                  <li>• 경도, pH 측정</li>
-                  <li>• 소독부산물 분석</li>
-                </ul>
-                <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-3">
-                  검사주기: 연 1회 이상
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">
+                  대한신장학회 감염관리 지침 및 건강보험심사평가원의 혈액투석 적정성 평가 기준에 따라 화학 미세물질 검사를 권고하고 있으며, 안티몬(Antimony), 베릴륨(Beryllium), 탈륨(Thallium) 검사는 권고하며 염소(Chlorine, Cl)와 클로라민(Chloramine)의 합인 total chlorine 수치로 검사하기를 권고하고 있다.
                 </p>
               </div>
               <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
-                <h4 className="font-bold text-lg mb-3 text-gray-600 dark:text-gray-400">
+                <h4 className="text-heading-sm font-bold mb-3 text-gray-600 dark:text-gray-400">
                   미생물 검사
                 </h4>
                 <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
-                  <li>• 일반세균 배양 검사</li>
+                  <li>• 원반세균 배양 검사</li>
                   <li>• 엔도톡신(내독소) 정량분석</li>
                   <li>• 수처리시스템 각 단계별 검사</li>
                   <li>• 배관 및 저장탱크 검사</li>
                 </ul>
-                <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-3">
-                  검사주기: 월 1회 이상 권장
-                </p>
               </div>
             </div>
 
-            <h3 id="procedure" className="text-2xl font-bold mt-8 mb-4">검사 프로세스</h3>
+            <h3 id="schedule" className="text-heading-lg mt-8 mb-4">검사 주기</h3>
+            <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 mb-8">
+              <ul className="space-y-2 text-neutral-700 dark:text-neutral-300">
+                <li>• 세균 배양 검사: 월 1회</li>
+                <li>• 내독소 검사: 분기별 1회</li>
+                <li>• 시스템 변화가 있는 경우 검사 결과 안정 시까지 주 1회 검사</li>
+                <li>• 화학적 검사: 연 1회</li>
+              </ul>
+            </div>
+
+            <h3 id="procedure" className="text-heading-lg mt-8 mb-4">검사 프로세스</h3>
             <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 mb-6">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div id="sampling" className="text-center">
-                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-2xl mx-auto mb-2">
                     1
                   </div>
                   <p className="font-bold mb-1">검사 신청</p>
@@ -248,7 +252,7 @@ const DialysisWater = () => {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-2xl mx-auto mb-2">
                     2
                   </div>
                   <p className="font-bold mb-1">시료 채취</p>
@@ -257,16 +261,16 @@ const DialysisWater = () => {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-2xl mx-auto mb-2">
                     3
                   </div>
                   <p className="font-bold mb-1">정밀 분석</p>
                   <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                    화학/미생물 검사
+                    화학미세 물질/미생물 검사
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold mx-auto mb-2">
+                  <div className="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-2xl mx-auto mb-2">
                     4
                   </div>
                   <p className="font-bold mb-1">성적서 발급</p>
@@ -318,7 +322,7 @@ const DialysisWater = () => {
                     LAL Test (Limulus Amebocyte Lysate)
                   </h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                    엔도톡신 정량 분석 (0.01 EU/mL 검출)
+                    &gt;0.05EUU/mL 검출
                   </p>
                 </div>
                 <div>
@@ -330,7 +334,7 @@ const DialysisWater = () => {
                 <div>
                   <h4 className="font-bold mb-2">IC (이온크로마토그래피)</h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                    염소/클로라민 정밀 분석
+                    불소, 질산성질소
                   </p>
                 </div>
               </div>
@@ -346,9 +350,15 @@ const DialysisWater = () => {
                   <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
                     Q. 혈액투석용수 검사는 얼마나 자주 해야 하나요?
                   </h4>
-                  <p className="text-neutral-600 dark:text-neutral-400">
-                    A. 화학적 오염물질(중금속 등)은 월 1회, 세균 검사(내독소, 일반세균)는 매주 1회 실시해야 합니다.
+                  <p className="text-neutral-600 dark:text-neutral-400 mb-2">
+                    A. 검사 주기는 다음과 같습니다:
                   </p>
+                  <ul className="text-neutral-600 dark:text-neutral-400 list-disc list-inside space-y-1 ml-4">
+                    <li>세균배양검사: 월 1회</li>
+                    <li>내독소 검사: 분기별 1회</li>
+                    <li>시스템의 변화가 있는 경우: 검사 결과 안정시까지 주 1회</li>
+                    <li>화학적 검사: 연 1회</li>
+                  </ul>
                 </div>
                 <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
                   <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
@@ -362,9 +372,15 @@ const DialysisWater = () => {
                   <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">
                     Q. 검사 비용은 얼마인가요?
                   </h4>
-                  <p className="text-neutral-600 dark:text-neutral-400">
-                    A. 화학적 검사(월 1회) 약 60~80만원, 세균 검사(주 1회) 회당 약 15~20만원입니다. 패키지 계약 시 할인 가능합니다.
+                  <p className="text-neutral-600 dark:text-neutral-400 mb-2">
+                    A. 검사 비용은 다음과 같습니다:
                   </p>
+                  <ul className="text-neutral-600 dark:text-neutral-400 list-disc list-inside space-y-1 ml-4">
+                    <li>세균 배양 검사: 월 1회 (17,600원)</li>
+                    <li>내독소 검사: 분기별 1회 (86,460원)</li>
+                    <li>시스템의 변화가 있는 경우 검사 결과 안정시까지 주 1회 검사</li>
+                    <li>화학적 검사: 연 1회 (363,440원)</li>
+                  </ul>
                 </div>
                 <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
                   <h4 className="font-bold text-lg mb-2 text-neutral-900 dark:text-white">

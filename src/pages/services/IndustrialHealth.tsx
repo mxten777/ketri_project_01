@@ -48,7 +48,7 @@ const IndustrialHealth = () => {
       <section data-has-hero className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24 min-h-[280px]">
         <div className="container-custom">
           <h1 className="text-3xl lg:text-4xl font-bold mb-4">
-            산업보건컨설팅
+            작업환경측정
           </h1>
           <p className="text-lg">
             중대재해처벌법 대응부터 작업환경측정, 근골격계 유해요인조사까지
@@ -63,7 +63,7 @@ const IndustrialHealth = () => {
           {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="card p-6 sticky top-32 card-tokenized">
-              <h3 className="font-bold text-lg mb-2">산업보건컨설팅</h3>
+              <h3 className="font-bold text-lg mb-2">작업환경측정</h3>
               <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">세부 서비스</p>
               <nav className="space-y-2">
                 {[
@@ -92,7 +92,7 @@ const IndustrialHealth = () => {
           {/* Main Content */}
           <div className="lg:col-span-3">
             <div className="card p-8 card-tokenized">
-              <h2 className="heading-md mb-6">산업보건컨설팅 서비스</h2>
+              <h2 className="heading-md mb-6">작업환경측정 서비스</h2>
               <div className="prose dark:prose-invert max-w-none">
                 <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
                   한국환경안전연구소는 산업안전보건법 및 중대재해처벌법에 따른 전문 컨설팅 서비스를 제공합니다.
@@ -214,7 +214,7 @@ const IndustrialHealth = () => {
                         Q. 작업환경측정은 얼마나 자주 해야 하나요?
                       </h4>
                       <p className="text-neutral-600 dark:text-neutral-300">
-                        A. 특별관리물질은 100%초과 시 3개월마다 1회, 일반 화학적인자의 경우 200%초과 시 3개월마다 1회측정이 의무입니다.
+                        A. 사업주는 작업장 또는 작업공정이 신규로 가동되거나 변경되는 등으로 제186조에 따른 작업환경측정 대상 작업장이 된 경우에는 그 날부터 30일 이내에 작업환경측정을 하고, 그 후 반기에 1회 이상 정기적으로 작업환경을 측정해야 합니다.
                       </p>
                     </div>
                     <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">

@@ -485,7 +485,7 @@ const Greeting = () => {
                 정확성
               </h3>
               <p className="text-body-md text-neutral-600 dark:text-neutral-400">
-                KOLAS 인증 기관으로서 정밀하고 신뢰할 수 있는 분석을 제공합니다
+                정밀하고 신뢰할 수 있는 분석을 제공합니다
               </p>
             </div>
           </motion.div>

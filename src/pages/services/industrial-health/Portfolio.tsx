@@ -7,7 +7,7 @@ const Portfolio = () => {
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-              산업보건컨설팅 실적
+              작업환경측정 실적
             </h1>
             <p className="text-lg text-white/90">
               2006년부터 현재까지 다양한 업종의 사업장에서 축적한 산업보건 전문 컨설팅 경험을 소개합니다

@@ -103,12 +103,12 @@ export const MENU_ITEMS: MenuGroup[] = [
     ],
   },
   {
-    label: "석면조사분석",
+    label: "석면조사",
     mainPath: "/services/asbestos",
     description: "석면 관련 조사·분석 및 위해성 평가 서비스",
     layout: "grid",
     items: [
-      { label: "석면조사분석", path: "/services/asbestos#survey", description: "정성·정량 분석 서비스" },
+      { label: "석면조사", path: "/services/asbestos#survey", description: "정성·정량 분석 서비스" },
       { label: "석면농도측정", path: "/services/asbestos#concentration", description: "농도 측정 절차" },
       { label: "석면비산정도측정", path: "/services/asbestos#dispersion", description: "비산도 측정 방법" },
       { label: "석면해체제거감리", path: "/services/asbestos#supervision", description: "해체 감리 및 감독" },
@@ -139,14 +139,14 @@ export const SERVICES: ServiceItem[] = [
   {
     icon: Droplets,
     title: "먹는물 검사",
-    description: "수돇물·지하수·정수기 등 60여개 항목 수질검사 서비스",
+    description: "수돗물, 지하수·정수기 등 60여 개 항목 수질검사 서비스",
     path: "/services/water-testing",
     color: "from-cyan-500 to-blue-500",
   },
   {
     icon: FlaskConical,
     title: "혈액투석용수",
-    description: "투석용수 21개 항목, 전처리용수 15개 항목 검사로 환자 안전 도모",
+    description: "혈액투석용수 26개 항목 검사 서비스, 환자 안전을 위한 정기 검사 수행",
     path: "/services/dialysis-water",
     color: "from-purple-500 to-pink-500",
   },
@@ -159,7 +159,7 @@ export const SERVICES: ServiceItem[] = [
   },
   {
     icon: Shield,
-    title: "석면조사분석",
+    title: "석면조사",
     description: "고용노동부 지정 석면조사기관으로 정성·정량분석 및 위해성 평가 서비스",
     path: "/services/asbestos",
     color: "from-orange-500 to-red-500",
@@ -179,6 +179,6 @@ export const CONTACT_INFO = {
   phone: "043-237-7824",
   phoneRange: "043.237.7824~5",
   fax: "043-237-7826",
-  email: "kesri@kesri.co.kr",
-  address: "충청북도 청주시 흥덕구 오송읍 오송생명2로 96 (충북바이오메디컬플라자)",
+  email: "kesri0728@naver.com",
+  address: "충북 청주시 서원구 남이면 양촌 3길 7-30 (28805)",
 };

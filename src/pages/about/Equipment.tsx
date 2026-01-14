@@ -275,7 +275,7 @@ const Equipment = () => {
     },
     {
       category: "먹는물",
-      name: "항온항습 배양기 (Incubator)",
+      name: "항온항습 배양기 (Constant Temp&humid incubator)",
       model: "LHS-100CL",
       manufacturer: "NEURONFIT",
       testItems: "미생물",
@@ -307,7 +307,7 @@ const Equipment = () => {
     },
     {
       category: "먹는물",
-      name: "내독소 분석장비 (Microplate Reader)",
+      name: "내독소 분석장비 (Endotoxin Analyzer)",
       model: "ELx808",
       manufacturer: "Charles river",
       testItems: "내독소(엔도톡신)",
@@ -318,7 +318,7 @@ const Equipment = () => {
       name: "광학현미경 (Optical Microscope)",
       model: "CHK2-F-GS",
       manufacturer: "OLYMPUS",
-      testItems: "녹농균, 살모넬라, 쉬겔라, 여시니아균 확인시험 (그람염색 현미경 관찰)",
+      testItems: "미생물",
       image: "/images/equipment/images_01/equip_027.jpeg",
     },
     {

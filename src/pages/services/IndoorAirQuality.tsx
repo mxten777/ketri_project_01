@@ -92,14 +92,13 @@ const IndoorAirQuality = () => {
               실내공기질 측정은 실내 공간 이용자의 건강 보호와 쾌적한 환경 조성을 위해 법적으로 요구되는 필수 환경관리 업무입니다.
             </p>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
-              당사는 관련 법령과 기준에 따라 신축 상업시 또는 점검 실시를 기반으로 실내공기질 측정을 수행하고, 신뢰도 높은 측정 결과의 공식 보고서를 제공합니다.
+              당사는 관련 법령과 기준에 따라 전문 장비를 활용한 정확한 측정을 수행하고, 신뢰도 높은 측정 결과의 공식 보고서를 제공합니다.
             </p>
 
             <div className="bg-primary-50 dark:bg-neutral-800 rounded-xl p-6 mb-8">
               <h3 className="text-xl font-bold mb-4">업무 범위</h3>
               <ul className="space-y-2 text-neutral-600 dark:text-neutral-300">
                 <li>• 다중이용시설, 업무시설, 학교 및 교육시설 대상</li>
-                <li>• 법정 기준 준수 및 정확 대응 가능</li>
                 <li>• 정기·특별 점검 모두 수행</li>
                 <li>• 공인 장비 기반 정량 측정 및 결과 해석 제공</li>
               </ul>
@@ -143,10 +142,10 @@ const IndoorAirQuality = () => {
                     <thead>
                       <tr className="bg-green-600 text-white">
                         <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">측정예시</th>
-                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2019년</th>
-                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2020년</th>
-                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2021년</th>
-                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2022년</th>
+                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2023년</th>
+                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2024년</th>
+                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2025년</th>
+                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2026년</th>
                       </tr>
                     </thead>
                     <tbody className="text-neutral-700 dark:text-neutral-300">
@@ -166,15 +165,15 @@ const IndoorAirQuality = () => {
                   <h4 className="font-semibold text-lg mb-3">측정시설 구분</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-cyan-50 dark:bg-cyan-900/20 rounded-lg p-4">
-                      <h5 className="font-semibold text-base mb-2 text-cyan-800 dark:text-cyan-300">상반기 측정시설 (일반시설, 1~6건)</h5>
+                      <h5 className="font-semibold text-base mb-2 text-cyan-800 dark:text-cyan-300">상반기 측정시설 (일반시설, 1~6월)</h5>
                       <p className="text-xs text-neutral-700 dark:text-neutral-300">
                         PC방, 실내주차장, 영화상영관, 대규모점포, 장례식장, 복합쇼핑 등 기준규모이상 다중이용시설
                       </p>
                     </div>
                     <div className="bg-pink-50 dark:bg-pink-900/20 rounded-lg p-4">
-                      <h5 className="font-semibold text-base mb-2 text-pink-800 dark:text-pink-300">하반기 측정시설 (민간시설, 7~12건)</h5>
+                      <h5 className="font-semibold text-base mb-2 text-pink-800 dark:text-pink-300">하반기 측정시설 (민감시설, 7~12월)</h5>
                       <p className="text-xs text-neutral-700 dark:text-neutral-300">
-                        어린이집, 노인요양시설, 의료시설, 산후조리원, 키즈카페 등 기준규모이상 민간 다중이용시설
+                        어린이집, 노인요양시설, 의료시설, 산후조리원, 키즈카페 등 기준규모이상 민감다중이용시설
                       </p>
                     </div>
                   </div>
@@ -193,7 +192,7 @@ const IndoorAirQuality = () => {
                   </ul>
                   <p className="mt-2 text-base font-bold text-red-700 dark:text-red-400">→ 500만원 이하 과태료</p>
                   <p className="text-xs text-red-600 dark:text-red-400 mt-2">
-                    ※ 위반회수별 및 위반기관별 발생시 측정업체는 문의 의뢰시설에도 본이에이 입증 수 있으니 측정관련상담에 유의하시기 바랍니다.
+                    ※ 위반 횟수 및 위반 기관에 따라 과태료가 가중되며, 측정 의뢰 시설도 처벌 대상이 될 수 있으니 측정 관련 상담에 유의하시기 바랍니다.
                   </p>
                 </div>
 
@@ -209,7 +208,7 @@ const IndoorAirQuality = () => {
                 <div className="mb-6 bg-white dark:bg-neutral-800 rounded-lg p-4">
                   <h4 className="font-semibold text-lg mb-2">취지/목적</h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-300">
-                    이 지침은 「산업안전보건법」제24조에 따라 사무실의료 사무실 공기 오염물질을 관리하기 위한 방법을 정함으로써 
+                    이 지침은 「산업안전보건법」제24조에 따라 사무실 공기 오염물질을 관리하기 위한 방법을 정함으로써 
                     사무실 근로자의 쾌적한 업무환경을 조성하고 근로자의 건강을 보호함을 목적으로 한다.
                   </p>
                 </div>
@@ -218,8 +217,8 @@ const IndoorAirQuality = () => {
                 <div className="mb-6 bg-white dark:bg-neutral-800 rounded-lg p-4">
                   <h4 className="font-semibold text-lg mb-2">적용범위와 오염물질 관리기준</h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-3">
-                    이 지침은 사무실 공기오염 방지와 근로자 건강보호가 필요한 사무실 오염물질을 사용 마라치 이하 이상 유지하는 
-                    사무소 및 사무실 제단에 적용한다.
+                    이 지침은 사무실 공기오염 방지와 근로자 건강보호가 필요한 사무실 오염물질을 기준치 이하로 유지하는 
+                    사무소 및 사무실 공간에 적용한다.
                   </p>
                 </div>
 
@@ -237,7 +236,7 @@ const IndoorAirQuality = () => {
                       <tbody className="text-neutral-700 dark:text-neutral-300">
                         <tr className="bg-white dark:bg-neutral-800">
                           <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">미세먼지(PM-10)</td>
-                          <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">150 ㎍/㎥ 이하</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">100 ㎍/㎥ 이하</td>
                         </tr>
                         <tr className="bg-neutral-50 dark:bg-neutral-700">
                           <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">초미세먼지(PM-2.5)</td>
@@ -327,7 +326,7 @@ const IndoorAirQuality = () => {
                 <div className="mb-6 bg-white dark:bg-neutral-800 rounded-lg p-4">
                   <h4 className="font-semibold text-lg mb-2">사유</h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-300">
-                    교실의 신축 증축 또는 대수리 시 학생 및 교직원의 호흡기질환 등 건강장애 발생을 예방하기위한 조치 필수
+                    교실의 신축 증축 또는 리모델링 시 학생 및 교직원의 호흡기질환 등 건강장애 발생을 예방하기위한 조치 필수
                   </p>
                 </div>
 
@@ -335,8 +334,8 @@ const IndoorAirQuality = () => {
                 <div className="mb-6 bg-white dark:bg-neutral-800 rounded-lg p-4">
                   <h4 className="font-semibold text-lg mb-2">대상시설</h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-300">
-                    초중·고 10일 이전 1 지하, 10일 이후 1차 이상의 대안 특별점검 실시<br/>
-                    (학기중 시설관리통지 첨부 안내조치으므로 충분 세심)
+                    초중고 10일 이전 1차, 10일 이후 1차 이상의 대안 특별점검 실시<br/>
+                    (학기 중 시설관리통지 첨부 안내 조치로 충분한 세심한 관리 필요)
                   </p>
                 </div>
 
@@ -366,7 +365,7 @@ const IndoorAirQuality = () => {
                         <tr className="bg-white dark:bg-neutral-800">
                           <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold">벤젠<br/>(Benzene)</td>
                           <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">30μg/m³이하</td>
-                          <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">흡연(연기), 석유제품·페종료</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">흡연(연기), 석유제품·페인트 제조</td>
                         </tr>
                         <tr className="bg-neutral-50 dark:bg-neutral-700">
                           <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold">톨루엔<br/>(Toluene)</td>
@@ -386,18 +385,18 @@ const IndoorAirQuality = () => {
                         <tr className="bg-white dark:bg-neutral-800">
                           <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold">스티렌<br/>(Styrene)</td>
                           <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">300μg/m³이하</td>
-                          <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">스티로폼 등의 합성수 고무관련물합재 본드</td>
+                          <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">스티로폼 등의 합성수지 고무관련 물품제조 본드</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
 
-                {/* 중적측정 */}
+                {/* 중점측정 */}
                 <div className="mb-6 bg-white dark:bg-neutral-800 rounded-lg p-4">
-                  <h4 className="font-semibold text-lg mb-2">중적측정</h4>
+                  <h4 className="font-semibold text-lg mb-2">중점측정</h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-300">
-                    급성증상시 조치조건, 위치면, 수중, 구조 조치사항 안전관리 영상보호 검증 증명시정, 면호 통보 위상
+                    이용자의 급성증상 발생 시, 실내공기질 기준 초과 시, 증축·개축·대수리 등 시설 변경 시 실시하는 측정입니다.
                   </p>
                 </div>
 
@@ -408,20 +407,20 @@ const IndoorAirQuality = () => {
                     <div>
                       <p className="font-semibold text-blue-700 dark:text-blue-400 mb-2">※ 베이크아웃(Bake-out) 방법</p>
                       <p className="mb-2">
-                        건축물의 신축이나 개보수 공사 등의 공사 방법 시 실내온도가 상승 모든 노안 지속시간과 미내부패 써의 방전하는 
-                        등장실효기관물질(VOC)및 솔전세하이드(HCHO)등 내부수 유험도승등온 방물을쾀 점비료으로 줄어사법 혼거원 
-                        화주구시시 새불 제거하는 방법
+                        건축물의 신축이나 개보수 공사 등의 공사 완료 시 실내온도를 상승 모드로 장시간 지속시킴에 따라 벽면 내부 등에 잔류하는 
+                        휘발성유기화합물질(VOC) 및 총휘발성알데하이드(HCHO) 등 내부 유해물질을 발산을 촉진시켜 농도를 줄이고 
+                        환기하여 오염물질을 제거하는 방법
                       </p>
                     </div>
                     <div>
                       <p className="font-semibold text-blue-700 dark:text-blue-400 mb-2">※ 그린시일 측정시설 베이크아웃 방법</p>
                       <ul className="space-y-1 list-decimal list-inside">
-                        <li>최근 2시 내지 공공기관 베이크아웃 시설</li>
-                        <li>전소시 특수민속/자 계획외의 정기(60도2이상)</li>
-                        <li>온순기 위치특 내원조 온(VOC 진산 타지사이션)</li>
-                        <li>특금 나저서 다성서 거환 온 정기(60도 이상)</li>
-                        <li>실기시 작성기 1-4의 반복</li>
-                        <li>특금시 선동시 등중 통불배허의 공기중관리 통불통조 등 평</li>
+                        <li>최근 2년 내 공공기관 베이크아웃 시설</li>
+                        <li>전실 밀폐 후 실내온도 60도 이상으로 승온</li>
+                        <li>온습도를 유지하며 VOC 자연 탈기 유도</li>
+                        <li>특정 시간 경과 후 다시 60도 이상 가열</li>
+                        <li>1~4 과정 반복</li>
+                        <li>충분한 환기 후 공기질 측정 및 확인</li>
                       </ul>
                     </div>
                   </div>

@@ -549,7 +549,7 @@ const Home = () => {
                 {
                   step: "03",
                   title: "검사 수행",
-                  description: "KOLAS 인증 장비로 정확하고 신뢰할 수 있는 검사 실시",
+                  description: "정확하고 신뢰할 수 있는 검사 수행",
                   icon: <Search className="w-10 h-10" />,
                   color: "from-purple-500 to-purple-600",
                   position: "left",
