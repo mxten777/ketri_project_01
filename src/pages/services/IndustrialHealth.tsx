@@ -179,6 +179,102 @@ const IndustrialHealth = () => {
                   ))}
                 </div>
 
+                {/* 인증 및 지정서 */}
+                <div className="bg-gradient-to-br from-slate-50 to-blue-50 dark:from-neutral-900 dark:to-blue-950 rounded-2xl p-8 mb-8 border border-blue-100 dark:border-blue-900">
+                  <div className="text-center mb-8">
+                    <h3 className="text-3xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                      인증 및 지정서
+                    </h3>
+                    <p className="text-neutral-600 dark:text-neutral-400">공신력 있는 기관으로부터 인증받은 전문성</p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* 정도관리 적합 인정 */}
+                    <div className="group relative bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-blue-400 dark:hover:border-blue-600">
+                      <div className="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                        2025
+                      </div>
+                      <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                        📋
+                      </div>
+                      <h4 className="text-lg font-bold mb-2 text-blue-700 dark:text-blue-400">
+                        정도관리 적합 인정
+                      </h4>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-3 font-semibold">
+                        국립환경과학원
+                      </p>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4 line-clamp-2">
+                        실내공기질 측정 정도관리 적합 판정
+                      </p>
+                      <a 
+                        href="/certificates/pdf/quality_control_2025_first_half.pdf" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center w-full px-4 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg"
+                      >
+                        <span className="mr-2">📄</span>
+                        인증서 보기
+                      </a>
+                    </div>
+
+                    {/* 작업환경측정 기관평가 통보서 */}
+                    <div className="group relative bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-green-400 dark:hover:border-green-600">
+                      <div className="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                        2024
+                      </div>
+                      <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                        ✅
+                      </div>
+                      <h4 className="text-lg font-bold mb-2 text-green-700 dark:text-green-400">
+                        기관평가 통보서
+                      </h4>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-3 font-semibold">
+                        고용노동부
+                      </p>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4 line-clamp-2">
+                        작업환경측정기관 정기 평가 우수 등급
+                      </p>
+                      <a 
+                        href="/certificates/pdf/work_environment_evaluation_2024.pdf" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center w-full px-4 py-2.5 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-lg transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg"
+                      >
+                        <span className="mr-2">📄</span>
+                        통보서 보기
+                      </a>
+                    </div>
+
+                    {/* 작업환경측정기관 지정서 */}
+                    <div className="group relative bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-purple-400 dark:hover:border-purple-600">
+                      <div className="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                        2023
+                      </div>
+                      <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                        🏆
+                      </div>
+                      <h4 className="text-lg font-bold mb-2 text-purple-700 dark:text-purple-400">
+                        측정기관 지정서
+                      </h4>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-3 font-semibold">
+                        고용노동부
+                      </p>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4 line-clamp-2">
+                        작업환경측정기관 지정 (청주 변경)
+                      </p>
+                      <a 
+                        href="/certificates/pdf/work_environment_designation_cheongju_2023.pdf" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center w-full px-4 py-2.5 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white rounded-lg transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg"
+                      >
+                        <span className="mr-2">📄</span>
+                        지정서 보기
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
                 <h3 className="text-2xl font-bold mt-8 mb-4">한국환경안전연구소의 강점</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                   {[

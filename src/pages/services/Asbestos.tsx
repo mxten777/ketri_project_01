@@ -1,11 +1,9 @@
  
 // No JS-based header offset; anchors handled via CSS :target
-import { useNavigate } from "react-router-dom";
 import ServiceCta from "../../components/common/ServiceCta";
 
 const Asbestos = () => {
   // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
-  const navigate = useNavigate();
 
   return (
     <main className="min-h-screen">

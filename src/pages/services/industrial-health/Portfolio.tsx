@@ -152,7 +152,7 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 p-6 rounded-xl border border-primary-100 dark:border-neutral-700">
+              <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 p-6 rounded-xl dark:border-neutral-700">
                 <h4 className="font-bold text-lg mb-3 flex items-center text-neutral-900 dark:text-neutral-100">
                   <span className="text-2xl mr-2">🏆</span>
                   신뢰받는 산업보건 파트너
