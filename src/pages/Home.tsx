@@ -468,7 +468,7 @@ const Home = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              {notices.slice(0, 5).map((notice, index) => (
+              {notices.slice(0, 3).map((notice, index) => (
                 <motion.div
                   key={notice.id}
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -532,7 +532,7 @@ const Home = () => {
           )}
 
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center">
-            <Link to="/board/notice?view=all">
+            <Link to="/board/notice">
               <Button size="lg" variant="outline" className="border-2 hover:bg-primary-600 hover:text-white hover:border-primary-600">
                 전체 공지사항 보기
                 <ArrowRight className="ml-2 w-5 h-5" />

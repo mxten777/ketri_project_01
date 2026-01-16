@@ -1,15 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Pin, Eye, Calendar, User, ArrowLeft, ArrowRight } from "lucide-react";
+import { Pin, Eye, Calendar, User, Home } from "lucide-react";
 import { getNotices } from "../../services/noticeService";
 import type { Notice } from "../../types";
 import { NOTICE_HERO_COPY } from "../../constants/copy";
 
 const NoticeList = () => {
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const isViewAll = searchParams.get("view") === "all";
   
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
@@ -33,13 +31,10 @@ const NoticeList = () => {
     fetchNotices();
   }, [fetchNotices]);
 
-  // 상태 변경 시 즉시 맨 위로 스크롤
+  // 페이지 진입 시 맨 위로 스크롤
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, [isViewAll]);
-
-  // 렌더링 대상 items: 미리보기는 반드시 3개, 전체보기는 전체
-  const items = isViewAll ? notices : notices.slice(0, 3);
+  }, []);
 
   const formatDate = (timestamp: unknown) => {
     try {
@@ -118,55 +113,24 @@ const NoticeList = () => {
             </motion.div>
           </div>
 
-          {/* Control Bar: 배지 + 버튼 */}
+          {/* Header: 배지 + 홈 버튼 */}
           <div className="max-w-4xl mx-auto mb-6">
             <div className="flex items-center justify-between gap-4">
-              {/* 좌: 상태 배지 */}
-              <div>
-                {isViewAll ? (
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold rounded-full text-sm">
-                    <Pin className="w-4 h-4" />
-                    전체 공지사항 · 총 {notices.length}건
-                  </div>
-                ) : (
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 text-primary-600 dark:text-primary-400 font-semibold rounded-full text-sm border border-primary-200 dark:border-primary-800">
-                    최신 3건
-                  </div>
-                )}
+              {/* 좌: 전체 공지사항 배지 */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold rounded-full text-sm">
+                <Pin className="w-4 h-4" />
+                전체 공지사항 · 총 {notices.length}건
               </div>
 
-              {/* 우: 토글 버튼 */}
-              <div>
-                {isViewAll ? (
-                  <button
-                    onClick={() => navigate("/board/notice")}
-                    className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 text-primary-600 dark:text-primary-400 font-medium rounded-full text-sm border border-primary-200 dark:border-primary-800 hover:bg-primary-50 dark:hover:bg-neutral-700 transition-colors"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                    돌아가기
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => navigate("/board/notice?view=all")}
-                    className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white font-medium rounded-full text-sm hover:bg-primary-700 transition-colors"
-                  >
-                    전체 공지사항 보기
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                )}
-              </div>
+              {/* 우: 홈으로 버튼 */}
+              <button
+                onClick={() => navigate("/")}
+                className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 text-primary-600 dark:text-primary-400 font-medium rounded-full text-sm border border-primary-200 dark:border-primary-800 hover:bg-primary-50 dark:hover:bg-neutral-700 transition-colors"
+              >
+                <Home className="w-4 h-4" />
+                홈으로
+              </button>
             </div>
-
-            {/* Warning for small dataset */}
-            {isViewAll && notices.length <= 3 && notices.length > 0 && (
-              <div className="mt-4">
-                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3 text-center">
-                  <p className="text-xs text-amber-800 dark:text-amber-200">
-                    ℹ️ 현재 등록된 공지사항이 3건 이하라 목록이 유사하게 보일 수 있습니다.
-                  </p>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Notice List */}
@@ -176,7 +140,7 @@ const NoticeList = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              {items.length === 0 ? (
+              {notices.length === 0 ? (
                 <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-8 text-center border border-white/20">
                   <div className="bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900/30 dark:to-secondary-900/30 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <Pin className="w-8 h-8 text-primary-600 dark:text-primary-400" />
@@ -186,14 +150,13 @@ const NoticeList = () => {
                   </p>
                 </div>
               ) : (
-                <div className={isViewAll ? "flex flex-col gap-3" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"}>
-                  {items.map((notice, index) => (
+                <div className="flex flex-col gap-3">
+                  {notices.map((notice, index) => (
                     <motion.div
                       key={notice.id}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.2, delay: index * 0.03 }}
-                      whileHover={isViewAll ? {} : { y: -8, scale: 1.02 }}
                     >
                     <Link to={`/board/notice/${notice.id}`}>
                       <div
