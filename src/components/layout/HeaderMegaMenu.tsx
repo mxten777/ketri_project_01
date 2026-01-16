@@ -31,15 +31,34 @@ export default function HeaderMegaMenu({
 	const navigate = useNavigate();
 	const [rect, setRect] = useState<DOMRect | null>(null);
 	const [selected, setSelected] = useState<string | null>(activeGroup ?? null);
+	const lastValidAnchorRef = useRef<HTMLElement | null>(null);
 
 	useEffect(() => setSelected(activeGroup ?? null), [activeGroup]);
 
+	// Keep last valid anchorEl to prevent flickering
+	useEffect(() => {
+		if (anchorEl) {
+			lastValidAnchorRef.current = anchorEl;
+		}
+	}, [anchorEl]);
+
 	useLayoutEffect(() => {
-		if (!anchorEl) return setRect(null);
+		// Use current anchorEl or fallback to last valid one
+		const effectiveAnchor = anchorEl || lastValidAnchorRef.current;
+		
+		if (!effectiveAnchor || !isOpen) {
+			console.log('[HeaderMegaMenu] No anchor or not open, hiding menu');
+			return setRect(null);
+		}
+		
+		console.log('[HeaderMegaMenu] Setting up position for:', activeGroup, effectiveAnchor);
 		const update = () => {
 			try {
-				setRect(anchorEl.getBoundingClientRect());
-			} catch {
+				const newRect = effectiveAnchor.getBoundingClientRect();
+				console.log('[HeaderMegaMenu] Rect updated:', newRect);
+				setRect(newRect);
+			} catch (err) {
+				console.error('[HeaderMegaMenu] Error getting rect:', err);
 				setRect(null);
 			}
 		};
@@ -47,13 +66,13 @@ export default function HeaderMegaMenu({
 		window.addEventListener("resize", update);
 		window.addEventListener("scroll", update, true);
 		const ro = new ResizeObserver(update);
-		ro.observe(anchorEl);
+		ro.observe(effectiveAnchor);
 		return () => {
 			window.removeEventListener("resize", update);
 			window.removeEventListener("scroll", update, true);
 			ro.disconnect();
 		};
-	}, [anchorEl]);
+	}, [anchorEl, activeGroup, isOpen]);
 
 	const prevPathRef = useRef<string | null>(null);
 	useEffect(() => {
@@ -102,7 +121,7 @@ export default function HeaderMegaMenu({
 		e.preventDefault();
 		e.stopPropagation();
 
-		const hasHash = targetHref.includes('#');
+		const [pathname, hash] = targetHref.split('#');
 
 		// Step 1: Close mega menu first to prevent overlay/portal interaction
 		closeMega();
@@ -112,15 +131,35 @@ export default function HeaderMegaMenu({
 			queueMicrotask(() => {
 				navigate(targetHref);
 				
-				// Step 3: Force scroll to top for non-hash routes only
-				if (!hasHash) {
+				// Step 3: Handle scrolling based on hash presence
+				if (hash) {
+					// Wait for DOM to render, then scroll to hash target
+					requestAnimationFrame(() => {
+						const target = document.getElementById(hash);
+						if (target) {
+							target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						} else {
+							console.warn(`[HeaderMegaMenu] Hash target not found: #${hash}`);
+						}
+					});
+				} else {
+					// No hash: scroll to top
 					window.scrollTo(0, 0);
 				}
 			});
 		} else {
 			setTimeout(() => {
 				navigate(targetHref);
-				if (!hasHash) {
+				if (hash) {
+					setTimeout(() => {
+						const target = document.getElementById(hash);
+						if (target) {
+							target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						} else {
+							console.warn(`[HeaderMegaMenu] Hash target not found: #${hash}`);
+						}
+					}, 50);
+				} else {
 					window.scrollTo(0, 0);
 				}
 			}, 0);
