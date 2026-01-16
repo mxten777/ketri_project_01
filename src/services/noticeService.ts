@@ -177,6 +177,18 @@ export const getNoticeById = async (id: string): Promise<Notice | null> => {
       });
 
       const data = docSnap.data();
+      
+      // 날짜 변환 함수
+      const convertToDate = (dateValue: unknown): Date => {
+        if (!dateValue) return new Date();
+        if (dateValue instanceof Date) return dateValue;
+        if (typeof dateValue === 'string') return new Date(dateValue);
+        if (typeof dateValue === 'object' && 'toDate' in dateValue && typeof (dateValue as any).toDate === 'function') {
+          return (dateValue as any).toDate();
+        }
+        return new Date();
+      };
+      
       return {
         id: docSnap.id,
         noticeId: docSnap.id,
@@ -192,15 +204,15 @@ export const getNoticeById = async (id: string): Promise<Notice | null> => {
         status: data.status || "published",
         attachments: data.attachments || [],
         tags: data.tags || [],
-        createdAt: typeof data.createdAt === 'string' ? new Date(data.createdAt) : data.createdAt?.toDate?.() || new Date(),
-        updatedAt: typeof data.updatedAt === 'string' ? new Date(data.updatedAt) : data.updatedAt?.toDate?.() || new Date(),
+        createdAt: convertToDate(data.createdAt),
+        updatedAt: convertToDate(data.updatedAt),
       } as Notice;
     }
 
     return null;
   } catch (error) {
     logError("Error fetching notice:", error);
-    throw error;
+    return null; // 에러 시 null 반환하여 "찾을 수 없습니다" 메시지 표시
   }
 };
 
