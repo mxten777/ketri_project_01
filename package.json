@@ -38,7 +38,11 @@
     "analyze": "npm run build && npx vite-bundle-analyzer dist",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "pdf:all": "node scripts/generate-pdfs.mjs",
+    "pdf:all:open": "node scripts/generate-pdfs.mjs --open",
+    "pdf:full": "node scripts/generate-full-pdf.mjs",
+    "pdf:full:open": "node scripts/generate-full-pdf.mjs --open"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

@@ -171,9 +171,17 @@ const NoticeDetail = () => {
 
             {/* Content */}
             <div className="prose prose-neutral dark:prose-invert max-w-none">
-              <div className="text-neutral-700 dark:text-neutral-300 whitespace-pre-wrap leading-relaxed">
-                {notice.content}
-              </div>
+              {notice.content && notice.content.trim().length > 0 ? (
+                <div className="text-neutral-700 dark:text-neutral-300 whitespace-pre-wrap leading-relaxed">
+                  {notice.content}
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-neutral-500 dark:text-neutral-400 text-lg">
+                    상세 내용이 없습니다.
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Attachments */}

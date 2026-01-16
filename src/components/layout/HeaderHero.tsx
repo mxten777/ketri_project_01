@@ -52,7 +52,11 @@ export default function HeaderHero({
             <div
               key={menu.label}
               className="relative"
-              ref={(el) => (menuRefs.current[menu.label] = el)}
+              ref={(el) => {
+                if (el) {
+                  menuRefs.current[menu.label] = el;
+                }
+              }}
               onMouseEnter={() => handleMouseEnter(menu.label)}
               onMouseLeave={handleMouseLeave}
             >

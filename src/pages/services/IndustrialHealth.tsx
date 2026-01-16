@@ -297,7 +297,7 @@ const IndustrialHealth = () => {
                   ))}
                 </div>
 
-                <ServiceCta message="산업보건 상담이 필요하신가요?" />
+                <ServiceCta message="작업환경 측정 상담이 필요하신가요?" />
 
                 {/* FAQ 섹션 */}
                 <div className="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-neutral-800 dark:to-neutral-800 rounded-xl p-8 mb-8 mt-8">

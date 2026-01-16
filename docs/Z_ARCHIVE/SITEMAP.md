@@ -23,6 +23,7 @@
 │   ├── 위험성평가 (#risk-assessment)
 │   ├── 근골격계유해요인조사 (#musculoskeletal)
 │   ├── 화학물질관리 (#chemical-management)
+│   ├── 인증서 및 자격 (#certificates)
 │   └── 서비스 프로세스 (#service-process)
 │
 ├── 💧 먹는물 검사 (/services/water-testing)
@@ -174,7 +175,14 @@
 - 화학물질 취급 안전진단
 - 관련 서비스
 
-#### 5. 서비스 프로세스 (#service-process)
+#### 5. 인증서 및 자격 (#certificates)
+- 25년 상반기 정도관리 인증서
+- 24년 작업환경측정 기관평가 통보서
+- 23년 작업환경측정기관 지정서
+- 3개 인증서 카드 그리드 레이아웃
+- PDF 다운로드 기능
+
+#### 6. 서비스 프로세스 (#service-process)
 - 의뢰 절차
 - 현장 방문
 - 검사 진행
@@ -499,18 +507,20 @@
 ## 🛠 기술 스택
 
 ### 프론트엔드
-- **프레임워크:** React 18 + TypeScript
+- **프레임워크:** React 18.3.1 + TypeScript 5.3.3
 - **라우팅:** React Router v6
-- **스타일링:** Tailwind CSS
+- **스타일링:** Tailwind CSS 3.4.1
+- **애니메이션:** Framer Motion 11.0.3
 - **상태관리:** React Context API
-- **빌드 도구:** Vite
+- **빌드 도구:** Vite 5.4.21
 - **아이콘:** Lucide React
 
 ### 백엔드 & 인프라
 - **데이터베이스:** Firebase Firestore
 - **인증:** Firebase Authentication
 - **스토리지:** Firebase Storage
-- **호스팅:** Vercel (예정) 또는 Firebase Hosting
+- **호스팅:** Vercel (Production)
+- **버전:** Firebase 10.8.0
 
 ### 개발 도구
 - **버전 관리:** Git
@@ -531,16 +541,27 @@
 
 ## 📝 주요 변경사항 (2026.01 기준)
 
+### 프로젝트 상태: v3.0.0 (Production Release - FINAL PASS)
+
 ### 현재 구현된 기능
 - ✅ 연구소 소개 전체 페이지 (8개)
 - ✅ 5개 주요 서비스 페이지 (단일 페이지 내 섹션 구조)
+- ✅ 산업보건컨설팅 페이지 인증서 섹션 (3개 인증서 카드 그리드)
 - ✅ 공지사항 게시판 (목록/상세)
 - ✅ 관리자 페이지 (로그인, 공지사항 관리)
 - ✅ AI 문의 분석 도구 (운영 도구)
-- ✅ Firebase 연동
-- ✅ 반응형 디자인
-- ✅ 메가 메뉴 구현
-- ✅ 테마 시스템
+- ✅ Firebase 연동 (Auth, Firestore, Storage)
+- ✅ 반응형 디자인 (Mobile/Tablet/Desktop)
+- ✅ 메가 메뉴 구현 (환경 감지 자동 네비게이션)
+- ✅ 테마 시스템 (Design Token 기반)
+- ✅ SEO 최적화 (메타 태그, 구조화된 데이터)
+- ✅ CTA 최적화 (전화, 카카오톡 연동)
+- ✅ 성능 최적화 (CLS, LCP 개선)
+- ✅ 최종 산출물 문서 4개 (A_DELIVERABLE)
+  - 프로젝트 완료 보고서
+  - 리뉴얼 개요서
+  - 관리자 매뉴얼
+  - 유지보수 가이드
 
 ### 향후 개발 예정
 - ⏳ 회원 가입/로그인 시스템
@@ -552,5 +573,13 @@
 
 ---
 
-이 사이트맵은 KETRI 웹사이트의 **현재 구현된 구조**를 반영한 문서입니다.
+## 📋 문서 정보
+
+이 사이트맵은 KETRI 웹사이트 리뉴얼 프로젝트 **v3.0.0 (Production Release)** 의 최종 구조를 반영한 문서입니다.
+
 각 페이지는 명확한 목적과 사용자 니즈를 반영하여 구성되었으며, React Router 기반의 SPA로 구현되어 있습니다.
+
+- **최종 업데이트:** 2026년 1월 15일
+- **프로젝트 상태:** FINAL PASS
+- **배포 환경:** Vercel Production
+- **관련 문서:** docs/A_DELIVERABLE/ 폴더 참조

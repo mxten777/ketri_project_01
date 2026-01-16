@@ -192,8 +192,8 @@ export const getNoticeById = async (id: string): Promise<Notice | null> => {
         status: data.status || "published",
         attachments: data.attachments || [],
         tags: data.tags || [],
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt,
+        createdAt: typeof data.createdAt === 'string' ? new Date(data.createdAt) : data.createdAt?.toDate?.() || new Date(),
+        updatedAt: typeof data.updatedAt === 'string' ? new Date(data.updatedAt) : data.updatedAt?.toDate?.() || new Date(),
       } as Notice;
     }
 

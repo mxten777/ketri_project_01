@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/layout/Layout";
+import PrintAllLayout from "./components/layout/PrintAllLayout";
 import Home from "./pages/Home";
 
 // About pages
@@ -24,6 +25,9 @@ import NoticeList from "./pages/board/NoticeList";
 import NoticeDetail from "./pages/board/NoticeDetail";
 import AiOps from "./pages/ops/AiOps";
 
+// Print page
+import PrintAll from "./pages/PrintAll";
+
 // Admin pages (for admin notice management)
 import AdminLogin from "./pages/admin/AdminLogin";
 import NoticeAdmin from "./pages/admin/NoticeAdmin";
@@ -34,6 +38,11 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 export default function App() {
   return (
     <Routes>
+      {/* 인쇄 전용 페이지 (헤더/푸터 없음) */}
+      <Route element={<PrintAllLayout />}>
+        <Route path="/print-all" element={<PrintAll />} />
+      </Route>
+
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
 

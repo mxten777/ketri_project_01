@@ -471,8 +471,8 @@ const Home = () => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                 >
-                  <Link to={`/board/notice/${notice.id}`}>
-                    <Card hover className="p-6 h-full flex flex-col bg-white dark:bg-neutral-700 hover:shadow-xl transition-all duration-300">
+                  <Link to={`/board/notice/${notice.id}`} className="block h-full">
+                    <Card hover className="p-6 h-full flex flex-col bg-white dark:bg-neutral-700 hover:shadow-xl transition-all duration-300 cursor-pointer">
                       <div className="flex items-start justify-between mb-4">
                         <div className="w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center">
                           <FileText className="w-6 h-6 text-white" />
@@ -491,10 +491,12 @@ const Home = () => {
                       <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-4 line-clamp-2">
                         {notice.title}
                       </h3>
-                      <p className="text-neutral-600 dark:text-neutral-400 text-sm mt-auto flex items-center hover:text-primary-600 transition-colors">
-                        자세히 보기
-                        <ArrowRight className="ml-1 w-4 h-4" />
-                      </p>
+                      <div className="mt-auto pt-4">
+                        <span className="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg transition-colors">
+                          자세히 보기
+                          <ArrowRight className="ml-2 w-4 h-4" />
+                        </span>
+                      </div>
                     </Card>
                   </Link>
                 </motion.div>
