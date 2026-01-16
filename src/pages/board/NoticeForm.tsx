@@ -102,14 +102,15 @@ const NoticeForm = () => {
         views: 0,
         viewCount: 0,
         status: "published" as const,
-        createdAt: new Date(),
         updatedAt: new Date(),
       };
 
       if (isEditMode && id) {
+        // 수정 모드: createdAt 제외하고 업데이트
         await updateNotice(id, noticeData);
       } else {
-        await createNotice(noticeData);
+        // 생성 모드: createdAt 포함
+        await createNotice({ ...noticeData, createdAt: new Date() });
       }
 
       // 관리자는 관리자 페이지로, 일반 사용자는 게시판으로

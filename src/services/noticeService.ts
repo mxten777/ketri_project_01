@@ -230,8 +230,10 @@ export const updateNotice = async (
 ): Promise<void> => {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
+    // createdAt 제외하고 업데이트 (원본 작성일 유지)
+    const { createdAt, ...updateData } = noticeData;
     await updateDoc(docRef, {
-      ...noticeData,
+      ...updateData,
       updatedAt: Timestamp.now().toDate().toISOString(),
     });
   } catch (error) {
