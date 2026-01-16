@@ -13,14 +13,19 @@ import {
   Package,
   Search,
   FileText,
+  Pin,
+  User,
+  Calendar,
+  Eye,
 } from "lucide-react";
 import Button from "../components/common/Button";
 import Card from "../components/common/Card";
 import { getNotices } from "../services/noticeService";
 import type { Notice } from "../types";
 import { logError } from "../utils/logger";
-import { formatDate } from "../utils/dateUtils";
+import { formatDateOnly } from "../utils/dateUtils";
 import { SERVICES, COMPANY_STATS } from "../constants/menu";
+import { NOTICE_HERO_COPY } from "../constants/copy";
 
 // 카운트 업 훅
 const useCountUp = (end: number, duration: number = 2000) => {
@@ -446,10 +451,10 @@ const Home = () => {
             className="text-center mb-12"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-neutral-900 dark:text-white">
-              최신 공지사항
+              {NOTICE_HERO_COPY.title}
             </h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400">
-              새로운 소식과 중요한 공지사항을 확인하세요
+              {NOTICE_HERO_COPY.subtitle}
             </p>
           </motion.div>
 
@@ -466,38 +471,60 @@ const Home = () => {
               {notices.slice(0, 5).map((notice, index) => (
                 <motion.div
                   key={notice.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
                 >
-                  <Link to={`/board/notice/${notice.id}`} className="block h-full">
-                    <Card hover className="p-6 h-full flex flex-col bg-white dark:bg-neutral-700 hover:shadow-xl transition-all duration-300 cursor-pointer">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center">
-                          <FileText className="w-6 h-6 text-white" />
-                        </div>
-                        <div className="flex flex-col items-end gap-2">
-                          {notice.isPinned && (
-                            <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-                              중요
-                            </span>
-                          )}
-                          <span className="text-sm text-neutral-500 dark:text-neutral-400">
-                            {formatDate(notice.createdAt)}
+                  <Link to={`/board/notice/${notice.id}`}>
+                    <div
+                      className={`bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-premium border transition-all duration-300 hover:shadow-2xl h-full flex flex-col group ${
+                        notice.isPinned
+                          ? "border-primary-300 bg-gradient-to-br from-primary-50/80 to-secondary-50/80 dark:from-primary-900/20 dark:to-secondary-900/20 shadow-primary-200/50"
+                          : "border-white/50 dark:border-neutral-700/50 hover:border-primary-300"
+                      }`}
+                    >
+                      {/* 상단 배지 */}
+                      <div className="flex items-center gap-2 mb-4">
+                        {notice.isPinned && (
+                          <span className="flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-primary-500 to-secondary-500 text-white text-xs font-bold rounded-full shadow-sm">
+                            <Pin className="w-3 h-3" />
+                            고정
                           </span>
-                        </div>
-                      </div>
-                      <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-4 line-clamp-2">
-                        {notice.title}
-                      </h3>
-                      <div className="mt-auto pt-4">
-                        <span className="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg transition-colors">
-                          자세히 보기
-                          <ArrowRight className="ml-2 w-4 h-4" />
+                        )}
+                        <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
+                          {notice.category}
                         </span>
                       </div>
-                    </Card>
+
+                      {/* 제목 */}
+                      <h2 className="text-xl font-bold text-neutral-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2 flex-grow">
+                        {notice.title}
+                      </h2>
+
+                      {/* 내용 미리보기 */}
+                      <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3">
+                        {notice.content}
+                      </p>
+
+                      {/* 하단 정보 */}
+                      <div className="pt-4 border-t border-neutral-200 dark:border-neutral-700 mt-auto">
+                        <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 mb-2">
+                          <span className="flex items-center gap-1">
+                            <User className="w-3 h-3" />
+                            {notice.author.name}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            {formatDateOnly(notice.createdAt)}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1 text-xs text-neutral-400">
+                          <Eye className="w-3 h-3" />
+                          <span>{notice.views || 0} 조회</span>
+                        </div>
+                      </div>
+                    </div>
                   </Link>
                 </motion.div>
               ))}
@@ -505,7 +532,7 @@ const Home = () => {
           )}
 
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center">
-            <Link to="/board/notice">
+            <Link to="/board/notice?view=all">
               <Button size="lg" variant="outline" className="border-2 hover:bg-primary-600 hover:text-white hover:border-primary-600">
                 전체 공지사항 보기
                 <ArrowRight className="ml-2 w-5 h-5" />

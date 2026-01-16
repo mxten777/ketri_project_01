@@ -144,28 +144,6 @@ const NoticeDetail = () => {
                     <span>{notice.views || 0}</span>
                   </span>
                 </div>
-
-                {isAdmin && (
-                  <div className="flex items-center space-x-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => navigate(`/board/notice/edit/${id}`)}
-                    >
-                      <Edit className="w-4 h-4 mr-2" />
-                      수정
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={handleDelete}
-                      className="text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
-                    >
-                      <Trash2 className="w-4 h-4 mr-2" />
-                      삭제
-                    </Button>
-                  </div>
-                )}
               </div>
             </div>
 

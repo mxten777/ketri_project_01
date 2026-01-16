@@ -164,14 +164,14 @@ export const getNotices = async (
   }
 };
 
-// 공�??�항 ?�세 조회
+// 공지사항 상세 조회
 export const getNoticeById = async (id: string): Promise<Notice | null> => {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      // 조회??증�?
+      // 조회수 증가
       await updateDoc(docRef, {
         views: increment(1),
       });
@@ -212,7 +212,7 @@ export const getNoticeById = async (id: string): Promise<Notice | null> => {
     return null;
   } catch (error) {
     logError("Error fetching notice:", error);
-    return null; // 에러 시 null 반환하여 "찾을 수 없습니다" 메시지 표시
+    return null;
   }
 };
 
