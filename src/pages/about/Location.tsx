@@ -141,7 +141,7 @@ const Location = () => {
 
                       <div className="mt-6 flex flex-wrap gap-3">
                         <a
-                          href="https://www.google.com/maps/search/?api=1&query=충북+청주시+서원구+남이면+양촌+3길+7-30"
+                          href={CONTACT_INFO.googleMapsSearch}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg"
@@ -174,12 +174,12 @@ const Location = () => {
                 </div>
               </div>
 
-              {/* 우측: 지도 (기존 iframe 유지) */}
+              {/* 우측: 지도 - Google Map iframe */}
               <div className="lg:col-span-2">
                 <div className="bg-white dark:bg-neutral-800 rounded-3xl shadow-2xl overflow-hidden border border-neutral-200 dark:border-neutral-700">
                   <div className="aspect-[16/9] relative min-h-[360px]">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3201.234!2d127.4894!3d36.5674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDM0JzAyLjciTiAxMjfCsDI5JzIxLjgiRQ!5e0!3m2!1sko!2skr!4v1234567890"
+                      src={CONTACT_INFO.googleMapsEmbed}
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
@@ -187,7 +187,7 @@ const Location = () => {
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                       title="한국환경안전연구소 위치"
-                      className="grayscale-0 hover:grayscale-0 transition-all duration-300"
+                      className="w-full h-full"
                     ></iframe>
                   </div>
 
@@ -210,16 +210,16 @@ const Location = () => {
                           <ExternalLink className="w-4 h-4" />
                         </a>
                         <a
-                          href="https://map.kakao.com/link/search/충북 청주시 서원구 남이면 양촌 3길 7-30"
+                          href={CONTACT_INFO.kakaoMapTo}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-xl font-semibold hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-105 transition-all duration-300 shadow-lg"
                         >
-                          <span>카카오맵</span>
+                          <span>카카오맵 길찾기</span>
                           <ExternalLink className="w-4 h-4" />
                         </a>
                         <a
-                          href="https://www.google.com/maps/search/?api=1&query=충북 청주시 서원구 남이면 양촌 3길 7-30"
+                          href={CONTACT_INFO.googleMapsSearch}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg"

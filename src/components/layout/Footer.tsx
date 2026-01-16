@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Container } from "../ui";
 
@@ -14,6 +14,10 @@ const CTA_HL = {
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  
+  // 서비스 페이지에서는 Footer CTA를 숨김 (서비스 페이지에 자체 ServiceCta가 있음)
+  const showCta = !location.pathname.startsWith('/services/');
 
   return (
     <footer
@@ -25,22 +29,25 @@ const Footer = () => {
         "site-footer",
       ].join(" ")}
     >
-      {/* ================= CTA SECTION (항상 그라데이션) ================= */}
-      <div className="relative">
-        {/* Base gradient */}
-        <div className="absolute inset-0 -z-10 pointer-events-none" style={CTA_BG} />
-        {/* Subtle highlights */}
-        <div className="absolute inset-0 -z-10 pointer-events-none opacity-60" style={CTA_HL} />
-        {/* Bottom fade for smooth transition to footer */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/20 to-transparent -z-10 pointer-events-none" />
+      {/* ================= CTA SECTION (서비스 페이지 제외) ================= */}
+      {showCta && (
+        <div className="relative">
+          {/* Base gradient */}
+          <div className="absolute inset-0 -z-10 pointer-events-none" style={CTA_BG} />
+          {/* Subtle highlights */}
+          <div className="absolute inset-0 -z-10 pointer-events-none opacity-60" style={CTA_HL} />
+          {/* Subtle overlay for text contrast */}
+          <div className="absolute inset-0 bg-black/15 pointer-events-none"></div>
+          {/* Bottom fade for smooth transition to footer */}
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/20 to-transparent -z-10 pointer-events-none" />
 
         <div className="relative z-10">
           <Container size="xl">
             <div className="text-center text-white py-16 md:py-20 px-6">
-              <h3 className="text-2xl md:text-3xl font-semibold mb-3 tracking-tight">
+              <h3 className="text-3xl md:text-4xl font-extrabold mb-5 tracking-tight leading-[1.3] [text-shadow:_0_2px_8px_rgba(0,0,0,0.25)]">
                 전문적인 환경안전 서비스가 필요하신가요?
               </h3>
-              <p className="text-base md:text-lg mb-10 text-white/85 tracking-wide">
+              <p className="text-xl md:text-2xl mb-12 text-white tracking-wide leading-[1.6] font-bold [text-shadow:_0_1px_6px_rgba(0,0,0,0.2)]">
                 전문 상담원이 친절하게 안내해드립니다
               </p>
 
@@ -48,30 +55,30 @@ const Footer = () => {
                 <a
                   href="tel:043-237-7824"
                   className={[
-                    "group inline-flex items-center gap-3 h-14 rounded-xl font-semibold",
-                    "text-blue-700 dark:text-blue-700 bg-white hover:bg-white/95",
-                    "border border-white/40 hover:border-white/60",
-                    "shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:shadow-[0_10px_28px_rgba(0,0,0,0.16)]",
+                    "group inline-flex items-center gap-3 h-16 rounded-xl font-extrabold text-lg",
+                    "text-primary-900 dark:text-primary-900 bg-white hover:bg-neutral-50",
+                    "border-2 border-white/60 hover:border-white/80",
+                    "shadow-[0_10px_28px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.2)]",
                     "transition-all duration-200 hover:-translate-y-0.5",
-                    "px-8 w-full sm:w-auto min-w-[220px] justify-center",
+                    "px-10 w-full sm:w-auto min-w-[240px] justify-center",
                   ].join(" ")}
                 >
-                  <Phone className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+                  <Phone className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
                   <span>전화 상담: 043-237-7824</span>
                 </a>
 
                 <a
                   href="mailto:kesri0728@naver.com"
                   className={[
-                    "group inline-flex items-center gap-3 h-14 rounded-xl font-semibold",
-                    "text-white bg-white/15 hover:bg-white/25",
-                    "border border-white/50 hover:border-white/70",
-                    "shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:shadow-[0_10px_28px_rgba(0,0,0,0.12)]",
+                    "group inline-flex items-center gap-3 h-16 rounded-xl font-extrabold text-lg",
+                    "text-white bg-white/25 hover:bg-white/35",
+                    "border-2 border-white/70 hover:border-white/90",
+                    "shadow-[0_10px_28px_rgba(0,0,0,0.1)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.15)]",
                     "transition-all duration-200 hover:-translate-y-0.5",
-                    "px-8 w-full sm:w-auto min-w-[220px] justify-center backdrop-blur-sm",
+                    "px-10 w-full sm:w-auto min-w-[240px] justify-center backdrop-blur-md",
                   ].join(" ")}
                 >
-                  <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
+                  <Mail className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
                   <span>이메일 문의</span>
                 </a>
               </div>
@@ -79,9 +86,10 @@ const Footer = () => {
           </Container>
         </div>
 
-        {/* Subtle divider for footer transition */}
-        <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent z-10" />
-      </div>
+          {/* Subtle divider for footer transition */}
+          <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent z-10" />
+        </div>
+      )}
 
       {/* ================= MAIN FOOTER ================= */}
       <Container size="xl" className="py-12">

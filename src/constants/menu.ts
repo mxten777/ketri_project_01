@@ -181,4 +181,18 @@ export const CONTACT_INFO = {
   fax: "043-237-7826",
   email: "kesri0728@naver.com",
   address: "충북 청주시 서원구 남이면 양촌 3길 7-30 (28805)",
+  // 정확한 좌표 (WGS84 기준)
+  // 주의: 위도(latitude)는 36도대, 경도(longitude)는 127도대
+  coordinates: {
+    latitude: 36.566807,   // 위도 (북위)
+    longitude: 127.489487, // 경도 (동경)
+  },
+  // Google Maps iframe URL (주소 기반, zoom=17: 건물 단위 식별 가능)
+  googleMapsEmbed: "https://www.google.com/maps?q=충북+청주시+서원구+남이면+양촌3길+7-30&z=17&output=embed",
+  // Google Maps 검색 URL (큰 지도 보기 버튼용)
+  googleMapsSearch: "https://www.google.com/maps/search/?api=1&query=충북+청주시+서원구+남이면+양촌3길+7-30",
+  // Kakao Map iframe URL (API 키 불필요)
+  kakaoMapEmbed: "https://map.kakao.com/link/map/한국환경안전연구소,36.566807,127.489487",
+  // Kakao Map 길찾기 목적지 설정 URL
+  kakaoMapTo: "https://map.kakao.com/link/to/한국환경안전연구소,36.566807,127.489487",
 };
