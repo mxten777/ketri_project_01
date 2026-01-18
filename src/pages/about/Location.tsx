@@ -238,14 +238,14 @@ const Location = () => {
                   <div className="aspect-[16/9] relative min-h-[360px]">
                     {!mapError ? (
                       <iframe
-                        src={CONTACT_INFO.googleMapsEmbed}
+                        src={CONTACT_INFO.kakaoMapEmbed}
                         width="100%"
                         height="100%"
                         style={{ border: 0 }}
                         allowFullScreen
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
-                        title="한국환경안전연구소 위치"
+                        title="한국환경안전연구소 위치 (Kakao Map)"
                         className="w-full h-full"
                         onLoad={handleMapLoad}
                         onError={handleMapError}
