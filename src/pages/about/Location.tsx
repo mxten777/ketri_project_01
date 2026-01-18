@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   MapPin,
@@ -13,12 +13,70 @@ import {
   ExternalLink,
   MapPinned,
   ParkingCircle,
+  AlertCircle,
 } from "lucide-react";
 import { CONTACT_INFO } from "@/constants/menu";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
+
+// ScrollHashHandler 컴포넌트
+function ScrollHashHandler() {
+  const location = useLocation();
+  const didRunRef = useRef(false);
+
+  useEffect(() => {
+    if (didRunRef.current) return;
+    if (!location.hash) return;
+    if (location.pathname !== "/about/location") return;
+
+    const id = location.hash.replace("#", "");
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    didRunRef.current = true;
+    // Use requestAnimationFrame to avoid arbitrary timeouts and ensure DOM painted
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [location.pathname, location.hash]);
+
+  return null;
+}
  
 const Location = () => {
+  const [mapError, setMapError] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const mapTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // iframe 로딩 타임아웃 정리
+  useEffect(() => {
+    // 5초 내에 로딩되지 않으면 에러로 간주
+    mapTimeoutRef.current = setTimeout(() => {
+      if (!mapLoaded) {
+        setMapError(true);
+      }
+    }, 5000);
+
+    return () => {
+      if (mapTimeoutRef.current) {
+        clearTimeout(mapTimeoutRef.current);
+      }
+    };
+  }, [mapLoaded]);
+
+  const handleMapLoad = () => {
+    setMapLoaded(true);
+    setMapError(false);
+    if (mapTimeoutRef.current) {
+      clearTimeout(mapTimeoutRef.current);
+    }
+  };
+
+  const handleMapError = () => {
+    setMapError(true);
+    setMapLoaded(false);
+  };
+
   const transportInfo = [
     {
       type: "자가용",
@@ -178,17 +236,77 @@ const Location = () => {
               <div className="lg:col-span-2">
                 <div className="bg-white dark:bg-neutral-800 rounded-3xl shadow-2xl overflow-hidden border border-neutral-200 dark:border-neutral-700">
                   <div className="aspect-[16/9] relative min-h-[360px]">
-                    <iframe
-                      src={CONTACT_INFO.googleMapsEmbed}
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title="한국환경안전연구소 위치"
-                      className="w-full h-full"
-                    ></iframe>
+                    {!mapError ? (
+                      <iframe
+                        src={CONTACT_INFO.googleMapsEmbed}
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="한국환경안전연구소 위치"
+                        className="w-full h-full"
+                        onLoad={handleMapLoad}
+                        onError={handleMapError}
+                      ></iframe>
+                    ) : (
+                      // Fallback UI - 지도 로딩 실패 시
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-700 dark:to-neutral-800 p-8">
+                        <div className="max-w-md text-center">
+                          <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <AlertCircle className="w-10 h-10 text-white" />
+                          </div>
+                          <h3 className="text-2xl font-bold mb-3 text-neutral-900 dark:text-white">
+                            지도를 불러올 수 없습니다
+                          </h3>
+                          <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
+                            일부 환경에서는 지도가 표시되지 않을 수 있습니다.
+                            <br />
+                            아래 버튼을 통해 외부 지도 앱에서 위치를 확인하세요.
+                          </p>
+                          
+                          <div className="space-y-3">
+                            <a
+                              href={CONTACT_INFO.googleMapsSearch}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg"
+                            >
+                              <MapPin className="w-5 h-5" />
+                              <span>Google 지도에서 보기</span>
+                              <ExternalLink className="w-4 h-4" />
+                            </a>
+                            <a
+                              href="https://map.naver.com/p/search/충북 청주시 서원구 남이면 양촌 3길 7-30"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-lg"
+                            >
+                              <MapPin className="w-5 h-5" />
+                              <span>Naver 지도에서 보기</span>
+                              <ExternalLink className="w-4 h-4" />
+                            </a>
+                            <a
+                              href={CONTACT_INFO.kakaoMapTo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-xl font-semibold hover:from-yellow-500 hover:to-yellow-600 transition-all duration-200 shadow-lg"
+                            >
+                              <MapPin className="w-5 h-5" />
+                              <span>Kakao 지도에서 보기</span>
+                              <ExternalLink className="w-4 h-4" />
+                            </a>
+                          </div>
+
+                          <div className="mt-6 p-4 bg-white/50 dark:bg-neutral-700/50 rounded-xl">
+                            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                              <strong>주소:</strong> {CONTACT_INFO.address}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Map Navigation Buttons */}
@@ -546,26 +664,3 @@ const Location = () => {
 };
 
 export default Location;
-
-function ScrollHashHandler() {
-  const location = useLocation();
-  const didRunRef = useRef(false);
-
-  useEffect(() => {
-    if (didRunRef.current) return;
-    if (!location.hash) return;
-    if (location.pathname !== "/about/location") return;
-
-    const id = location.hash.replace("#", "");
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    didRunRef.current = true;
-    // Use requestAnimationFrame to avoid arbitrary timeouts and ensure DOM painted
-    requestAnimationFrame(() => {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  }, [location.pathname, location.hash]);
-
-  return null;
-}

@@ -187,8 +187,9 @@ export const CONTACT_INFO = {
     latitude: 36.566807,   // 위도 (북위)
     longitude: 127.489487, // 경도 (동경)
   },
-  // Google Maps iframe URL (주소 기반, zoom=17: 건물 단위 식별 가능)
-  googleMapsEmbed: "https://www.google.com/maps?q=충북+청주시+서원구+남이면+양촌3길+7-30&z=17&output=embed",
+  // Google Maps iframe URL (좌표 기반 - 모바일 호환성 최적화)
+  // q= 파라미터에 좌표를 사용하고 output=embed 제거 (모바일 웹뷰 차단 방지)
+  googleMapsEmbed: `https://www.google.com/maps?q=${encodeURIComponent('36.566807,127.489487')}&z=17&output=embed`,
   // Google Maps 검색 URL (큰 지도 보기 버튼용)
   googleMapsSearch: "https://www.google.com/maps/search/?api=1&query=충북+청주시+서원구+남이면+양촌3길+7-30",
   // Kakao Map iframe URL (API 키 불필요)
