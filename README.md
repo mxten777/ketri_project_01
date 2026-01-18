@@ -259,13 +259,23 @@ npm update
 #### 환경변수 설정 예제
 
 ```env
+# Firebase Configuration
 VITE_FIREBASE_API_KEY=AIzaSyBxxxxxxxxxxxxxxxxxxxxx
 VITE_FIREBASE_AUTH_DOMAIN=ketri-project.firebaseapp.com
 VITE_FIREBASE_PROJECT_ID=ketri-project
 VITE_FIREBASE_STORAGE_BUCKET=ketri-project.appspot.com
 VITE_FIREBASE_MESSAGING_SENDER_ID=123456789012
 VITE_FIREBASE_APP_ID=1:123456789012:web:abcdef1234567890
+
+# Kakao Maps (오시는 길 페이지에서 사용)
+VITE_KAKAO_JS_KEY=your_kakao_javascript_key_here
 ```
+
+**Kakao Maps 설정 방법:**
+1. [Kakao Developers](https://developers.kakao.com/)에 로그인
+2. 앱 생성 후 "플랫폼" 설정에서 웹 플랫폼 추가
+3. 사이트 도메인 등록 (localhost:3000 포함)
+4. "앱 키" > "JavaScript 키" 복사하여 환경변수에 설정
 
 ## 🔥 Firebase 설정
 

@@ -27,7 +27,7 @@
     "npm": ">=9.0.0"
   },
   "scripts": {
-    "dev": "vite --port 3004 --open",
+    "dev": "vite --port 3005 --open",
     "build": "vite build",
     "build:check": "tsc --noEmit && vite build",
     "type-check": "tsc --noEmit",

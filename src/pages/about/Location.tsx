@@ -18,6 +18,7 @@ import {
 import { CONTACT_INFO } from "@/constants/menu";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
+import { loadKakaoMaps } from "@/lib/kakaoMaps";
 
 // ScrollHashHandler 컴포넌트
 function ScrollHashHandler() {
@@ -45,36 +46,120 @@ function ScrollHashHandler() {
  
 const Location = () => {
   const [mapError, setMapError] = useState(false);
-  const [mapLoaded, setMapLoaded] = useState(false);
-  const mapTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<unknown>(null);
 
-  // iframe 로딩 타임아웃 정리
+  // Kakao Maps SDK 로드 및 지도 초기화
   useEffect(() => {
-    // 5초 내에 로딩되지 않으면 에러로 간주
-    mapTimeoutRef.current = setTimeout(() => {
-      if (!mapLoaded) {
-        setMapError(true);
-      }
-    }, 5000);
+    const kakaoKey = import.meta.env.VITE_KAKAO_JS_KEY;
 
+    // 환경변수 체크
+    if (!kakaoKey) {
+      console.warn('[Location] VITE_KAKAO_JS_KEY is missing. Map will not be displayed.');
+      setMapError(true);
+      return;
+    }
+
+    // 이미 지도가 초기화되어 있으면 종료
+    if (mapInstanceRef.current) {
+      return;
+    }
+
+    // SDK 로드 및 지도 생성
+    loadKakaoMaps(kakaoKey)
+      .then(() => {
+        if (!mapContainerRef.current) return;
+
+        const { latitude, longitude } = CONTACT_INFO.coordinates;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { kakao } = window as any;
+
+        // 지도 중심 좌표
+        const centerPosition = new kakao.maps.LatLng(latitude, longitude);
+
+        // 지도 옵션
+        const mapOption = {
+          center: centerPosition,
+          level: 3, // 확대 레벨 (1-14, 숫자가 작을수록 확대)
+        };
+
+        // 지도 생성
+        const map = new kakao.maps.Map(mapContainerRef.current, mapOption);
+        mapInstanceRef.current = map;
+
+        // 마커 생성
+        const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+        const marker = new kakao.maps.Marker({
+          position: markerPosition,
+          map: map,
+        });
+
+        // 인포윈도우 생성 (선택사항)
+        const infowindow = new kakao.maps.InfoWindow({
+          content: `<div style="padding:10px;font-size:14px;font-weight:bold;">한국환경안전연구소</div>`,
+        });
+        infowindow.open(map, marker);
+
+        setMapError(false);
+      })
+      .catch((error) => {
+        console.error('[Location] Failed to load Kakao Maps:', error);
+        setMapError(true);
+      });
+
+    // cleanup
     return () => {
-      if (mapTimeoutRef.current) {
-        clearTimeout(mapTimeoutRef.current);
+      if (mapInstanceRef.current) {
+        // Kakao Maps는 별도 cleanup 불필요
+        mapInstanceRef.current = null;
       }
     };
-  }, [mapLoaded]);
+  }, []);
 
-  const handleMapLoad = () => {
-    setMapLoaded(true);
-    setMapError(false);
-    if (mapTimeoutRef.current) {
-      clearTimeout(mapTimeoutRef.current);
-    }
+  // 앱 딥링크 우선 + visibility 체크로 fallback 처리
+  const openWithFallback = (appUrl: string, webUrl: string) => {
+    const start = Date.now();
+    window.location.href = appUrl;
+    
+    setTimeout(() => {
+      // 앱으로 전환되면 페이지가 background로 가므로, visible 상태이고 시간이 짧으면 앱 미설치
+      if (document.visibilityState === "visible" && Date.now() - start < 1200) {
+        window.location.href = webUrl;
+      }
+    }, 700);
   };
 
-  const handleMapError = () => {
-    setMapError(true);
-    setMapLoaded(false);
+  // 모바일/인앱브라우저 안정형 네비게이션 - 앱 우선, 좌표 기반 직접 목적지
+  const handleMapNavigation = (type: 'naver' | 'kakao' | 'google') => {
+    const { latitude, longitude } = CONTACT_INFO.coordinates;
+    const placeName = encodeURIComponent("한국환경안전연구소");
+    
+    let appUrl = '';
+    let webUrl = '';
+
+    switch (type) {
+      case 'naver':
+        // 네이버 앱: nmap 스킴으로 좌표+장소명 전달
+        appUrl = `nmap://place?lat=${latitude}&lng=${longitude}&name=${placeName}&appname=ketri.co.kr`;
+        // 네이버 웹: 길찾기 도착지로 바로 표시 (lng,lat 순서 주의)
+        webUrl = CONTACT_INFO.naverMapWeb || `https://map.naver.com/v5/directions/-/-/${longitude},${latitude},${placeName}`;
+        openWithFallback(appUrl, webUrl);
+        break;
+      case 'kakao':
+        // 카카오 앱: look 파라미터로 좌표 전달
+        appUrl = `kakaomap://look?p=${latitude},${longitude}`;
+        // 카카오 웹: link/map은 바로 목적지 표시 (to는 길찾기 시작 페이지라 광고 나옴)
+        webUrl = CONTACT_INFO.kakaoMapWeb || `https://map.kakao.com/link/map/${placeName},${latitude},${longitude}`;
+        openWithFallback(appUrl, webUrl);
+        break;
+      case 'google':
+        // 구글 앱: comgooglemaps 스킴 (iOS/Android 공통)
+        appUrl = `comgooglemaps://?q=${latitude},${longitude}(${placeName})`;
+        // 구글 웹: 좌표 기반 검색
+        webUrl = CONTACT_INFO.googleMapsSearch || `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+        openWithFallback(appUrl, webUrl);
+        break;
+    }
   };
 
   const transportInfo = [
@@ -198,14 +283,13 @@ const Location = () => {
                       </div>
 
                       <div className="mt-6 flex flex-wrap gap-3">
-                        <a
-                          href={CONTACT_INFO.googleMapsSearch}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          type="button"
+                          onClick={() => handleMapNavigation('google')}
                           className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg"
                         >
                           큰 지도 보기
-                        </a>
+                        </button>
 
                         <button
                           type="button"
@@ -232,75 +316,67 @@ const Location = () => {
                 </div>
               </div>
 
-              {/* 우측: 지도 - Google Map iframe */}
+              {/* 우측: 지도 - Kakao Maps SDK */}
               <div className="lg:col-span-2">
                 <div className="bg-white dark:bg-neutral-800 rounded-3xl shadow-2xl overflow-hidden border border-neutral-200 dark:border-neutral-700">
-                  <div className="aspect-[16/9] relative min-h-[360px]">
+                  {/* 고정 높이 컨테이너 - 모바일 최적화 */}
+                  <div className="h-[280px] md:h-[360px] relative overflow-hidden">
                     {!mapError ? (
-                      <iframe
-                        src={CONTACT_INFO.kakaoMapEmbed}
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="한국환경안전연구소 위치 (Kakao Map)"
+                      // Kakao 지도 컨테이너
+                      <div 
+                        ref={mapContainerRef}
                         className="w-full h-full"
-                        onLoad={handleMapLoad}
-                        onError={handleMapError}
-                      ></iframe>
+                        style={{ background: '#f0f0f0' }}
+                      />
                     ) : (
                       // Fallback UI - 지도 로딩 실패 시
-                      <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-700 dark:to-neutral-800 p-8">
-                        <div className="max-w-md text-center">
-                          <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                            <AlertCircle className="w-10 h-10 text-white" />
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-700 dark:to-neutral-800 p-6 sm:p-8">
+                        <div className="max-w-xl w-full text-center">
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
+                            <AlertCircle className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                           </div>
-                          <h3 className="text-2xl font-bold mb-3 text-neutral-900 dark:text-white">
+                          <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-neutral-900 dark:text-white">
                             지도를 불러올 수 없습니다
                           </h3>
-                          <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
+                          <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mb-5 sm:mb-6 leading-relaxed px-2">
                             일부 환경에서는 지도가 표시되지 않을 수 있습니다.
-                            <br />
+                            <br className="hidden sm:block" />
                             아래 버튼을 통해 외부 지도 앱에서 위치를 확인하세요.
                           </p>
                           
-                          <div className="space-y-3">
-                            <a
-                              href={CONTACT_INFO.googleMapsSearch}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg"
+                          {/* 모바일 친화 grid 레이아웃 - 버튼 줄바꿈 방지 */}
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <button
+                              type="button"
+                              onClick={() => handleMapNavigation('naver')}
+                              className="w-full min-h-[52px] px-4 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-lg flex items-center justify-between gap-3"
                             >
-                              <MapPin className="w-5 h-5" />
-                              <span>Google 지도에서 보기</span>
-                              <ExternalLink className="w-4 h-4" />
-                            </a>
-                            <a
-                              href="https://map.naver.com/p/search/충북 청주시 서원구 남이면 양촌 3길 7-30"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-lg"
+                              <MapPin className="w-5 h-5 flex-shrink-0" />
+                              <span className="whitespace-nowrap break-keep leading-tight text-sm sm:text-base">네이버지도</span>
+                              <ExternalLink className="w-4 h-4 flex-shrink-0" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleMapNavigation('kakao')}
+                              className="w-full min-h-[52px] px-4 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-xl font-semibold hover:from-yellow-500 hover:to-yellow-600 transition-all duration-200 shadow-lg flex items-center justify-between gap-3"
                             >
-                              <MapPin className="w-5 h-5" />
-                              <span>Naver 지도에서 보기</span>
-                              <ExternalLink className="w-4 h-4" />
-                            </a>
-                            <a
-                              href={CONTACT_INFO.kakaoMapTo}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-xl font-semibold hover:from-yellow-500 hover:to-yellow-600 transition-all duration-200 shadow-lg"
+                              <MapPin className="w-5 h-5 flex-shrink-0" />
+                              <span className="whitespace-nowrap break-keep leading-tight text-sm sm:text-base">카카오맵</span>
+                              <ExternalLink className="w-4 h-4 flex-shrink-0" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleMapNavigation('google')}
+                              className="w-full min-h-[52px] px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg flex items-center justify-between gap-3"
                             >
-                              <MapPin className="w-5 h-5" />
-                              <span>Kakao 지도에서 보기</span>
-                              <ExternalLink className="w-4 h-4" />
-                            </a>
+                              <MapPin className="w-5 h-5 flex-shrink-0" />
+                              <span className="whitespace-nowrap break-keep leading-tight text-sm sm:text-base">구글지도</span>
+                              <ExternalLink className="w-4 h-4 flex-shrink-0" />
+                            </button>
                           </div>
 
-                          <div className="mt-6 p-4 bg-white/50 dark:bg-neutral-700/50 rounded-xl">
-                            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                          <div className="mt-5 sm:mt-6 p-3 sm:p-4 bg-white/50 dark:bg-neutral-700/50 rounded-xl">
+                            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 break-keep">
                               <strong>주소:</strong> {CONTACT_INFO.address}
                             </p>
                           </div>
@@ -317,34 +393,31 @@ const Location = () => {
                         <span className="font-semibold text-neutral-900 dark:text-white">길찾기 바로가기</span>
                       </div>
 
-                      <div className="flex gap-3">
-                        <a
-                          href="https://map.naver.com/p/search/충북 청주시 서원구 남이면 양촌 3길 7-30"
-                          target="_blank"
-                          rel="noopener noreferrer"
+                      <div className="flex flex-wrap gap-3">
+                        <button
+                          type="button"
+                          onClick={() => handleMapNavigation('naver')}
                           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-semibold hover:from-green-600 hover:to-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
                         >
                           <span>네이버맵</span>
                           <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <a
-                          href={CONTACT_INFO.kakaoMapTo}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleMapNavigation('kakao')}
                           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-xl font-semibold hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-105 transition-all duration-300 shadow-lg"
                         >
                           <span>카카오맵 길찾기</span>
                           <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <a
-                          href={CONTACT_INFO.googleMapsSearch}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleMapNavigation('google')}
                           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
                         >
                           <span>구글맵</span>
                           <ExternalLink className="w-4 h-4" />
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
