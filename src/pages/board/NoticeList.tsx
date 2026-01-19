@@ -41,17 +41,38 @@ const NoticeList = () => {
       let date: Date | null = null;
       const ts = timestamp as unknown;
 
+      // Firestore Timestamp 객체 (toDate 메서드 있음)
       if (ts && typeof (ts as { toDate?: unknown }).toDate === "function") {
         date = (ts as { toDate: () => Date }).toDate();
-      } else if (ts && typeof (ts as { seconds?: unknown }).seconds === "number") {
+      } 
+      // Firestore Timestamp 직렬화된 형태 (seconds 필드)
+      else if (ts && typeof (ts as { seconds?: unknown }).seconds === "number") {
         date = new Date((ts as { seconds: number }).seconds * 1000);
-      } else if (typeof ts === "string") {
+      } 
+      // ISO 문자열
+      else if (typeof ts === "string") {
         date = new Date(ts);
-      } else if (ts instanceof Date) {
+      } 
+      // Date 객체
+      else if (ts instanceof Date) {
         date = ts;
       }
+      // null이나 undefined
+      else if (!ts) {
+        console.warn("formatDate: timestamp is null or undefined");
+        return "날짜 없음";
+      }
+      // 알 수 없는 형식
+      else {
+        console.error("formatDate: Unknown timestamp format:", ts);
+        return "날짜 없음";
+      }
 
-      if (!date) return "날짜 없음";
+      // date가 생성되지 않았거나 Invalid Date인 경우
+      if (!date || isNaN(date.getTime())) {
+        console.error("formatDate: Invalid date created from:", ts);
+        return "날짜 없음";
+      }
 
       return date.toLocaleDateString("ko-KR", {
         year: "numeric",
@@ -59,7 +80,7 @@ const NoticeList = () => {
         day: "2-digit",
       });
     } catch (error) {
-      console.error("Date formatting error:", error);
+      console.error("Date formatting error:", error, "for timestamp:", timestamp);
       return "날짜 오류";
     }
   };

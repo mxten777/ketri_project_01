@@ -51,6 +51,43 @@ export const getNotices = async (
     const notices = querySnapshot.docs
       .map((doc) => {
         const data = doc.data();
+        
+        // Firestore Timestamp를 Date로 변환
+        let createdAt: Date;
+        let updatedAt: Date;
+        
+        if (data.createdAt?.toDate) {
+          createdAt = data.createdAt.toDate();
+        } else if (data.createdAt?.seconds) {
+          createdAt = new Date(data.createdAt.seconds * 1000);
+        } else if (typeof data.createdAt === 'string') {
+          const parsed = new Date(data.createdAt);
+          if (!isNaN(parsed.getTime())) {
+            createdAt = parsed;
+          } else {
+            console.error(`Notice ${doc.id} has invalid date string:`, data.createdAt);
+            createdAt = new Date(); // 현재 시간으로 폴백
+          }
+        } else {
+          console.error(`Notice ${doc.id} has invalid createdAt:`, data.createdAt);
+          createdAt = new Date(); // 현재 시간으로 폴백
+        }
+        
+        if (data.updatedAt?.toDate) {
+          updatedAt = data.updatedAt.toDate();
+        } else if (data.updatedAt?.seconds) {
+          updatedAt = new Date(data.updatedAt.seconds * 1000);
+        } else if (typeof data.updatedAt === 'string') {
+          const parsed = new Date(data.updatedAt);
+          if (!isNaN(parsed.getTime())) {
+            updatedAt = parsed;
+          } else {
+            updatedAt = createdAt;
+          }
+        } else {
+          updatedAt = createdAt; // updatedAt이 없으면 createdAt 사용
+        }
+        
         return {
           id: doc.id,
           noticeId: doc.id,
@@ -66,8 +103,8 @@ export const getNotices = async (
           status: data.status || "published",
           attachments: data.attachments || [],
           tags: data.tags || [],
-          createdAt: data.createdAt?.toDate?.() || new Date(),
-          updatedAt: data.updatedAt?.toDate?.() || new Date(),
+          createdAt,
+          updatedAt,
         } as Notice;
       })
       .sort((a, b) => {
@@ -179,13 +216,42 @@ export const getNoticeById = async (id: string): Promise<Notice | null> => {
       const data = docSnap.data();
       
       // 날짜 변환 함수
-      const convertToDate = (dateValue: unknown): Date => {
-        if (!dateValue) return new Date();
-        if (dateValue instanceof Date) return dateValue;
-        if (typeof dateValue === 'string') return new Date(dateValue);
+      const convertToDate = (dateValue: unknown, fieldName: string): Date => {
+        if (!dateValue) {
+          console.warn(`${id}: ${fieldName} is null/undefined`);
+          return new Date();
+        }
+        
+        // Firestore Timestamp with toDate method
         if (typeof dateValue === 'object' && 'toDate' in dateValue && typeof (dateValue as any).toDate === 'function') {
           return (dateValue as any).toDate();
         }
+        
+        // Firestore Timestamp serialized (seconds field)
+        if (typeof dateValue === 'object' && 'seconds' in dateValue && typeof (dateValue as any).seconds === 'number') {
+          return new Date((dateValue as any).seconds * 1000);
+        }
+        
+        // Date object
+        if (dateValue instanceof Date) {
+          if (isNaN(dateValue.getTime())) {
+            console.error(`${id}: ${fieldName} is Invalid Date`);
+            return new Date();
+          }
+          return dateValue;
+        }
+        
+        // ISO string
+        if (typeof dateValue === 'string') {
+          const parsed = new Date(dateValue);
+          if (!isNaN(parsed.getTime())) {
+            return parsed;
+          }
+          console.error(`${id}: ${fieldName} invalid string: ${dateValue}`);
+          return new Date();
+        }
+        
+        console.error(`${id}: ${fieldName} unknown format:`, dateValue);
         return new Date();
       };
       
@@ -204,8 +270,8 @@ export const getNoticeById = async (id: string): Promise<Notice | null> => {
         status: data.status || "published",
         attachments: data.attachments || [],
         tags: data.tags || [],
-        createdAt: convertToDate(data.createdAt),
-        updatedAt: convertToDate(data.updatedAt),
+        createdAt: convertToDate(data.createdAt, 'createdAt'),
+        updatedAt: convertToDate(data.updatedAt, 'updatedAt'),
       } as Notice;
     }
 
@@ -224,8 +290,8 @@ export const createNotice = async (
     const docRef = await addDoc(collection(db, COLLECTION_NAME), {
       ...noticeData,
       views: 0,
-      createdAt: Timestamp.now().toDate().toISOString(),
-      updatedAt: Timestamp.now().toDate().toISOString(),
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
     });
 
     return docRef.id;
@@ -246,7 +312,7 @@ export const updateNotice = async (
     const { createdAt, ...updateData } = noticeData;
     await updateDoc(docRef, {
       ...updateData,
-      updatedAt: Timestamp.now().toDate().toISOString(),
+      updatedAt: Timestamp.now(),
     });
   } catch (error) {
     logError("Error updating notice:", error);
@@ -280,6 +346,28 @@ export const getPinnedNotices = async (): Promise<Notice[]> => {
 
     return querySnapshot.docs.map((doc) => {
       const data = doc.data();
+      
+      // 날짜 변환
+      let createdAt: Date;
+      let updatedAt: Date;
+      
+      if (data.createdAt?.toDate) {
+        createdAt = data.createdAt.toDate();
+      } else if (data.createdAt?.seconds) {
+        createdAt = new Date(data.createdAt.seconds * 1000);
+      } else {
+        console.error(`Pinned notice ${doc.id} has invalid createdAt:`, data.createdAt);
+        createdAt = new Date();
+      }
+      
+      if (data.updatedAt?.toDate) {
+        updatedAt = data.updatedAt.toDate();
+      } else if (data.updatedAt?.seconds) {
+        updatedAt = new Date(data.updatedAt.seconds * 1000);
+      } else {
+        updatedAt = createdAt;
+      }
+      
       return {
         id: doc.id,
         noticeId: doc.id,
@@ -295,8 +383,8 @@ export const getPinnedNotices = async (): Promise<Notice[]> => {
         status: data.status || "published",
         attachments: data.attachments || [],
         tags: data.tags || [],
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt,
+        createdAt,
+        updatedAt,
       } as Notice;
     });
   } catch (error) {
