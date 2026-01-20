@@ -74,7 +74,7 @@ const Asbestos = () => {
             </div>
 
             <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-xl p-6 mb-8">
-              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-gray-300">
+              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-gray-300">
                 ● 석면조사대상(산업안전보건법-고용노동부) - 산업안전보건법 제119조
               </h3>
               <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 mb-4">
@@ -101,7 +101,7 @@ const Asbestos = () => {
             </div>
 
             <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-xl p-6 mb-8">
-              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-gray-300">
+              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-gray-300">
                 ● 석면조사대상(석면안전관리법-기후에너지환경부) - 석면안전관리법 제21조
               </h3>
               <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 mb-4">

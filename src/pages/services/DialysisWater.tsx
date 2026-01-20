@@ -307,7 +307,7 @@ const DialysisWater = () => {
             </div>
 
             <div className="bg-primary-50 dark:bg-neutral-800 rounded-xl p-6">
-              <h3 className="text-xl font-bold mb-4">검사 분석 장비</h3>
+              <h3 className="text-heading-lg font-bold mb-4">검사 분석 장비</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <h4 className="font-bold mb-2">
