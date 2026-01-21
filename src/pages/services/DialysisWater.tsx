@@ -60,7 +60,7 @@ const DialysisWater = () => {
             <h3 className="text-heading-lg mt-8 mb-4">투석용수 중요성</h3>
             <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 p-6 mb-8">
               <p className="text-neutral-700 dark:text-neutral-300 mb-3">
-                환자는 혈액투석 치료 중 매주 300~600리터의 물에 노출될 수 있습니다. 이러한 노출은 주사, 복막 투석에 의한 간헐 위험을 증가시킵니다. 감염성 질환의 매개체로서 투석용수에 대한 감염이 증가되면서 투석용수에 대한 적절한 관리 지침을 반드시 필요합니다.
+                환자는 혈액투석 치료 중 매주 300~600리터의 물에 노출될 수 있습니다. 감염성 질환의 매개체로서 투석용수에 대한 감염이 증가되면서 투석용수에 대한 적절한 관리 지침을 반드시 필요합니다.
               </p>
               <ul className="space-y-1 text-neutral-700 dark:text-neutral-300">
                 <li>• 미량의 오염물질도 투석막을 통과하여 환자 혈액에 축적</li>

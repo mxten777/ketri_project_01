@@ -88,134 +88,166 @@ const WaterTesting = () => {
                 <div className="overflow-x-auto mb-8">
                   <table className="w-full border-collapse text-sm">
                     <thead>
-                      <tr className="bg-neutral-200 dark:bg-neutral-700">
-                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">분류</th>
-                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2"></th>
+                      <tr className="bg-primary-600 text-white">
+                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">관련법령</th>
+                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">검사대상</th>
+                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">검사종류</th>
                         <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">검사주기</th>
                         <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">검사항목</th>
-                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">금액</th>
-                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">시료량 (무균채수병)</th>
+                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">수수료<br/>(VAT포함)</th>
+                        <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">시료량<br/>(무균채수병)</th>
                         <th className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">비고</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {/* 급수설비 */}
+                      {/* 수도법 제33조 */}
                       <tr className="bg-white dark:bg-neutral-800">
-                        <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-bold">급수설비</td>
+                        <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold">수도법 제33조</td>
+                        <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">대형건축물<br/>소유주 및 관리자</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">저수조</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">년 1회</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">년 1회</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">6</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">62,680</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">62,680</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">1L</td>
-                        <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">지역별 상이</td>
+                        <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 align-middle">지역별, 개수별<br/>수수료 상이</td>
                       </tr>
-                      <tr className="bg-white dark:bg-neutral-800">
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">급수관</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2년 1회</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">2년 1회</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">7</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">69,220</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">69,220</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">1L</td>
                       </tr>
 
-                      {/* 지하수 */}
-                      <tr className="bg-neutral-50 dark:bg-neutral-700">
-                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-bold">지하수</td>
+                      {/* 지하수법 제20조 */}
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold">지하수법 제20조</td>
+                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">지하수관정 소유주 및<br/>이용자</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">음용수</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2년 1회 이상</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">2년 1회 이상</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">46</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">327,470</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">294,470</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">4L</td>
-                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2"></td>
+                        <td rowSpan={11} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 align-middle">시료채취비 별도</td>
                       </tr>
                       <tr className="bg-neutral-50 dark:bg-neutral-700">
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">생활용수</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">3년 1회</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">3년 1회</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">20</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">184,580</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">2L</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">151,580</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">1L</td>
                       </tr>
-                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                      <tr className="bg-white dark:bg-neutral-800">
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">농/공/어업용수</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">3년 1회</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">3년 1회</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">15</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">153,340</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">2L</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">120,340</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">1L</td>
                       </tr>
 
-                      {/* 먹는물 */}
-                      <tr className="bg-white dark:bg-neutral-800">
-                        <td rowSpan={4} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-bold">먹는물</td>
+                      {/* 먹는물 관리법 */}
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold">먹는물 관리법</td>
+                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">지자체 등</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">먹는샘물 (제품수)</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">-</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">52</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">413,160</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">380,160</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">6L</td>
-                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2"></td>
                       </tr>
                       <tr className="bg-white dark:bg-neutral-800">
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">샘물 (원수)</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">-</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">48</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">389,180</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">356,180</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">6L</td>
                       </tr>
-                      <tr className="bg-white dark:bg-neutral-800">
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">먹는물 공동시설</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">분기1회</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">분기1회</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">47</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">369,710</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">336,710</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">4L</td>
                       </tr>
+
+                      {/* 수도법 제29조 */}
                       <tr className="bg-white dark:bg-neutral-800">
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">정수기</td>
+                        <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold">수도법 제29조</td>
+                        <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">수도사업자 등</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">수도수 59항목</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">-</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">2</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">26,620</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">130ml</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">출장료 별도<br/>지역별, 개수별 상이</td>
-                      </tr>
-
-                      {/* 식품에 사용되는 먹는물(지하수) */}
-                      <tr className="bg-neutral-50 dark:bg-neutral-700">
-                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-bold">식품에 사용되는 먹는물 (지하수)</td>
-                        <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">식품접객 영업자</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">년 1회</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">12</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">91,080</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">4L</td>
-                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2"></td>
-                      </tr>
-                      <tr className="bg-neutral-50 dark:bg-neutral-700">
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2년 1회</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">46</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">327,470</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">59</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">359,040</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">4L</td>
                       </tr>
                       <tr className="bg-neutral-50 dark:bg-neutral-700">
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">식품 및 첨가물 제조 가공업자</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">년 1회<br/>음료는 반기 1회</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">46</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">327,470</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">수도수 60항목</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">-</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">60</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">370,700</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">4L</td>
                       </tr>
 
-                      {/* 기타 (분류 없음) */}
+                      {/* 식품위생법 */}
                       <tr className="bg-white dark:bg-neutral-800">
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2"></td>
+                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold">식품위생법</td>
+                        <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">식품접객업소 및<br/>집단급식소</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">음용수 12항목</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">년 1회</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">12</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">58,080</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">2L</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">음용수 46항목</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">2년 1회</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">46</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">294,470</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">4L</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">식품 및 접가물제조,<br/>가공업자</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">음용수 46항목</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">년 1회<br/>음료는 반기 1회</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">46</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">294,470</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">4L</td>
+                      </tr>
+
+                      {/* 체육시설의 설치이용 관련 법률 */}
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold">체육시설의<br/>설치이용에 관한 법률</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">시설 관리자 등</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">수영장수</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">-</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">9</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">77,110</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">77,110</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">1L</td>
-                        <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">출장료 별도<br/>지역별 상이</td>
-                      </tr>
-                      <tr className="bg-white dark:bg-neutral-800">
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2"></td>
+                      </tr>
+
+                      {/* 물환경보전법 */}
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold">물환경보전법</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">시설 관리자 등</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">수경시설</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">-</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">4</td>
-                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right">51,700</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">51,700</td>
                         <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">1L</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">출장료 별도<br/>지역별 상이</td>
+                      </tr>
+
+                      {/* 기타 */}
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">-</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">-</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">정수기</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">-</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">2</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-right font-bold text-primary-600">26,620</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center">130ml</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">출장료 별도<br/>지역별, 개수별 상이</td>
                       </tr>
                     </tbody>
                   </table>
