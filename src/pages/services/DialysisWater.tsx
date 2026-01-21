@@ -71,8 +71,15 @@ const DialysisWater = () => {
               </ul>
             </div>
 
-            <h3 id="standards" className="text-heading-lg mt-8 mb-4">검사 항목 및 기준</h3>
-            <div className="overflow-x-auto mb-8">
+            <h3 id="standards" className="text-heading-lg mt-8 mb-4">혈액투석용수 화학미세물질 검사 항목 및 기준</h3>
+            
+            <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 p-6 mb-6">
+              <p className="text-neutral-700 dark:text-neutral-300">
+                혈액투석 환자는 1회 치료 시 수백 리터의 투석용수에 노출되며, 투석막을 통해 미량의 화학물질도 체내로 유입될 수 있습니다. 이에 따라 혈액투석용수는 일반 음용수보다 훨씬 엄격한 화학미세물질 관리 기준이 요구되며, 국제 기준(AAMI, ISO 23500)에 따라 정기적인 수질 검사가 필요합니다.
+              </p>
+            </div>
+
+            <div className="overflow-x-auto mb-4">
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-primary-600 text-white">
@@ -83,7 +90,7 @@ const DialysisWater = () => {
                       항목
                     </th>
                     <th className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      기준값
+                      기준값 (mg/L)
                     </th>
                   </tr>
                 </thead>
@@ -91,74 +98,210 @@ const DialysisWater = () => {
                   <tr className="bg-white dark:bg-neutral-800">
                     <td
                       className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold"
-                      rowSpan={8}
+                      rowSpan={25}
                     >
                       화학미세물질
                     </td>
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       알루미늄 (Al)
                     </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      ≤ 0.01 mg/L
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.01
                     </td>
                   </tr>
                   <tr className="bg-neutral-50 dark:bg-neutral-700">
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      구리 (Cu)
+                      안티몬 (Sb)
                     </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      ≤ 0.1 mg/L
-                    </td>
-                  </tr>
-                  <tr className="bg-white dark:bg-neutral-800">
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      아연 (Zn)
-                    </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      ≤ 0.1 mg/L
-                    </td>
-                  </tr>
-                  <tr className="bg-neutral-50 dark:bg-neutral-700">
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      납 (Pb)
-                    </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      ≤ 0.005 mg/L
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.006
                     </td>
                   </tr>
                   <tr className="bg-white dark:bg-neutral-800">
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       비소 (As)
                     </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      ≤ 0.005 mg/L
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.005
                     </td>
                   </tr>
                   <tr className="bg-neutral-50 dark:bg-neutral-700">
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      바륨 (Ba)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.1
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-800">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       카드뮴 (Cd)
                     </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.001
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      ≤ 0.001 mg/L
+                      칼슘 (Ca)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 2
                     </td>
                   </tr>
                   <tr className="bg-white dark:bg-neutral-800">
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       크롬 (Cr)
                     </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      ≤ 0.014 mg/L
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.014
                     </td>
                   </tr>
                   <tr className="bg-neutral-50 dark:bg-neutral-700">
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      수은 (Hg)
+                      구리 (Cu)
                     </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      ≤ 0.0002 mg/L
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.1
                     </td>
                   </tr>
                   <tr className="bg-white dark:bg-neutral-800">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      불소 (F⁻)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.2
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      납 (Pb)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.005
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-800">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      마그네슘 (Mg)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 4
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      망간 (Mn)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.002
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-800">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      수은 (Hg)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.0002
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      질산염 (NO₃⁻)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 2
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-800">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      아질산염 (NO₂⁻)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.1
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      셀레늄 (Se)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.09
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-800">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      은 (Ag)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.005
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      나트륨 (Na)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 70
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-800">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      황산염 (SO₄²⁻)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 100
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      아연 (Zn)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.1
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-800">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      잔류염소
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.1
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      클로라민
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.1
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-800">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      총유기탄소 (TOC)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.5
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      실리카 (SiO₂)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 2
+                    </td>
+                  </tr>
+                  <tr className="bg-white dark:bg-neutral-800">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                      철 (Fe)
+                    </td>
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
+                      ≤ 0.1
+                    </td>
+                  </tr>
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
                     <td
                       className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold"
                       rowSpan={2}
@@ -168,19 +311,19 @@ const DialysisWater = () => {
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       일반세균
                     </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
                       &lt; 100 CFU/mL
                     </td>
                   </tr>
-                  <tr className="bg-neutral-50 dark:bg-neutral-700">
+                  <tr className="bg-white dark:bg-neutral-800">
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       엔도톡신 (Endotoxin)
                     </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
                       &lt; 0.25 EU/mL
                     </td>
                   </tr>
-                  <tr className="bg-white dark:bg-neutral-800">
+                  <tr className="bg-neutral-50 dark:bg-neutral-700">
                     <td
                       className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold"
                       rowSpan={2}
@@ -190,20 +333,24 @@ const DialysisWater = () => {
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       염소/클로라민
                     </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
                       ≤ 0.5 mg/L (유리염소), ≤ 0.1 mg/L (클로라민)
                     </td>
                   </tr>
-                  <tr className="bg-neutral-50 dark:bg-neutral-700">
+                  <tr className="bg-white dark:bg-neutral-800">
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       pH
                     </td>
-                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
+                    <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 text-right">
                       6.5 ~ 8.5
                     </td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            <div className="text-sm text-neutral-600 dark:text-neutral-400 mb-8">
+              ※ 본 기준은 AAMI 및 ISO 23500(혈액투석 및 관련 치료용 수질 기준)을 근거로 하여 적용됩니다.
             </div>
 
             <h3 className="text-heading-lg mt-8 mb-4">검사 종류</h3>
