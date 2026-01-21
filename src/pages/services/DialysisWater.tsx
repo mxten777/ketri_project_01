@@ -13,7 +13,7 @@ const DialysisWater = () => {
             혈액투석용수 검사
           </h1>
           <p className="text-lg">
-            대한신장학회 감염관리 지침 및 ISO 23500/건강보험심사평가원 기준에 근거하여 환자 안전을 최우선으로 한 혈액투석용수 26개 항목 검사 서비스를 제공합니다.
+            대한신장학회 감염관리 지침 및 ISO 23500/건강보험심사평가원 기준에 근거하여 환자 안전을 최우선으로 한 혈액투석용수 27개 항목 검사 서비스를 제공합니다.
           </p>
         </div>
       </section>
@@ -53,7 +53,7 @@ const DialysisWater = () => {
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
               한국환경안전연구소는 혈액투석용수 전문 검사기관으로 2006년부터
               전국 200여 개 투석센터의 용수검사를 수행해왔습니다. 대한신장학회
-              감염관리 지침, ISO 23500/건강보험심사평가원 26개 항목 기준에 근거하여
+              감염관리 지침, ISO 23500/건강보험심사평가원 27개 항목 기준에 근거하여
               환자 안전과 투석 효율성 향상에 기여하고 있습니다.
             </p>
 
@@ -93,7 +93,7 @@ const DialysisWater = () => {
                       className="border border-neutral-300 dark:border-neutral-600 px-4 py-3 font-bold"
                       rowSpan={8}
                     >
-                      화학물질
+                      화학미세물질
                     </td>
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
                       알루미늄 (Al)
@@ -191,7 +191,7 @@ const DialysisWater = () => {
                       염소/클로라민
                     </td>
                     <td className="border border-neutral-300 dark:border-neutral-600 px-4 py-3">
-                      ≤ 0.5 mg/L (총 염소), ≤ 0.1 mg/L (클로라민)
+                      ≤ 0.5 mg/L (유리염소), ≤ 0.1 mg/L (클로라민)
                     </td>
                   </tr>
                   <tr className="bg-neutral-50 dark:bg-neutral-700">
@@ -210,10 +210,10 @@ const DialysisWater = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <div className="p-6 bg-primary-50 dark:bg-neutral-800 rounded-xl">
                 <h4 className="text-heading-sm font-bold mb-3 text-primary-600 dark:text-primary-400">
-                  화학미세 물질검사
+                  화학미세물질 검사
                 </h4>
                 <p className="text-sm text-neutral-600 dark:text-neutral-300">
-                  대한신장학회 감염관리 지침 및 건강보험심사평가원의 혈액투석 적정성 평가 기준에 따라 화학 미세물질 검사를 권고하고 있으며, 안티몬(Antimony), 베릴륨(Beryllium), 탈륨(Thallium) 검사는 권고하며 염소(Chlorine, Cl)와 클로라민(Chloramine)의 합인 total chlorine 수치로 검사하기를 권고하고 있다.
+                  대한신장학회 감염관리 지침 및 건강보험심사평가원의 혈액투석 적정성 평가 기준에 따라 화학미세물질 검사를 권고하고 있으며, 안티몬(Antimony), 베릴륨(Beryllium), 탈륨(Thallium) 검사는 권고하며 염소(Chlorine, Cl)와 클로라민(Chloramine)의 합인 total chlorine 수치로 검사하기를 권고하고 있다.
                 </p>
               </div>
               <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
@@ -221,7 +221,7 @@ const DialysisWater = () => {
                   미생물 검사
                 </h4>
                 <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
-                  <li>• 원반세균 배양 검사</li>
+                  <li>• 일반세균 배양 검사</li>
                   <li>• 엔도톡신(내독소) 정량분석</li>
                   <li>• 수처리시스템 각 단계별 검사</li>
                   <li>• 배관 및 저장탱크 검사</li>
@@ -266,7 +266,7 @@ const DialysisWater = () => {
                   </div>
                   <p className="font-bold mb-1">정밀 분석</p>
                   <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                    화학미세 물질/미생물 검사
+                    화학미세물질 검사/미생물 검사
                   </p>
                 </div>
                 <div className="text-center">
@@ -322,7 +322,7 @@ const DialysisWater = () => {
                     LAL Test (Limulus Amebocyte Lysate)
                   </h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                    &gt;0.05EUU/mL 검출
+                    &gt;0.05EU/mL 검출
                   </p>
                 </div>
                 <div>
