@@ -30,13 +30,13 @@ const Card = ({
   const baseStyles = "rounded-lg transition-all duration-200 text-neutral-900 dark:text-neutral-100";
 
   const variants = {
-    default: "bg-white border border-neutral-200 dark:bg-neutral-900 dark:border-neutral-800",
+    default: "bg-white border border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700",
     elevated:
-      "bg-white shadow-card hover:shadow-md dark:bg-neutral-900 dark:shadow-none dark:hover:shadow-lg",
+      "bg-white shadow-card hover:shadow-md dark:bg-neutral-800 dark:shadow-none dark:hover:shadow-lg",
     outlined:
-      "bg-transparent border-2 border-neutral-300 dark:border-neutral-700 dark:bg-transparent",
+      "bg-transparent border-2 border-neutral-300 dark:border-neutral-600 dark:bg-transparent",
     filled:
-      "bg-neutral-50 border border-neutral-200 dark:bg-neutral-900/60 dark:border-neutral-800",
+      "bg-neutral-50 border border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700",
   };
 
   const paddings = {

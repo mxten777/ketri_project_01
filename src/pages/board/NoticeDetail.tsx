@@ -92,7 +92,7 @@ const NoticeDetail = () => {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-800">
+    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
       <div className="container-custom max-w-4xl">
         <section className="pt-10 lg:pt-12 pb-12 lg:pb-16">
           <motion.div
@@ -112,7 +112,7 @@ const NoticeDetail = () => {
 
           <Card className="p-8">
             {/* Header */}
-            <div className="border-b border-neutral-200 dark:border-neutral-700 pb-6 mb-6">
+            <div className="border-b border-neutral-200 dark:border-neutral-600 pb-6 mb-6">
               <div className="flex items-center space-x-2 mb-4">
                 {notice.isPinned && (
                   <span className="flex items-center space-x-1 text-primary-500 text-sm font-medium">
@@ -130,7 +130,7 @@ const NoticeDetail = () => {
               </h1>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-6 text-sm text-neutral-600 dark:text-neutral-400">
+                <div className="flex items-center space-x-6 text-sm text-neutral-600 dark:text-neutral-300">
                   <span className="flex items-center space-x-2">
                     <User className="w-4 h-4" />
                     <span>{notice.author.name}</span>
@@ -150,12 +150,12 @@ const NoticeDetail = () => {
             {/* Content */}
             <div className="prose prose-neutral dark:prose-invert max-w-none">
               {notice.content && notice.content.trim().length > 0 ? (
-                <div className="text-neutral-700 dark:text-neutral-300 whitespace-pre-wrap leading-relaxed">
+                <div className="text-neutral-700 dark:text-neutral-200 whitespace-pre-wrap leading-relaxed">
                   {notice.content}
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <p className="text-neutral-500 dark:text-neutral-400 text-lg">
+                  <p className="text-neutral-500 dark:text-neutral-300 text-lg">
                     상세 내용이 없습니다.
                   </p>
                 </div>
@@ -164,7 +164,7 @@ const NoticeDetail = () => {
 
             {/* Attachments */}
             {notice.attachments && notice.attachments.length > 0 && (
-              <div className="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-700">
+              <div className="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-600">
                 <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">
                   첨부파일
                 </h3>
@@ -175,9 +175,9 @@ const NoticeDetail = () => {
                       href={file.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center space-x-2 p-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                      className="flex items-center space-x-2 p-3 bg-neutral-50 dark:bg-neutral-700 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors"
                     >
-                      <span className="text-sm text-neutral-700 dark:text-neutral-300">
+                      <span className="text-sm text-neutral-700 dark:text-neutral-200">
                         {file.name}
                       </span>
                       <span className="text-xs text-neutral-500">

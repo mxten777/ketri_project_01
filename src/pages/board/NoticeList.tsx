@@ -113,7 +113,7 @@ const NoticeList = () => {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-primary-900/20">
+    <main className="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 dark:from-neutral-900 dark:to-neutral-900">
       <div className="container mx-auto px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -146,7 +146,7 @@ const NoticeList = () => {
               {/* 우: 홈으로 버튼 */}
               <button
                 onClick={() => navigate("/")}
-                className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 text-primary-600 dark:text-primary-400 font-medium rounded-full text-sm border border-primary-200 dark:border-primary-800 hover:bg-primary-50 dark:hover:bg-neutral-700 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-700 text-primary-600 dark:text-primary-400 font-medium rounded-full text-sm border border-primary-200 dark:border-primary-700 hover:bg-primary-50 dark:hover:bg-neutral-600 transition-colors"
               >
                 <Home className="w-4 h-4" />
                 홈으로
@@ -162,11 +162,11 @@ const NoticeList = () => {
               transition={{ delay: 0.2 }}
             >
               {notices.length === 0 ? (
-                <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-8 text-center border border-white/20">
+                <div className="bg-white/80 dark:bg-neutral-800 backdrop-blur-sm rounded-xl p-8 text-center border border-white/20 dark:border-neutral-700">
                   <div className="bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900/30 dark:to-secondary-900/30 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <Pin className="w-8 h-8 text-primary-600 dark:text-primary-400" />
                   </div>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300">
                     등록된 공지사항이 없습니다.
                   </p>
                 </div>
@@ -181,10 +181,10 @@ const NoticeList = () => {
                     >
                     <Link to={`/board/notice/${notice.id}`}>
                       <div
-                        className={`bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-premium border transition-all duration-300 hover:shadow-2xl h-full flex flex-col group ${
+                        className={`bg-white/90 dark:bg-neutral-800 backdrop-blur-sm rounded-2xl p-6 shadow-premium border transition-all duration-300 hover:shadow-2xl h-full flex flex-col group ${
                           notice.isPinned
                             ? "border-primary-300 bg-gradient-to-br from-primary-50/80 to-secondary-50/80 dark:from-primary-900/20 dark:to-secondary-900/20 shadow-primary-200/50"
-                            : "border-white/50 dark:border-neutral-700/50 hover:border-primary-300"
+                            : "border-white/50 dark:border-neutral-700 hover:border-primary-300"
                         }`}
                       >
                         {/* 상단 배지 */}
@@ -206,13 +206,13 @@ const NoticeList = () => {
                         </h2>
 
                         {/* 내용 미리보기 */}
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3">
+                        <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4 line-clamp-3">
                           {notice.content}
                         </p>
 
                         {/* 하단 정보 */}
-                        <div className="pt-4 border-t border-neutral-200 dark:border-neutral-700 mt-auto">
-                          <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 mb-2">
+                        <div className="pt-4 border-t border-neutral-200 dark:border-neutral-600 mt-auto">
+                          <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-300 mb-2">
                             <span className="flex items-center gap-1">
                               <User className="w-3 h-3" />
                               {notice.author.name}
@@ -222,7 +222,7 @@ const NoticeList = () => {
                               {formatDate(notice.createdAt)}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1 text-xs text-neutral-400">
+                          <div className="flex items-center gap-1 text-xs text-neutral-400 dark:text-neutral-300">
                             <Eye className="w-3 h-3" />
                             <span>{notice.views || 0} 조회</span>
                           </div>

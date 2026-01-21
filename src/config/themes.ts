@@ -100,18 +100,42 @@ export const getStoredTheme = (): ThemeType => {
 };
 
 /**
- * 다크 모드 토글
+ * 다크 모드 적용 (명시적)
+ */
+export const applyDarkMode = (isDark: boolean): void => {
+  const root = document.documentElement;
+  
+  if (isDark) {
+    root.classList.add("dark");
+    localStorage.setItem("app-dark-mode", "true");
+  } else {
+    root.classList.remove("dark");
+    localStorage.setItem("app-dark-mode", "false");
+  }
+};
+
+/**
+ * 다크 모드 토글 (deprecated - 사용하지 말 것)
  */
 export const toggleDarkMode = (): void => {
   const root = document.documentElement;
   const isDark = root.classList.contains("dark");
+  applyDarkMode(!isDark);
+};
+
+/**
+ * 초기 다크모드 상태 가져오기
+ */
+export const getInitialDarkMode = (): boolean => {
+  const stored = localStorage.getItem("app-dark-mode");
   
-  if (isDark) {
-    root.classList.remove("dark");
-    localStorage.setItem("app-dark-mode", "false");
+  if (stored === "true") {
+    return true;
+  } else if (stored === "false") {
+    return false;
   } else {
-    root.classList.add("dark");
-    localStorage.setItem("app-dark-mode", "true");
+    // 시스템 설정 따르기
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
 };
 
@@ -119,17 +143,6 @@ export const toggleDarkMode = (): void => {
  * 다크 모드 초기화
  */
 export const initDarkMode = (): void => {
-  const root = document.documentElement;
-  const stored = localStorage.getItem("app-dark-mode");
-  
-  if (stored === "true") {
-    root.classList.add("dark");
-  } else if (stored === "false") {
-    root.classList.remove("dark");
-  } else {
-    // 시스템 설정 따르기
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      root.classList.add("dark");
-    }
-  }
+  const isDark = getInitialDarkMode();
+  applyDarkMode(isDark);
 };

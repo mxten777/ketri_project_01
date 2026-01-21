@@ -19,7 +19,6 @@ import {
   Eye,
 } from "lucide-react";
 import Button from "../components/common/Button";
-import Card from "../components/common/Card";
 import { getNotices } from "../services/noticeService";
 import type { Notice } from "../types";
 import { logError } from "../utils/logger";
@@ -442,7 +441,7 @@ const Home = () => {
       </section>
 
       {/* Notices Section - 간결하게 */}
-      <section className="py-20 bg-gray-50 dark:bg-neutral-800">
+      <section className="py-20 bg-gray-50 dark:bg-neutral-900">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -453,7 +452,7 @@ const Home = () => {
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-neutral-900 dark:text-white">
               {NOTICE_HERO_COPY.title}
             </h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400">
+            <p className="text-lg text-neutral-600 dark:text-neutral-300">
               {NOTICE_HERO_COPY.subtitle}
             </p>
           </motion.div>
@@ -464,7 +463,7 @@ const Home = () => {
             </div>
           ) : notices.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-neutral-500 dark:text-neutral-400">등록된 공지사항이 없습니다.</p>
+              <p className="text-neutral-500 dark:text-neutral-300">등록된 공지사항이 없습니다.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -478,10 +477,10 @@ const Home = () => {
                 >
                   <Link to={`/board/notice/${notice.id}`}>
                     <div
-                      className={`bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-premium border transition-all duration-300 hover:shadow-2xl h-full flex flex-col group ${
+                      className={`bg-white/90 dark:bg-neutral-800 backdrop-blur-sm rounded-2xl p-6 shadow-premium border transition-all duration-300 hover:shadow-2xl h-full flex flex-col group ${
                         notice.isPinned
                           ? "border-primary-300 bg-gradient-to-br from-primary-50/80 to-secondary-50/80 dark:from-primary-900/20 dark:to-secondary-900/20 shadow-primary-200/50"
-                          : "border-white/50 dark:border-neutral-700/50 hover:border-primary-300"
+                          : "border-white/50 dark:border-neutral-700 hover:border-primary-300"
                       }`}
                     >
                       {/* 상단 배지 */}
@@ -503,13 +502,13 @@ const Home = () => {
                       </h2>
 
                       {/* 내용 미리보기 */}
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3">
+                      <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4 line-clamp-3">
                         {notice.content}
                       </p>
 
                       {/* 하단 정보 */}
-                      <div className="pt-4 border-t border-neutral-200 dark:border-neutral-700 mt-auto">
-                        <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 mb-2">
+                      <div className="pt-4 border-t border-neutral-200 dark:border-neutral-600 mt-auto">
+                        <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-300 mb-2">
                           <span className="flex items-center gap-1">
                             <User className="w-3 h-3" />
                             {notice.author.name}
@@ -519,7 +518,7 @@ const Home = () => {
                             {formatDateOnly(notice.createdAt)}
                           </span>
                         </div>
-                        <div className="flex items-center gap-1 text-xs text-neutral-400">
+                        <div className="flex items-center gap-1 text-xs text-neutral-400 dark:text-neutral-300">
                           <Eye className="w-3 h-3" />
                           <span>{notice.views || 0} 조회</span>
                         </div>

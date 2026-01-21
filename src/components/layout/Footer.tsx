@@ -56,15 +56,15 @@ const Footer = () => {
                   href="tel:043-237-7824"
                   className={[
                     "group inline-flex items-center gap-3 h-16 rounded-xl font-extrabold text-lg",
-                    "text-primary-900 dark:text-primary-900 bg-white hover:bg-neutral-50",
+                    "text-primary-900 dark:text-black bg-white hover:bg-neutral-50",
                     "border-2 border-white/60 hover:border-white/80",
                     "shadow-[0_10px_28px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.2)]",
                     "transition-all duration-200 hover:-translate-y-0.5",
                     "px-10 w-full sm:w-auto min-w-[240px] justify-center",
                   ].join(" ")}
                 >
-                  <Phone className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
-                  <span>전화 상담: 043-237-7824</span>
+                  <Phone className="w-6 h-6 text-primary-900 dark:text-black group-hover:scale-110 transition-transform duration-200" />
+                  <span className="text-primary-900 dark:text-black">전화 상담: 043-237-7824</span>
                 </a>
 
                 <a
@@ -106,14 +106,14 @@ const Footer = () => {
               />
             </div>
 
-            <p className="text-sm leading-relaxed text-neutral-800 dark:text-neutral-200">
+            <p className="text-sm leading-relaxed text-neutral-800 dark:text-neutral-100">
               (주)한국환경안전연구소
             </p>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">대표이사: 이정식</p>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">
+            <p className="text-sm text-neutral-700 dark:text-neutral-200">대표이사: 이정식</p>
+            <p className="text-sm text-neutral-700 dark:text-neutral-200">
               사업자등록번호: 317-81-01323
             </p>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">
+            <p className="text-sm text-neutral-700 dark:text-neutral-200">
               법인등록번호: 150111-0098934
             </p>
           </div>
@@ -130,11 +130,11 @@ const Footer = () => {
                 <div>
                   <a
                     href="tel:043-237-7824"
-                    className="text-neutral-950 dark:text-neutral-100 hover:text-primary-800 dark:hover:text-primary-200 transition-colors font-semibold text-base block"
+                    className="text-neutral-950 dark:text-white hover:text-primary-800 dark:hover:text-primary-300 transition-colors font-semibold text-base block"
                   >
                     043-237-7824~5
                   </a>
-                  <span className="text-neutral-600 dark:text-neutral-400 text-xs">
+                  <span className="text-neutral-600 dark:text-neutral-300 text-xs">
                     FAX: 043-237-7826
                   </span>
                 </div>
@@ -144,7 +144,7 @@ const Footer = () => {
                 <Mail className="w-5 h-5 text-primary-600 dark:text-primary-300 flex-shrink-0 mt-0.5" />
                 <a
                   href="mailto:kesri0728@naver.com"
-                  className="text-neutral-950 dark:text-neutral-200 hover:text-primary-800 dark:hover:text-primary-200 transition-colors font-medium"
+                  className="text-neutral-950 dark:text-white hover:text-primary-800 dark:hover:text-primary-300 transition-colors font-medium"
                 >
                   kesri0728@naver.com
                 </a>
@@ -152,9 +152,9 @@ const Footer = () => {
 
               <div className="flex items-start gap-3">
                 <Clock className="w-5 h-5 text-primary-600 dark:text-primary-300 flex-shrink-0 mt-0.5" />
-                <div className="text-neutral-800 dark:text-neutral-200">
+                <div className="text-neutral-800 dark:text-white">
                   <div>평일 09:00 - 18:00</div>
-                  <div className="text-neutral-600 dark:text-neutral-400 text-xs">
+                  <div className="text-neutral-600 dark:text-neutral-300 text-xs">
                     토·일·공휴일 휴무
                   </div>
                 </div>
@@ -169,12 +169,12 @@ const Footer = () => {
             </h3>
             <div className="flex items-start gap-3">
               <MapPin className="w-5 h-5 text-primary-600 dark:text-primary-300 flex-shrink-0 mt-0.5" />
-              <div className="text-neutral-800 dark:text-neutral-200 text-sm">
+              <div className="text-neutral-800 dark:text-white text-sm">
                 <p className="mb-2">충북 청주시 서원구 남이면</p>
                 <p className="mb-2">양촌 3길 7-30 (28805)</p>
                 <Link
                   to="/about/location#map"
-                  className="inline-block mt-2 text-primary-800 dark:text-primary-200 hover:text-primary-900 dark:hover:text-primary-100 font-semibold transition-colors"
+                  className="inline-block mt-2 text-primary-800 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-200 font-semibold transition-colors"
                 >
                   지도 보기 →
                 </Link>
@@ -185,19 +185,19 @@ const Footer = () => {
       </Container>
 
       {/* ================= BOTTOM FOOTER ================= */}
-<div className="border-t border-neutral-200 dark:border-neutral-800">
+<div className="border-t border-neutral-200 dark:border-neutral-700">
   <Container size="xl" className="py-6">
     <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0 text-sm">
-      <div className="text-neutral-800 dark:text-neutral-400">
+      <div className="text-neutral-800 dark:text-neutral-300">
         © {currentYear} 한국환경안전연구소. All rights reserved.
       </div>
 
-      <div className="flex items-center gap-4 text-neutral-800 dark:text-neutral-400">
-        <span className="text-neutral-800 dark:text-neutral-400 opacity-80">이용약관</span>
+      <div className="flex items-center gap-4 text-neutral-800 dark:text-neutral-300">
+        <span className="text-neutral-800 dark:text-neutral-300 opacity-80">이용약관</span>
         <span className="text-neutral-400 dark:text-neutral-600">|</span>
-        <span className="text-neutral-800 dark:text-neutral-400 opacity-80">개인정보처리방침</span>
+        <span className="text-neutral-800 dark:text-neutral-300 opacity-80">개인정보처리방침</span>
         <span className="text-neutral-400 dark:text-neutral-600">|</span>
-        <span className="text-neutral-700 dark:text-neutral-500 opacity-80" title="관리자">Admin</span>
+        <span className="text-neutral-700 dark:text-neutral-400 opacity-80" title="관리자">Admin</span>
       </div>
     </div>
   </Container>
