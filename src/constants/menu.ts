@@ -181,22 +181,22 @@ export const CONTACT_INFO = {
   fax: "043-237-7826",
   email: "kesri0728@naver.com",
   address: "충북 청주시 서원구 남이면 양촌 3길 7-30 (28805)",
-  // 정확한 좌표 (WGS84 기준)
+  // 정확한 좌표 (WGS84 기준) - Google Maps에서 확인
   // 주의: 위도(latitude)는 36도대, 경도(longitude)는 127도대
   coordinates: {
-    latitude: 36.566807,   // 위도 (북위)
-    longitude: 127.489487, // 경도 (동경)
+    latitude: 36.5927229,   // 위도 (북위)
+    longitude: 127.4717531, // 경도 (동경)
   },
   // Kakao Map iframe URL (모바일 호환 - API 키 불필요, 한국에서 안정적)
-  kakaoMapEmbed: "https://map.kakao.com/link/map/한국환경안전연구소,36.566807,127.489487",
+  kakaoMapEmbed: "https://map.kakao.com/link/map/한국환경안전연구소,36.5927229,127.4717531",
   // Google Maps embed URL (백업용 - 일부 환경에서 차단될 수 있음)
-  googleMapsEmbed: `https://www.google.com/maps?q=${encodeURIComponent('36.566807,127.489487')}&z=17`,
+  googleMapsEmbed: `https://www.google.com/maps?q=${encodeURIComponent('36.5927229,127.4717531')}&z=17`,
   // Naver Map URL
   naverMapEmbed: "https://map.naver.com/p/search/충북 청주시 서원구 남이면 양촌 3길 7-30",
   // Google Maps 검색 URL (좌표 기반, 직접 목적지)
-  googleMapsSearch: "https://www.google.com/maps/search/?api=1&query=36.566807,127.489487",
+  googleMapsSearch: "https://www.google.com/maps/search/?api=1&query=36.5927229,127.4717531",
   // Kakao Map 웹 URL (좌표 기반 직접 보기 - link/map은 바로 목적지 표시)
-  kakaoMapWeb: "https://map.kakao.com/link/map/한국환경안전연구소,36.566807,127.489487",
+  kakaoMapWeb: "https://map.kakao.com/link/map/한국환경안전연구소,36.5927229,127.4717531",
   // Naver Map 웹 URL (좌표 기반 길찾기 도착지 - 바로 목적지 표시)
-  naverMapWeb: "https://map.naver.com/v5/directions/-/-/127.489487,36.566807,한국환경안전연구소",
+  naverMapWeb: "https://map.naver.com/v5/directions/-/-/127.4717531,36.5927229,한국환경안전연구소",
 };

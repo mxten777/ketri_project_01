@@ -48,29 +48,53 @@ const Location = () => {
   const [mapError, setMapError] = useState(false);
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<unknown>(null);
+  const isInitializingRef = useRef(false); // StrictMode 중복 실행 방지
 
   // Kakao Maps SDK 로드 및 지도 초기화
   useEffect(() => {
+    // StrictMode에서 useEffect가 2번 실행되는 것을 방지
+    if (isInitializingRef.current) {
+      console.log('[Location] ⏭️ Already initializing, skipping...');
+      return;
+    }
+
     const kakaoKey = import.meta.env.VITE_KAKAO_JS_KEY;
 
     // 환경변수 체크
     if (!kakaoKey) {
-      console.warn('[Location] VITE_KAKAO_JS_KEY is missing. Map will not be displayed.');
+      console.error('[Location] ❌ VITE_KAKAO_JS_KEY is missing');
+      console.error('[Location] 💡 Solution:');
+      console.error('   1. Check .env file: VITE_KAKAO_JS_KEY=your_key_here');
+      console.error('   2. For Vercel: Set environment variable in dashboard');
+      console.error('   3. Restart dev server after changing .env');
       setMapError(true);
       return;
     }
 
+    console.log('[Location] ✅ API key found:', kakaoKey.substring(0, 8) + '...');
+
     // 이미 지도가 초기화되어 있으면 종료
     if (mapInstanceRef.current) {
+      console.log('[Location] ✅ Map already initialized, reusing instance');
       return;
     }
+
+    // 초기화 시작 플래그 설정
+    isInitializingRef.current = true;
+    console.log('[Location] 🚀 Starting map initialization...');
 
     // SDK 로드 및 지도 생성
     loadKakaoMaps(kakaoKey)
       .then(() => {
-        if (!mapContainerRef.current) return;
+        // cleanup 후 컴포넌트가 언마운트된 경우
+        if (!mapContainerRef.current) {
+          console.warn('[Location] ⚠️ Map container not found, component may be unmounted');
+          return;
+        }
 
         const { latitude, longitude } = CONTACT_INFO.coordinates;
+        console.log('[Location] 📍 Coordinates:', { latitude, longitude });
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { kakao } = window as any;
 
@@ -86,33 +110,44 @@ const Location = () => {
         // 지도 생성
         const map = new kakao.maps.Map(mapContainerRef.current, mapOption);
         mapInstanceRef.current = map;
+        console.log('[Location] 🗺️ Map instance created successfully');
 
-        // 마커 생성
+        // 마커 생성 (주소 혼동 방지를 위해 마커만 표시)
         const markerPosition = new kakao.maps.LatLng(latitude, longitude);
         const marker = new kakao.maps.Marker({
           position: markerPosition,
           map: map,
         });
-
-        // 인포윈도우 생성 (선택사항)
-        const infowindow = new kakao.maps.InfoWindow({
-          content: `<div style="padding:10px;font-size:14px;font-weight:bold;">한국환경안전연구소</div>`,
-        });
-        infowindow.open(map, marker);
+        console.log('[Location] 📍 Marker placed');
 
         setMapError(false);
+        console.log('[Location] ✅ Map initialization complete');
       })
       .catch((error) => {
-        console.error('[Location] Failed to load Kakao Maps:', error);
+        console.error('[Location] ❌ Failed to load Kakao Maps');
+        console.error('[Location] 📋 Error details:', error);
+        console.error('[Location] 💡 Troubleshooting:');
+        console.error('   1. Check Console for detailed error messages');
+        console.error('   2. Check Network tab for SDK loading (Status 200 = OK)');
+        console.error('   3. Verify API key in Kakao Developers console');
+        console.error('   4. Check domain registration in Kakao platform settings');
+        console.error('   5. Try in Incognito mode (disable browser extensions)');
         setMapError(true);
+      })
+      .finally(() => {
+        // 초기화 완료 후 플래그 해제
+        isInitializingRef.current = false;
       });
 
     // cleanup
     return () => {
+      console.log('[Location] 🧹 Cleanup: resetting map instance');
       if (mapInstanceRef.current) {
         // Kakao Maps는 별도 cleanup 불필요
         mapInstanceRef.current = null;
       }
+      // 다음 마운트를 위해 플래그 리셋
+      isInitializingRef.current = false;
     };
   }, []);
 
@@ -263,6 +298,12 @@ const Location = () => {
                       <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
                         {CONTACT_INFO.address}
                       </p>
+                      <div className="mt-3 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+                        <p className="text-sm text-amber-800 dark:text-amber-300 flex items-start gap-2">
+                          <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                          <span>지도 위치는 참고용이며, 실제 방문 시에는 상단 주소를 기준으로 해주세요.</span>
+                        </p>
+                      </div>
                       <div className="mt-4 text-sm text-neutral-700 dark:text-neutral-300">
                         <div className="mb-2">
                           <span className="font-semibold">대표전화: </span>
@@ -387,6 +428,11 @@ const Location = () => {
 
                   {/* Map Navigation Buttons */}
                   <div className="p-6 bg-gradient-to-r from-neutral-50 to-white dark:from-neutral-800 dark:to-neutral-700 border-t border-neutral-200 dark:border-neutral-600">
+                    <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                      <p className="text-sm text-blue-800 dark:text-blue-300 text-center">
+                        <strong>안내:</strong> 지도 위치는 참고용이며, 실제 위치는 좌측 상단 주소를 기준으로 방문해 주세요.
+                      </p>
+                    </div>
                     <div className="flex items-center justify-between flex-wrap gap-4">
                       <div className="flex items-center gap-3">
                         <Navigation className="w-5 h-5 text-primary-600 dark:text-primary-400" />
