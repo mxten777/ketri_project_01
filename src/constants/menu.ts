@@ -197,6 +197,6 @@ export const CONTACT_INFO = {
   googleMapsSearch: "https://www.google.com/maps/search/?api=1&query=36.5927229,127.4717531",
   // Kakao Map 웹 URL (좌표 기반 직접 보기 - link/map은 바로 목적지 표시)
   kakaoMapWeb: "https://map.kakao.com/link/map/한국환경안전연구소,36.5927229,127.4717531",
-  // Naver Map 웹 URL (좌표 기반 길찾기 도착지 - 바로 목적지 표시)
-  naverMapWeb: "https://map.naver.com/v5/directions/-/-/127.4717531,36.5927229,한국환경안전연구소",
+  // Naver Map 웹 URL (검색 형식 - 연구소 위치만 표시)
+  naverMapWeb: "https://map.naver.com/p/search/충북 청주시 서원구 남이면 양촌 3길 7-30",
 };
