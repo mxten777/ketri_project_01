@@ -253,6 +253,133 @@ const WaterTesting = () => {
                   </table>
                 </div>
 
+                <h4 className="text-xl font-bold mt-8 mb-4">먹는물 수질감시항목 외</h4>
+                <div className="overflow-x-auto mb-8">
+                  <table className="w-full border-collapse text-sm">
+                    <thead>
+                      <tr className="bg-primary-600 text-white">
+                        <th colSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">분석항목명</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold text-center">유해영향<br/>무기물질</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Antimony</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Molybdenum</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Perchlorate</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td rowSpan={21} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold text-center align-top">유해영향<br/>유기물질</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Vinyl Chloride</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Styrene</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Chloroethane</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Bromoform</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Chlorophenol</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2,4-Dichlorophenol</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Pentachlorophenol</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2,4,6-Trichlorophenol</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Di-2(ethylhexyl)phthalate</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Di-2(ethylhexyl)adipate</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Polychlorinated Biphenyls(PCBs)</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">유기인</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">1,2-Dichloroethane</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Hexachlorobenzene</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Benzo(a)pyrene</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Microcystins 6종(Microcystin-LR, RR, YR, LA, LY, LF)</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2,4-D</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Alachlor</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">PFOS(Perfluorooctane sulfonate)</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">PFOA(Perfluorooctanoic acid)</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">PFHxS(Perfluorohexane sulfonic acid)</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td rowSpan={5} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold text-center align-top">소독<br/>부산물</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Chlorate</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Ethylendibromide</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Bromochloroacetonitrile</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Monobromoacetic acid</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Monochloroacetic acid</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td rowSpan={3} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold text-center align-top">심미적<br/>영향물질</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Geosmin</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">2-Methyl isoborneol(2-MIB)</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">부식성 지수(LI)</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold text-center">자연방사성물질</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">Radon</td>
+                      </tr>
+                      <tr className="bg-neutral-50 dark:bg-neutral-700">
+                        <td rowSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 font-semibold text-center align-top">미생물</td>
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">엔도톡신</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">생균수</td>
+                      </tr>
+                      <tr className="bg-white dark:bg-neutral-800">
+                        <td colSpan={2} className="border border-neutral-300 dark:border-neutral-600 px-3 py-2 text-center italic text-neutral-600 dark:text-neutral-400">그 외 미지물질도 가능하오니 연락바랍니다.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
                 <h3 id="procedure" className="text-2xl font-bold mt-8 mb-4">검사의뢰 신청절차</h3>
                 <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-6 mb-6">
                   <div className="flex flex-col md:flex-row items-center justify-between gap-4">
