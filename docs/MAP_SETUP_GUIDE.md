@@ -265,7 +265,90 @@ console.log('===========================');
 
 ---
 
-## 7️⃣ 긴급 연락처
+## 7️⃣ 지도 링크 URL 형식 가이드
+
+### A. 네이버맵 URL 형식
+
+#### 🔵 검색 형식 (추천)
+연구소 위치만 표시하고 싶을 때:
+
+```
+https://map.naver.com/p/search/충북 청주시 서원구 남이면 양촌 3길 7-30
+```
+
+**장점:**
+- ✅ 목적지만 표시됨
+- ✅ 사용자 현재 위치 표시 안 됨
+- ✅ 깔끔한 UI
+
+**사용 위치:**
+- `CONTACT_INFO.naverMapWeb` (현재 적용됨)
+- 지도 바로가기 버튼
+
+#### 🔴 길찾기 형식 (사용 중지)
+출발지와 도착지를 함께 표시:
+
+```
+https://map.naver.com/v5/directions/-/-/127.4717531,36.5927229,한국환경안전연구소
+```
+
+**문제점:**
+- ❌ 사용자 현재 위치가 출발지로 표시됨
+- ❌ 혼란스러운 UI
+- ❌ 2026-01-22 이전 버전에서 사용됨
+
+### B. 카카오맵 URL 형식
+
+#### 위치 표시 (추천)
+```
+https://map.kakao.com/link/map/한국환경안전연구소,36.5927229,127.4717531
+```
+
+#### 길찾기
+```
+https://map.kakao.com/link/to/한국환경안전연구소,36.5927229,127.4717531
+```
+
+### C. 구글맵 URL 형식
+
+#### 검색 형식
+```
+https://www.google.com/maps/search/?api=1&query=36.5927229,127.4717531
+```
+
+#### 주소 검색
+```
+https://www.google.com/maps/search/?api=1&query=충북+청주시+서원구+남이면+양촌+3길+7-30
+```
+
+### D. 설정 파일 위치
+
+지도 URL 설정은 `src/constants/menu.ts`의 `CONTACT_INFO` 객체에 정의:
+
+```typescript
+export const CONTACT_INFO = {
+  // ... 기타 정보 ...
+  
+  // 네이버맵 - 검색 형식 (2026-01-22 수정)
+  naverMapWeb: "https://map.naver.com/p/search/충북 청주시 서원구 남이면 양촌 3길 7-30",
+  
+  // 카카오맵 - 위치 표시
+  kakaoMapWeb: "https://map.kakao.com/link/map/한국환경안전연구소,36.5927229,127.4717531",
+  
+  // 구글맵 - 검색 형식
+  googleMapsSearch: "https://www.google.com/maps/search/?api=1&query=36.5927229,127.4717531",
+};
+```
+
+### E. 변경 이력
+
+| 날짜 | 변경 사항 | 이유 |
+|------|----------|------|
+| 2026-01-22 | 네이버맵 URL을 검색 형식으로 변경 | 현재 위치 표시 문제 해결 |
+
+---
+
+## 8️⃣ 긴급 연락처
 
 **Kakao Developers 고객센터:**
 - https://devtalk.kakao.com/
