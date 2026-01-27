@@ -744,8 +744,8 @@ const Equipment = () => {
           className="py-10"
         >
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl font-bold mb-3">품질관리 프로세스</h2>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
+            <h2 className="heading-lg mb-3">품질관리 프로세스</h2>
+            <p className="text-body-md text-neutral-600 dark:text-neutral-400 mb-6">
               의뢰 접수부터 분석, 결과 보고까지 표준 절차에 따라 투명하게 진행합니다.
             </p>
 
@@ -753,40 +753,40 @@ const Equipment = () => {
               {/* Step 01 - 접수 */}
               <div className="p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-sm">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">01</span>
-                  <div className="w-10 h-10 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center">
-                    <Inbox className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                  <span className="text-2xl font-bold text-neutral-500 dark:text-neutral-400">01</span>
+                  <div className="w-12 h-12 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center">
+                    <Inbox className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                   </div>
                 </div>
-                <h3 className="text-base font-semibold mb-2 text-neutral-900 dark:text-neutral-100">접수</h3>
-                <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-2">의뢰 내용을 확인하고 시료/방법/일정을 확정합니다.</p>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400">필요 시 사전 상담 및 범위 조정</p>
+                <h3 className="text-heading-sm mb-2 text-neutral-900 dark:text-neutral-100">접수</h3>
+                <p className="text-body-md text-neutral-700 dark:text-neutral-300 mb-2">의뢰 내용을 확인하고 시료/방법/일정을 확정합니다.</p>
+                <p className="text-body-sm text-neutral-500 dark:text-neutral-400">필요 시 사전 상담 및 범위 조정</p>
               </div>
 
               {/* Step 02 - 분석 */}
               <div className="p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-sm">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">02</span>
-                  <div className="w-10 h-10 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center">
-                    <FlaskConical className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                  <span className="text-2xl font-bold text-neutral-500 dark:text-neutral-400">02</span>
+                  <div className="w-12 h-12 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center">
+                    <FlaskConical className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                   </div>
                 </div>
-                <h3 className="text-base font-semibold mb-2 text-neutral-900 dark:text-neutral-100">분석</h3>
-                <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-2">공인 절차 및 내부 QC 기준에 따라 분석을 수행합니다.</p>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400">장비 점검·검량·블랭크/표준물질 확인</p>
+                <h3 className="text-heading-sm mb-2 text-neutral-900 dark:text-neutral-100">분석</h3>
+                <p className="text-body-md text-neutral-700 dark:text-neutral-300 mb-2">공인 절차 및 내부 QC 기준에 따라 분석을 수행합니다.</p>
+                <p className="text-body-sm text-neutral-500 dark:text-neutral-400">장비 점검·검량·블랭크/표준물질 확인</p>
               </div>
 
               {/* Step 03 - 보고 */}
               <div className="p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-sm">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">03</span>
-                  <div className="w-10 h-10 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center">
-                    <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                  <span className="text-2xl font-bold text-neutral-500 dark:text-neutral-400">03</span>
+                  <div className="w-12 h-12 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                   </div>
                 </div>
-                <h3 className="text-base font-semibold mb-2 text-neutral-900 dark:text-neutral-100">보고</h3>
-                <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-2">결과를 검토 후 보고서로 제공하고 이력 관리합니다.</p>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400">결과 해석 지원 및 재분석 안내</p>
+                <h3 className="text-heading-sm mb-2 text-neutral-900 dark:text-neutral-100">보고</h3>
+                <p className="text-body-md text-neutral-700 dark:text-neutral-300 mb-2">결과를 검토 후 보고서로 제공하고 이력 관리합니다.</p>
+                <p className="text-body-sm text-neutral-500 dark:text-neutral-400">결과 해석 지원 및 재분석 안내</p>
               </div>
             </div>
           </div>
@@ -799,15 +799,15 @@ const Equipment = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-center bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-8"
         >
-          <h2 className="text-2xl font-bold mb-6">품질관리 시스템</h2>
+          <h2 className="heading-lg mb-6">품질관리 시스템</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-14 h-14 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Settings className="w-6 h-6 text-primary-600 dark:text-primary-400" />
               </div>
-              <h3 className="font-bold mb-2 text-neutral-900 dark:text-neutral-100">정기 교정</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <h3 className="text-heading-sm mb-2 text-neutral-900 dark:text-neutral-100">정기 교정</h3>
+              <p className="text-body-md text-neutral-600 dark:text-neutral-400">
                 국가표준기관 인정 교정으로 측정 정확도 보장
               </p>
             </div>
@@ -816,8 +816,8 @@ const Equipment = () => {
               <div className="w-14 h-14 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <FlaskConical className="w-6 h-6 text-primary-600 dark:text-primary-400" />
               </div>
-              <h3 className="font-bold mb-2 text-neutral-900 dark:text-neutral-100">정도관리</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <h3 className="text-heading-sm mb-2 text-neutral-900 dark:text-neutral-100">정도관리</h3>
+              <p className="text-body-md text-neutral-600 dark:text-neutral-400">
                 표준물질을 이용한 정기적인 분석 정도관리
               </p>
             </div>
@@ -826,8 +826,8 @@ const Equipment = () => {
               <div className="w-14 h-14 bg-primary-50 dark:bg-primary-900/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Microscope className="w-6 h-6 text-primary-600 dark:text-primary-400" />
               </div>
-              <h3 className="font-bold mb-2 text-neutral-900 dark:text-neutral-100">숙련도시험</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <h3 className="text-heading-sm mb-2 text-neutral-900 dark:text-neutral-100">숙련도시험</h3>
+              <p className="text-body-md text-neutral-600 dark:text-neutral-400">
                 국제 숙련도시험 참여로 분석능력 검증
               </p>
             </div>
