@@ -523,10 +523,10 @@ const DialysisWater = () => {
                     A. 검사 비용은 다음과 같습니다:
                   </p>
                   <ul className="text-neutral-600 dark:text-neutral-400 list-disc list-inside space-y-1 ml-4">
-                    <li>세균 배양 검사: 월 1회 (17,600원)</li>
-                    <li>내독소 검사: 분기별 1회 (86,460원)</li>
+                    <li>세균 배양 검사: 월 1회</li>
+                    <li>내독소 검사: 분기별 1회</li>
                     <li>시스템의 변화가 있는 경우 검사 결과 안정시까지 주 1회 검사</li>
-                    <li>화학적 검사: 연 1회 (363,440원)</li>
+                    <li>화학적 검사: 연 1회</li>
                   </ul>
                 </div>
                 <div className="bg-white dark:bg-neutral-800 rounded-lg p-6">
