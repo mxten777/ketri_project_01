@@ -19,7 +19,8 @@ import {
   Eye,
 } from "lucide-react";
 import Button from "../components/common/Button";
-import { getNotices } from "../services/noticeService";
+import NoticePopup from "../components/common/NoticePopup";
+import { getNotices, getPopupNotice } from "../services/noticeService";
 import type { Notice } from "../types";
 import { logError } from "../utils/logger";
 import { formatDateOnly } from "../utils/dateUtils";
@@ -47,10 +48,42 @@ const useCountUp = (end: number, duration: number = 2000) => {
 const Home = () => {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loadingNotices, setLoadingNotices] = useState(true);
+  const [popupNotice, setPopupNotice] = useState<Notice | null>(null);
 
   useEffect(() => {
     fetchLatestNotices();
+    checkPopupNotice();
   }, []);
+
+  const checkPopupNotice = async () => {
+    try {
+      const popup = await getPopupNotice();
+      
+      if (!popup) {
+        console.log("[Popup] No active popup notice found");
+        return;
+      }
+
+      console.log("[Popup] Found popup notice:", popup.id, popup.title);
+
+      // 오늘 하루 보지 않기 체크
+      const today = new Date().toISOString().split("T")[0].replace(/-/g, "");
+      const dismissed = localStorage.getItem(`popup_notice_dismissed_${today}`);
+      const popupId = popup.id || popup.noticeId || "";
+      
+      console.log("[Popup] Checking localStorage: today=", today, "dismissed=", dismissed, "popupId=", popupId);
+      
+      if (dismissed === popupId) {
+        console.log("[Popup] Already dismissed today");
+        return; // 오늘 이미 닫은 팝업
+      }
+
+      console.log("[Popup] Showing popup modal");
+      setPopupNotice(popup);
+    } catch (error) {
+      logError("Failed to load popup notice:", error);
+    }
+  };
 
   const fetchLatestNotices = async () => {
     try {
@@ -90,6 +123,14 @@ const Home = () => {
 
   return (
     <main className="overflow-visible">
+      {/* Popup Notice */}
+      {popupNotice && (
+        <NoticePopup
+          notice={popupNotice}
+          onClose={() => setPopupNotice(null)}
+        />
+      )}
+
       {/* Hero Section - 현대적이고 임팩트 있게 개선 */}
       {/* ✅ FIX: header 높이 제외 + 레이어 확정 + 상단 scrim */}
       <section

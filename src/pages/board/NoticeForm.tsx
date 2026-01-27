@@ -6,6 +6,7 @@ import {
   createNotice,
   updateNotice,
   getNoticeById,
+  disableOtherPopups,
 } from "../../services/noticeService";
 import { useAuth } from "../../contexts/AuthContext.core";
 
@@ -23,6 +24,7 @@ const NoticeForm = () => {
     content: "",
     category: "일반",
     isPinned: false,
+    isPopup: false,
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -42,6 +44,7 @@ const NoticeForm = () => {
           content: data.content,
           category: data.category,
           isPinned: data.isPinned || false,
+          isPopup: data.isPopup || false,
         });
       }
     } catch (error) {
@@ -102,7 +105,13 @@ const NoticeForm = () => {
         views: 0,
         viewCount: 0,
         status: "published" as const,
+        isPopup: formData.isPopup,
       };
+
+      // 팝업 활성화 시 다른 팝업 비활성화
+      if (formData.isPopup) {
+        await disableOtherPopups(id);
+      }
 
       if (isEditMode && id) {
         // 수정 모드: createdAt 제외하고 업데이트 (날짜는 서비스에서 자동 처리)
@@ -245,6 +254,31 @@ const NoticeForm = () => {
                 >
                   상단 고정
                 </label>
+              </div>
+
+              {/* Popup Settings */}
+              <div className="border border-neutral-300 dark:border-neutral-600 rounded-lg p-4 space-y-3">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="isPopup"
+                    name="isPopup"
+                    checked={formData.isPopup}
+                    onChange={handleChange}
+                    className="w-4 h-4 text-primary-500 border-neutral-300 rounded focus:ring-primary-500"
+                  />
+                  <label
+                    htmlFor="isPopup"
+                    className="ml-2 text-sm font-medium text-neutral-700 dark:text-neutral-300"
+                  >
+                    홈페이지 팝업으로 노출
+                  </label>
+                </div>
+                {formData.isPopup && (
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 pl-6">
+                    체크하면 홈페이지 방문 시 팝업으로 표시됩니다. 방문자가 "오늘 하루 보지 않기"를 선택하면 당일은 재노출되지 않습니다. 팝업은 최대 1개만 활성화되며, 저장 시 기존 팝업은 자동으로 비활성화됩니다.
+                  </p>
+                )}
               </div>
 
               {/* Submit Buttons */}

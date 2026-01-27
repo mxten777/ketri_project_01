@@ -405,3 +405,111 @@ export const getPinnedNotices = async (): Promise<Notice[]> => {
     throw error;
   }
 };
+
+// 팝업 공지사항 조회 (최대 1개, isPopup=true만 체크)
+export const getPopupNotice = async (): Promise<Notice | null> => {
+  try {
+    // orderBy 제거하여 인덱스 불필요하게 만듦
+    const q = query(
+      collection(db, COLLECTION_NAME),
+      where("isPopup", "==", true),
+      limit(10) // 여유있게 가져와서 메모리 정렬
+    );
+    
+    const querySnapshot = await getDocs(q);
+    logDev(`Found ${querySnapshot.docs.length} popup notices with isPopup=true`);
+    
+    if (querySnapshot.empty) {
+      logDev("No active popup notice found");
+      return null;
+    }
+    
+    // status가 published인 공지만 필터링하고 날짜순 정렬
+    const publishedNotices = querySnapshot.docs
+      .map(doc => ({ doc, data: doc.data() }))
+      .filter(({ data }) => data.status === "published")
+      .sort((a, b) => {
+        const aTime = a.data.createdAt?.seconds || 0;
+        const bTime = b.data.createdAt?.seconds || 0;
+        return bTime - aTime; // 최신순
+      });
+    
+    if (publishedNotices.length === 0) {
+      logDev("No published popup notice found after filtering");
+      return null;
+    }
+    
+    const { doc, data } = publishedNotices[0];
+    
+    // 날짜 변환
+    let createdAt: Date;
+    let updatedAt: Date;
+    
+    if (data.createdAt?.toDate) {
+      createdAt = data.createdAt.toDate();
+    } else if (data.createdAt?.seconds) {
+      createdAt = new Date(data.createdAt.seconds * 1000);
+    } else {
+      createdAt = new Date();
+    }
+    
+    if (data.updatedAt?.toDate) {
+      updatedAt = data.updatedAt.toDate();
+    } else if (data.updatedAt?.seconds) {
+      updatedAt = new Date(data.updatedAt.seconds * 1000);
+    } else {
+      updatedAt = createdAt;
+    }
+    
+    logDev(`Returning popup notice: ${doc.id} - ${data.title}`);
+    return {
+      id: doc.id,
+      noticeId: doc.id,
+      title: data.title || "",
+      content: data.content || "",
+      excerpt: data.excerpt || "",
+      author: data.author || { uid: "", name: "" },
+      category: data.category || "general",
+      isPinned: data.isPinned || false,
+      isImportant: data.isImportant || false,
+      views: data.views || 0,
+      viewCount: data.viewCount || 0,
+      status: data.status || "published",
+      attachments: data.attachments || [],
+      tags: data.tags || [],
+      createdAt,
+      updatedAt,
+      isPopup: data.isPopup || false,
+    } as Notice;
+  } catch (error) {
+    logError("Error fetching popup notice:", error);
+    return null; // 에러 시 조용히 null 반환 (팝업은 선택적 기능)
+  }
+};
+
+// 다른 팝업 공지 비활성화 (저장 시 자동 호출)
+export const disableOtherPopups = async (currentId?: string): Promise<void> => {
+  try {
+    const q = query(
+      collection(db, COLLECTION_NAME),
+      where("isPopup", "==", true)
+    );
+    
+    const querySnapshot = await getDocs(q);
+    const batch: Promise<void>[] = [];
+    
+    querySnapshot.docs.forEach((doc) => {
+      if (doc.id !== currentId) {
+        batch.push(
+          updateDoc(doc.ref, { isPopup: false })
+        );
+      }
+    });
+    
+    await Promise.all(batch);
+    logDev(`Disabled ${batch.length} other popup notices`);
+  } catch (error) {
+    logError("Error disabling other popups:", error);
+    throw error;
+  }
+};

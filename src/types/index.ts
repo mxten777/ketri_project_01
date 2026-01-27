@@ -157,6 +157,11 @@ export interface Notice {
   createdAt: Date;
   updatedAt: Date;
   tags: string[];
+  // Popup fields
+  isPopup?: boolean;
+  popupStartAt?: Date;
+  popupEndAt?: Date;
+  popupOncePerDay?: boolean;
 }
 
 export interface Attachment {
