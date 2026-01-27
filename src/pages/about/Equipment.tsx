@@ -195,7 +195,7 @@ const Equipment = () => {
     },
     {
       category: "먹는물",
-      name: "수질자동분석기",
+      name: "수질자동분석기 (AutoAnalyzer)",
       model: "FUTRA3",
       manufacturer: "Alliance",
       testItems: "시안, 페놀, 세제",
@@ -227,7 +227,7 @@ const Equipment = () => {
     },
     {
       category: "먹는물",
-      name: "수은분석기(Mercury Analyzer)",
+      name: "수은분석기 (Mercury Analyzer)",
       model: "FIMS400",
       manufacturer: "PerkinElmer",
       testItems: "수은",
@@ -235,7 +235,7 @@ const Equipment = () => {
     },
     {
       category: "먹는물",
-      name: "가시선-자외선 분광광도계(UV-Vis)",
+      name: "가시선-자외선 분광광도계 (UV-Vis Spectrophotometer)",
       model: "UV-1900i",
       manufacturer: "SHIMADZU",
       testItems: "암모니아성질소",
@@ -275,7 +275,7 @@ const Equipment = () => {
     },
     {
       category: "먹는물",
-      name: "항온항습배양기",
+      name: "항온항습 배양기 (Incubator)",
       model: "LHS-100CL",
       manufacturer: "NEURONFIT",
       testItems: "미생물",
@@ -283,7 +283,7 @@ const Equipment = () => {
     },
     {
       category: "먹는물",
-      name: "배양기",
+      name: "배양기 (Incubator)",
       model: "HSM-125 2ROOM",
       manufacturer: "SINAN",
       testItems: "미생물",
@@ -291,7 +291,7 @@ const Equipment = () => {
     },
     {
       category: "먹는물",
-      name: "배양기",
+      name: "배양기 (Incubator)",
       model: "IMP180",
       manufacturer: "Thermo",
       testItems: "미생물",
@@ -307,18 +307,18 @@ const Equipment = () => {
     },
     {
       category: "먹는물",
-      name: "내독소 분석기(Endotoxin Analyzer)",
+      name: "내독소 분석장 (Microplate Reader)",
       model: "ELx808",
       manufacturer: "Charles River",
-      testItems: "엔도톡신",
+      testItems: "내독소(엔도톡신)",
       image: "/images/equipment/images_01/equip_026.jpeg",
     },
     {
       category: "먹는물",
-      name: "광학현미경",
+      name: "광학현미경 (Optical Microscope)",
       model: "CHK2-F-GS",
       manufacturer: "OLYMPUS",
-      testItems: "녹농균, 살모넬라, 쉬겔라, 여시니아균",
+      testItems: "미생물",
       image: "/images/equipment/images_01/equip_027.jpeg",
     },
     {
@@ -331,7 +331,7 @@ const Equipment = () => {
     },
     {
       category: "작업환경",
-      name: "가스크로마토그래피(GC-FID)",
+      name: "가스크로마토그래피-불꽃이온화검출기 (GC-FID)",
       model: "8890A",
       manufacturer: "Agilent",
       testItems: "유기화합물",
@@ -339,7 +339,7 @@ const Equipment = () => {
     },
     {
       category: "작업환경",
-      name: "가스크로마토그래피(GC-FID)",
+      name: "가스크로마토그래피-불꽃이온화검출기(GC-FID)",
       model: "7890A",
       manufacturer: "Agilent",
       testItems: "유기화합물",
@@ -347,7 +347,7 @@ const Equipment = () => {
     },
     {
       category: "작업환경",
-      name: "가스크로마토그래피(GC-FPD)",
+      name: "가스크로마토그래피-불꽃광도검출기 (GC-FPD)",
       model: "6890N",
       manufacturer: "Agilent",
       testItems: "이황화탄소, 황산디메틸",
@@ -355,7 +355,7 @@ const Equipment = () => {
     },
     {
       category: "작업환경",
-      name: "가스크로마토그래피(GC-ECD)",
+      name: "가스크로마토그래피-전자포획검출기 (GC-ECD)",
       model: "GC-2010 PLUS",
       manufacturer: "SHIMADZU",
       testItems: "산화에틸렌",
@@ -363,7 +363,7 @@ const Equipment = () => {
     },
     {
       category: "작업환경",
-      name: "가스크로마토그래피(GC-FID)",
+      name: "가스크로마토그래피-불꽃이온화검출기, 불꽃열이온화검출기 (GC-FID, FTD)",
       model: "GC-2010",
       manufacturer: "SHIMADZU",
       testItems: "유기화합물",
@@ -371,7 +371,7 @@ const Equipment = () => {
     },
     {
       category: "작업환경",
-      name: "가스크로마토그래피(GC-FID)",
+      name: "가스크로마토그래피-불꽃이온화검출기 (GC-FID)",
       model: "GC-2010 PLUS",
       manufacturer: "SHIMADZU",
       testItems: "유기화합물",
@@ -396,7 +396,7 @@ const Equipment = () => {
     {
       category: "작업환경",
       name: "이온크로마토그래피(IC)",
-      model: "DIONEX IC",
+      model: "DIONEX ICS-1600, DIONEX ICS-2100",
       manufacturer: "Thermo",
       testItems: "음이온",
       image: "/images/equipment/images_02/split2_equip_009.jpg",
@@ -412,7 +412,7 @@ const Equipment = () => {
     {
       category: "작업환경",
       name: "고성능액체크로마토그래피(HPLC)",
-      model: "Waters 1525",
+      model: "Waters 1525 Binary HPLC",
       manufacturer: "WATERS",
       testItems: "6가크롬",
       image: "/images/equipment/images_02/split2_equip_011.jpg",
@@ -427,18 +427,18 @@ const Equipment = () => {
     },
     {
       category: "작업환경",
-      name: "전자저울",
+      name: "전자저울 (Microbalance)",
       model: "MT5",
       manufacturer: "Mettler Toledo",
-      testItems: "극소량",
+      testItems: "금속가공유",
       image: "/images/equipment/images_02/split2_equip_013.jpg",
     },
     {
       category: "작업환경",
-      name: "전자저울",
+      name: "전자저울 (Microbalance)",
       model: "AT261",
       manufacturer: "Mettler Toledo",
-      testItems: "중량",
+      testItems: "중량 분석",
       image: "/images/equipment/images_02/split2_equip_014.jpg",
     },
     {
@@ -459,7 +459,7 @@ const Equipment = () => {
     },
     {
       category: "실내공기질",
-      name: "가스크로마토그래피(GC-FID)",
+      name: "가스크로마토그래피-불꽃이온화검출기 (GC-FID)",
       model: "GC-2010",
       manufacturer: "SHIMADZU",
       testItems: "휘발성유기화합물",
@@ -483,15 +483,15 @@ const Equipment = () => {
     },
     {
       category: "실내공기질",
-      name: "라돈 분석기(AlphaTrack Detector)",
+      name: "알파트랙 라돈 분석 시스템 (AlphaTrack Detector)",
       model: "44345 / DCW20",
-      manufacturer: "CELESTRON",
+      manufacturer: "CELESTRON / 코아테크",
       testItems: "라돈",
       image: "/images/equipment/images_03/split3_equip_006.jpg",
     },
     {
       category: "실내공기질",
-      name: "위상차현미경",
+      name: "위상차 현미경 (Phase Contrast Microscope)",
       model: "CX31 RBSF",
       manufacturer: "OLYMPUS",
       testItems: "석면",
@@ -499,23 +499,15 @@ const Equipment = () => {
     },
     {
       category: "실내공기질",
-      name: "배양기",
+      name: "배양기 (Incubator)",
       model: "LBI-150E",
       manufacturer: "LabTech",
-      testItems: "부유세균",
+      testItems: "부유세균, 부유곰팡이",
       image: "/images/equipment/images_03/split3_equip_008.jpg",
     },
     {
       category: "실내공기질",
-      name: "전자저울",
-      model: "BM5D",
-      manufacturer: "AND",
-      testItems: "미세먼지",
-      image: "/images/equipment/images_03/split3_equip_009.jpg",
-    },
-    {
-      category: "실내공기질",
-      name: "배양기",
+      name: "배양기 (Incubator)",
       model: "LIB-300M",
       manufacturer: "LabTech",
       testItems: "부유세균",
@@ -523,15 +515,15 @@ const Equipment = () => {
     },
     {
       category: "실내공기질",
-      name: "자동 습도조절 데시케이터",
+      name: "자동 습도조절 데시케이터 (Desiccator)",
       model: "OH-3S",
       manufacturer: "AS ONE",
-      testItems: "미세먼지",
+      testItems: "부유세균, 부유곰팡이",
       image: "/images/equipment/images_03/split3_equip_011.jpg",
     },
     {
       category: "석면",
-      name: "위상차현미경",
+      name: "위상차현미경 (Phase Contrast Microscope)",
       model: "ECLIPSE E200",
       manufacturer: "Nikon",
       testItems: "공기중 석면",
@@ -539,7 +531,7 @@ const Equipment = () => {
     },
     {
       category: "석면",
-      name: "위상차현미경",
+      name: "위상차현미경 (Phase Contrast Microscope)",
       model: "BA200",
       manufacturer: "MOTIC",
       testItems: "공기중 석면",
@@ -547,7 +539,7 @@ const Equipment = () => {
     },
     {
       category: "석면",
-      name: "편광현미경",
+      name: "편광현미경 (Polarized Light Microscope)",
       model: "ECLIPSE CiPOL",
       manufacturer: "Nikon",
       testItems: "고형 석면",
@@ -555,7 +547,7 @@ const Equipment = () => {
     },
     {
       category: "석면",
-      name: "편광현미경",
+      name: "편광현미경 (Polarized Light Microscope)",
       model: "BA300 Pol",
       manufacturer: "MOTIC",
       testItems: "고형 석면",
@@ -563,7 +555,7 @@ const Equipment = () => {
     },
     {
       category: "석면",
-      name: "실체현미경",
+      name: "실체현미경 (Stereo Microscope)",
       model: "SMZ-143",
       manufacturer: "MOTIC",
       testItems: "고형 석면",
@@ -571,7 +563,7 @@ const Equipment = () => {
     },
     {
       category: "석면",
-      name: "아세톤 기화기",
+      name: "아세톤증기화장치 (Acetone Vaporizer)",
       model: "800101",
       manufacturer: "Quick Fix",
       testItems: "공기중 석면",
@@ -579,7 +571,7 @@ const Equipment = () => {
     },
     {
       category: "석면",
-      name: "전기로",
+      name: "전기회화로 (Muffle Furnace)",
       model: "LEF-105S-1",
       manufacturer: "LabTech",
       testItems: "고형 석면",
@@ -587,7 +579,7 @@ const Equipment = () => {
     },
     {
       category: "석면",
-      name: "전자저울",
+      name: "전자저울 (Microbalance)",
       model: "AT261",
       manufacturer: "Mettler Toledo",
       testItems: "고형 석면",
