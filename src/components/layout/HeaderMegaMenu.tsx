@@ -121,7 +121,7 @@ export default function HeaderMegaMenu({
 		e.preventDefault();
 		e.stopPropagation();
 
-		const [pathname, hash] = targetHref.split('#');
+		const [, hash] = targetHref.split('#');
 
 		// Step 1: Close mega menu first to prevent overlay/portal interaction
 		closeMega();
@@ -239,6 +239,12 @@ export default function HeaderMegaMenu({
 														key={item.path}
 														href={item.path}
 														onClick={(e) => handleNav(e, item.path)}
+														onKeyDown={(e) => {
+															if (e.key === "Enter" || e.key === " ") {
+																e.preventDefault();
+																handleNav(e as unknown as React.MouseEvent<HTMLAnchorElement>, item.path);
+															}
+														}}
 														className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg text-neutral-900 dark:text-neutral-200 ${itemHover}`}
 													>
 														<div className="text-sm font-medium">{item.label}</div>
@@ -253,12 +259,11 @@ export default function HeaderMegaMenu({
 
 							// default: two-column layout
 							const menu = menus.find((mm) => mm.label === selected) || menus[0];
-							// Special-case: ABOUT_LABEL -> merge left/right items and render all of them in the right column
+							// Special-case: ABOUT_KEY -> show all items
 							let display = [] as typeof menu.items;
 							let isTruncated = false;
 							if (menu.key === ABOUT_KEY) {
-								const mergedItems = [...(menu.left?.items ?? []), ...(menu.right?.items ?? [])];
-								display = mergedItems.filter((it) => isAllowed(it.path));
+								display = menu.items.filter((it) => isAllowed(it.path));
 								isTruncated = false;
 							} else {
 								const _ = computeDisplay(menu);
@@ -329,6 +334,12 @@ export default function HeaderMegaMenu({
 														key={item.path}
 														href={item.path}
 														onClick={(e) => handleNav(e, item.path)}
+														onKeyDown={(e) => {
+															if (e.key === "Enter" || e.key === " ") {
+																e.preventDefault();
+																handleNav(e as unknown as React.MouseEvent<HTMLAnchorElement>, item.path);
+															}
+														}}
 														className={
 															[
 																"flex items-center min-h-[44px] px-4 py-2.5 rounded-lg",
