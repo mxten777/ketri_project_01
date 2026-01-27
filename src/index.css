@@ -428,9 +428,21 @@ header button:focus-visible {
 }
 
 /* Anchor target offset: use CSS scroll-margin-top to honor the frozen header height.
-   This replaces any JS-based scroll offset logic. */
-:target {
-  scroll-margin-top: var(--app-header-h);
+   This replaces any JS-based scroll offset logic. 
+   Applied to :target and all heading/section elements with id for universal coverage. */
+:target,
+[id] {
+  scroll-margin-top: calc(var(--app-header-h) + 1rem);
+}
+
+/* Additional scroll margin for common section containers */
+section[id],
+div[id],
+h1[id],
+h2[id],
+h3[id],
+h4[id] {
+  scroll-margin-top: calc(var(--app-header-h) + 1rem);
 }
 
 /* Ensure main content starts below the fixed header when there is no

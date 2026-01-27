@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MenuGroup } from "../../constants/menu";
 import { isAllowed } from "../../constants/menuFilter";
 import { HeaderContext } from "./HeaderContext";
+import { navigateWithHash } from "../../utils/scrollToHash";
 
 const ABOUT_KEY = "about";
 const ABOUT_ALL_VIEW = "/about";
@@ -121,49 +122,8 @@ export default function HeaderMegaMenu({
 		e.preventDefault();
 		e.stopPropagation();
 
-		const [, hash] = targetHref.split('#');
-
-		// Step 1: Close mega menu first to prevent overlay/portal interaction
-		closeMega();
-
-		// Step 2: Navigate after microtask to ensure clean state
-		if (typeof queueMicrotask === "function") {
-			queueMicrotask(() => {
-				navigate(targetHref);
-				
-				// Step 3: Handle scrolling based on hash presence
-				if (hash) {
-					// Wait for DOM to render, then scroll to hash target
-					requestAnimationFrame(() => {
-						const target = document.getElementById(hash);
-						if (target) {
-							target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-						} else {
-							console.warn(`[HeaderMegaMenu] Hash target not found: #${hash}`);
-						}
-					});
-				} else {
-					// No hash: scroll to top
-					window.scrollTo(0, 0);
-				}
-			});
-		} else {
-			setTimeout(() => {
-				navigate(targetHref);
-				if (hash) {
-					setTimeout(() => {
-						const target = document.getElementById(hash);
-						if (target) {
-							target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-						} else {
-							console.warn(`[HeaderMegaMenu] Hash target not found: #${hash}`);
-						}
-					}, 50);
-				} else {
-					window.scrollTo(0, 0);
-				}
-			}, 0);
-		}
+		// Use unified navigation utility that handles hash scrolling correctly
+		navigateWithHash(navigate, targetHref, closeMega);
 	}
 
 	function computeDisplay(menuGroup: MenuGroup) {

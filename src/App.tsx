@@ -1,7 +1,9 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Layout from "./components/layout/Layout";
 import PrintAllLayout from "./components/layout/PrintAllLayout";
 import Home from "./pages/Home";
+import { scrollToHash } from "./utils/scrollToHash";
 
 // About pages
 import Greeting from "./pages/about/Greeting";
@@ -36,6 +38,19 @@ import AdminLayout from "./components/admin/AdminLayout";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 
 export default function App() {
+  const location = useLocation();
+
+  // Handle hash scrolling on route changes
+  useEffect(() => {
+    if (location.hash) {
+      // Delay to ensure DOM is ready after route change
+      scrollToHash(location.hash);
+    } else {
+      // No hash: scroll to top on route change
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+  }, [location.pathname, location.hash]);
+
   return (
     <Routes>
       {/* 인쇄 전용 페이지 (헤더/푸터 없음) */}
