@@ -68,13 +68,16 @@ export function navigateWithHash(
 ): void {
   const [, hash] = path.split('#');
 
-  // Close mega menu first to prevent interference
-  if (closeMega) {
-    closeMega();
-  }
-
-  // Navigate to path
+  // Navigate to path first
   navigate(path);
+
+  // Close mega menu AFTER navigation to prevent race conditions
+  // Use RAF to defer closing until after React's render cycle
+  if (closeMega) {
+    requestAnimationFrame(() => {
+      closeMega();
+    });
+  }
 
   // Handle scrolling based on hash presence
   if (hash) {

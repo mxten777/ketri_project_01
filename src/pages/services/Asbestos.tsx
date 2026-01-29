@@ -1,18 +1,20 @@
  
 // No JS-based header offset; anchors handled via CSS :target
 import ServiceCta from "../../components/common/ServiceCta";
+import { getMenuItemsByPath } from "../../constants/menu";
 
 const Asbestos = () => {
+  const menuItems = getMenuItemsByPath("/services/asbestos");
   // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
 
   return (
     <main className="min-h-screen">
-      <section data-has-hero className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white py-16 lg:py-24">
+      <section data-has-hero className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-16 lg:py-24">
         <div className="container-custom">
-          <h1 className="text-3xl lg:text-4xl font-bold mb-4">
+          <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             석면조사 및 분석
           </h1>
-          <p className="text-lg">
+          <p className="text-lg lg:text-xl opacity-95 max-w-3xl">
             고용노동부 지정 석면조사기관으로 산업안전보건법 및 석면안전관리법에 따른 전문적이고 체계적인 석면 안전관리 서비스를 제공합니다
           </p>
         </div>
@@ -21,7 +23,7 @@ const Asbestos = () => {
       <div className="section container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
-          <aside className="lg:col-span-1">
+          <aside className="hidden lg:block lg:col-span-1">
             <div className="card p-6 sticky top-32 card-tokenized">
               <h3 className="font-bold text-lg mb-2">석면조사</h3>
               <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">세부 서비스</p>
@@ -32,7 +34,7 @@ const Asbestos = () => {
                     <a
                       key={hash}
                       href={hash}
-                      className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                      className="block px-4 py-3 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                     >
                       {item.label}
                     </a>

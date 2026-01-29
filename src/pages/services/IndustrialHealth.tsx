@@ -47,12 +47,12 @@ const IndustrialHealth = () => {
 
   return (
     <main className="min-h-screen">
-      <section data-has-hero className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24 min-h-[280px]">
+      <section data-has-hero className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-16 lg:py-24 min-h-[280px]">
         <div className="container-custom">
-          <h1 className="text-3xl lg:text-4xl font-bold mb-4">
+          <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             작업환경측정
           </h1>
-          <p className="text-lg">
+          <p className="text-lg lg:text-xl opacity-95 max-w-3xl">
             중대재해처벌법 대응부터 작업환경측정, 근골격계 유해요인조사까지
             사업장 안전보건관리체계 구축을 위한 전문 컨설팅 서비스를 제공합니다
           </p>
@@ -63,7 +63,7 @@ const IndustrialHealth = () => {
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
-          <aside className="lg:col-span-1">
+          <aside className="hidden lg:block lg:col-span-1">
             <div className="card p-6 sticky top-32 card-tokenized">
               <h3 className="font-bold text-lg mb-2">작업환경측정</h3>
               <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">세부 서비스</p>
@@ -76,7 +76,7 @@ const IndustrialHealth = () => {
                       key={hash}
                       href={hash}
                       onClick={(e) => handleSectionClick(e, targetId)}
-                      className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                      className="block px-4 py-3 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                     >
                       {item.label}
                     </a>

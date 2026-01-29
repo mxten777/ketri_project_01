@@ -23,7 +23,7 @@ const DialysisWater = () => {
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Sidebar */}
-            <aside className="lg:col-span-1">
+            <aside className="hidden lg:block lg:col-span-1">
               <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 sticky top-24 shadow-sm border border-neutral-200 dark:border-neutral-700">
                 <h3 className="font-bold text-lg mb-2 text-neutral-900 dark:text-neutral-50">혈액투석용수</h3>
                 <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">세부 서비스</p>
@@ -34,7 +34,7 @@ const DialysisWater = () => {
                       <a
                         key={hash}
                         href={hash}
-                        className="block px-4 py-2.5 rounded-lg text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-neutral-700 dark:text-neutral-300"
+                        className="block px-4 py-3 rounded-lg text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-neutral-700 dark:text-neutral-300"
                       >
                         {item.label}
                       </a>
