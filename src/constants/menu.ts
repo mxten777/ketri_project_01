@@ -166,6 +166,12 @@ export const SERVICES: ServiceItem[] = [
   },
 ];
 
+// 경로로 메뉴 항목 추출 (메가메뉴와 좌측 메뉴 공통 사용)
+export function getMenuItemsByPath(mainPath: string): MenuItem[] {
+  const group = MENU_ITEMS.find(g => g.mainPath === mainPath);
+  return group?.items || [];
+}
+
 // 회사 통계 데이터
 export const COMPANY_STATS = [
   { value: "19년", label: "신뢰의 경험" },

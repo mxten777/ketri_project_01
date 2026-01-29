@@ -71,7 +71,7 @@ const Header = () => {
   const [isDarkModeLocal, setIsDarkModeLocal] = useState(() => {
     if (typeof window !== "undefined") {
       return (
-        localStorage.getItem("darkMode") === "true" ||
+        localStorage.getItem("app-dark-mode") === "true" ||
         document.documentElement.classList.contains("dark")
       );
     }
@@ -127,13 +127,17 @@ const Header = () => {
   const toggleDarkMode = () => {
     if (ctx?.toggleDarkMode) return ctx.toggleDarkMode();
 
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-
-    if (newMode) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-
-    localStorage.setItem("darkMode", newMode.toString());
+    // Fallback: synchronous update of state, DOM, and localStorage
+    setIsDarkMode((prev) => {
+      const nextMode = !prev;
+      if (nextMode) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      localStorage.setItem("app-dark-mode", nextMode.toString());
+      return nextMode;
+    });
   };
 
   const isMenuActive = (menu: MenuGroup) => {
@@ -147,16 +151,20 @@ const Header = () => {
       {/* fixed header pinned to top; use token-based height classes h-header/min-h-header */}
       <header id="site-header" className="fixed inset-x-0 top-0 z-50 h-header min-h-header bg-white dark:bg-neutral-950">
         <div className="h-full flex items-center">
-          <div
-            className={[
-              "relative w-full",
-              openDropdown ? "bg-white dark:bg-neutral-900" : "bg-white/10 dark:bg-neutral-950/30",
-              "backdrop-blur-md supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-neutral-950/60",
-            ].join(" ")}
-          >
-            <div className="absolute inset-0 pointer-events-none shadow-[0_12px_30px_rgba(15,23,42,0.08)] dark:shadow-[0_18px_44px_rgba(0,0,0,0.45)]" />
+          <div className="relative w-full isolate">
+            {/* 배경 레이어 - 블러 제거하고 불투명 배경 사용 */}
+            <div 
+              className={[
+                "absolute inset-0 -z-10",
+                openDropdown ? "bg-white dark:bg-neutral-900" : "bg-white dark:bg-neutral-950",
+              ].join(" ")}
+            />
+            
+            {/* 그림자 레이어 */}
+            <div className="absolute inset-0 pointer-events-none shadow-[0_12px_30px_rgba(15,23,42,0.08)] dark:shadow-[0_18px_44px_rgba(0,0,0,0.45)] -z-10" />
 
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            {/* 콘텐츠 레이어 - 블러 영향 안받음 */}
+            <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
               <HeaderGlobal />
 
               <HeaderHero

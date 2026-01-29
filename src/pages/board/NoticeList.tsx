@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Pin, Eye, Calendar, User, Home } from "lucide-react";
+import { Pin, Eye, Calendar, User, Home, ChevronLeft, ChevronRight } from "lucide-react";
 import { getNotices } from "../../services/noticeService";
 import type { Notice } from "../../types";
 import { NOTICE_HERO_COPY } from "../../constants/copy";
+
+const ITEMS_PER_PAGE = 12;
 
 const NoticeList = () => {
   const navigate = useNavigate();
@@ -12,12 +14,13 @@ const NoticeList = () => {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const fetchNotices = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      const data = await getNotices(20);
+      const data = await getNotices(100); // 충분히 많은 수를 가져옴
       setNotices(data);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "공지사항을 불러오는데 실패했습니다.";
@@ -31,10 +34,62 @@ const NoticeList = () => {
     fetchNotices();
   }, [fetchNotices]);
 
-  // 페이지 진입 시 맨 위로 스크롤
+  // 페이지 변경 시 맨 위로 스크롤
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, []);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [currentPage]);
+
+  // 페이지네이션 계산
+  const totalPages = Math.ceil(notices.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentNotices = notices.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  // 페이지 번호 버튼 생성 (최대 5개 표시)
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+      // 전체 페이지가 5개 이하면 모두 표시
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // 현재 페이지 기준으로 앞뒤 2개씩 표시
+      let startPage = Math.max(1, currentPage - 2);
+      let endPage = Math.min(totalPages, currentPage + 2);
+
+      // 시작/끝 조정
+      if (currentPage <= 3) {
+        endPage = Math.min(5, totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        startPage = Math.max(1, totalPages - 4);
+      }
+
+      if (startPage > 1) {
+        pages.push(1);
+        if (startPage > 2) pages.push("...");
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+
+      if (endPage < totalPages) {
+        if (endPage < totalPages - 1) pages.push("...");
+        pages.push(totalPages);
+      }
+    }
+    
+    return pages;
+  };
 
   const formatDate = (timestamp: unknown) => {
     try {
@@ -152,6 +207,13 @@ const NoticeList = () => {
                 홈으로
               </button>
             </div>
+            
+            {/* 페이지 정보 */}
+            {notices.length > 0 && (
+              <div className="mt-4 text-center text-sm text-neutral-600 dark:text-neutral-400">
+                {startIndex + 1} - {Math.min(endIndex, notices.length)} / {notices.length}
+              </div>
+            )}
           </div>
 
           {/* Notice List */}
@@ -172,7 +234,7 @@ const NoticeList = () => {
                 </div>
               ) : (
                 <div className="flex flex-col gap-3">
-                  {notices.map((notice, index) => (
+                  {currentNotices.map((notice, index) => (
                     <motion.div
                       key={notice.id}
                       initial={{ opacity: 0, y: 10 }}
@@ -234,6 +296,73 @@ const NoticeList = () => {
               </div>
             )}
             </motion.div>
+            
+            {/* 페이지네이션 */}
+            {notices.length > 0 && totalPages > 1 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mt-8 flex justify-center items-center gap-2 flex-wrap"
+              >
+                {/* 이전 버튼 */}
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  aria-disabled={currentPage === 1}
+                  className={`flex items-center justify-center w-11 h-11 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900 ${
+                    currentPage === 1
+                      ? "border-neutral-200 dark:border-neutral-700 text-neutral-400 dark:text-neutral-500 cursor-not-allowed"
+                      : "border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-neutral-700 hover:border-primary-300 dark:hover:border-primary-600"
+                  }`}
+                  aria-label="이전 페이지"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+
+                {/* 페이지 번호 */}
+                {getPageNumbers().map((page, index) => (
+                  typeof page === "number" ? (
+                    <button
+                      key={index}
+                      onClick={() => handlePageChange(page)}
+                      className={`w-11 h-11 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900 ${
+                        currentPage === page
+                          ? "bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-lg scale-110 font-semibold"
+                          : "bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-300 dark:border-neutral-600 hover:bg-primary-50 dark:hover:bg-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 font-medium"
+                      }`}
+                      aria-label={`${page}페이지로 이동`}
+                      aria-current={currentPage === page ? "page" : undefined}
+                    >
+                      {page}
+                    </button>
+                  ) : (
+                    <span
+                      key={index}
+                      className="w-11 h-11 flex items-center justify-center text-neutral-400 dark:text-neutral-500"
+                      aria-hidden="true"
+                    >
+                      {page}
+                    </span>
+                  )
+                ))}
+
+                {/* 다음 버튼 */}
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  aria-disabled={currentPage === totalPages}
+                  className={`flex items-center justify-center w-11 h-11 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900 ${
+                    currentPage === totalPages
+                      ? "border-neutral-200 dark:border-neutral-700 text-neutral-400 dark:text-neutral-500 cursor-not-allowed"
+                      : "border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 hover:bg-primary-50 dark:hover:bg-neutral-700 hover:border-primary-300 dark:hover:border-primary-600"
+                  }`}
+                  aria-label="다음 페이지"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </motion.div>
+            )}
           </section>
         </motion.div>
       </div>

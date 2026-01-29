@@ -26,22 +26,18 @@ const Asbestos = () => {
               <h3 className="font-bold text-lg mb-2">석면조사</h3>
               <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">세부 서비스</p>
               <nav className="space-y-2">
-                {[
-                  { label: "석면조사", href: "#survey" },
-                  { label: "석면농도측정", href: "#concentration" },
-                  { label: "석면비산정도측정", href: "#dispersion" },
-                  { label: "석면해체제거감리", href: "#supervision" },
-                  { label: "석면건축물 위해성평가", href: "#risk-assessment" },
-                  { label: "석면건축물 공기질측정", href: "#air-quality" },
-                ].map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                {menuItems.map((item) => {
+                  const hash = item.path.includes('#') ? `#${item.path.split('#')[1]}` : item.path;
+                  return (
+                    <a
+                      key={hash}
+                      href={hash}
+                      className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
               </nav>
             </div>
           </aside>

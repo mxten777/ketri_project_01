@@ -7,7 +7,11 @@ import {
   Sparkles,
   TrendingUp,
   CheckCircle2,
+  Shield,
 } from "lucide-react";
+import Section from "../../components/common/Section";
+import { Card } from "../../components/ui/Card";
+import ServiceCta from "../../components/common/ServiceCta";
  
 const History = () => {
   const historyData = [
@@ -91,359 +95,318 @@ const History = () => {
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  // 연도별로 그룹화
+  const groupedByYear = historyData.reduce((acc, item) => {
+    if (!acc[item.year]) {
+      acc[item.year] = [];
+    }
+    acc[item.year].push(item);
+    return acc;
+  }, {} as Record<string, typeof historyData>);
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
+  const years = Object.keys(groupedByYear).sort((a, b) => Number(b) - Number(a));
 
   return (
-    <main className="min-h-screen bg-white dark:bg-gray-700">
-      {/* Hero Section - Premium Design */}
-      <section data-has-hero className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 text-white py-20 lg:py-32">
-        {/* Decorative Elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
-        </div>
+    <main className="min-h-screen">
+      {/* A) Page Title Section */}
+      <section data-has-hero className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-800 dark:to-blue-900 text-white py-20 lg:py-28">
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+          backgroundSize: '40px 40px'
+        }}></div>
 
-        <div className="container-custom relative z-10">
+        <div className="container mx-auto px-6 lg:px-8 max-w-7xl relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-white/20"
-            >
-              <TrendingUp className="w-5 h-5" />
-              <span className="label-md">Our Journey</span>
-            </motion.div>
+            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-5 py-2 rounded-full mb-6 border border-white/20">
+              <TrendingUp className="w-4 h-4" />
+              <span className="text-sm font-semibold">Our Journey</span>
+            </div>
 
-            <h1 className="text-display-lg mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl mb-5 font-extrabold">
               한국환경안전연구소의 역사
             </h1>
-            <p className="text-body-lg opacity-90 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl max-w-3xl mx-auto font-medium opacity-95">
               2006년부터 시작된 성장과 혁신의 19년
               <br className="hidden sm:inline" />
               신뢰와 전문성으로 함께 걸어온 길
             </p>
           </motion.div>
         </div>
-
-        {/* Wave Divider */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 120"
-            className="w-full h-16 lg:h-24"
-          >
-            <path
-              fill="currentColor"
-              fillOpacity="1"
-              d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
-              className="text-neutral-50 dark:text-neutral-950"
-            ></path>
-          </svg>
-        </div>
       </section>
 
-      {/* Stats Section - Premium Cards */}
-      <section className="pt-10 lg:pt-12 pb-12 lg:pb-16 container-custom relative z-20">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-20"
-        >
-          <motion.div
-            variants={itemVariants}
-            whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-200 dark:border-neutral-700"
-          >
-            <div className="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Calendar className="w-7 h-7 text-white" />
+      {/* B) 주요 통계 */}
+      <Section variant="gradient" spacing="lg">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+          <Card variant="elevated" padding="md" hover="lift">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Calendar className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-3xl font-extrabold text-blue-600 dark:text-blue-400 mb-1">
+                19년
+              </div>
+              <div className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+                설립 년차
+              </div>
             </div>
-            <div className="text-display-sm text-primary-600 dark:text-primary-400 mb-1 text-center">
-              19년
-            </div>
-            <div className="label-md text-neutral-600 dark:text-neutral-400 text-center">
-              설립 년차
-            </div>
-          </motion.div>
+          </Card>
 
-          <motion.div
-            variants={itemVariants}
-            whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-200 dark:border-neutral-700"
-          >
-            <div className="w-14 h-14 bg-primary-500 dark:bg-primary-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Building className="w-7 h-7 text-white" />
+          <Card variant="elevated" padding="md" hover="lift">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Building className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-3xl font-extrabold text-blue-600 dark:text-blue-400 mb-1">
+                5개
+              </div>
+              <div className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+                주요 사업영역
+              </div>
             </div>
-            <div className="text-display-sm text-primary-600 dark:text-primary-400 mb-1 text-center">
-              5개
-            </div>
-            <div className="label-md text-neutral-600 dark:text-neutral-400 text-center">
-              주요 사업영역
-            </div>
-          </motion.div>
+          </Card>
 
-          <motion.div
-            variants={itemVariants}
-            whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-200 dark:border-neutral-700"
-          >
-            <div className="w-14 h-14 bg-gradient-to-br from-success-500 to-success-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Award className="w-7 h-7 text-white" />
+          <Card variant="elevated" padding="md" hover="lift">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Award className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-3xl font-extrabold text-green-600 dark:text-green-400 mb-1">
+                10+
+              </div>
+              <div className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+                인증 및 지정
+              </div>
             </div>
-            <div className="text-display-sm text-success-500 mb-1 text-center">
-              10+
-            </div>
-            <div className="label-md text-neutral-600 dark:text-neutral-400 text-center">
-              인증 및 지정
-            </div>
-          </motion.div>
+          </Card>
 
-          <motion.div
-            variants={itemVariants}
-            whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-200 dark:border-neutral-700"
-          >
-            <div className="w-14 h-14 bg-gradient-to-br from-warning-500 to-warning-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Users className="w-7 h-7 text-white" />
+          <Card variant="elevated" padding="md" hover="lift">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-3xl font-extrabold text-orange-600 dark:text-orange-400 mb-1">
+                25+
+              </div>
+              <div className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+                전문 인력
+              </div>
             </div>
-            <div className="text-display-sm text-warning-500 mb-1 text-center">
-              25+
-            </div>
-            <div className="label-md text-neutral-600 dark:text-neutral-400 text-center">
-              전문 인력
-            </div>
-          </motion.div>
-        </motion.div>
+          </Card>
+        </div>
+      </Section>
 
-        {/* History Timeline - Vertical Modern Design */}
-        <div className="mb-16">
-          <div className="text-center mb-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 bg-primary-100 dark:bg-neutral-800 px-5 py-2 rounded-full mb-6"
-            >
-              <Sparkles className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-              <span className="label-md text-primary-600 dark:text-primary-400">
-                Our Milestones
-              </span>
-            </motion.div>
-
-            <h2 className="text-heading-xl text-neutral-900 dark:text-white mb-4">
-              주요 성과 및 발전 과정
-            </h2>
-
-            <p className="text-body-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-              한국환경안전연구소의 주요 이정표와 성장의 역사
-            </p>
+      {/* C) 타임라인 형식 연혁 */}
+      <Section variant="default" spacing="xl">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 px-4 py-2 rounded-full mb-4">
+            <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <span className="text-sm font-semibold text-blue-700 dark:text-blue-300">
+              Our Milestones
+            </span>
           </div>
 
-          {/* Vertical Timeline */}
-          <div className="max-w-4xl mx-auto relative">
-            {/* Central Line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-primary-500 dark:bg-primary-600 transform -translate-x-1/2 hidden lg:block"></div>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-neutral-900 dark:text-white mb-4">
+            주요 성과 및 발전 과정
+          </h2>
 
-            <div className="space-y-12">
-              {historyData.map((item, index) => (
-                <motion.div
-                  key={`${item.year}-${item.month}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative"
-                >
-                  {/* Desktop Layout */}
-                  <div className="hidden lg:grid lg:grid-cols-2 gap-8 items-center">
-                    {/* Left Side */}
-                    {index % 2 === 0 ? (
-                      <>
-                        <div className="text-right pr-12">
-                          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-lg border border-neutral-200 dark:border-neutral-700 inline-block">
-                            <ul className="space-y-3 text-left">
-                              {item.events.map((event, eventIndex) => (
-                                <li
-                                  key={eventIndex}
-                                  className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300"
-                                >
-                                  <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                                  <span className="text-body-sm">
-                                    {event}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
+          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+            한국환경안전연구소의 주요 이정표와 성장의 역사
+          </p>
+        </div>
+
+        {/* 타임라인 2컬럼 레이아웃 (데스크톱) / 단일 컬럼 (모바일) */}
+        <div className="max-w-6xl mx-auto">
+          {years.map((year, yearIndex) => (
+            <div key={year} className="relative">
+              {/* 데스크톱: 2컬럼 레이아웃 */}
+              <div className="hidden md:grid md:grid-cols-12 gap-8 mb-12">
+                {/* 좌측: 연도 + 타임라인 라인 */}
+                <div className="md:col-span-3 relative">
+                  <div className="sticky top-24">
+                    <div className="text-right pr-8">
+                      <div className="inline-block">
+                        <div className="text-5xl font-extrabold text-blue-600 dark:text-blue-400 mb-1">
+                          {year}
                         </div>
-
-                        {/* Center Year Badge */}
-                        <div className="absolute left-1/2 transform -translate-x-1/2 w-24 h-24 bg-primary-600 dark:bg-primary-700 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-white dark:border-neutral-900">
-                          <span className="text-white font-bold text-body-lg">
-                            {item.year}
-                          </span>
-                          <span className="text-white text-xs opacity-80">
-                            {item.month}월
-                          </span>
+                        <div className="text-sm text-neutral-500 dark:text-neutral-400 font-medium">
+                          {groupedByYear[year].length}개 주요 활동
                         </div>
-
-                        {/* Right Side - Empty */}
-                        <div></div>
-                      </>
-                    ) : (
-                      <>
-                        {/* Left Side - Empty */}
-                        <div></div>
-
-                        {/* Center Year Badge */}
-                        <div className="absolute left-1/2 transform -translate-x-1/2 w-24 h-24 bg-primary-600 dark:bg-primary-700 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-white dark:border-neutral-900">
-                          <span className="text-white font-bold text-lg">
-                            {item.year}
-                          </span>
-                          <span className="text-white text-xs opacity-80">
-                            {item.month}월
-                          </span>
-                        </div>
-
-                        {/* Right Side */}
-                        <div className="pl-12">
-                          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-lg border border-neutral-200 dark:border-neutral-700 inline-block">
-                            <ul className="space-y-3 text-left">
-                              {item.events.map((event, eventIndex) => (
-                                <li
-                                  key={eventIndex}
-                                  className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300"
-                                >
-                                  <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                                  <span className="text-body-sm">
-                                    {event}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Mobile Layout */}
-                  <div className="lg:hidden flex gap-4">
-                    {/* Year Badge */}
-                    <div className="flex-shrink-0 w-16 h-16 bg-primary-600 dark:bg-primary-700 rounded-xl shadow-lg flex flex-col items-center justify-center">
-                      <span className="text-white font-bold label-md">
-                        {item.year}
-                      </span>
-                      <span className="text-white text-xs opacity-80">
-                        {item.month}월
-                      </span>
+                      </div>
                     </div>
+                  </div>
+                  
+                  {/* 타임라인 세로 라인 */}
+                  {yearIndex < years.length - 1 && (
+                    <div className="absolute right-0 top-24 bottom-0 w-px bg-gradient-to-b from-blue-300 via-blue-200 to-transparent dark:from-blue-600 dark:via-blue-700 dark:to-transparent"></div>
+                  )}
+                </div>
 
-                    {/* Content */}
-                    <div className="flex-1">
-                      <div className="bg-white dark:bg-neutral-800 rounded-2xl p-5 shadow-lg border border-neutral-200 dark:border-neutral-700">
-                        <ul className="space-y-3">
+                {/* 우측: 연혁 항목들 */}
+                <div className="md:col-span-9 space-y-6">
+                  {groupedByYear[year].map((item, index) => (
+                    <motion.div
+                      key={`${item.year}-${item.month}`}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                    >
+                      <Card variant="elevated" padding="md" hover="lift" className="relative">
+                        {/* 연결 포인트 */}
+                        <div className="absolute -left-11 top-6 w-8 h-px bg-blue-300 dark:bg-blue-600"></div>
+                        <div className="absolute -left-12 top-5 w-3 h-3 rounded-full bg-blue-500 dark:bg-blue-400 ring-4 ring-white dark:ring-neutral-900"></div>
+
+                        {/* 월 표시 */}
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                            <span className="text-sm font-bold text-blue-700 dark:text-blue-300">
+                              {item.month}월
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* 이벤트 리스트 */}
+                        <ul className="space-y-2">
                           {item.events.map((event, eventIndex) => (
                             <li
                               key={eventIndex}
                               className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300"
                             >
-                              <CheckCircle2 className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                              <span className="text-body-sm">
+                              <CheckCircle2 className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                              <span className="text-base leading-relaxed">
                                 {event}
                               </span>
                             </li>
                           ))}
                         </ul>
-                      </div>
-                    </div>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 모바일: 단일 컬럼 */}
+              <div className="md:hidden mb-12">
+                {/* 연도 헤더 */}
+                <div className="mb-6">
+                  <div className="text-4xl font-extrabold text-blue-600 dark:text-blue-400 mb-1">
+                    {year}
                   </div>
-                </motion.div>
-              ))}
+                  <div className="text-sm text-neutral-500 dark:text-neutral-400 font-medium">
+                    {groupedByYear[year].length}개 주요 활동
+                  </div>
+                </div>
+
+                {/* 연혁 항목들 */}
+                <div className="space-y-4 relative pl-8">
+                  {/* 세로 타임라인 라인 */}
+                  {yearIndex < years.length - 1 && (
+                    <div className="absolute left-2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-300 via-blue-200 to-transparent dark:from-blue-600 dark:via-blue-700 dark:to-transparent"></div>
+                  )}
+
+                  {groupedByYear[year].map((item, index) => (
+                    <motion.div
+                      key={`${item.year}-${item.month}-mobile`}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      className="relative"
+                    >
+                      {/* 타임라인 포인트 */}
+                      <div className="absolute -left-7 top-4 w-2 h-2 rounded-full bg-blue-500 dark:bg-blue-400 ring-2 ring-white dark:ring-neutral-900"></div>
+
+                      <Card variant="elevated" padding="sm" hover="lift">
+                        {/* 월 표시 */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 rounded">
+                            <span className="text-xs font-bold text-blue-700 dark:text-blue-300">
+                              {item.month}월
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* 이벤트 리스트 */}
+                        <ul className="space-y-2">
+                          {item.events.map((event, eventIndex) => (
+                            <li
+                              key={eventIndex}
+                              className="flex items-start gap-2 text-neutral-700 dark:text-neutral-300"
+                            >
+                              <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                              <span className="text-sm leading-relaxed">
+                                {event}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* D) 미래 비전 */}
+      <Section variant="primary" spacing="xl">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-5 py-2 rounded-full mb-6 border border-white/20">
+            <TrendingUp className="w-4 h-4 text-white" />
+            <span className="text-sm font-semibold text-white">
+              Our Vision
+            </span>
+          </div>
+
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6">
+            미래를 향한 비전
+          </h2>
+
+          <p className="text-lg leading-relaxed text-white/95 mb-8">
+            한국환경안전연구소는 지속가능한 환경과 안전한 사회를 만들기 위해
+            끊임없이 연구하고 발전해 나가겠습니다. 앞으로도 고객 여러분의
+            신뢰를 바탕으로{" "}
+            <span className="font-bold underline decoration-2 underline-offset-4">
+              환경안전 분야의 선도기관
+            </span>
+            으로 성장하겠습니다.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-3">
+            <div className="bg-white/10 backdrop-blur-sm px-5 py-2 rounded-xl border border-white/20">
+              <span className="text-sm font-semibold text-white">
+                지속가능성
+              </span>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm px-5 py-2 rounded-xl border border-white/20">
+              <span className="text-sm font-semibold text-white">혁신</span>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm px-5 py-2 rounded-xl border border-white/20">
+              <span className="text-sm font-semibold text-white">신뢰</span>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm px-5 py-2 rounded-xl border border-white/20">
+              <span className="text-sm font-semibold text-white">
+                전문성
+              </span>
             </div>
           </div>
         </div>
+      </Section>
 
-        {/* Vision Section - Premium Design */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative overflow-hidden bg-primary-600 dark:bg-primary-700 rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl"
-        >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
-          </div>
-
-          <div className="relative z-10 text-center text-white max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 sm:px-5 py-2 rounded-full mb-4 sm:mb-6">
-              <TrendingUp className="w-4 h-4" />
-              <span className="text-xs sm:text-sm font-semibold">
-                Our Vision
-              </span>
-            </div>
-
-            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6">
-              미래를 향한 비전
-            </h3>
-
-            <p className="text-base sm:text-lg lg:text-xl leading-relaxed opacity-90 mb-6 sm:mb-8">
-              한국환경안전연구소는 지속가능한 환경과 안전한 사회를 만들기 위해
-              끊임없이 연구하고 발전해 나가겠습니다. 앞으로도 고객 여러분의
-              신뢰를 바탕으로{" "}
-              <span className="font-bold underline decoration-2 underline-offset-4">
-                환경안전 분야의 선도기관
-              </span>
-              으로 성장하겠습니다.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-              <div className="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-xl border border-white/20">
-                <span className="text-sm sm:text-base font-semibold">
-                  지속가능성
-                </span>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-xl border border-white/20">
-                <span className="text-sm sm:text-base font-semibold">혁신</span>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-xl border border-white/20">
-                <span className="text-sm sm:text-base font-semibold">신뢰</span>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-xl border border-white/20">
-                <span className="text-sm sm:text-base font-semibold">
-                  전문성
-                </span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </section>
+      {/* E) 하단 CTA */}
+      <Section variant="default" spacing="lg">
+        <ServiceCta 
+          message="환경안전 전문가와 상담하세요"
+          subtitle="한국환경안전연구소의 전문 상담원이 신속하고 정확하게 안내해 드립니다"
+        />
+      </Section>
     </main>
   );
 };

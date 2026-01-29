@@ -1,20 +1,22 @@
 import { Link, useLocation } from "react-router-dom";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Container } from "../ui";
+import { useTheme } from "@/contexts/ThemeContext.core";
 
 const CTA_BG = {
   background:
-    "linear-gradient(90deg, rgba(0,105,255,1) 0%, rgba(30,64,175,1) 55%, rgba(2,132,199,1) 100%)",
+    "linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%)",
 } as const;
 
 const CTA_HL = {
   background:
-    "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.18), transparent 55%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.12), transparent 55%)",
+    "radial-gradient(circle at 25% 35%, rgba(255,255,255,0.08), transparent 60%)",
 } as const;
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const location = useLocation();
+  const { isDark } = useTheme();
   
   // 서비스 페이지에서는 Footer CTA를 숨김 (서비스 페이지에 자체 ServiceCta가 있음)
   const showCta = !location.pathname.startsWith('/services/');
@@ -51,34 +53,32 @@ const Footer = () => {
                 전문 상담원이 친절하게 안내해드립니다
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-5 max-w-2xl mx-auto">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto">
                 <a
                   href="tel:043-237-7824"
                   className={[
-                    "group inline-flex items-center gap-3 h-16 rounded-xl font-extrabold text-lg",
-                    "text-primary-900 dark:text-black bg-white hover:bg-neutral-50",
-                    "border-2 border-white/60 hover:border-white/80",
-                    "shadow-[0_10px_28px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.2)]",
-                    "transition-all duration-200 hover:-translate-y-0.5",
-                    "px-10 w-full sm:w-auto min-w-[240px] justify-center",
+                    "group inline-flex items-center gap-3 h-14 rounded-xl font-bold text-base",
+                    "text-blue-700 bg-white hover:bg-blue-50",
+                    "shadow-xl hover:shadow-2xl",
+                    "transition-all duration-200",
+                    "px-8 w-full sm:w-auto min-w-[240px] justify-center",
                   ].join(" ")}
                 >
-                  <Phone className="w-6 h-6 text-primary-900 dark:text-black group-hover:scale-110 transition-transform duration-200" />
-                  <span className="text-primary-900 dark:text-black">전화 상담: 043-237-7824</span>
+                  <Phone className="w-5 h-5 text-blue-700" />
+                  <span className="text-blue-700">전화 상담: 043-237-7824</span>
                 </a>
 
                 <a
                   href="mailto:kesri0728@naver.com"
                   className={[
-                    "group inline-flex items-center gap-3 h-16 rounded-xl font-extrabold text-lg",
-                    "text-white bg-white/25 hover:bg-white/35",
-                    "border-2 border-white/70 hover:border-white/90",
-                    "shadow-[0_10px_28px_rgba(0,0,0,0.1)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.15)]",
-                    "transition-all duration-200 hover:-translate-y-0.5",
-                    "px-10 w-full sm:w-auto min-w-[240px] justify-center backdrop-blur-md",
+                    "group inline-flex items-center gap-3 h-14 rounded-xl font-semibold text-base",
+                    "text-white/90 bg-white/10 hover:bg-white/15",
+                    "border border-white/30 hover:border-white/40",
+                    "transition-all duration-200",
+                    "px-8 w-full sm:w-auto min-w-[240px] justify-center backdrop-blur-sm",
                   ].join(" ")}
                 >
-                  <Mail className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
+                  <Mail className="w-5 h-5" />
                   <span>이메일 문의</span>
                 </a>
               </div>
@@ -92,13 +92,13 @@ const Footer = () => {
       )}
 
       {/* ================= MAIN FOOTER ================= */}
-      <Container size="xl" className="py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+      <Container size="xl" className="py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
           {/* Company Info */}
           <div className="space-y-4">
             <div className="mb-4">
               <img
-                src="/images/logo_horizontal_trans.png"
+                src={isDark ? "/images/680px_logo_dark.png" : "/images/680px_logo_trans.png"}
                 alt="한국환경안전연구소"
                 className="h-12 w-auto object-contain"
                 loading="lazy"
@@ -120,7 +120,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div className="space-y-3">
-            <h3 className="font-bold text-lg mb-4 text-neutral-900 dark:text-white">
+            <h3 className="font-bold text-base mb-5 text-neutral-800 dark:text-neutral-200 tracking-tight">
               연락처
             </h3>
 
@@ -164,7 +164,7 @@ const Footer = () => {
 
           {/* Location */}
           <div className="space-y-3">
-            <h3 className="font-bold text-lg mb-4 text-neutral-900 dark:text-white">
+            <h3 className="font-bold text-base mb-5 text-neutral-800 dark:text-neutral-200 tracking-tight">
               오시는 길
             </h3>
             <div className="flex items-start gap-3">

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, ReactNode } from "react";
+import { useState, useEffect, useRef, useCallback, ReactNode } from "react";
 import { ThemeType, applyTheme, getStoredTheme, getInitialDarkMode, applyDarkMode } from "@/config/themes";
 import { ThemeContext } from "./ThemeContext.core";
 
@@ -21,13 +21,6 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     }
   }, []);
 
-  // isDark 상태 변경 시 DOM 즉시 동기화
-  useEffect(() => {
-    if (initialized.current) {
-      applyDarkMode(isDark);
-    }
-  }, [isDark]);
-
   // 테마 변경 (다크모드는 건드리지 않음)
   useEffect(() => {
     applyTheme(theme);
@@ -38,10 +31,20 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     setThemeState(newTheme);
   };
 
-  // 다크 모드 토글 (상태만 변경, DOM은 useEffect에서 처리)
-  const toggleDark = () => {
-    setIsDark(prev => !prev);
-  };
+  // 다크 모드 토글 (상태, DOM, localStorage 동기 갱신)
+  const toggleDark = useCallback(() => {
+    setIsDark(prev => {
+      const nextDark = !prev;
+      // 동일 tick에서 DOM과 localStorage 갱신
+      if (nextDark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      localStorage.setItem("app-dark-mode", nextDark.toString());
+      return nextDark;
+    });
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, isDark, toggleDark }}>

@@ -1,30 +1,15 @@
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState } from "react";
 import LegacyHeader from "./Header.legacy";
 import { HeaderContext } from "./HeaderContext";
+import { useTheme } from "@/contexts/ThemeContext.core";
 
 export default function HeaderRoot() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== "undefined") {
-      return (
-        localStorage.getItem("darkMode") === "true" ||
-        document.documentElement.classList.contains("dark")
-      );
-    }
-    return false;
-  });
-
-  const toggleDarkMode = useCallback(() => {
-    setIsDarkMode((prev) => {
-      const newMode = !prev;
-      if (newMode) document.documentElement.classList.add("dark");
-      else document.documentElement.classList.remove("dark");
-      localStorage.setItem("darkMode", newMode.toString());
-      return newMode;
-    });
-  }, []);
+  
+  // Use global theme context instead of local state
+  const { isDark, toggleDark } = useTheme();
 
   const ctx = useMemo(
     () => ({
@@ -32,13 +17,13 @@ export default function HeaderRoot() {
       setIsMobileMenuOpen,
       openDropdown,
       setOpenDropdown,
-      isDarkMode,
-      setIsDarkMode,
-      toggleDarkMode,
+      isDarkMode: isDark,
+      setIsDarkMode: () => {}, // deprecated, use toggleDark
+      toggleDarkMode: toggleDark,
       isSearchOpen,
       setIsSearchOpen,
     }),
-    [isMobileMenuOpen, openDropdown, isDarkMode, toggleDarkMode, isSearchOpen]
+    [isMobileMenuOpen, openDropdown, isDark, toggleDark, isSearchOpen]
   );
 
   return (

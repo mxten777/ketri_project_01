@@ -91,7 +91,8 @@ export default function HeaderMegaMenu({
 		? (() => {
 			const menuWidthNum = Math.min(960, window.innerWidth - 32);
 			const offset = 8;
-			const leftNum = Math.min(Math.max(8, rect.left), window.innerWidth - menuWidthNum - offset);
+			// Align menu left edge with anchor element for better cursor tracking
+			const leftNum = Math.min(Math.max(8, rect.left - 16), window.innerWidth - menuWidthNum - offset);
 			const topNum = Math.max(0, rect.top + rect.height);
 			return {
 				position: "fixed",
@@ -105,15 +106,16 @@ export default function HeaderMegaMenu({
 		: { display: "none" };
 
 	// Inline bridge style for an absolute element inside the fixed menu container
+	// Larger bridge for better hover stability
 	const bridgeInlineStyle: React.CSSProperties = {
 		position: "absolute",
-		top: "-24px",
-		left: 0,
-		right: 0,
-		height: "24px", // 16-32px range as requested
-		zIndex: 89,
+		top: "-80px",
+		left: "-32px",
+		right: "-32px",
+		height: "80px",
+		zIndex: 91,
 		background: "transparent",
-		pointerEvents: "none", // do not block clicks on the panel
+		pointerEvents: "none",
 	};
 
 	const closeMega = () => ctx?.setOpenDropdown?.(null);
@@ -128,14 +130,15 @@ export default function HeaderMegaMenu({
 
 	function computeDisplay(menuGroup: MenuGroup) {
 		const filtered = menuGroup.items.filter((it) => isAllowed(it.path));
-		// For the special 'about' group we want to show all items (no slicing to 4)
-		const isTruncated = filtered.length > 4 && menuGroup.key !== ABOUT_KEY;
-		const display = isTruncated ? filtered.slice(0, 4) : filtered;
+		// Show all items without truncation
+		const isTruncated = false;
+		const display = filtered;
 		return { filtered, isTruncated, display } as const;
 	}
 
 	const node = (
 		<div
+			id="mega-menu-panel"
 			data-mega-hoverzone="true"
 			onMouseEnter={() => selected && onMouseEnter(selected)}
 			onMouseLeave={() => onMouseLeave && onMouseLeave()}
@@ -155,12 +158,8 @@ export default function HeaderMegaMenu({
 			<div style={style}>
 				{/* transparent bridge to maintain hover when moving cursor from header to panel */}
 				<div style={bridgeInlineStyle} />
-				<div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-md overflow-visible">
-					<div className="px-5 py-4 border-b border-neutral-200 dark:border-neutral-800">
-						<div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">메뉴</div>
-					</div>
-
-					<div className="p-4">
+				<div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-xl overflow-visible">
+					<div className="p-5">
 						{(() => {
 							const activeMenu = menus.find((m) => m.label === selected) || null;
 							if (!activeMenu) return null;
@@ -170,47 +169,28 @@ export default function HeaderMegaMenu({
 
 								return (
 									<div>
-										<div className="flex items-start justify-between mb-4">
-											<div>
-												<div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{activeMenu.label}</div>
-												{activeMenu.description && <div className="text-xs text-neutral-500 mt-1">{activeMenu.description}</div>}
-											</div>
-											{isTruncated && activeMenu.mainPath && isAllowed(activeMenu.mainPath) && activeMenu.key !== ABOUT_KEY && (
-												<div>
-													<Link
-														to={activeMenu.mainPath}
-														className="text-sm font-medium text-primary-800 hover:underline"
-														onClick={() => {
-															if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
-															else setTimeout(() => closeMega(), 0);
-														}}
-													>
-														{activeMenu.label} 전체보기 →
-													</Link>
-												</div>
-											)}
+										<div className="mb-3">
+											<div className="text-base font-semibold text-neutral-900 dark:text-neutral-100">{activeMenu.label}</div>
 										</div>
 
-										<div className="grid grid-cols-3 md:grid-cols-5 gap-4 max-h-[480px] overflow-y-auto pr-2">
+										<div className="grid grid-cols-3 md:grid-cols-4 gap-3 max-h-[480px] overflow-y-auto pr-2">
 											{display.map((item) => {
-												const itemHover = "hover:bg-neutral-50 dark:hover:bg-white/10 dark:hover:text-neutral-50 transition-colors";
-												return (
-													<a
-														key={item.path}
-														href={item.path}
-														onClick={(e) => handleNav(e, item.path)}
-														onKeyDown={(e) => {
-															if (e.key === "Enter" || e.key === " ") {
-																e.preventDefault();
-																handleNav(e as unknown as React.MouseEvent<HTMLAnchorElement>, item.path);
-															}
-														}}
-														className={`flex items-center min-h-[44px] px-4 py-2.5 rounded-lg text-neutral-900 dark:text-neutral-200 ${itemHover}`}
-													>
-														<div className="text-sm font-medium">{item.label}</div>
-														{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
-													</a>
-												);
+											return (
+												<a
+													key={item.path}
+													href={item.path}
+													onClick={(e) => handleNav(e, item.path)}
+													onKeyDown={(e) => {
+														if (e.key === "Enter" || e.key === " ") {
+															e.preventDefault();
+															handleNav(e as unknown as React.MouseEvent<HTMLAnchorElement>, item.path);
+														}
+													}}
+													className="group flex items-center justify-center min-h-[56px] px-4 py-3 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:border-primary-300 dark:hover:border-primary-700 transition-all duration-200 text-neutral-900 dark:text-neutral-200 hover:text-primary-700 dark:hover:text-primary-400"
+												>
+													<div className="text-sm font-medium text-center">{item.label}</div>
+												</a>
+											);
 											})}
 										</div>
 									</div>
@@ -232,62 +212,59 @@ export default function HeaderMegaMenu({
 							}
 
 							return (
-								<div className="grid grid-cols-[220px_1fr] gap-4">
-									<div className="pr-2">
-										<ul className="space-y-1">
-											{menus.map((m) => (
-													<li
-														key={m.label}
-														onMouseEnter={() => {
+<div className="grid grid-cols-[180px_1fr] gap-6">
+								<div className="pr-2">
+									<ul className="space-y-0.5">
+										{menus.map((m) => (
+												<li
+													key={m.label}
+													onMouseEnter={() => {
+														setSelected(m.label);
+														onMouseEnter(m.label);
+													}}
+													onClick={() => {
+														setSelected(m.label);
+														onMouseEnter(m.label);
+													}}
+													tabIndex={0}
+													onKeyDown={(e) => {
+														if (e.key === "Enter" || e.key === " ") {
+															e.preventDefault();
 															setSelected(m.label);
 															onMouseEnter(m.label);
-														}}
-														onClick={() => {
-															// clicking a left menu group selects it (click has priority)
-															setSelected(m.label);
-															onMouseEnter(m.label);
-														}}
-														tabIndex={0}
-														onKeyDown={(e) => {
-															// support Enter / Space to activate/select the group
-															if (e.key === "Enter" || e.key === " ") {
-																e.preventDefault();
-																setSelected(m.label);
-																onMouseEnter(m.label);
-															}
-															// Esc handled on ancestor
-														}}
-														className={
-															"px-3 py-2 rounded-lg cursor-default transition-colors focus:outline-none " +
-															(selected === m.label ? "bg-primary-50 text-primary-800" : "text-neutral-800 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-white/5")
 														}
-													>
-														{m.key === ABOUT_KEY ? (
-															<Link
-																to={ABOUT_ALL_VIEW}
-																className="text-sm font-medium"
-																aria-label="연구소 소개 목록 보기"
-																onClick={() => {
-																	if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
-																	else setTimeout(() => closeMega(), 0);
-																}}
-															>
-																{m.label}
-															</Link>
-														) : (
-															<div className="text-sm font-medium">{m.label}</div>
-														)}
-														{m.description && <div className="text-xs text-neutral-500 mt-1">{m.description}</div>}
+													}}
+													className={
+														"px-2.5 py-1.5 rounded-md cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500/20 " +
+														(selected === m.label 
+															? "bg-primary-600/5 text-primary-700 dark:bg-primary-500/10 dark:text-primary-400" 
+															: "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200")
+													}
+												>
+													{m.key === ABOUT_KEY ? (
+														<Link
+															to={ABOUT_ALL_VIEW}
+															className="text-[13px] font-medium"
+															aria-label="연구소 소개 목록 보기"
+															onClick={() => {
+																if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
+																else setTimeout(() => closeMega(), 0);
+															}}
+														>
+															{m.label}
+														</Link>
+													) : (
+														<div className="text-[13px] font-medium">{m.label}</div>
+													)}
 													</li>
 												))}
 										</ul>
 									</div>
 
 									<div>
-										<div className="grid grid-cols-2 gap-3">
+										<div className="grid grid-cols-2 gap-2.5">
 											{display.map((item) => {
 												const itemActive = location.pathname === item.path || location.pathname.startsWith(item.path.split("#")[0] + "/");
-                                                
 
 												return (
 													<a
@@ -302,36 +279,20 @@ export default function HeaderMegaMenu({
 														}}
 														className={
 															[
-																"flex items-center min-h-[44px] px-4 py-2.5 rounded-lg",
-																"transition-colors duration-150",
+																"group flex items-center min-h-[52px] px-4 py-3 rounded-xl",
+																"transition-all duration-200",
+																"border border-transparent",
 																itemActive 
-																	? "bg-primary-50 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300" 
-																	: "bg-white/0 text-neutral-900 hover:bg-neutral-50 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-neutral-50",
+																	? "bg-primary-50 text-primary-900 dark:bg-primary-900/20 dark:text-primary-300 border-primary-200 dark:border-primary-800" 
+																	: "text-neutral-800 dark:text-neutral-200 hover:bg-primary-50/50 dark:hover:bg-primary-900/10 hover:border-primary-100 dark:hover:border-primary-900/30",
 															].join(" ")
 														}
 													>
-														<span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-[2px] bg-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-														<div className="text-sm font-medium group-hover:translate-x-[2px] transition-transform">{item.label}</div>
-														{item.description && <div className="text-xs text-neutral-500 ml-3">{item.description}</div>}
+														<div className="font-medium group-hover:translate-x-0.5 transition-transform">{item.label}</div>
 													</a>
 												);
 											})}
 										</div>
-
-										{isTruncated && menu.mainPath && isAllowed(menu.mainPath) && (
-											<div className="mt-3">
-												<Link
-													to={menu.mainPath}
-													className="text-sm font-medium text-primary-800 hover:underline"
-													onClick={() => {
-														if (typeof queueMicrotask === "function") queueMicrotask(() => closeMega());
-														else setTimeout(() => closeMega(), 0);
-													}}
-												>
-													{menu.label} 전체보기 →
-												</Link>
-											</div>
-										)}
 									</div>
 								</div>
 							);

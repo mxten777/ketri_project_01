@@ -4,8 +4,10 @@ import { Container } from "@/components/ui/Container";
 import { useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ServiceCta from "../../components/common/ServiceCta";
+import { getMenuItemsByPath } from "../../constants/menu";
 
 const IndustrialHealth = () => {
+  const menuItems = getMenuItemsByPath("/services/industrial-health");
   // Anchors are handled by CSS :target { scroll-margin-top: var(--app-header-h); }
   const location = useLocation();
 
@@ -66,18 +68,13 @@ const IndustrialHealth = () => {
               <h3 className="font-bold text-lg mb-2">작업환경측정</h3>
               <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">세부 서비스</p>
               <nav className="space-y-2">
-                {[
-                  { label: "작업환경측정", href: "#work-environment" },
-                  { label: "위험성평가", href: "#risk-assessment" },
-                  { label: "근골격계유해요인조사", href: "#musculoskeletal" },
-                  { label: "화학물질관리", href: "#chemical-management" },
-                  { label: "서비스 프로세스", href: "#service-process" },
-                ].map((item) => {
-                  const targetId = item.href.slice(1);
+                {menuItems.map((item) => {
+                  const hash = item.path.includes('#') ? `#${item.path.split('#')[1]}` : item.path;
+                  const targetId = hash.slice(1);
                   return (
                     <a
-                      key={item.href}
-                      href={item.href}
+                      key={hash}
+                      href={hash}
                       onClick={(e) => handleSectionClick(e, targetId)}
                       className="block px-4 py-2 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                     >

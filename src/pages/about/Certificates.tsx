@@ -2,7 +2,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Section } from "@/components/ui/Section";
-import { Container } from "@/components/ui/Container";
+import { Card } from "@/components/ui/Card";
+import ServiceCta from "@/components/common/ServiceCta";
 import { X, Download, AlertCircle } from "lucide-react";
 
 interface Certificate {
@@ -191,94 +192,66 @@ export default function Certificates() {
   return (
     <main className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
       {/* Hero Section */}
-      <section data-has-hero className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white py-16 lg:py-24">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1 className="text-display-lg mb-6">
-              인증서/자격
-            </h1>
-            <p className="text-body-lg opacity-90 max-w-2xl mx-auto">
-              한국환경안전연구소가 보유한 공식 인증서 및 자격 현황입니다.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <Section variant="brand" spacing="xl" className="text-neutral-900 dark:text-white bg-gradient-to-br from-blue-600 to-blue-700">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center text-white"
+        >
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            인증서/자격
+          </h1>
+          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
+            한국환경안전연구소가 보유한 공식 인증서 및 자격 현황입니다.
+          </p>
+        </motion.div>
+      </Section>
 
-      {/* Cards section: standard section spacing (py-12 ~ py-16) */}
-      <Section spacing="md">
-        <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certificates.map((cert, index) => (
-              <motion.article
-                key={cert.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col h-full"
+      {/* Certificates Grid */}
+      <Section spacing="lg" className="py-12 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto">
+          {certificates.map((cert, index) => (
+            <motion.div
+              key={cert.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: index * 0.03 }}
+            >
+              <Card 
+                className="h-full flex flex-col hover:shadow-md transition-shadow duration-200 cursor-pointer group"
+                onClick={() => {
+                  setSelectedCertificate(cert);
+                  setImageLoading(true);
+                  setImageError(false);
+                }}
               >
                 {/* 썸네일 이미지 */}
-                <div
-                  className="relative h-48 bg-neutral-100 dark:bg-neutral-700 overflow-hidden cursor-pointer group"
-                  onClick={() => {
-                    setSelectedCertificate(cert);
-                    setImageLoading(true);
-                    setImageError(false);
-                  }}
-                >
+                <div className="relative h-48 bg-neutral-50 dark:bg-neutral-800/50 overflow-hidden rounded-t-xl">
                   <img
                     src={cert.thumbPath}
                     alt={`${cert.title} 썸네일`}
-                    className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-contain p-4"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-200" />
                 </div>
 
                 {/* 카드 본문 */}
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-base font-bold text-neutral-900 dark:text-neutral-50 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 leading-tight">
                     {cert.title}
                   </h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
+                  <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
                     {cert.issuer}
                   </p>
-                  <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-4 flex-1">
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400 flex-1">
                     {cert.description}
                   </p>
-
-                  {/* 버튼 영역 */}
-                  <div className="flex gap-2 mt-auto">
-                    <button
-                      onClick={() => {
-                        setSelectedCertificate(cert);
-                        setImageLoading(true);
-                        setImageError(false);
-                      }}
-                      className="flex-1 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 border border-neutral-300 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors duration-200"
-                    >
-                      자세히 보기
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDownloadPDF(cert.pdfPath, cert.title);
-                      }}
-                      className="px-4 py-2 text-sm font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-300 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors duration-200"
-                      aria-label={`${cert.title} PDF 다운로드`}
-                    >
-                      <Download className="w-4 h-4" />
-                    </button>
-                  </div>
                 </div>
-              </motion.article>
-            ))}
-          </div>
-        </Container>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
       </Section>
 
       {/* Certificate Image Modal */}
@@ -288,16 +261,16 @@ export default function Certificates() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
-            className="fixed inset-0 bg-black/70 z-[1050] flex items-center justify-center p-4"
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[1050] flex items-center justify-center p-4"
             onClick={() => setSelectedCertificate(null)}
             role="dialog"
             aria-modal="true"
             aria-label="인증서 이미지 확대 보기"
           >
             {/* 상단 컨트롤 영역 */}
-            <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-4 z-10">
-              <div className="text-sm text-white/70 font-medium">
+            <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-4 sm:p-6 z-10">
+              <div className="text-sm sm:text-base text-white/90 font-medium max-w-md truncate">
                 {selectedCertificate.title}
               </div>
               <div className="flex items-center gap-2">
@@ -306,7 +279,7 @@ export default function Certificates() {
                     e.stopPropagation();
                     handleDownloadPDF(selectedCertificate.pdfPath, selectedCertificate.title);
                   }}
-                  className="text-white hover:bg-white/10 p-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white/40"
+                  className="text-white/90 hover:text-white hover:bg-white/10 p-2 sm:p-2.5 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/30"
                   aria-label="PDF 다운로드"
                 >
                   <Download className="w-5 h-5" />
@@ -316,7 +289,7 @@ export default function Certificates() {
                     e.stopPropagation();
                     setSelectedCertificate(null);
                   }}
-                  className="text-white hover:bg-white/10 p-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white/40"
+                  className="text-white/90 hover:text-white hover:bg-white/10 p-2 sm:p-2.5 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/30"
                   aria-label="이미지 닫기"
                   autoFocus
                 >
@@ -327,49 +300,51 @@ export default function Certificates() {
 
             {/* 이미지 컨테이너 */}
             <motion.div
-              initial={{ scale: 0.96, y: 8 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.96, y: 8 }}
-              transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
-              className="max-w-4xl w-full"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="max-w-5xl w-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative bg-neutral-800/40 backdrop-blur-sm rounded-lg p-3 shadow-2xl">
+              <div className="relative bg-white dark:bg-neutral-900 rounded-xl p-4 shadow-2xl">
                 {imageLoading && !imageError && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-8 h-8 border-3 border-white/20 border-t-white rounded-full animate-spin" />
+                    <div className="w-10 h-10 border-4 border-neutral-300 dark:border-neutral-600 border-t-blue-600 rounded-full animate-spin" />
                   </div>
                 )}
 
                 {imageError ? (
-                  <div className="flex flex-col items-center justify-center py-24 text-white/60">
-                    <AlertCircle className="w-12 h-12 mb-4" />
-                    <p className="text-sm">이미지를 불러올 수 없습니다</p>
+                  <div className="flex flex-col items-center justify-center py-32 text-neutral-500 dark:text-neutral-400">
+                    <AlertCircle className="w-16 h-16 mb-4" />
+                    <p className="text-base">이미지를 불러올 수 없습니다</p>
                   </div>
                 ) : (
                   <img
                     src={selectedCertificate.viewPath}
                     alt={`${selectedCertificate.title} 상세 이미지`}
-                    className="w-full h-auto max-h-[80vh] object-contain rounded cursor-pointer"
-                    style={{ opacity: imageLoading ? 0 : 1, transition: "opacity 0.2s" }}
+                    className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+                    style={{ opacity: imageLoading ? 0 : 1, transition: "opacity 0.3s" }}
                     onLoad={() => setImageLoading(false)}
                     onError={() => {
                       setImageLoading(false);
                       setImageError(true);
                     }}
-                    onClick={() => setSelectedCertificate(null)}
                   />
                 )}
               </div>
             </motion.div>
 
             {/* 하단 보조 정보 */}
-            <div className="absolute bottom-4 left-0 right-0 text-center">
+            <div className="absolute bottom-6 left-0 right-0 text-center">
               <p className="text-xs text-white/50">클릭하여 닫기 · ESC</p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* CTA Section */}
+      <ServiceCta message="인증서에 대해 더 궁금하신가요?" subtitle="공신력 있는 인증으로 검증된 전문성을 제공합니다" />
     </main>
   );
 }

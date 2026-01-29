@@ -29,8 +29,12 @@
 
     /* header */
     /* Default (mobile) token. Breakpoint overrides below. */
-    --app-header-h: 64px; /* Mobile token (reduced by 8px) */
-    --logo-height: 32px;
+    --app-header-h: 72px; /* Mobile - 기업형 증가 */
+    --logo-height: 36px;
+    
+    /* logo sources */
+    --logo-light: url('/images/680px_logo_trans.png');
+    --logo-dark: url('/images/680px_logo_white.png');
   }
 
   /* Figma token breakpoint mappings
@@ -40,15 +44,15 @@
   */
   @media (min-width: 1024px) {
     :root {
-      --app-header-h: 80px; /* Desktop token (reduced by 8px) */
-      --logo-height: 40px;
+      --app-header-h: 88px; /* Desktop - 기업형 증가 */
+      --logo-height: 44px;
     }
   }
 
   @media (min-width: 768px) and (max-width: 1023px) {
     :root {
-      --app-header-h: 72px; /* Tablet token (reduced by 8px) */
-      --logo-height: 36px;
+      --app-header-h: 80px; /* Tablet - 기업형 증가 */
+      --logo-height: 40px;
     }
   }
 
@@ -131,24 +135,49 @@
    - header 태그에 직접 적용(셀렉터 미스 방지)
    ========================================================= */
 
-  /* 헤더 베이스 - 기업형 프리미엄 */
+  /* 헤더 베이스 - 기업형 subtle */
   header {
     /* position/top/z-index delegated to component Tailwind classes to avoid !important conflicts */
 
     /* reserve header height using CSS variable to avoid initial layout shifts */
     min-height: var(--app-header-h, 72px);
     display: block;
+    position: relative;
+    isolation: isolate;
 
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-
-  /* 기업형 세련된 보더 + 그림자 */
-  border-bottom: 1px solid rgba(17, 24, 39, 0.08) !important;
+  /* 절제된 보더 + 그림자 */
+  border-bottom: 1px solid rgba(17, 24, 39, 0.06) !important;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.80) inset,
-    0 4px 16px rgba(17, 24, 39, 0.06),
-    0 1px 3px rgba(17, 24, 39, 0.04) !important;
+    0 1px 0 rgba(255, 255, 255, 0.90) inset,
+    0 2px 8px rgba(17, 24, 39, 0.04),
+    0 1px 2px rgba(17, 24, 39, 0.02) !important;
+}
+
+/* 헤더 배경 레이어 - 블러 제거하고 불투명 배경 사용 */
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 1);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 로고 명확성 보장 - 블러 영향 완전 차단 */
+header img[alt*="한국환경안전연구소"],
+header a[href="/"] img,
+header a > img {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+  will-change: auto !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  image-rendering: -webkit-optimize-contrast !important;
+  image-rendering: crisp-edges !important;
+  position: relative !important;
+  z-index: 100 !important;
 }
 
 /* 헤더 하단 얇은 브랜드 라인 (절제된 기업 블루) */
@@ -171,8 +200,7 @@ header::after {
 
 /* TopBar(오시는 길/전화/이메일) — 조용하게 */
 header .topbar,
-header [data-topbar="true"],
-header > div:first-child {
+header [data-topbar="true"] {
   font-size: 12px !important;
   /* Note: menu-level letter-spacing moved to nav link rules per spec */
   color: rgba(var(--ink-rgb), 0.55) !important;
@@ -186,9 +214,7 @@ header > div:first-child {
 header .topbar:hover,
 header .topbar:focus-within,
 header [data-topbar="true"]:hover,
-header [data-topbar="true"]:focus-within,
-header > div:first-child:hover,
-header > div:first-child:focus-within {
+header [data-topbar="true"]:focus-within {
   opacity: 1;
 }
 
@@ -220,6 +246,11 @@ header a > img[alt="한국환경안전연구소"] {
   height: auto !important;
   object-fit: contain !important;
   display: block !important;
+  /* 로고 선명도 보장 */
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* hover: 은은하게 */
@@ -275,11 +306,15 @@ header button:focus-visible {
 
 /* 다크모드 헤더 */
 .dark header {
-  background: rgba(10, 10, 12, 0.76) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
   box-shadow:
     0 1px 0 rgba(255,255,255,0.05) inset,
     0 18px 44px rgba(0,0,0,0.45) !important;
+}
+
+/* 다크모드 배경 레이어 */
+.dark header::before {
+  background: rgba(10, 10, 12, 0.76);
 }
 .dark header::after {
   background: linear-gradient(

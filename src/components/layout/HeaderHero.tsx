@@ -36,7 +36,7 @@ export default function HeaderHero({
         }}
       >
         <img
-          src={isDarkMode ? "/images/logo_horizontal_trans.png" : "/images/logo_horizontal.png"}
+          src={isDarkMode ? "/images/680px_logo_dark.png" : "/images/680px_logo_trans.png"}
           alt="한국환경안전연구소"
           width={200}
           height={48}
@@ -51,7 +51,7 @@ export default function HeaderHero({
           return (
             <div
               key={menu.label}
-              className="relative"
+              className="relative group"
               ref={(el) => {
                 if (el) {
                   menuRefs.current[menu.label] = el;
@@ -59,10 +59,24 @@ export default function HeaderHero({
               }}
               onMouseEnter={() => handleMouseEnter(menu.label)}
               onMouseLeave={handleMouseLeave}
+              style={{ padding: "8px 4px" }}
             >
               {menu.mainPath ? (
                 <Link
                   to={menu.mainPath}
+                  aria-expanded={active}
+                  aria-haspopup="true"
+                  aria-controls="mega-menu-panel"
+                  onMouseEnter={(e) => {
+                    // Prevent parent's onMouseEnter when hovering Link directly
+                    // User intends to navigate, not open menu
+                    e.stopPropagation();
+                  }}
+                  onClick={(e) => {
+                    // Prevent menu opening when user intends to navigate
+                    // Only open menu on hover, not on click
+                    e.stopPropagation();
+                  }}
                   className={[
                     "relative px-4 py-2 rounded-xl text-[15px] font-semibold whitespace-nowrap flex items-center gap-1",
                     "transition-all duration-200",

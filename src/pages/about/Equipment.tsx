@@ -611,43 +611,67 @@ const Equipment = () => {
       </section>
 
       {/* Main Content */}
-      <Section spacing="none" className="pt-10 lg:pt-12">
+      <Section spacing="lg" className="py-12 lg:py-16">
         <Container>
 
         {/* Lab Photos Gallery */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mb-16"
+          transition={{ duration: 0.6 }}
+          className="mb-20"
         >
-          <h2 className="heading-lg text-center mb-12">분석실 현황</h2>
+          <h2 className="text-3xl font-bold text-center mb-3 text-neutral-900 dark:text-neutral-50">분석실 현황</h2>
+          <p className="text-neutral-600 dark:text-neutral-400 text-center mb-10">체계적인 분석 환경과 첨단 시설</p>
+          
+          {/* 규모 통계 블록 */}
+          <div className="max-w-4xl mx-auto mb-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 text-center border border-neutral-200 dark:border-neutral-700 shadow-sm">
+              <div className="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">{Object.keys(labImages).length}</div>
+              <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-1">전문 분석실</div>
+              <div className="text-xs text-neutral-500 dark:text-neutral-400">독립 운영 시설</div>
+            </div>
+            <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 text-center border border-neutral-200 dark:border-neutral-700 shadow-sm">
+              <div className="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">{equipment.length}<span className="text-3xl">+</span></div>
+              <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-1">첨단 분석장비</div>
+              <div className="text-xs text-neutral-500 dark:text-neutral-400">국제 수준 인프라</div>
+            </div>
+            <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 text-center border border-neutral-200 dark:border-neutral-700 shadow-sm">
+              <div className="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">{Object.values(labImages).reduce((sum, imgs) => sum + imgs.length, 0)}<span className="text-3xl">+</span></div>
+              <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-1">시설 이미지</div>
+              <div className="text-xs text-neutral-500 dark:text-neutral-400">실시간 공개</div>
+            </div>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {/* 분석실 카드 그리드 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {Object.entries(labImages).map(([labName, images], index) => (
               <motion.div
                 key={labName}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-                className="bg-white dark:bg-neutral-800 rounded-2xl shadow-soft overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.05 * index }}
+                className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow duration-200 group"
                 onClick={() => {
                   setSelectedCategory(labName);
                   setCurrentImageIndex(0);
                 }}
               >
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-48 overflow-hidden bg-neutral-100 dark:bg-neutral-700">
                   <img
                     src={images[0].src}
                     alt={images[0].alt}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <h3 className="text-xl font-bold mb-1">{labName}</h3>
-                    <p className="text-sm opacity-90">
-                      {images.length}장의 사진
-                    </p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-lg font-bold text-white mb-1">{labName}</h3>
+                    <div className="flex items-center justify-between text-sm">
+                      <p className="text-white/90">
+                        {images.length}장의 사진
+                      </p>
+                      <span className="text-xs text-white/70 group-hover:text-white transition-colors">상세보기 →</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -657,72 +681,106 @@ const Equipment = () => {
 
         {/* Equipment Details */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-16"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-20"
         >
-          <h2 className="heading-lg text-center mb-12">장비 상세 정보</h2>
+          <h2 className="text-3xl font-bold text-center mb-3 text-neutral-900 dark:text-neutral-50">장비 상세 정보</h2>
+          <p className="text-neutral-600 dark:text-neutral-400 text-center mb-10">국제 수준의 분석 장비 데이터베이스</p>
 
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-soft overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white">
-                    <th className="px-6 py-4 text-left font-bold">장비명</th>
-                    <th className="px-6 py-4 text-left font-bold">모델명</th>
-                    <th className="px-6 py-4 text-left font-bold">제조사</th>
-                    <th className="px-6 py-4 text-left font-bold">검사항목</th>
-                    <th className="px-6 py-4 text-center font-bold">이미지</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
-                  {equipment.map((item, index) => (
-                    <motion.tr
-                      key={item.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: 0.05 * index }}
-                      className="hover:bg-neutral-50 dark:hover:bg-neutral-700/50 transition-colors"
-                    >
-                      <td className="px-6 py-4">
-                        <div>
-                          <span className="inline-block px-2 py-1 bg-primary-100 dark:bg-neutral-800 text-primary-600 dark:text-primary-400 text-xs rounded-full mb-1">
-                            {item.category}
-                          </span>
-                          <div className="font-bold text-neutral-900 dark:text-neutral-100">
-                            {item.name}
+          {/* 장비 현황 요약 */}
+          <div className="max-w-5xl mx-auto mb-10 bg-white dark:bg-neutral-800 rounded-xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-sm">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <div className="text-4xl font-bold text-neutral-900 dark:text-neutral-100 mb-1">{equipment.length}</div>
+                <div className="text-xs font-medium text-neutral-600 dark:text-neutral-400">총 장비 수</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-neutral-900 dark:text-neutral-100 mb-1">{[...new Set(equipment.map(e => e.category))].length}</div>
+                <div className="text-xs font-medium text-neutral-600 dark:text-neutral-400">분석 분야</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-neutral-900 dark:text-neutral-100 mb-1">{[...new Set(equipment.map(e => e.manufacturer))].length}<span className="text-2xl">+</span></div>
+                <div className="text-xs font-medium text-neutral-600 dark:text-neutral-400">제조사 브랜드</div>
+              </div>
+              <div>
+                <div className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-1">ISO 17025</div>
+                <div className="text-xs font-medium text-neutral-600 dark:text-neutral-400">국제 인증 기준</div>
+              </div>
+            </div>
+          </div>
+
+          {/* 카드형 장비 리스트 */}
+          <div className="space-y-12 max-w-6xl mx-auto">
+            {[...new Set(equipment.map(e => e.category))].map((category, catIndex) => (
+              <div key={category}>
+                {/* 카테고리 구분선 */}
+                {catIndex > 0 && <div className="border-t border-neutral-200 dark:border-neutral-700 my-10" />}
+                
+                <div className="mb-5">
+                  <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+                    <span className="w-1 h-5 bg-blue-600 rounded-full"></span>
+                    {category}
+                    <span className="text-sm font-normal text-neutral-500 dark:text-neutral-400 ml-2">
+                      ({equipment.filter(e => e.category === category).length}개 장비)
+                    </span>
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  {equipment
+                    .filter(item => item.category === category)
+                    .map((item, index) => (
+                      <motion.div
+                        key={item.name + index}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.02 * index }}
+                        className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200 border border-neutral-200 dark:border-neutral-700"
+                      >
+                        <div className="flex gap-4">
+                          {/* 장비 이미지 */}
+                          <div className="flex-shrink-0">
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="w-20 h-20 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity border border-neutral-200 dark:border-neutral-600"
+                              onClick={() => {
+                                setSelectedEquipmentImage(item.image);
+                                setImageLoading(true);
+                                setImageError(false);
+                              }}
+                            />
+                          </div>
+
+                          {/* 장비 정보 */}
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-2 leading-tight">
+                              {item.name}
+                            </h4>
+                            
+                            <div className="space-y-1 text-sm">
+                              <div className="flex items-start gap-2">
+                                <span className="text-neutral-500 dark:text-neutral-400 text-xs min-w-[50px]">모델명</span>
+                                <span className="text-neutral-700 dark:text-neutral-300 text-xs">{item.model}</span>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <span className="text-neutral-500 dark:text-neutral-400 text-xs min-w-[50px]">제조사</span>
+                                <span className="text-neutral-700 dark:text-neutral-300 text-xs">{item.manufacturer}</span>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <span className="text-neutral-500 dark:text-neutral-400 text-xs min-w-[50px]">검사항목</span>
+                                <span className="text-blue-600 dark:text-blue-400 font-medium text-xs">{item.testItems}</span>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </td>
-                      <td className="px-6 py-4 text-neutral-700 dark:text-neutral-300">
-                        {item.model}
-                      </td>
-                      <td className="px-6 py-4 text-neutral-700 dark:text-neutral-300">
-                        {item.manufacturer}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-neutral-600 dark:text-neutral-400">
-                        {item.testItems}
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        <div className="flex items-center justify-center">
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            className="w-16 h-16 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
-                            onClick={() => {
-                              setSelectedEquipmentImage(item.image);
-                              setImageLoading(true);
-                              setImageError(false);
-                            }}
-                          />
-                        </div>
-                      </td>
-                    </motion.tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      </motion.div>
+                    ))}
+                </div>
+              </div>
+            ))}
           </div>
         </motion.div>
 
