@@ -18,14 +18,14 @@
     /* ---------- Semantic RGB (Tailwind friendly) ---------- */
     /* light */
     --semantic-background: 255 255 255;
-    --semantic-surface: 250 250 250;
-    --semantic-foreground: 23 23 23;
-    --semantic-muted: 82 82 82;
-    --semantic-border: 229 229 229;
+    --semantic-surface: 249 250 251;
+    --semantic-foreground: 17 24 39;
+    --semantic-muted: 107 114 128;
+    --semantic-border: 229 231 235;
 
-    /* brand */
-    --brand-rgb: 0 105 255; /* 연구소 느낌의 절제된 블루 */
-    --ink-rgb: 15 23 42;    /* 딥 네이비(고급 연구소 톤) */
+    /* brand - 기업형 블루 (신뢰감) */
+    --brand-rgb: 37 99 235; /* 절제된 기업 블루 */
+    --ink-rgb: 17 24 39;    /* 다크 그레이(전문성) */
 
     /* header */
     /* Default (mobile) token. Breakpoint overrides below. */
@@ -131,7 +131,7 @@
    - header 태그에 직접 적용(셀렉터 미스 방지)
    ========================================================= */
 
-  /* 헤더 베이스 */
+  /* 헤더 베이스 - 기업형 프리미엄 */
   header {
     /* position/top/z-index delegated to component Tailwind classes to avoid !important conflicts */
 
@@ -139,18 +139,19 @@
     min-height: var(--app-header-h, 72px);
     display: block;
 
-  background: rgba(255, 255, 255, 0.92) !important;
-  backdrop-filter: blur(10px) saturate(160%);
-  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
 
-  /* hairline + dual shadow */
-  border-bottom: 1px solid rgba(var(--ink-rgb), 0.08) !important;
+  /* 기업형 세련된 보더 + 그림자 */
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08) !important;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.70) inset,
-    0 12px 30px rgba(var(--ink-rgb), 0.08) !important;
+    0 1px 0 rgba(255, 255, 255, 0.80) inset,
+    0 4px 16px rgba(17, 24, 39, 0.06),
+    0 1px 3px rgba(17, 24, 39, 0.04) !important;
 }
 
-/* 헤더 하단 얇은 브랜드 라인 */
+/* 헤더 하단 얇은 브랜드 라인 (절제된 기업 블루) */
 header::after {
   content: "";
   position: absolute;
@@ -161,8 +162,8 @@ header::after {
   background: linear-gradient(
     90deg,
     rgba(0,0,0,0) 0%,
-    rgba(var(--brand-rgb), 0.55) 20%,
-    rgba(var(--brand-rgb), 0.12) 55%,
+    rgba(var(--brand-rgb), 0.45) 25%,
+    rgba(var(--brand-rgb), 0.10) 60%,
     rgba(0,0,0,0) 100%
   );
   pointer-events: none;

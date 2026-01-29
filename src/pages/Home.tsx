@@ -131,191 +131,176 @@ const Home = () => {
         />
       )}
 
-      {/* Hero Section - 현대적이고 임팩트 있게 개선 */}
-      {/* ✅ FIX: header 높이 제외 + 레이어 확정 + 상단 scrim */}
+      {/* Hero Section - 기업형 프리미엄 디자인 */}
       <section
         data-has-hero
-        className="relative z-0 pt-header flex flex-col items-center justify-start md:justify-center overflow-visible pb-16 sm:pb-20"
+        className="relative z-0 pt-header flex flex-col items-center justify-center overflow-visible pb-12 sm:pb-16"
         style={{
           minHeight: "calc(100vh - var(--app-header-h))",
         }}
       >
-        {/* 동적인 배경 그라데이션 */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary-600 via-primary-700 to-blue-800 dark:from-primary-700 dark:via-primary-800 dark:to-blue-900">
-          <motion.div
-            className="absolute inset-0 z-0 opacity-20"
-            animate={{
-              background: [
-                "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1), transparent 50%)",
-                "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1), transparent 50%)",
-                "radial-gradient(circle at 40% 80%, rgba(255,255,255,0.1), transparent 50%)",
-                "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1), transparent 50%)",
-              ],
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          />
-          <motion.div
-            aria-hidden="true"
-            className="absolute inset-0 z-0 opacity-10 pointer-events-none transform-gpu will-change-transform"
-            style={{ contain: 'paint' }}
-            animate={{
-              background: [
-                "linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent)",
-                "linear-gradient(135deg, transparent, rgba(255,255,255,0.05), transparent)",
-                "linear-gradient(225deg, transparent, rgba(255,255,255,0.05), transparent)",
-                "linear-gradient(315deg, transparent, rgba(255,255,255,0.05), transparent)",
-                "linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent)",
-              ],
-            }}
-            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-          />
+        {/* 배경 그라데이션 - 기업형 블루 */}
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 dark:from-blue-800 dark:via-blue-900 dark:to-indigo-950">
+          {/* 미세한 패턴 오버레이 */}
+          <div className="absolute inset-0 opacity-5" style={{
+            backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+            backgroundSize: '40px 40px'
+          }}></div>
         </div>
 
-        {/* ✅ 헤더/텍스트 가독성용 상단 scrim (프리미엄 톤) */}
+        {/* 상단 스크림 (가독성) */}
         <div
-          className="pointer-events-none absolute inset-x-0 top-header z-0 bg-gradient-to-b from-black/20 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-header z-0 bg-gradient-to-b from-black/15 to-transparent"
             style={{ height: "var(--app-header-h, 84px)" }}
         />
 
-        {/* 메인 컨텐츠 + Stats: 모바일은 세로 스택, md 이상은 좌(A)/우(B) 가로 분할 */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12 md:pt-16 lg:pt-20 pb-16 md:pb-20 lg:pb-24">
-          <div className="flex flex-col items-center gap-10 md:gap-14 lg:gap-16">
-            {/* A: Hero top (왼쪽 영역, md 이상에서 확장) */}
+        {/* 메인 컨텐츠 */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-8 md:pt-12 pb-12">
+          <div className="max-w-5xl mx-auto text-center">
+            
+            {/* 상단 라벨 */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center text-white max-w-6xl mx-auto md:mx-0 md:flex-1"
+              transition={{ duration: 0.6 }}
+              className="mb-6"
             >
-              {/* 상단 문구 - 더 절제되고 보조적으로 */}
-              <motion.span
-                className="inline-block text-sm md:text-base tracking-wider font-medium text-white/75 mb-6 md:mb-7"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-              >
-                기준으로 선택되는 신뢰
-              </motion.span>
+              <span className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white/90 text-sm font-semibold tracking-wide">
+                19년 전통의 공인 시험·검사기관
+              </span>
+            </motion.div>
 
-              {/* 메인 타이틀 - pill 배경을 더 은은하게 */}
-              <motion.h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-tight"
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
+            {/* 메인 타이틀 */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.7 }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight"
+            >
+              한국환경안전연구소
+            </motion.h1>
+
+            {/* 서브 타이틀 */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="text-lg sm:text-xl md:text-2xl text-white/95 mb-10 font-light leading-relaxed max-w-3xl mx-auto"
+            >
+              산업보건 · 먹는물 · 석면 · 실내공기질 분야<br className="hidden sm:block" />
+              <span className="font-semibold">최고 수준의 분석 서비스</span>를 제공합니다
+            </motion.p>
+
+            {/* 신뢰 배지 3개 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="flex flex-wrap justify-center gap-4 mb-12"
+            >
+              <div className="flex items-center gap-2 px-5 py-3 bg-white/15 backdrop-blur-md border border-white/25 rounded-xl shadow-lg">
+                <CheckCircle className="w-5 h-5 text-white" />
+                <span className="text-white font-semibold text-sm sm:text-base">지정기관</span>
+              </div>
+              <div className="flex items-center gap-2 px-5 py-3 bg-white/15 backdrop-blur-md border border-white/25 rounded-xl shadow-lg">
+                <Award className="w-5 h-5 text-white" />
+                <span className="text-white font-semibold text-sm sm:text-base">평가기관</span>
+              </div>
+              <div className="flex items-center gap-2 px-5 py-3 bg-white/15 backdrop-blur-md border border-white/25 rounded-xl shadow-lg">
+                <TrendingUp className="w-5 h-5 text-white" />
+                <span className="text-white font-semibold text-sm sm:text-base">정도관리</span>
+              </div>
+            </motion.div>
+
+            {/* CTA 버튼 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+            >
+              <motion.a
+                href="tel:043-237-7824"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="w-full sm:w-auto"
               >
-                <motion.span
-                  className="relative z-10 mt-4 md:mt-6 inline-block px-8 sm:px-10 md:px-12 lg:px-14 py-3 md:py-4 rounded-2xl text-white font-extrabold bg-white/8 backdrop-blur-md border border-white/15 shadow-xl"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.8 }}
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto min-w-[240px] h-14 text-base font-bold bg-white text-blue-700 hover:bg-blue-50 shadow-xl hover:shadow-2xl transition-all duration-200"
                 >
-                  한국환경안전연구소
-                </motion.span>
-              </motion.h1>
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                  전화 상담 043-237-7824
+                </Button>
+              </motion.a>
 
-              {/* 서브 텍스트 - 줄간격과 자간 개선 */}
-              <motion.p
-                className="hidden sm:block text-lg md:text-xl text-white/80 mb-12 md:mb-14 max-w-3xl mx-auto leading-[1.75] tracking-wide font-light"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
+              <motion.div 
+                whileHover={{ scale: 1.03 }} 
+                whileTap={{ scale: 0.97 }} 
+                className="w-full sm:w-auto"
               >
-                산업보건 · 먹는물 · 석면 · 실내공기질 분야에서 최고 수준의 분석 서비스를
-                <br className="hidden sm:block" />
-                제공합니다.
-              </motion.p>
-
-              {/* CTA 버튼 - 덜 강조, 더 정돈된 느낌 */}
-              <motion.div
-                className="flex flex-col sm:flex-row items-center justify-center gap-5 md:gap-5 mb-16 md:mb-20 mt-6 md:mt-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.6 }}
-              >
-                <motion.a
-                  href="tel:043-237-7824"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full sm:w-auto"
-                >
+                <Link to="/about/greeting" className="w-full sm:w-auto">
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto min-w-[220px] md:min-w-[240px] h-12 md:h-14 text-base md:text-lg font-semibold bg-white/40 border border-white/70 text-white hover:bg-white/50 backdrop-blur-sm transition-all duration-200 shadow-md"
+                    variant="outline"
+                    className="w-full sm:w-auto min-w-[240px] h-14 text-base font-bold border-2 border-white/60 text-white hover:bg-white/10 hover:border-white transition-all duration-200"
                   >
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
-                    전화 상담: 043-237-7824
+                    회사 소개 보기
+                    <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
-                </motion.a>
-
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
-                  <Link to="/about/greeting" className="w-full sm:w-auto">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="w-full sm:w-auto min-w-[220px] md:min-w-[240px] h-12 md:h-14 text-base md:text-lg font-semibold border border-white/60 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm transition-all duration-200"
-                    >
-                      회사 소개 보기
-                      <ArrowRight className="w-5 h-5 ml-2" />
-                    </Button>
-                  </Link>
-                </motion.div>
+                </Link>
               </motion.div>
             </motion.div>
 
-            {/* B: Stats (오른쪽 영역) - 모바일 중앙 정렬, lg에서 4열 고정 */}
-            <div className="w-full mx-auto md:w-auto lg:max-w-[900px] mt-8 md:mt-0">
-              <div className="overflow-x-auto md:overflow-visible">
-                <motion.div
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-items-center mx-auto gap-5 md:gap-6 w-full"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.0, duration: 0.6 }}
-                >
-                  {statsFixed.map((stat, index) => {
-                    const IconComponent = stat.icon as React.ComponentType<{ className?: string }>;
-                    const count = statCounts[index];
-                    return (
-                      <motion.div
-                        key={index}
-                        className="bg-white/10 backdrop-blur-md rounded-2xl p-7 md:p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 group w-full"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1.0 + index * 0.1 }}
-                        whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                      >
-                        <div className="flex items-center justify-center mb-4">
-                          <IconComponent className="w-10 h-10 md:w-12 md:h-12 text-white/80 group-hover:text-white transition-colors duration-300" />
-                        </div>
-                        <div className="text-4xl md:text-5xl font-bold text-white mb-2">
-                          {stat.value.includes("+") ? `${count}+` : stat.value.includes("년") ? `${count}년` : count}
-                        </div>
-                        <div className="text-base md:text-lg text-white/85 font-medium">{stat.label}</div>
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
-              </div>
-            </div>
+            {/* 통계 카드 - 4개 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.0, duration: 0.7 }}
+              className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto"
+            >
+              {statsFixed.map((stat, index) => {
+                const IconComponent = stat.icon as React.ComponentType<{ className?: string }>;
+                const count = statCounts[index];
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 1.1 + index * 0.1, duration: 0.4 }}
+                    whileHover={{ scale: 1.05, y: -4 }}
+                    className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300"
+                  >
+                    <div className="flex items-center justify-center mb-3">
+                      <IconComponent className="w-8 h-8 md:w-10 md:h-10 text-white/90" />
+                    </div>
+                    <div className="text-3xl md:text-4xl font-extrabold text-white mb-1">
+                      {stat.value.includes("+") ? `${count}+` : stat.value.includes("년") ? `${count}년` : count}
+                    </div>
+                    <div className="text-sm md:text-base text-white/90 font-medium">{stat.label}</div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
           </div>
         </div>
 
-        {/* 스크롤 인디케이터 - 개선 */}
+        {/* 스크롤 인디케이터 */}
         <motion.div
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
         >
-          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2 backdrop-blur-sm bg-white/5">
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2 backdrop-blur-sm bg-white/5">
             <motion.div
-              className="w-1 h-2 bg-white/60 rounded-full"
+              className="w-1 h-2 bg-white/70 rounded-full"
               animate={{ y: [0, 12, 0] }}
               transition={{
                 repeat: Infinity,
@@ -327,8 +312,8 @@ const Home = () => {
         </motion.div>
       </section>
 
-      {/* Services Section - 6개 카드 레이아웃 */}
-      <section className="py-20 bg-white dark:bg-neutral-900">
+      {/* Services Section - 기업형 깔끔한 카드 레이아웃 */}
+      <section className="py-24 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -337,21 +322,20 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-neutral-900 dark:text-white">
-              주요 서비스
+            <span className="inline-block px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-semibold mb-4">
+              SERVICES
+            </span>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-5 text-neutral-900 dark:text-white">
+              전문 시험·검사 서비스
             </h2>
-            <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-              한국환경안전연구소가 제공하는
-              <br className="hidden sm:block" />
-              전문적이고 신뢰할 수 있는 서비스입니다
+            <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto leading-relaxed">
+              산업보건부터 환경분야까지, 각 분야 전문가가 제공하는<br className="hidden sm:block" />
+              정확하고 신속한 분석 서비스
             </p>
           </motion.div>
 
-          {/* 5개 서비스 카드 그리드 */}
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
-            style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}
-          >
+          {/* 서비스 카드 그리드 - 3열 고정 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
             {SERVICES.map((service, index) => {
               const IconComponent = service.icon as React.ComponentType<{ className?: string }>;
               return (
@@ -360,42 +344,40 @@ const Home = () => {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  transition={{ delay: index * 0.08, duration: 0.5 }}
                 >
-                  <Link to={service.path} className="block group">
-                    <div className="relative h-full bg-white dark:bg-neutral-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-neutral-100 dark:border-neutral-700 overflow-hidden">
-                      {/* 호버 시 배경 그라데이션 */}
+                  <Link to={service.path} className="block group h-full">
+                    <div className="relative h-full bg-white dark:bg-neutral-800 rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-300 border border-neutral-200 dark:border-neutral-700 overflow-hidden">
+                      
+                      {/* 호버 배경 */}
                       <div
-                        className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
+                        className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-300`}
                       ></div>
 
                       {/* 아이콘 */}
-                      <div className="relative z-10 mb-6">
+                      <div className="relative z-10 mb-5">
                         <div
-                          className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
+                          className={`w-16 h-16 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white shadow-md transform group-hover:scale-105 transition-transform duration-300`}
                         >
-                          <IconComponent className="w-8 h-8" />
+                          <IconComponent className="w-7 h-7" />
                         </div>
                       </div>
 
                       {/* 타이틀 */}
-                      <h3 className="relative z-10 text-2xl font-bold mb-4 text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                      <h3 className="relative z-10 text-xl font-bold mb-3 text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                         {service.title}
                       </h3>
 
                       {/* 설명 */}
-                      <p className="relative z-10 text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
+                      <p className="relative z-10 text-neutral-600 dark:text-neutral-400 leading-relaxed mb-5 text-sm">
                         {service.description}
                       </p>
 
-                      {/* 자세히 보기 링크 */}
-                      <div className="relative z-10 flex items-center text-blue-600 dark:text-blue-400 font-semibold group-hover:translate-x-2 transition-transform duration-300">
+                      {/* 자세히 보기 */}
+                      <div className="relative z-10 flex items-center text-blue-600 dark:text-blue-400 font-semibold text-sm group-hover:translate-x-1 transition-transform duration-300">
                         자세히 보기
-                        <ChevronRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+                        <ChevronRight className="w-4 h-4 ml-1" />
                       </div>
-
-                      {/* 장식 요소 */}
-                      <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-gradient-to-br from-blue-50 to-transparent dark:from-blue-900/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
                   </Link>
                 </motion.div>
@@ -405,8 +387,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Why Choose Us Section - 간결하게 3개로 */}
-      <section className="py-20 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-800">
+      {/* Why Choose Us Section - 기업형 3블록 */}
+      <section className="py-24 bg-white dark:bg-neutral-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -415,11 +397,15 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-neutral-900 dark:text-white">
-              KESRI를 선택하는 이유
+            <span className="inline-block px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-semibold mb-4">
+              WHY KESRI
+            </span>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-5 text-neutral-900 dark:text-white">
+              차별화된 경쟁력
             </h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-              19년간의 전문성과 체계적인 품질관리로 고객의 신뢰를 얻고 있습니다
+              19년간의 전문성과 체계적인 품질관리로<br className="hidden sm:block" />
+              고객의 신뢰를 얻고 있습니다
             </p>
           </motion.div>
 
@@ -429,15 +415,15 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className="bg-white dark:bg-neutral-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 text-center group"
+              className="bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-800 dark:to-neutral-800 rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 hover:shadow-xl transition-shadow duration-300 text-center"
             >
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <Award className="w-10 h-10 text-white" />
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                <Award className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
+              <h3 className="text-xl font-bold mb-3 text-neutral-900 dark:text-white">
                 품질관리
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm">
                 국제적으로 인정받는 품질관리 시스템 운영
               </p>
             </motion.div>
@@ -447,16 +433,16 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="bg-white dark:bg-neutral-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 text-center group"
+              className="bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-800 dark:to-neutral-800 rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 hover:shadow-xl transition-shadow duration-300 text-center"
             >
-              <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <Clock className="w-10 h-10 text-white" />
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                <Clock className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
+              <h3 className="text-xl font-bold mb-3 text-neutral-900 dark:text-white">
                 신속한 검사
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                체계적인 프로세스와 최신 장비로 평균 3-5일 내 정확한 결과 제공
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm">
+                최신 장비와 프로세스로 평균 3-5일 내 결과 제공
               </p>
             </motion.div>
 
@@ -465,16 +451,16 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="bg-white dark:bg-neutral-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 text-center group"
+              className="bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-800 dark:to-neutral-800 rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 hover:shadow-xl transition-shadow duration-300 text-center"
             >
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <Users className="w-10 h-10 text-white" />
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                <Users className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
+              <h3 className="text-xl font-bold mb-3 text-neutral-900 dark:text-white">
                 전문가 컨설팅
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                검사 결과 해석부터 개선방안 제시까지 맞춤형 컨설팅 서비스
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm">
+                검사 결과 해석부터 개선방안까지 맞춤형 상담
               </p>
             </motion.div>
           </div>

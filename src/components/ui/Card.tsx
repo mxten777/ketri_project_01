@@ -9,16 +9,16 @@ import { cn } from "@/utils/cn";
 
 const cardVariants = cva(
   [
-    "rounded-lg transition-all duration-base",
-    "border border-[var(--color-border)]",
+    "rounded-xl transition-all duration-300",
+    "border border-neutral-200 dark:border-neutral-700",
   ],
   {
     variants: {
       variant: {
-        default: "bg-[var(--color-bg-primary)]",
-        elevated: "bg-[var(--color-bg-primary)] shadow-md",
+        default: "bg-white dark:bg-neutral-800",
+        elevated: "bg-white dark:bg-neutral-800 shadow-lg",
         outlined: "bg-transparent border-2",
-        filled: "bg-[var(--color-bg-secondary)]",
+        filled: "bg-neutral-50 dark:bg-neutral-800",
       },
       padding: {
         none: "p-0",
@@ -28,8 +28,8 @@ const cardVariants = cva(
       },
       hover: {
         none: "",
-        lift: "hover:shadow-lg hover:-translate-y-1 cursor-pointer",
-        glow: "hover:shadow-xl hover:border-brand-500 cursor-pointer",
+        lift: "hover:shadow-2xl hover:-translate-y-1 cursor-pointer",
+        glow: "hover:shadow-xl hover:border-blue-500 dark:hover:border-blue-400 cursor-pointer",
       },
     },
     defaultVariants: {

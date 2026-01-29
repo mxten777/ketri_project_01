@@ -10,17 +10,17 @@
        COLOR TOKENS - Default Theme
        ======================================== */
 
-    /* Primary/Brand Colors */
-    --color-brand-50: #e6f3ff;
-    --color-brand-100: #cce7ff;
-    --color-brand-200: #99ceff;
-    --color-brand-300: #66b5ff;
-    --color-brand-400: #339cff;
-    --color-brand-500: #0083ff;
-    --color-brand-600: #0069cc;
-    --color-brand-700: #004f99;
-    --color-brand-800: #003566;
-    --color-brand-900: #001a33;
+    /* Primary/Brand Colors - 기업형 블루 (신뢰감 강화) */
+    --color-brand-50: #eff6ff;
+    --color-brand-100: #dbeafe;
+    --color-brand-200: #bfdbfe;
+    --color-brand-300: #93c5fd;
+    --color-brand-400: #60a5fa;
+    --color-brand-500: #3b82f6;
+    --color-brand-600: #2563eb;
+    --color-brand-700: #1d4ed8;
+    --color-brand-800: #1e40af;
+    --color-brand-900: #1e3a8a;
 
     /* Neutral Colors */
     --color-neutral-50: #fafafa;

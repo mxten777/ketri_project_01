@@ -41,14 +41,14 @@ const Button = ({
   const baseStyles =
     "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap";
 
-  // Variant styles - Figma Dev Mode 기준
+  // Variant styles - 기업형 스타일
   const variants = {
     primary:
-      "bg-primary-500 text-white border-2 border-white hover:bg-primary-600 active:bg-primary-700 focus:ring-primary-500 shadow-xs font-semibold",
+      "bg-blue-600 text-white border-2 border-blue-600 hover:bg-blue-700 hover:border-blue-700 active:bg-blue-800 focus:ring-blue-500 shadow-md hover:shadow-lg font-bold",
     secondary:
-      "bg-white text-primary-500 border-2 border-primary-500 hover:bg-primary-50 active:bg-primary-100 focus:ring-primary-500 font-semibold",
+      "bg-white text-blue-700 border-2 border-blue-600 hover:bg-blue-50 active:bg-blue-100 focus:ring-blue-500 shadow-sm hover:shadow-md font-bold",
     outline:
-      "bg-transparent text-primary-500 border-2 border-primary-500 hover:bg-primary-50 active:bg-primary-100 focus:ring-primary-500 font-medium",
+      "bg-transparent text-blue-700 border-2 border-blue-600 hover:bg-blue-50 active:bg-blue-100 focus:ring-blue-500 font-semibold",
     ghost:
       "bg-transparent text-neutral-700 hover:bg-neutral-100 active:bg-neutral-200 focus:ring-neutral-500 font-medium",
   };
