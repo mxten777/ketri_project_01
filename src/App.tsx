@@ -17,6 +17,7 @@ import Certificates from "./pages/about/Certificates";
 
 // Service pages
 import IndustrialHealth from "./pages/services/IndustrialHealth";
+import AnalysisService from "./pages/services/industrial-health/AnalysisService";
 import WaterTesting from "./pages/services/WaterTesting";
 import DialysisWater from "./pages/services/DialysisWater";
 import IndoorAirQuality from "./pages/services/IndoorAirQuality";
@@ -73,6 +74,7 @@ export default function App() {
 
         {/* 서비스 */}
         <Route path="/services/industrial-health" element={<IndustrialHealth />} />
+        <Route path="/services/industrial-health/analysis-service" element={<AnalysisService />} />
         <Route path="/services/water-testing" element={<WaterTesting />} />
         <Route path="/services/dialysis-water" element={<DialysisWater />} />
         <Route path="/services/indoor-air-quality" element={<IndoorAirQuality />} />

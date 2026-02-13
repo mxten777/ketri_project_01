@@ -69,13 +69,15 @@ const IndustrialHealth = () => {
               <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">세부 서비스</p>
               <nav className="space-y-2">
                 {menuItems.map((item) => {
-                  const hash = item.path.includes('#') ? `#${item.path.split('#')[1]}` : item.path;
-                  const targetId = hash.slice(1);
+                  const isHashLink = item.path.includes('#');
+                  const hash = isHashLink ? `#${item.path.split('#')[1]}` : item.path;
+                  const targetId = isHashLink ? hash.slice(1) : '';
+                  
                   return (
                     <a
-                      key={hash}
+                      key={item.path}
                       href={hash}
-                      onClick={(e) => handleSectionClick(e, targetId)}
+                      onClick={isHashLink ? (e) => handleSectionClick(e, targetId) : undefined}
                       className="block px-4 py-3 rounded-lg text-sm hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                     >
                       {item.label}
