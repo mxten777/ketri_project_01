@@ -60,8 +60,8 @@ export const MENU_ITEMS: MenuGroup[] = [
     items: [
       { label: "작업환경측정", path: "/services/industrial-health#work-environment", description: "작업장 유해인자 측정" },
       { label: "위험성평가", path: "/services/industrial-health#risk-assessment", description: "리스크 식별 및 개선안" },
-      { label: "근골격계유해요인조사", path: "/services/industrial-health#musculoskeletal", description: "인체공학적 평가" },
       { label: "화학물질관리", path: "/services/industrial-health#chemical-management", description: "유해물질 관리 및 SDS" },
+      { label: "근골격계유해요인조사", path: "/services/industrial-health#musculoskeletal", description: "인체공학적 평가" },
       { label: "분석 수탁 서비스", path: "/services/industrial-health/analysis-service", description: "전문 분석 수탁 서비스" },
       { label: "서비스 프로세스", path: "/services/industrial-health#service-process", description: "절차 및 의뢰 흐름" },
     ],

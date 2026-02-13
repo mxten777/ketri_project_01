@@ -12,7 +12,7 @@ const AnalysisService = () => {
         <div className="container-custom">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">분석 수탁 서비스</h1>
           <p className="text-lg lg:text-xl opacity-95 max-w-3xl">
-            다년간의 경험과 축적된 노하우를 바탕으로 정확하고 신뢰성 있는 분석수탁 서비스를 제공합니다
+            다년간의 경험과 축적된 노하우를 바탕으로 정확하고 신뢰성 있는 분석수탁 서비스를 제공합니다.
           </p>
         </div>
       </section>
@@ -29,7 +29,6 @@ const AnalysisService = () => {
                 <nav className="space-y-1">
                   {[
                     { label: "서비스 개요", href: "#overview" },
-                    { label: "주요 역량", href: "#capabilities" },
                     { label: "수탁 항목", href: "#items" },
                   ].map((item) => (
                     <a
@@ -48,63 +47,32 @@ const AnalysisService = () => {
             <div className="lg:col-span-3 space-y-10">
               {/* 서비스 개요 */}
               <section id="overview" className="bg-white dark:bg-neutral-800 rounded-xl p-8 shadow-sm border border-neutral-200 dark:border-neutral-700">
-                <h2 className="text-2xl font-bold mb-6 text-neutral-900 dark:text-neutral-50">분석 수탁 서비스 개요</h2>
+                <h2 className="text-2xl font-bold mb-6 text-neutral-900 dark:text-neutral-50">분석 수탁 서비스</h2>
                 <div className="prose dark:prose-invert max-w-none">
-                  <p className="text-base text-neutral-700 dark:text-neutral-300 leading-relaxed mb-6">
-                    한국환경안전연구소는 다년간의 경험과 축적된 노하우를 바탕으로 
-                    정확하고 신뢰성 있는 분석 수탁 서비스를 제공합니다. 
-                    작업환경측정기관 및 연구기관을 대상으로 전문적인 분석 서비스를 통해 
-                    고객의 업무 효율성을 향상시키고 있습니다.
-                  </p>
-                  
                   <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 rounded-xl p-6">
-                    <h3 className="text-xl font-bold text-purple-700 dark:text-purple-400 mb-4 flex items-center">
+                    <h3 className="text-lg font-bold text-purple-700 dark:text-purple-400 mb-4 flex items-center">
                       <span className="text-3xl mr-3">🔬</span>
                       전문성과 신뢰성
                     </h3>
-                    <p className="text-neutral-700 dark:text-neutral-300 mb-3">
-                      최신 분석 장비와 숙련된 전문 인력을 통해 정확하고 신속한 분석 결과를 제공합니다.
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              {/* 주요 역량 */}
-              <section id="capabilities" className="bg-white dark:bg-neutral-800 rounded-xl p-8 shadow-sm border border-neutral-200 dark:border-neutral-700">
-                <h2 className="text-2xl font-bold mb-6 text-neutral-900 dark:text-neutral-50">주요 역량</h2>
-                
-                <div className="grid md:grid-cols-2 gap-5 mb-6">
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border-2 border-green-200 dark:border-green-800">
-                    <div className="flex items-center mb-4">
-                      <span className="text-4xl mr-3">✅</span>
-                      <h3 className="font-bold text-lg text-green-700 dark:text-green-400">자율정도관리</h3>
-                    </div>
                     <p className="text-neutral-700 dark:text-neutral-300">
-                      매년 자율정도관리 전 항목 적합 인정
+                      ◆ 다년간의 경험과 축적된 노하우를 바탕으로 정확하고 신뢰성 있는 분석수탁 서비스를 제공합니다.
                     </p>
                   </div>
-
-                  <div className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-6 border-2 border-blue-200 dark:border-blue-800">
-                    <div className="flex items-center mb-4">
-                      <span className="text-4xl mr-3">🤝</span>
-                      <h3 className="font-bold text-lg text-blue-700 dark:text-blue-400">수탁 계약</h3>
-                    </div>
-                    <p className="text-neutral-700 dark:text-neutral-300">
-                      현재 20여 개의 기관과 수탁 계약 체결하여 업무 수행
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl p-6 border-2 border-indigo-200 dark:border-indigo-800">
-                  <div className="flex items-start">
-                    <span className="text-4xl mr-4 mt-1">🔧</span>
-                    <div>
-                      <h3 className="font-bold text-lg text-indigo-700 dark:text-indigo-400 mb-3">첨단 분석 장비</h3>
-                      <p className="text-neutral-700 dark:text-neutral-300">
-                        기본 장비 외 <strong>GC-MS, ICP-MS, LC-MS/MS, FT-IR</strong> 등 분석 장비 다수 보유
-                      </p>
-                    </div>
-                  </div>
+                  
+                  <ul className="mt-6 space-y-3">
+                    <li className="flex items-start text-neutral-700 dark:text-neutral-300">
+                      <span className="mr-3 mt-1 text-purple-600 dark:text-purple-400">-</span>
+                      <span>매년 자율정도관리 전 항목 적합</span>
+                    </li>
+                    <li className="flex items-start text-neutral-700 dark:text-neutral-300">
+                      <span className="mr-3 mt-1 text-purple-600 dark:text-purple-400">-</span>
+                      <span>현재 20여 개의 기관과 수탁 계약 체결하여 업무 수행</span>
+                    </li>
+                    <li className="flex items-start text-neutral-700 dark:text-neutral-300">
+                      <span className="mr-3 mt-1 text-purple-600 dark:text-purple-400">-</span>
+                      <span>기본 장비 외 GC-MS, ICP-MS, LC-MS/MS, FT-IR 등 분석 장비 다수 보유</span>
+                    </li>
+                  </ul>
                 </div>
               </section>
 
@@ -133,7 +101,7 @@ const AnalysisService = () => {
                     <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 p-4 border-b-2 border-purple-200 dark:border-purple-800">
                       <h3 className="text-xl font-bold text-purple-700 dark:text-purple-400 flex items-center gap-2">
                         <span className="text-2xl">🔬</span>
-                        분석수행 물질 리스트 (총 144개 항목)
+                        분석수행 물질 리스트 (총 146개 항목)
                       </h3>
                       <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">
                         💡 분석수행 물질 외에도 별도 협의 후 분석 가능합니다.
@@ -142,158 +110,152 @@ const AnalysisService = () => {
                     <div className="p-6 bg-white dark:bg-neutral-800">
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                         {[
-                          "대사항목들(Aldehydes)",
-                          "포름알데히드(Formaldehyde)",
+                          "아크릴아미드(Acrylamide)",
+                          "무수초산(Acetic anhydride)",
+                          "니트로메탄(Nitromethane)",
+                          "산화에틸렌(Ethylene Oxide)",
+                          "이황화탄소(Carbon disulfide)",
+                          "황산디메틸(Dimethyl sulfate)",
+                          "다환방향족탄화수소(PAHs)",
+                          "프탈릭언하이드라이드(Phthalic anhydride)",
+                          "1,6-헥사메틸렌디이소시아네이트(1,6-Hexamethylene Diisocyanate)",
+                          "디에탄올아민(Diethanolamine)",
+                          "디에틸렌트리아민(Diethylenetriamine)",
+                          "디하이드록시벤젠(Dihydroybenzene)",
+                          "말레산언하이드라이드(무수말레산)(Maleicanhydride)",
+                          "메틸렌디(비스)페닐디이소시아네이트(4,4'-Methylenedi(bis)phenyldiisocyanate)",
                           "아세트알데히드(Acetaldehyde)",
-                          "프로피온알데히드(Propane Oxide)",
-                          "뷰티르알데히드(Butyraldehyde)",
-                          "발레르알데히드(Valeraldehyde)",
-                          "대페놀항목들(2-Alyin)",
-                          "1,2-프로필렌 글리콜 디나이트레이트(1,2-Propylene glycol dinitrate)",
-                          "1,3-뷰타디엔(1,3-Butadiene)",
-                          "나이트로글리세린(Nitroglycerin)",
-                          "디에틸렌글리콜(diethylene glycol)",
-                          "메틸알코올(methanol)",
-                          "메틸이소뷰틸케톤(Methyl isobutyl ketone)",
-                          "벤조[a]피렌(Benzo[a]pyrene)",
-                          "아세톤(Acetone)",
-                          "아크릴로나이트릴(Acrylonitrile)",
-                          "아크릴산 에틸(Ethyl acrylate)",
-                          "사이클로헥사논(Cyclohexanone)",
-                          "석유 에테르(Petroleum ether)",
-                          "스티렌(Styrene)",
-                          "시멘트(시맨틸1-2)(Formamide: 1-2 chromanol)",
-                          "이소프로필알코올(Isopropylacohol acid)",
-                          "이소아밀알코올(Isoamylalcohol)",
-                          "에틸렌글리콜(Ethylene glycol)",
-                          "위탄수(Organic)",
-                          "오산화(O-Phenylene)",
+                          "아크릴산(Acrylic acid)",
+                          "에탄올아민(Ethanolamine)",
                           "톨루엔-2,4-디이소시아네이트(Toluene-2,4-diisocyanate)",
                           "톨루엔-2,6-디이소시아네이트(Toluene-2,6-diisocyanate)",
-                          "톨루엔(Toluene)",
-                          "트리클로로에틸렌(Trichloroethylene)",
-                          "아세탈류(Pherols)",
-                          "o-크레졸(o-Cresol)",
-                          "p-크레졸(p-Cresol)",
-                          "페놀(Phenol)",
-                          "노말헥산(n-Hexane)",
-                          "디메틸포름아마이드(Dimethylformamide)",
-                          "메틸에틸케톤(Methylethyl ketone)",
-                          "아세트산 에틸(Ethylacetate)",
-                          "메틸클로로포름(Methylchloroform)",
-                          "사염화탄소(Carbon tetrachloride)",
-                          "클로로포름(Chloroform)",
-                          "1,1,2,2-테트라클로로에탄(1,1,2,2-tetrachloroethane)",
-                          "1,2-디클로로에탄(1,2-dichloroethane)",
-                          "1,2-디클로로프로판(1,2-dichloropropane)",
-                          "사산화이황(Dimethylsulfate)",
-                          "이황화이탄소(Carbon disulfate)",
-                          "에틸렌옥사이드(Ethylene oxide)",
-                          "아크로레인(Acrolein)",
-                          "벤젠(Benzene)",
-                          "디클로로플루오르메탄(Dichlorodifluoromethane)",
-                          "산화칼슘(Calcium carbide)",
-                          "아연브산(Bromoide carbide)",
-                          "브롬화메틸(Methyl bromide)",
-                          "1,2-스테록사이데이트(1,2-Epoxybutalene acid)",
-                          "1,4-디옥산(1,4-dioxane)",
-                          "사이클로헥산(Cyclohexane)",
-                          "에틸렌글리콜디나이트레이트(Ethylene glycol dinitrate)",
-                          "사이클로헥센(Cyclohexene)",
-                          "1,1,2-트리클로로에탄(1,1,2-trichloroethane)",
-                          "에틸렌디아민(Ethylenediamine)",
-                          "수산화시아네이트(N,N-Dimethylacetamide)",
-                          "1,2-디클로로벤젠(1,2-Dichlorobenzene)",
-                          "에틸렌아민(Ethylethanolamine)",
-                          "1,4-디클로로-2-프로판(1,4-dichlorophenone)",
-                          "헥사메틸렌 디이소시아네이트(Hexamethylene diisocyanate)",
-                          "나이트로메탄(Nitromethane)",
-                          "과산화수소(Hydrogen peroxide)",
-                          "질산(Nitric acid)",
-                          "벤조니트릴(Benzonitrile)",
-                          "산화규소(Quartz)",
-                          "산화규소(Cristobalite)",
-                          "이산화이염소(Dichlorosilane)",
-                          "플루오르화수소(Hydrogen fluoride)",
-                          "삼염화인(Phosphorus trichloride)",
-                          "이산화염소(Chlorine dioxide)",
-                          "산화아연(Zinc oxide)",
-                          "삼산화황(Sulfur trioxide)",
-                          "삼산화알루미늄(aluminum)",
-                          "크롬 및 그 화합물(Chromium-VI compounds)",
-                          "망간 및 그 화합물(Manganese, as Mn)",
-                          "니켈 및 그 화합물(Nickel inorganic solubles)",
-                          "카드뮴 및 그 화합물(Cadmium, as Cd)",
-                          "납 및 그 무기화합물(Lead, as Pb)",
-                          "철분진(Iron Oxide)",
-                          "구리분진(Copper Dusts and mists as Cu)",
+                          "트리클로로아세트산(Trichloro acetic acid)",
+                          "포름알데히드(Formaldehyde)",
+                          "석영(산화규소)(Crystalline quatz)",
+                          "크리스토발라이트(Cristobalite)",
                           "수은(Mercury)",
-                          "알루미늄분진(Aluminum, welding fumes)",
-                          "카드뮴흄(Cadmium fume)",
-                          "비소(Arsenic)",
-                          "2-에톡시에탄올(2-Ethoxyethanol)",
-                          "2-메톡시에탄올(2-Methoxyethanol)",
-                          "2-부톡시에탄올(2-Butoxyethanol)",
-                          "노말부탄올(n-Butanol)",
-                          "시클로헥산올(Cyclohexanol)",
-                          "노말프로필알코올(n-Propylalcohol)",
-                          "메틸-n-뷰틸케톤(Methyl-n-butyl ketone)",
-                          "크실렌(Xylene, o,isomer)",
-                          "에틸(Ethylene)",
-                          "톨루엔(Toluene)",
-                          "벤젠(Benzene)",
-                          "무수초산(Acetic anhydride)",
-                          "초산(Acetic acid)",
-                          "과산화(Peroxyacetyl)",
-                          "유효물(Maleic acid)",
-                          "포름산(Formic acid)",
-                          "황산(Sulfuric acid)",
-                          "황산디메틸(Dimethyl sulfate)",
-                          "무수프탈산(Phthalic anhydride)",
-                          "오존(Ozone)",
-                          "이산화질소(Nitrogen dioxide)",
-                          "이산화황(Sulfur dioxide)",
-                          "암모니아(Ammonia)",
-                          "6가크롬(Chromium-VI compounds)",
-                          "염화수소(Hydrochloric acid)",
-                          "트리에틸아민(Triethylamine)",
-                          "인산(Phosphoric acid)",
-                          "황화수소(Hydrogen sulfide)",
-                          "요오드(Iodine)",
+                          "삼수소화비소(Arsine)",
+                          "셀레늄(Selenium)",
                           "안티몬(Antimony)",
-                          "비소(Arsine)",
-                          "에탄올아민속(Ethanolamines)",
-                          "석면(Asbestos)",
-                          "나이트로벤젠(Nitrobenzene)",
-                          "할로겐(Manganese)",
-                          "아세토니트릴(Acetonitrile)",
-                          "엠티부틸아세테이트(Ethyl glycol)",
-                          "메틸에틸케톡심(Methyl ethyl ketoxime)",
-                          "아세트산페녹시에틸(Phenoxyethyl acetate)",
-                          "2-메틸헵탄올(2-Methylheptane)",
-                          "테트라클로로에틸렌(Tetrachloroethylene)",
-                          "N,N-디메틸포름아마이드(N,N-Dimethylformamide)",
-                          "메탄올(Methanol)",
-                          "N-메틸-2-피롤리돈(N-Methyl-2-pyrrolidone)",
-                          "디메틸벤젠(Xylene-mixture)",
-                          "알파프에틸렌(Alpha-Ethylene)",
-                          "비닐아세테이트(Vinyl acetate)",
-                          "에틸벤젠(Ethylbenzene)",
+                          "비소(Arsenic)",
                           "인듐(Indium)",
+                          "6가크롬(Chromium(Ⅵ)compounds)",
+                          "개미산(Formicacid)",
+                          "불소(Fluorine)",
+                          "불화수소(Hydrogenfluoride)",
+                          "브롬화수소(Hydrogenbromide)",
+                          "아황산가스(Sulfurdioxide)",
+                          "염화수소(hydrogen chloride)",
+                          "오존(Ozone)",
+                          "요오드(iodine)",
+                          "이산화질소(Nitrogendioxide)",
+                          "인산(Phosphoric acid)",
+                          "일산화질소(Nitricoxide)",
+                          "질산(nitric acid)",
+                          "황산(Sulfuric acid)",
+                          "황화수소(Hydrogensulfide)",
+                          "과산화수소(Hydrogen peroxide)",
+                          "시안화나트륨(Sodium cyanide)",
+                          "시안화수소(Hydrogen cyanide)",
+                          "시안화칼륨(Potassium cyanide)",
+                          "시안화칼슘(Calcium cyanide)",
+                          "암모니아(Ammonia)",
+                          "포스핀(Phosphine)",
+                          "1,1,2-트리클로로에탄(1,1,2-Trichloroethane)",
+                          "1,1-디클로로-1-플루오로에탄(1,1-Dichloro-1-fluoroethane)",
+                          "1,2-디클로로에탄(1,2-Dichloroethane)",
+                          "1,2-디클로로에틸렌(1,2-Dichloroethylene)",
+                          "1,2-디클로로프로판(1,2-dichloropropane)",
+                          "1,2-에폭시프로판(1,2-Epoxypropane)",
+                          "1,3-부타디엔(1,3-Butadiene)",
+                          "1,4-디옥산(1,4-Dioxane,Diethyldioxide)",
+                          "1-브로모프로판(1-Bromopropane)",
+                          "2-메톡시에탄올(2-Methoxyethanol)",
+                          "2-메톡시에틸아세테이트(2-Methoxyethylacetate)",
+                          "2-부톡시에탄올(2-Butoxyethanol,EGBE)",
+                          "2-브로모프로판(2-Bromopropane)",
+                          "2-에톡시에탄올(2-Ethoxyethanol,EGEE)",
+                          "2-에톡시에틸아세테이트(2-Ethoxyethylacetate)",
+                          "이소아밀 아세테이트(Isoamyl acetate)",
+                          "N,N-디메틸아세트아미드(N,N-Dimethylacetamide)",
+                          "n-부틸알코올(1-부탄올)(n-Butyl alcohol)",
+                          "o-디클로로벤젠(o-Dichlorobenzene)",
+                          "sec-부틸알코올(sec-부탄올)(sec-Butyl alcohol)",
+                          "디메틸아닐린(Dimethylaniline)",
+                          "디메틸포름아미드(Dimethylformamide)",
+                          "디에틸에테르(Diethylether)",
+                          "디이소부틸케톤(Diisobutylketone)",
+                          "디클로로메탄(Dichloromethane)",
+                          "메틸 n-부틸케톤(Methyln-butylketone)",
+                          "메틸 n-아밀케톤(Methyln-amylketone)",
+                          "메틸시클로헥산(Methylcyclohexane)",
+                          "메틸알코올(Methylalcohol)",
+                          "메틸에틸케톤(Methylethylketone)",
+                          "메틸이소부틸케톤(Methylisobutylketone)",
+                          "메틸클로로포름(Methylchloroform)",
+                          "벤젠(Benzene)",
+                          "비닐아세테이트(Vinylacetate)",
+                          "스토다드솔벤트(Stoddard solvent)",
+                          "스티렌(Styrene)",
+                          "시클로헥사논(Cyclohexanone)",
+                          "시클로헥사놀(Cyclohexanol)",
+                          "시클로헥산(Cyclohexane)",
+                          "아닐린(Aniline)",
+                          "아세토니트릴(Acetonitrile)",
+                          "아세톤(Acetone)",
+                          "아크릴로니트릴(Acrylonitrile)",
+                          "알릴글리시딜에테르(Allyl glycidyl ether)",
+                          "에틸렌글리콜(Ethyleneglycol)",
+                          "에틸렌글리콜모노부틸아세테이트(Ethyleneglycolmonobutylacetate)",
+                          "에틸벤젠(Ethylbenzene)",
+                          "에틸아크릴레이트(Ethylacrylate)",
+                          "에피클로로하이드린(Epichlorohydrin)",
+                          "염화비닐(Vinyl chloride)",
+                          "이소부틸알코올(Isobutyl alcohol)",
+                          "이소아밀알코올(Isoamyl alcohol)",
+                          "이소프로필알코올(Isopropyl alcohol)",
+                          "초산(Acetic acid)",
+                          "초산메틸(Methyl acetate)",
+                          "초산부틸(n-Butylacetate)",
+                          "초산에틸(Ethylacetate)",
+                          "초산이소부틸(Isobutyl acetate)",
+                          "초산이소프로필(Isopropyl acetate)",
+                          "초산프로필(n-Propylacetate)",
+                          "크레졸(Cresol)",
+                          "크실렌(오르토,메타,파라이성체)(Xylene,o,m,p-isomers)",
                           "클로로벤젠(Chlorobenzene)",
-                          "1,1,1-트리클로로에탄(1,1,1-Trichloroethane)",
-                          "메틸클로라이드(Methyl chloride)",
-                          "염소(Chlorine)",
-                          "멜라민(Melamine)",
-                          "브롬(Bromine)",
-                          "불화수소(Hydrogen fluoride)",
-                          "질화이트리움헥사플루오라이드(Yttrium hexafluoride)",
+                          "테트라하이드로푸란(Tetrahydrofuran)",
+                          "톨루엔(Toluene)",
+                          "트리에틸아민(Triethylamine)",
+                          "트리클로로메탄(Trichloromethane)",
+                          "트리클로로에틸렌(Trichloroethylene)",
                           "퍼클로로에틸렌(Perchloroethylene)",
-                          "에틸클로로폼(Ethyl chloroform)",
-                          "에티렌클로로히드린(Ethylene chlorohydrin)",
-                          "브로모포름(Bromoform)",
-                          "몰리브덴(Molybdenum)",
-                          "아연(Zinc)"
+                          "페놀(Phenol)",
+                          "피리딘(Pyridine)",
+                          "헥산(Hexane,n-Hexane)",
+                          "헵탄(Heptane,n-Heptane)",
+                          "구리(Copper)",
+                          "납(Lead)",
+                          "니켈(Nickel)",
+                          "망간(Manganese)",
+                          "바륨(Barium)",
+                          "베릴륨(Beryllium)",
+                          "산화마그네슘(Magnesium oxide)",
+                          "산화아연(Zinc oxide)",
+                          "산화철(Iron oxide)",
+                          "알루미늄(Aluminum)",
+                          "은(Silver)",
+                          "이산화티타늄(Titanium dioxide)",
+                          "주석(Tin)",
+                          "지르코늄(Zirconium)",
+                          "카드뮴(Cadmium)",
+                          "칼슘(Calcium)",
+                          "코발트(Cobalt)",
+                          "크롬(Chromium)",
+                          "텅스텐(Tungsten)",
+                          "수산화나트륨(Sodium hydroxide)",
+                          "수산화칼륨(Potassium hydroxide)",
+                          "석면(Asbestos)"
                         ].map((item, index) => (
                           <div 
                             key={index} 
