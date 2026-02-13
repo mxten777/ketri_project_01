@@ -2,6 +2,8 @@ import { useState } from "react";
 import ServiceCta from "../../../components/common/ServiceCta";
 import { ChevronDown, ChevronUp, Download } from "lucide-react";
 
+// TODO: 향후 리팩터링 시 getMenuItemsByPath 패턴 적용 검토
+// 현재는 페이지 내부 섹션이 2개뿐이므로 하드코딩 유지 (최소 변경 원칙)
 const AnalysisService = () => {
   const [showAnalysisItems, setShowAnalysisItems] = useState(false);
 
@@ -531,7 +533,6 @@ const AnalysisService = () => {
           <div className="mt-8">
             <ServiceCta
               message="분석 수탁 서비스 문의가 필요하신가요?"
-              phoneNumber="043-237-7824"
             />
           </div>
         </div>
