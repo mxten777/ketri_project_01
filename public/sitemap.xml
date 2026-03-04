@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
@@ -6,7 +6,7 @@
 
   <!-- 홈 -->
   <url>
-    <loc>https://kesri.re.kr/</loc>
+    <loc>https://www.kesri.co.kr/</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -14,49 +14,49 @@
 
   <!-- 연구소 소개 -->
   <url>
-    <loc>https://kesri.re.kr/about</loc>
+    <loc>https://www.kesri.co.kr/about</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kesri.re.kr/about/greeting</loc>
+    <loc>https://www.kesri.co.kr/about/greeting</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kesri.re.kr/about/history</loc>
+    <loc>https://www.kesri.co.kr/about/history</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kesri.re.kr/about/organization</loc>
+    <loc>https://www.kesri.co.kr/about/organization</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://kesri.re.kr/about/equipment</loc>
+    <loc>https://www.kesri.co.kr/about/equipment</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://kesri.re.kr/about/ci</loc>
+    <loc>https://www.kesri.co.kr/about/ci</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://kesri.re.kr/about/certificates</loc>
+    <loc>https://www.kesri.co.kr/about/certificates</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kesri.re.kr/about/location</loc>
+    <loc>https://www.kesri.co.kr/about/location</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.9</priority>
@@ -64,31 +64,31 @@
 
   <!-- 서비스 페이지 -->
   <url>
-    <loc>https://kesri.re.kr/services/industrial-health</loc>
+    <loc>https://www.kesri.co.kr/services/industrial-health</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kesri.re.kr/services/water-testing</loc>
+    <loc>https://www.kesri.co.kr/services/water-testing</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kesri.re.kr/services/dialysis-water</loc>
+    <loc>https://www.kesri.co.kr/services/dialysis-water</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kesri.re.kr/services/indoor-air-quality</loc>
+    <loc>https://www.kesri.co.kr/services/indoor-air-quality</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kesri.re.kr/services/asbestos</loc>
+    <loc>https://www.kesri.co.kr/services/asbestos</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -96,7 +96,7 @@
 
   <!-- 정보센터 -->
   <url>
-    <loc>https://kesri.re.kr/board/notice</loc>
+    <loc>https://www.kesri.co.kr/board/notice</loc>
     <lastmod>2026-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

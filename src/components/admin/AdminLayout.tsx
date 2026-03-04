@@ -38,21 +38,24 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden flex flex-col">
       {/* 관리자 헤더 */}
-      <header className="relative z-20 bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 shadow-[0_12px_30px_rgba(15,23,42,0.08)] dark:shadow-[0_18px_44px_rgba(0,0,0,0.45)]">
+      <header className="relative z-20 bg-slate-900/90 backdrop-blur-md border-b border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-6">
             <Link to="/admin/notice" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+              {/* 항상 다크 헤더이므로 화이트 로고 고정 */}
               <img 
-                src="/images/ketri_symbol.png" 
-                alt="KESRI Logo" 
-                className="h-9 w-auto pointer-events-none select-none"
+                src="/images/680px_logo_white.png" 
+                alt="한국환경안전연구소"
+                width={200}
+                height={48}
+                className="h-12 md:h-14 w-auto object-contain pointer-events-none select-none"
               />
-              <span className="text-neutral-900 dark:text-white font-bold text-2xl tracking-tight">KESRI Admin</span>
+              <span className="text-white/50 font-semibold text-base tracking-tight border-l border-white/20 pl-3">Admin</span>
             </Link>
             <nav className="hidden md:flex items-center space-x-2">
               <Link 
                 to="/admin/notice" 
-                className="text-neutral-700 dark:text-neutral-200 hover:text-primary-700 dark:hover:text-primary-300 px-4 py-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors font-semibold text-base"
+                className="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-colors font-semibold text-base"
               >
                 공지사항 관리
               </Link>
@@ -61,18 +64,18 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
           <div className="flex items-center space-x-3">
             <Link 
               to="/" 
-              className="text-neutral-700 dark:text-neutral-200 hover:text-primary-700 dark:hover:text-primary-300 px-4 py-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors flex items-center space-x-2 font-medium text-base"
+              className="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-colors flex items-center space-x-2 font-medium text-base"
             >
               <Home className="w-5 h-5" />
               <span>홈페이지로</span>
             </Link>
-            <div className="flex items-center space-x-2 text-neutral-700 dark:text-neutral-300 px-4 py-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+            <div className="flex items-center space-x-2 text-white/80 px-4 py-2 bg-white/10 rounded-lg">
               <User className="w-5 h-5" />
               <span className="text-base font-medium">{userData?.displayName || "관리자"}</span>
             </div>
             <button
               onClick={handleLogout}
-              className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 px-4 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex items-center space-x-2 font-medium text-base"
+              className="text-red-300 hover:text-red-200 px-4 py-2 rounded-lg hover:bg-red-500/20 transition-colors flex items-center space-x-2 font-medium text-base"
             >
               <LogOut className="w-5 h-5" />
               <span>로그아웃</span>
@@ -125,13 +128,13 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
       <div className="fixed inset-0 bg-black/30 pointer-events-none z-5"></div>
 
       {/* 컨텐츠 */}
-      <div className="relative z-10 max-w-7xl mx-auto p-6 space-y-8">
+      <div className="relative z-10 flex-1 flex flex-col max-w-7xl w-full mx-auto px-6 pt-6 pb-2">
         {/* 헤더 */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+          className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6"
         >
           <div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent mb-1">
@@ -143,7 +146,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
         </motion.div>
 
         {/* 페이지 컨텐츠 */}
-        {children}
+        <div className="flex-1 flex flex-col">
+          {children}
+        </div>
       </div>
 
       {/* 관리자 푸터 */}

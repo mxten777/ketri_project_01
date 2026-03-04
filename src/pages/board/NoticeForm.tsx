@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Save } from "lucide-react";
 import {
@@ -17,6 +17,9 @@ const NoticeForm = () => {
   const { id } = useParams<{ id: string }>();
   const isEditMode = !!id;
   const navigate = useNavigate();
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+  const listPath = isAdminRoute ? "/admin/notice" : "/board/notice";
   const { userData } = useAuth();
 
   const [formData, setFormData] = useState({
@@ -133,8 +136,129 @@ const NoticeForm = () => {
 
   // 관리자가 아니면 접근 불가
   if (userData?.role !== "admin") {
-    navigate("/board/notice");
+    navigate(listPath);
     return null;
+  }
+
+  // admin 경로 여부에 따라 레이아웃 분기
+  if (isAdminRoute) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        {/* Back Button */}
+        <button
+          type="button"
+          onClick={() => navigate(listPath)}
+          className="mb-3 inline-flex items-center text-white/90 hover:text-white text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-white/10 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4 mr-1.5" />
+          목록으로
+        </button>
+
+        <Card className="p-5">
+          {/* Error Message */}
+          {error && (
+            <div className="mb-3 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            {/* Category + Pin + Popup — 한 줄 */}
+            <div className="flex items-center gap-4 flex-wrap">
+              <div className="flex items-center gap-2 min-w-0">
+                <label htmlFor="category" className="text-sm font-medium text-neutral-700 dark:text-neutral-300 whitespace-nowrap">
+                  카테고리
+                </label>
+                <select
+                  id="category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  className="px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  required
+                >
+                  <option value="일반">일반</option>
+                  <option value="중요">중요</option>
+                  <option value="이벤트">이벤트</option>
+                  <option value="시스템">시스템</option>
+                </select>
+              </div>
+              <label className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  id="isPinned"
+                  name="isPinned"
+                  checked={formData.isPinned}
+                  onChange={handleChange}
+                  className="w-4 h-4 text-primary-500 border-neutral-300 rounded focus:ring-primary-500"
+                />
+                상단 고정
+              </label>
+              <label className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  id="isPopup"
+                  name="isPopup"
+                  checked={formData.isPopup}
+                  onChange={handleChange}
+                  className="w-4 h-4 text-primary-500 border-neutral-300 rounded focus:ring-primary-500"
+                />
+                홈 팝업 노출
+              </label>
+            </div>
+
+            {/* Title */}
+            <div>
+              <label htmlFor="title" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                제목
+              </label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white placeholder-neutral-400 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                placeholder="제목을 입력하세요"
+                required
+              />
+            </div>
+
+            {/* Content — 뷰포트 기준 반응형 높이 */}
+            <div className="flex flex-col">
+              <label htmlFor="content" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                내용
+              </label>
+              <textarea
+                id="content"
+                name="content"
+                value={formData.content}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white placeholder-neutral-400 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                style={{ height: 'calc(100vh - 480px)', minHeight: '160px', maxHeight: '500px' }}
+                placeholder="내용을 입력하세요"
+                required
+              />
+            </div>
+
+            {/* Submit Buttons */}
+            <div className="flex items-center gap-3 pt-3 border-t border-neutral-200 dark:border-neutral-700">
+              <Button type="submit" isLoading={loading} disabled={loading} className="flex-1">
+                <Save className="w-4 h-4 mr-2" />
+                {loading ? "저장 중..." : isEditMode ? "수정하기" : "등록하기"}
+              </Button>
+              <Button type="button" variant="outline" onClick={() => navigate(listPath)} disabled={loading}>
+                취소
+              </Button>
+            </div>
+          </form>
+        </Card>
+      </motion.div>
+    );
   }
 
   return (
@@ -149,7 +273,7 @@ const NoticeForm = () => {
           {/* Back Button */}
           <Button
             variant="ghost"
-            onClick={() => navigate("/board/notice")}
+            onClick={() => navigate(listPath)}
             className="mb-6"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
@@ -299,7 +423,7 @@ const NoticeForm = () => {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => navigate("/board/notice")}
+                  onClick={() => navigate(listPath)}
                   disabled={loading}
                 >
                   취소

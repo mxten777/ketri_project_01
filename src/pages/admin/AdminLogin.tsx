@@ -72,7 +72,7 @@ const AdminLogin = () => {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-700 via-purple-700 to-slate-700 flex items-center justify-center p-4 relative overflow-hidden">
       <div
         className="absolute inset-0 opacity-20"
         style={{
@@ -81,8 +81,8 @@ const AdminLogin = () => {
         }}
       ></div>
 
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-400 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse delay-1000"></div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -94,7 +94,7 @@ const AdminLogin = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl"
+          className="bg-white/20 backdrop-blur-md rounded-3xl p-8 border border-white/30 shadow-2xl"
         >
           <div className="text-center mb-8">
             <motion.div
@@ -142,7 +142,7 @@ const AdminLogin = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
-                  placeholder="admin@kesri.co.kr"
+                  placeholder="subin5754@hanmail.net"
                   required
                 />
               </div>

@@ -19,6 +19,9 @@ import { logDev, logError } from "../utils/logger";
 
 const COLLECTION_NAME = "notices";
 
+// 세션 내 중복 조회수 방지 (React StrictMode의 useEffect 2회 실행 대응)
+const viewedNoticeIds = new Set<string>();
+
 // 공지사항 목록 조회
 export const getNotices = async (
   limitCount: number = 10
@@ -208,10 +211,13 @@ export const getNoticeById = async (id: string): Promise<Notice | null> => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      // 조회수 증가
-      await updateDoc(docRef, {
-        views: increment(1),
-      });
+      // 조회수 증가 (세션 내 중복 방지)
+      if (!viewedNoticeIds.has(id)) {
+        viewedNoticeIds.add(id);
+        await updateDoc(docRef, {
+          views: increment(1),
+        });
+      }
 
       const data = docSnap.data();
       
