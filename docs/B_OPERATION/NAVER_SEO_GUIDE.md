@@ -1,6 +1,6 @@
 # 네이버 노출(SEO) 작업 가이드
 
-> 작성일: 2026-03-04  
+> 작성일: 2026-03-04 / 최종 업데이트: 2026-03-05  
 > 대상 도메인: https://www.kesri.co.kr
 
 ---
@@ -25,28 +25,27 @@
 - `public/robots.txt`: 전체 허용(`Allow: /`) + Sitemap 경로 지정
 - `public/sitemap.xml`: 전체 페이지 URL 등록 (홈, 연구소소개, 5대 서비스, 게시판)
 
+### 1-4. 네이버 서치어드바이저 소유 확인 완료 (2026-03-05)
+- `index.html`에 `naver-site-verification` 태그 삽입 후 Vercel 배포
+- 서치어드바이저 소유 확인 **완료** (코드: `d63ffd80a1bfae9abc2d73f7373228a0c0561336`)
+
 ---
 
 ## 2. 남은 작업 (필수)
 
-### 2-1. 네이버 서치어드바이저 사이트 등록 ← 가장 중요
-1. [https://searchadvisor.naver.com](https://searchadvisor.naver.com) 접속 (네이버 계정 로그인)
-2. **웹마스터 도구** → **사이트 등록** → `www.kesri.co.kr` 입력
-3. 소유 확인 방법 선택: **HTML 태그** 방식 권장
-4. 발급된 코드를 `index.html` `<head>` 안에 추가:
-   ```html
-   <meta name="naver-site-verification" content="발급받은코드" />
-   ```
-5. Vercel 배포 후 서치어드바이저에서 **소유 확인** 버튼 클릭
+### ~~2-1. 네이버 서치어드바이저 사이트 등록~~ ✅ 완료 (2026-03-05)
 
-### 2-2. sitemap.xml 제출
-사이트 등록 완료 후:
-- 서치어드바이저 > 요청 > **사이트맵 제출**
-- URL 입력: `https://www.kesri.co.kr/sitemap.xml`
+### ~~2-2. sitemap.xml 제출~~ ✅ 완료 (2026-03-05)
+- 제출 URL: `https://www.kesri.co.kr/sitemap.xml` (26.03.05 14:32:28 등록)
 
-### 2-3. 수집 요청
-- 서치어드바이저 > 요청 > **웹 페이지 수집 요청**
-- 홈(`/`) 및 주요 페이지 URL 개별 등록 가능
+### ~~2-3. 수집 요청~~ ✅ 완료 (2026-03-05)
+- `/` 홈, 5대 서비스, `/about`, `/about/location`, `/about/certificates` 등 9개 페이지 등록 (14:36~14:40)
+
+---
+
+## 2-A. 필수 SEO 작업 전체 완료 ✅
+소유 확인 → sitemap 제출 → 웹 페이지 수집 요청이 모두 완료되었습니다.  
+이제 **1~7일** 내 첫 크롤링, **2~4주** 후 네이버 검색 결과 노출 시작 예정.
 
 ---
 
@@ -137,10 +136,11 @@
   { "@type": "Organization", "name": "한국환경안전연구소", ... }
 </script>
 
-<!-- 추가 예정 -->
-<meta name="naver-site-verification" content="← 발급 후 입력" />
+<!-- 네이버 소유 확인 (2026-03-05 완료) -->
+<meta name="naver-site-verification" content="d63ffd80a1bfae9abc2d73f7373228a0c0561336" />
 ```
 
 ---
 
-> **다음 액션**: 네이버 서치어드바이저에서 소유 확인 코드 발급 → `index.html` 추가 → 배포 → sitemap 제출
+> **현재 상태**: 필수 SEO 작업 전체 완료. **1~7일** 내 코드 크롤링 시작, **2~4주** 후 검색 노출 예상.  
+> 선택 작업(섹션 3): 네이버 플레이스 등록 및 블로그 운영으로 노출 강화 가능
