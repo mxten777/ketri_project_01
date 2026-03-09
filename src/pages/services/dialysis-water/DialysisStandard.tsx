@@ -121,7 +121,7 @@ const DialysisStandard = () => {
                   <ul className="space-y-2 text-neutral-600 dark:text-neutral-300 text-sm">
                     <li>• 환경부 숙련도 시험 참여</li>
                     <li>• 대한신장학회 정도관리 참여</li>
-                    <li>• KOLAS 인증 유지 관리</li>
+                    <li>• 시험 품질 기준 유지 관리</li>
                     <li>• 분기별 외부 검증 실시</li>
                   </ul>
                 </div>
@@ -164,11 +164,10 @@ const DialysisStandard = () => {
 
               <div className="bg-primary-50 dark:bg-neutral-800 border-l-4 border-primary-500 dark:border-neutral-700 p-6 mb-8">
                 <h3 className="font-bold text-lg mb-2 text-primary-900 dark:text-primary-300">
-                  ✅ KOLAS 인증 시험기관
+                  ✅ 공인 환경시험 분석 전문 기관
                 </h3>
                 <p className="text-neutral-700 dark:text-neutral-300 mb-2">
-                  한국환경안전연구소는 한국인정기구(KOLAS)로부터 인정받은 시험기관으로 
-                  국제 기준(ISO/IEC 17025)에 따라 운영되고 있습니다.
+                  한국환경안전연구소는 관련 기준(ISO/IEC 17025)에 따라 운영되는 환경시험 분석 전문 기관입니다.
                 </p>
                 <ul className="space-y-1 text-neutral-700 dark:text-neutral-300 text-sm">
                   <li>• 인정 분야: 혈액투석용수 화학적/미생물학적 분석</li>

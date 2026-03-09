@@ -178,7 +178,7 @@ export const COMPANY_STATS = [
   { value: "19년", label: "신뢰의 경험" },
   { value: "650+", label: "협력 고객사" },
   { value: "11+", label: "보유 인증" },
-  { value: "KOLAS", label: "공인 인증기관" },
+  { value: "24+", label: "시험 항목" },
 ];
 
 // 연락처 정보
