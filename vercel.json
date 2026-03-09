@@ -2,6 +2,30 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "ketri\\.co\\.kr"
+        }
+      ],
+      "destination": "https://www.kesri.co.kr/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www\\.ketri\\.co\\.kr"
+        }
+      ],
+      "destination": "https://www.kesri.co.kr/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
