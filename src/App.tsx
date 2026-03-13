@@ -34,6 +34,7 @@ import PrintAll from "./pages/PrintAll";
 // Admin pages (for admin notice management)
 import AdminLogin from "./pages/admin/AdminLogin";
 import NoticeAdmin from "./pages/admin/NoticeAdmin";
+import AdminPassword from "./pages/admin/AdminPassword";
 import NoticeForm from "./pages/board/NoticeForm";
 import AdminLayout from "./components/admin/AdminLayout";
 import ProtectedRoute from "./components/common/ProtectedRoute";
@@ -119,6 +120,16 @@ export default function App() {
           <ProtectedRoute requireAdmin>
             <AdminLayout title="공지사항 수정">
               <NoticeForm />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/password"
+        element={
+          <ProtectedRoute requireAdmin>
+            <AdminLayout title="비밀번호 변경">
+              <AdminPassword />
             </AdminLayout>
           </ProtectedRoute>
         }

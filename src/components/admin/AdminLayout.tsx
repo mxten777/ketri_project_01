@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { Home, LogOut, User } from "lucide-react";
+import { Home, LogOut, User, Lock } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext.core";
 
 interface AdminLayoutProps {
@@ -58,6 +58,13 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({
                 className="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-colors font-semibold text-base"
               >
                 공지사항 관리
+              </Link>
+              <Link 
+                to="/admin/password" 
+                className="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-colors flex items-center space-x-1 font-semibold text-base"
+              >
+                <Lock className="w-4 h-4" />
+                <span>비밀번호 변경</span>
               </Link>
             </nav>
           </div>
