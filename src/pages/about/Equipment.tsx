@@ -284,18 +284,18 @@ const Equipment = () => {
     {
       category: "먹는물",
       name: "배양기 (Incubator)",
-      model: "HSM-125 2ROOM",
-      manufacturer: "SINAN",
-      testItems: "미생물",
-      image: "/images/equipment/images_01/equip_023.jpeg",
-    },
-    {
-      category: "먹는물",
-      name: "배양기 (Incubator)",
       model: "IMP180",
       manufacturer: "Thermo",
       testItems: "미생물",
       image: "/images/equipment/images_01/equip_024.jpeg",
+    },
+    {
+      category: "먹는물",
+      name: "배양기 (Incubator)",
+      model: "LBI-150E",
+      manufacturer: "LabTech",
+      testItems: "미생물",
+      image: "/images/equipment/images_01/equip_029.jpeg",
     },
     {
       category: "먹는물",
@@ -443,35 +443,19 @@ const Equipment = () => {
     },
     {
       category: "실내공기질",
-      name: "가스크로마토그래피-질량분석기(GC-MSD)",
-      model: "Clarus680GC-SQ8TMS /TurboMatrix 650",
-      manufacturer: "PerkinElmer",
+      name: "가스크로마토그래피-질량분석기(GC-MSD)/열탈착장치(TD)",
+      model: "7890A-5975C /TurboMatrix 650",
+      manufacturer: "Agilent/PerkinElmer",
       testItems: "휘발성유기화합물",
-      image: "/images/equipment/images_03/split3_equip_001.jpg",
+      image: "/images/equipment/images_03/split3_equip_001.jpeg",
     },
     {
       category: "실내공기질",
-      name: "열탈착장치(TD)",
-      model: "TurboMatrix 650",
-      manufacturer: "PerkinElmer",
+      name: "가스크로마토그래피-불꽃이온화검출기(GC-FID)/열탈착장치(TD)",
+      model: "GC-2010-FID/TurboMatrix 350",
+      manufacturer: "SHIMADZU/PerkinElmer",
       testItems: "휘발성유기화합물",
-      image: "/images/equipment/images_03/split3_equip_002.jpg",
-    },
-    {
-      category: "실내공기질",
-      name: "가스크로마토그래피-불꽃이온화검출기 (GC-FID)",
-      model: "GC-2010",
-      manufacturer: "SHIMADZU",
-      testItems: "휘발성유기화합물",
-      image: "/images/equipment/images_03/split3_equip_003.jpg",
-    },
-    {
-      category: "실내공기질",
-      name: "열탈착장치(TD)",
-      model: "TurboMatrix 350",
-      manufacturer: "PerkinElmer",
-      testItems: "휘발성유기화합물",
-      image: "/images/equipment/images_03/split3_equip_004.jpg",
+      image: "/images/equipment/images_03/split3_equip_002.jpeg",
     },
     {
       category: "실내공기질",
@@ -479,15 +463,39 @@ const Equipment = () => {
       model: "LC-20A",
       manufacturer: "SHIMADZU",
       testItems: "폼알데하이드",
-      image: "/images/equipment/images_03/split3_equip_005.jpg",
+      image: "/images/equipment/images_03/split3_equip_003.jpeg",
     },
     {
       category: "실내공기질",
       name: "알파트랙 라돈 분석 시스템 (AlphaTrack Detector)",
-      model: "44345 / DCW20",
-      manufacturer: "CELESTRON / 코아테크",
+      model: "44345/DCW20",
+      manufacturer: "CELESTRON/코아테크",
       testItems: "라돈",
-      image: "/images/equipment/images_03/split3_equip_006.jpg",
+      image: "/images/equipment/images_03/split3_equip_004.jpeg",
+    },
+    {
+      category: "실내공기질",
+      name: "배양기 (Incubator)",
+      model: "HSM-125 2ROOM",
+      manufacturer: "SINAN",
+      testItems: "부유세균, 부유곰팡이",
+      image: "/images/equipment/images_03/split3_equip_005.jpeg",
+    },
+    {
+      category: "실내공기질",
+      name: "배양기 (Incubator)",
+      model: "LIB-300M",
+      manufacturer: "LabTech",
+      testItems: "부유세균, 부유곰팡이",
+      image: "/images/equipment/images_03/split3_equip_006.jpeg",
+    },
+    {
+      category: "실내공기질",
+      name: "전자저울 (Microbalance)",
+      model: "BM5D",
+      manufacturer: "AND",
+      testItems: "미세먼지",
+      image: "/images/equipment/images_03/split3_equip_007.jpeg",
     },
     {
       category: "실내공기질",
@@ -495,31 +503,7 @@ const Equipment = () => {
       model: "CX31 RBSF",
       manufacturer: "OLYMPUS",
       testItems: "석면",
-      image: "/images/equipment/images_03/split3_equip_007.jpg",
-    },
-    {
-      category: "실내공기질",
-      name: "배양기 (Incubator)",
-      model: "LBI-150E",
-      manufacturer: "LabTech",
-      testItems: "부유세균, 부유곰팡이",
-      image: "/images/equipment/images_03/split3_equip_008.jpg",
-    },
-    {
-      category: "실내공기질",
-      name: "배양기 (Incubator)",
-      model: "LIB-300M",
-      manufacturer: "LabTech",
-      testItems: "부유세균",
-      image: "/images/equipment/images_03/split3_equip_010.jpg",
-    },
-    {
-      category: "실내공기질",
-      name: "자동 습도조절 데시케이터 (Desiccator)",
-      model: "OH-3S",
-      manufacturer: "AS ONE",
-      testItems: "부유세균, 부유곰팡이",
-      image: "/images/equipment/images_03/split3_equip_011.jpg",
+      image: "/images/equipment/images_03/split3_equip_008.jpeg",
     },
     {
       category: "석면",
@@ -627,8 +611,8 @@ const Equipment = () => {
           {/* 규모 통계 블록 */}
           <div className="max-w-4xl mx-auto mb-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 text-center border border-neutral-200 dark:border-neutral-700 shadow-sm">
-              <div className="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">{Object.keys(labImages).length}</div>
-              <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-1">전문 분석실</div>
+              <div className="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">13</div>
+              <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-1">전문 실험 및 분석실</div>
               <div className="text-xs text-neutral-500 dark:text-neutral-400">독립 운영 시설</div>
             </div>
             <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 text-center border border-neutral-200 dark:border-neutral-700 shadow-sm">
