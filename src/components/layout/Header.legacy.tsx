@@ -128,7 +128,7 @@ const Header = () => {
     if (ctx?.toggleDarkMode) return ctx.toggleDarkMode();
 
     // Fallback: synchronous update of state, DOM, and localStorage
-    setIsDarkMode((prev) => {
+    setIsDarkModeLocal((prev) => {
       const nextMode = !prev;
       if (nextMode) {
         document.documentElement.classList.add("dark");

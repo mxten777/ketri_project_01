@@ -145,7 +145,6 @@ export const getNotices = async (
   } catch (error: unknown) {
     // Structured diagnostic log (safe for production)
     const e = error as { code?: string; message?: string } | undefined;
-    const elapsedMs = undefined as number | undefined;
 
     try {
       console.error({
@@ -158,7 +157,6 @@ export const getNotices = async (
           limit: limitCount * 2,
         },
         isOnline: typeof navigator !== "undefined" ? navigator.onLine : null,
-        elapsedMs: elapsedMs > 0 ? elapsedMs : undefined,
       });
     } catch (logErr) {
       // swallow logging errors

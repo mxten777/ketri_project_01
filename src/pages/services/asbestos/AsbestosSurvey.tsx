@@ -169,7 +169,6 @@ const AsbestosSurvey = () => {
           <div className="mt-8">
             <ServiceCta
               message="석면 조사 분석 문의가 필요하신가요?"
-              phoneNumber="043-237-7824"
             />
           </div>
         </div>

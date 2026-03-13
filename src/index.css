@@ -138,11 +138,12 @@
   /* 헤더 베이스 - 기업형 subtle */
   header {
     /* position/top/z-index delegated to component Tailwind classes to avoid !important conflicts */
+    /* NOTE: Do NOT set position here — Tailwind `.fixed` in @layer utilities would be overridden
+       by un-layered CSS. Keep position unset so Tailwind fixed class applies correctly. */
 
     /* reserve header height using CSS variable to avoid initial layout shifts */
     min-height: var(--app-header-h, 72px);
     display: block;
-    position: relative;
     isolation: isolate;
 
   /* 절제된 보더 + 그림자 */
@@ -237,18 +238,21 @@ header [role="navigation"] a {
   letter-spacing: -0.01em !important;
 }
 
-/* Ensure logo respects header height: safe max-height based on header token.
-   Keeps aspect ratio and prevents visual collision with reduced header height. */
+/* Ensure logo always renders at the design-token height with proportional width.
+   Using explicit height (not auto) prevents ambiguous rendering when natural image
+   size differs from CSS-managed dimensions. */
 header img[alt="한국환경안전연구소"],
 header a > img[alt="한국환경안전연구소"] {
-  max-height: calc(var(--app-header-h) - 18px) !important;
-  width: auto !important;
-  height: auto !important;
+  height: var(--logo-height) !important;  /* explicit token-based height */
+  width: auto !important;                  /* proportional width (aspect-ratio preserved) */
+  max-width: none !important;              /* never clip horizontally */
+  flex-shrink: 0 !important;              /* prevent collapse inside flex container */
   object-fit: contain !important;
   display: block !important;
   /* 로고 선명도 보장 */
   backdrop-filter: none !important;
   opacity: 1 !important;
+  visibility: visible !important;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
@@ -373,88 +377,10 @@ header button:focus-visible {
 }
 
 @layer utilities {
-  /* 🔒 HEADER VISUALS: keep visual tokens but delegate positioning to component classes */
-  header {
-    background: rgba(255, 255, 255, 0.92) !important;
-    backdrop-filter: blur(10px) saturate(160%) !important;
-    -webkit-backdrop-filter: blur(10px) saturate(160%) !important;
-
-    border-bottom: 1px solid rgba(15, 23, 42, 0.10) !important;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.70) inset,
-      0 12px 30px rgba(15,23,42,0.10) !important;
-  }
-
-  header::after {
-    content: "" !important;
-    position: absolute !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: -1px !important;
-    height: 2px !important;
-    background: linear-gradient(
-      90deg,
-      rgba(0,105,255,0) 0%,
-      rgba(0,105,255,0.55) 20%,
-      rgba(0,105,255,0.14) 55%,
-      rgba(0,105,255,0) 100%
-    ) !important;
-    pointer-events: none !important;
-  }
-
-  header nav a,
-  header [role="navigation"] a {
-    position: relative !important;
-    color: rgba(15,23,42,0.78) !important;
-    padding: 10px 14px !important;
-    border-radius: 12px !important;
-    text-decoration: none !important;
-    /* stabilized via header-level guards; avoid changing layout further */
-  }
-
-  header nav a:hover,
-  header [role="navigation"] a:hover {
-    color: rgba(15,23,42,0.95) !important;
-    background: rgba(15,23,42,0.04) !important;
-  }
-
-  header nav a::after,
-  header [role="navigation"] a::after {
-    content: "" !important;
-    position: absolute !important;
-    left: 14px !important;
-    right: 14px !important;
-    bottom: 6px !important;
-    height: 2px !important;
-    border-radius: 999px !important;
-    background: rgba(0,105,255,0.70) !important;
-    transform: scaleX(0) !important;
-    transition: transform 180ms ease !important;
-  }
-
-  header nav a:hover::after,
-  header [role="navigation"] a:hover::after {
-    transform: scaleX(1) !important;
-  }
-
-  .dark header {
-    background: rgba(10,10,12,0.76) !important;
-    border-bottom: 1px solid rgba(255,255,255,0.12) !important;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.05) inset,
-      0 18px 44px rgba(0,0,0,0.45) !important;
-  }
-
-  .dark header nav a,
-  .dark header [role="navigation"] a {
-    color: rgba(255,255,255,0.84) !important;
-  }
-
-  .dark header nav a:hover,
-  .dark header [role="navigation"] a:hover {
-    color: rgba(255,255,255,0.96) !important;
-    background: rgba(255,255,255,0.06) !important;
-  }
+  /* header position/layout utilities are intentionally empty here.
+     All header visual rules are defined above (un-layered) to apply with
+     correct cascade priority over Tailwind base/components.
+     Dark-mode overrides are co-located with those un-layered rules. */
 }
 
 /* Ensure subpage hero sections are offset below the fixed header.

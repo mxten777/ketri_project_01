@@ -238,7 +238,6 @@ const WorkEnvironment = () => {
           <div className="mt-8">
             <ServiceCta
               message="작업환경측정 문의가 필요하신가요?"
-              phoneNumber="043-237-7824"
             />
           </div>
         </div>

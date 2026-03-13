@@ -29,7 +29,7 @@ export default function HeaderHero({
     <div className="relative z-0 flex items-center justify-between" style={{ height: "var(--app-header-h, 84px)" }}>
       <Link
         to="/"
-        className="flex items-center py-2 transition-transform hover:scale-[1.02]"
+        className="flex items-center py-2 transition-transform hover:scale-[1.02] shrink-0"
         onClick={() => {
           // Ensure clicking the logo always jumps to top (immediate)
           if (typeof window !== "undefined") window.scrollTo(0, 0);
@@ -40,7 +40,8 @@ export default function HeaderHero({
           alt="한국환경안전연구소"
           width={200}
           height={48}
-          className="h-12 md:h-14 w-auto object-contain"
+          className="w-auto object-contain"
+          style={{ height: "var(--logo-height, 36px)", minWidth: 80, display: "block" }}
         />
       </Link>
 
