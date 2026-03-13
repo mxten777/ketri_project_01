@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Lock, Eye, EyeOff, CheckCircle } from "lucide-react";
+import { Lock, Eye, EyeOff, CheckCircle, ArrowLeft } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext.core";
+import { useNavigate } from "react-router-dom";
 
 const AdminPassword = () => {
   const { changePassword } = useAuth();
+  const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showNew, setShowNew] = useState(false);
@@ -60,9 +62,18 @@ const AdminPassword = () => {
         </div>
 
         {success && (
-          <div className="flex items-center space-x-2 bg-green-500/20 border border-green-500/40 rounded-xl p-4 mb-6">
-            <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-            <p className="text-green-300 text-sm font-medium">비밀번호가 성공적으로 변경되었습니다.</p>
+          <div className="flex flex-col space-y-3 mb-6">
+            <div className="flex items-center space-x-2 bg-green-500/20 border border-green-500/40 rounded-xl p-4">
+              <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
+              <p className="text-green-300 text-sm font-medium">비밀번호가 성공적으로 변경되었습니다.</p>
+            </div>
+            <button
+              onClick={() => navigate("/admin/notice")}
+              className="flex items-center justify-center space-x-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl py-3 text-white font-medium text-sm transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>공지사항 관리로 돌아가기</span>
+            </button>
           </div>
         )}
 
